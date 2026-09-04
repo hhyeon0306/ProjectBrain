@@ -16,3 +16,5 @@ Unity batchmode -executeMethod ProjectBrain.DocumentStoreChecks.RunBatch: PROJEC
 Unity-MCP 사용 지침: AGENTS와 Docs/unity_mcp_usage.md에 정리. 현재 사용자 문서 UI 검토 중이며 Editor 조작 없이 문서만 갱신. 다음 세션 실제 도구 노출부터 확인.
 
 최신 변경: Assets/Scripts 역할별 폴더와 Tests/BrainDocumentSample.cs 추가. 문서 창 UI Toolkit 전환. Editor csproj 컴파일 오류 0/참조 경고 3, 실제 UI 확인은 사용자 진행.
+
+경로 진단: Unity-MCP Startup이 Application.dataPath의 공백만 보고 LogError를 출력한다. 초기화는 계속되며 재로드마다 반복 가능. ProjectBrain으로 폴더명 변경 권고, 아직 이동/설정 변경 안 함.

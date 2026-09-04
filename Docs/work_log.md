@@ -1,5 +1,15 @@
 # Brain 작업 이력
 
+## 2026-09-04 MCP 프로젝트 경로 공백 오류 조사
+- Goal: 반복 출력되는 경로 공백 오류의 실제 조건 확인.
+- Changes: 설치된 플러그인 Startup.cs 정적 생성자 확인. 코드 변경 없음.
+- Files: Docs/work_log.md, Docs/session_handoff.md.
+- Verification: Startup.cs 32~33에서 Application.dataPath.Contains(" ")만 검사해 Debug.LogError 호출. 예외 throw/return 없이 초기화 계속. InitializeOnLoad로 재컴파일의 도메인 재로드 시 반복될 수 있음. 현재 Editor.log에 동일 문구 2건 확인.
+- Decisions: 이 메시지만으로 연결 실패를 판단하지 않는다. 폴더명을 ProjectBrain으로 변경하는 것이 권장 해결안이나 아직 실행하지 않음. 플러그인 원본 수정으로 숨기지 않는다.
+- Next: 사용자와 경로 변경 방향 확정 후 미저장 씬 보존, Editor 종료, 폴더 변경, MCP 경로/프로젝트 식별자 재생성 및 상위 설정·Git 제외 경로·현재 문서 갱신.
+- Limitations: 실제 공백 관련 명령 실패는 이번 조사에서 재현하지 않음. 기존 연결 성공 이력은 있음.
+
+
 ## 2026-09-04 Scripts 폴더와 UI Toolkit 전환
 - Goal: 역할별 폴더·샘플 제공 및 문서 창 UI Toolkit 전환.
 - Changes: Core/Gameplay/UI/Infrastructure/Utilities/Tests 폴더, 문서 연결용 이동 샘플 추가. IMGUI OnGUI를 UI Toolkit CreateGUI로 교체. 미저장 경고 및 재컴파일 중 편집 상태 직렬화.
