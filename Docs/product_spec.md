@@ -73,3 +73,8 @@ UI: 목록/간단한 관계 그래프/선택 노드 문서/검토 필요/완료 
 - 손상된 JSON/미지원 스키마/잘못된 GUID를 거절하고 원본을 유지한다. 임시 파일 후 교체로 저장한다.
 - 관련 코드 UI, 변경 감지 표시, 작업 상태, MCP 도구, 자동 검증은 아직 미구현이다. 기존 지침의 Brain 미구현 문구는 전체 업무 흐름이 미구현이라는 의미이며 문서 저장은 구현됐다.
 - 검사: Unity batchmode -executeMethod ProjectBrain.DocumentStoreChecks.RunBatch. fixture는 기존 Readme 스크립트와 OS 임시 문서 폴더를 사용하고 실제 문서는 변경하지 않는다.
+
+## Scripts 구조와 UI 방식
+- Assets/Scripts: Core(기반), Gameplay(게임 기능), UI(게임 UI), Infrastructure(외부 연동/저장), Utilities(보조), Tests(샘플). 빈 폴더는 .gitkeep으로 Git 유지.
+- Tests/BrainDocumentSample.cs는 문서 연결용 샘플이며 자동 테스트가 아니다. 호출 시에만 이동하며 씬을 자동 변경하지 않는다.
+- Brain 문서 창은 UI Toolkit CreateGUI 기반. 데이터 저장 서비스와 분리하며 재컴파일 시 편집 데이터를 직렬화해 유지한다.
