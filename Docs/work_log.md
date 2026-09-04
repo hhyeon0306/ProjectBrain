@@ -1,5 +1,14 @@
 # Brain 작업 이력
 
+## 2026-09-04 Unity 프로젝트 공백 경로 제거
+- Goal: Unity-MCP 초기화 시 경로 공백 오류를 해결한다.
+- Changes: Unity 종료 확인 후 Project Brain 폴더를 ProjectBrain으로 이동. 양쪽 MCP 실행 경로와 프로젝트 식별자 cbd0af11 동기화, 현재 경로 지침 및 검사 스크립트 수정.
+- Files: AGENTS.md, scripts/verify.ps1, Docs/session_handoff.md, Docs/work_log.md, 양쪽 .codex/config.toml(로컬); 상위 .gitignore/task와 하위 unity_mcp_usage.
+- Verification: 기존 경로 SHA256이 실제 이전 MCP 식별자와 일치함을 확인. 이동 및 관리 검사 결과는 아래에 기록.
+- Decisions: 표시 이름 Project Brain 유지, 포트 25766 유지. Library/PackageCache 소스 수정 없음.
+- Next: Unity Hub에서 새 경로를 열고 Codex 재시작 후 MCP 실제 씬 조회로 연결 확인.
+- Limitations: 현재 세션 MCP 도구 미노출. 이동 후 Unity 실행과 재연결은 아직 검증하지 않음.
+
 ## 2026-09-04 MCP 프로젝트 경로 공백 오류 조사
 - Goal: 반복 출력되는 경로 공백 오류의 실제 조건 확인.
 - Changes: 설치된 플러그인 Startup.cs 정적 생성자 확인. 코드 변경 없음.
@@ -52,3 +61,5 @@
 검증 보완: 2026-09-04 관리 verify 및 session-start 실행 통과. 임시 Git 저장소에서 AGENTS만 수정하고 작업 기록을 누락한 경우 docs-check가 예상대로 거절함. 제품 빌드·테스트는 미실행.
 
 관리 검사 보완: Unity 생성 meta의 줄 끝 공백으로 staged diff 검사가 실패하여 값 변경 없이 공백 정리 후 재검사.
+
+이동 검증 보완: 두 MCP 설정의 새 경로/식별자와 서버 실행 파일 존재 확인. 상위 verify -IncludeBrain 통과. 실제 Unity/MCP 재연결은 재시작 후 확인 필요. 구 경로의 빈 .git 삭제는 자동 안전 정책에 차단되어 빈 껍데기를 보존함.

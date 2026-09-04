@@ -2,8 +2,8 @@
 
 ## 대상과 현재 상태
 - [IvanMurzak/Unity-MCP](https://github.com/IvanMurzak/Unity-MCP), 설치 버전 0.90.0.
-- Unity 프로젝트: C:/Dev/nexontutorial/Project Brain, Editor 6000.3.8f1.
-- 연결 설정은 상위 및 프로젝트 .codex/config.toml. 현재 서버 이름 ai-game-developer, stdio, 로컬 포트 25766, 프로젝트 식별자 569f468d. 재설정 후 달라질 수 있으므로 파일에서 재확인한다.
+- Unity 프로젝트: C:/Dev/nexontutorial/ProjectBrain, Editor 6000.3.8f1.
+- 연결 설정은 상위 및 프로젝트 .codex/config.toml. 현재 서버 이름 ai-game-developer, stdio, 로컬 포트 25766, 프로젝트 식별자 cbd0af11. 재설정 후 달라질 수 있으므로 파일에서 재확인한다.
 - 실행 파일은 프로젝트 Library/mcp-server/win-x64/gamedev-mcp-server.exe. Library 삭제 후에는 플러그인의 서버 준비가 필요할 수 있다.
 - stdio는 Codex가 서버를 시작하는 구성이다. Unity 창의 Start를 별도로 누르거나 다른 서버를 중복 실행하는 것을 기본 절차로 삼지 않는다.
 - 과거 scene-list-opened 성공 이력은 있으나 현재 세션에서 도구가 노출되는지 별도 확인해야 한다.

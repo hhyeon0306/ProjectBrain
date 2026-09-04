@@ -17,4 +17,6 @@ Unity-MCP 사용 지침: AGENTS와 Docs/unity_mcp_usage.md에 정리. 현재 사
 
 최신 변경: Assets/Scripts 역할별 폴더와 Tests/BrainDocumentSample.cs 추가. 문서 창 UI Toolkit 전환. Editor csproj 컴파일 오류 0/참조 경고 3, 실제 UI 확인은 사용자 진행.
 
-경로 진단: Unity-MCP Startup이 Application.dataPath의 공백만 보고 LogError를 출력한다. 초기화는 계속되며 재로드마다 반복 가능. ProjectBrain으로 폴더명 변경 권고, 아직 이동/설정 변경 안 함.
+경로 진단: Unity-MCP Startup이 Application.dataPath의 공백만 보고 LogError를 출력한다. 초기화는 계속되며 재로드마다 반복 가능. 사용자 승인으로 폴더를 C:/Dev/nexontutorial/ProjectBrain으로 변경. 상위/하위 MCP 실행 경로 및 식별자 cbd0af11 동기화, 포트 25766 유지. 새 경로로 Unity를 열고 Codex 재시작 후 실제 MCP 재연결 확인 필요.
+
+이동 후 주의: 구 경로 Project Brain에는 빈 .git 폴더만 남음. 빈 폴더 삭제가 자동 안전 정책에 차단됨. 실제 프로젝트와 Git 이력은 ProjectBrain에 있음. 사용자/Unity가 변경한 ProjectSettings.asset 및 NuGet meta, 생성된 Scripts meta는 보존하고 이번 커밋에서 제외.

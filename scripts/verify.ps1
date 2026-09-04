@@ -8,7 +8,7 @@ if ($LASTEXITCODE -ne 0) { throw 'Working tree whitespace check failed' }
 & git -C $root diff --cached --check
 if ($LASTEXITCODE -ne 0) { throw 'Staged whitespace check failed' }
 if ($IncludeBrain) {
-    $child = Join-Path $root 'Project Brain/scripts/verify.ps1'
+    $child = Join-Path $root 'ProjectBrain/scripts/verify.ps1'
     if (!(Test-Path -LiteralPath $child)) { throw 'No child Brain workspace here' }
     & $child
 }
