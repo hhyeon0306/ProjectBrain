@@ -1,5 +1,14 @@
 # Brain 작업 이력
 
+## 2026-09-05 중단 복구 및 관계 그래프
+- Goal: 이전 커밋 상태를 확인하고 문서 관계 그래프 구현을 이어간다.
+- Changes: UI Toolkit 분할 화면, 선택 코드 중심 1단계 관계 그래프, 노드 클릭 문서 전환 및 미저장 보호. 스크립트 선택 후 남던 초기 안내도 갱신.
+- Files: Editor/DocumentGraphView.cs, Editor/BrainDocumentWindow.cs, Docs/product_spec.md, Docs/task.md, Docs/session_handoff.md, Docs/work_log.md.
+- Verification: Unity 배치 컴파일 및 기존 저장 검사 실행 결과는 아래 기록. 이전 문서 확장은 d2905d1에 완료돼 재구현하지 않음.
+- Decisions: 고정 방사형 소규모 관계부터 구현. 현재 MCP 도구 미노출, 사용자 Unity 종료 확인 후 배치 실행.
+- Next: 그래프 UI 수동 확인 후 작업 저장 및 변경 감지로 진행.
+- Limitations: 확대/이동/검색, 자동 참조 분석 및 검증 상태 연결 미구현. 사용자 변경 파일은 보존.
+
 ## 2026-09-04 본문·이미지·관련 문서 확장
 - Goal: 그래프에 사용할 문서/관계를 저장하고 이미지 포함 문서를 다시 연다.
 - Changes: schema v2와 v1 메모리 마이그레이션, 본문·이미지 GUID, UI Toolkit 이미지 미리보기/관계 편집/관련 문서 이동. Editor 종료 없는 검사 진입점 추가.
@@ -72,3 +81,5 @@
 관리 검사 보완: Unity 생성 meta의 줄 끝 공백으로 staged diff 검사가 실패하여 값 변경 없이 공백 정리 후 재검사.
 
 이동 검증 보완: 두 MCP 설정의 새 경로/식별자와 서버 실행 파일 존재 확인. 상위 verify -IncludeBrain 통과. 실제 Unity/MCP 재연결은 재시작 후 확인 필요. 구 경로의 빈 .git 삭제는 자동 안전 정책에 차단되어 빈 껍데기를 보존함.
+
+검증 결과: Unity 6000.3.8f1 배치 컴파일 성공, PROJECT_BRAIN_CHECKS_PASSED=13. 관리 검사 통과. 그래프 시각/클릭 동작은 아직 수동 검증 전이며 저장 검사와 구분한다. 종료 시 Unity 임시 메모리 경고 기록됨.

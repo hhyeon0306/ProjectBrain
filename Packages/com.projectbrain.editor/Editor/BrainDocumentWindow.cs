@@ -14,6 +14,7 @@ namespace ProjectBrain
         [SerializeField] private bool dirty;
         private readonly ScriptDocumentService service = new ScriptDocumentService();
         private VisualElement form;
+        private VisualElement graph;
         private Label identity;
         private HelpBox message;
 
@@ -22,7 +23,7 @@ namespace ProjectBrain
 
         public void CreateGUI()
         {
-            minSize = new Vector2(360, 420);
+            minSize = new Vector2(820, 500);
             var root = rootVisualElement;
             root.Clear();
             root.style.paddingLeft = root.style.paddingRight = 12;
@@ -44,9 +45,16 @@ namespace ProjectBrain
                 BuildForm();
             });
             root.Add(picker);
+            var split = new TwoPaneSplitView(0, 400, TwoPaneSplitViewOrientation.Horizontal);
+            split.style.flexGrow = 1;
+            graph = new VisualElement();
+            graph.style.minWidth = 300;
+            split.Add(graph);
             form = new ScrollView();
+            form.style.minWidth = 330;
             form.style.flexGrow = 1;
-            root.Add(form);
+            split.Add(form);
+            root.Add(split);
             message = new HelpBox("C# 스크립트를 위 필드에 넣으세요.", HelpBoxMessageType.Info);
             root.Add(message);
             if (document == null && selectedScript != null) Run(() => document = service.LoadOrCreate(selectedScript));
@@ -57,7 +65,27 @@ namespace ProjectBrain
         private void BuildForm()
         {
             form.Clear();
-            if (document == null) return;
+            graph.Clear();
+            if (document == null)
+            {
+                graph.Add(new Label("스크립트를 선택하면 관계 그래프가 표시됩니다."));
+                return;
+            }
+            graph.Add(new Label("직접 연결한 관련 코드 · 노드를 눌러 문서 열기"));
+            graph.Add(new DocumentGraphView(document, script =>
+            {
+                if (script == selectedScript || !ConfirmDiscard()) return;
+                Run(() =>
+                {
+                    var next = service.LoadOrCreate(script);
+                    selectedScript = script;
+                    document = next;
+                    SetDirty(false);
+                    CreateGUI();
+                });
+            }));
+            message.text = "관련 코드 추가로 관계를 연결하세요. 보라색은 현재 문서입니다.";
+            message.messageType = HelpBoxMessageType.Info;
             identity = new Label("GUID: " + document.scriptGuid + "\n" + service.ResolvePath(document));
             identity.style.whiteSpace = WhiteSpace.Normal;
             identity.style.marginTop = identity.style.marginBottom = 12;
