@@ -65,3 +65,11 @@ UI: 목록/간단한 관계 그래프/선택 노드 문서/검토 필요/완료 
 3. MCP 목록에서 필요한 도구 선언만 읽고 Unity 연결을 읽기 호출 한 번으로 확인한다.
 4. T1부터 시작하되 T3의 첫 시연까지 작은 단위로 진행한다. 전체 재조사 및 MCP/CLI 선택 논의는 반복하지 않는다.
 5. 종료 시 변경 파일, 실행한 검증, 실제 결과, 미해결 문제, 다음 행동을 session_handoff에 갱신한다.
+
+## 현재 구현 범위 — 스크립트 문서 저장
+- Window/Project Brain/Script Document에서 Assets의 C# 스크립트를 지정하고 역할·설계 의도·주의사항을 편집·저장·다시 읽는다.
+- .projectbrain/docs/<Unity GUID>.json에 schemaVersion, scriptGuid, lastKnownPath, role, designIntent, cautions, relatedScriptGuids, savedCodeHash, updatedUtc 저장.
+- GUID로 현재 경로를 조회한다. savedCodeHash는 저장 당시 코드이며 사람의 검토 승인이나 테스트 통과가 아니다.
+- 손상된 JSON/미지원 스키마/잘못된 GUID를 거절하고 원본을 유지한다. 임시 파일 후 교체로 저장한다.
+- 관련 코드 UI, 변경 감지 표시, 작업 상태, MCP 도구, 자동 검증은 아직 미구현이다. 기존 지침의 Brain 미구현 문구는 전체 업무 흐름이 미구현이라는 의미이며 문서 저장은 구현됐다.
+- 검사: Unity batchmode -executeMethod ProjectBrain.DocumentStoreChecks.RunBatch. fixture는 기존 Readme 스크립트와 OS 임시 문서 폴더를 사용하고 실제 문서는 변경하지 않는다.

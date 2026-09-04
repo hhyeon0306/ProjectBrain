@@ -1,0 +1,5 @@
+{
+  "name": "ProjectBrain.Editor",
+  "rootNamespace": "ProjectBrain",
+  "includePlatforms": ["Editor"]
+}
