@@ -1,0 +1,32 @@
+# Unity generated and local state
+/[Ll]ibrary/
+/[Tt]emp/
+/[Oo]bj/
+/[Ll]ogs/
+/[Uu]ser[Ss]ettings/
+/[Bb]uild/
+/[Bb]uilds/
+/ProfilerCaptures/
+/MemoryCaptures/
+/.vs/
+/.idea/
+*.csproj
+*.sln
+*.slnx
+*.user
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+sysinfo.txt
+.DS_Store
+Thumbs.db
+# Machine-specific MCP config and generated upstream skills
+/.codex/
+/.agents/
+.env
+.env.*
+!.env.example
+*.keystore
+*.jks
