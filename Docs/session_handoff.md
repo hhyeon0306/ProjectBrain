@@ -12,3 +12,5 @@ Unity에서 Window/Project Brain/Script Document 열기 → Assets의 C# 스크�
 
 ## Verification
 Unity batchmode -executeMethod ProjectBrain.DocumentStoreChecks.RunBatch: PROJECT_BRAIN_CHECKS_PASSED=9. 로그 Logs/brain-document-checks.log(로컬). UI 시각 확인 및 이동·삭제 시연 미실행. 관리 검사는 scripts/verify.ps1로 별도 실행한다.
+
+Unity-MCP 사용 지침: AGENTS와 Docs/unity_mcp_usage.md에 정리. 현재 사용자 문서 UI 검토 중이며 Editor 조작 없이 문서만 갱신. 다음 세션 실제 도구 노출부터 확인.
