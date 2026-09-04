@@ -61,7 +61,7 @@ UI: 목록/간단한 관계 그래프/선택 노드 문서/검토 필요/완료 
 
 ## 다음 세션 시작 절차
 1. session_handoff를 읽고 가장 이른 미완료 작업을 선택한다.
-2. 기존 패키지/구현 파일 유무를 확인한다. 현재 Brain 코드는 아직 없다.
+2. 기존 패키지/구현 파일 유무를 확인한다. 문서 저장과 UI Toolkit 창은 구현돼 있다.
 3. MCP 목록에서 필요한 도구 선언만 읽고 Unity 연결을 읽기 호출 한 번으로 확인한다.
 4. T1부터 시작하되 T3의 첫 시연까지 작은 단위로 진행한다. 전체 재조사 및 MCP/CLI 선택 논의는 반복하지 않는다.
 5. 종료 시 변경 파일, 실행한 검증, 실제 결과, 미해결 문제, 다음 행동을 session_handoff에 갱신한다.
@@ -71,10 +71,19 @@ UI: 목록/간단한 관계 그래프/선택 노드 문서/검토 필요/완료 
 - .projectbrain/docs/<Unity GUID>.json에 schemaVersion, scriptGuid, lastKnownPath, role, designIntent, cautions, relatedScriptGuids, savedCodeHash, updatedUtc 저장.
 - GUID로 현재 경로를 조회한다. savedCodeHash는 저장 당시 코드이며 사람의 검토 승인이나 테스트 통과가 아니다.
 - 손상된 JSON/미지원 스키마/잘못된 GUID를 거절하고 원본을 유지한다. 임시 파일 후 교체로 저장한다.
-- 관련 코드 UI, 변경 감지 표시, 작업 상태, MCP 도구, 자동 검증은 아직 미구현이다. 기존 지침의 Brain 미구현 문구는 전체 업무 흐름이 미구현이라는 의미이며 문서 저장은 구현됐다.
+- 관련 코드 UI는 구현. 변경 감지 표시, 작업 상태, MCP 도구, 자동 검증은 아직 미구현이다. 기존 지침의 Brain 미구현 문구는 전체 업무 흐름이 미구현이라는 의미이며 문서 저장은 구현됐다.
 - 검사: Unity batchmode -executeMethod ProjectBrain.DocumentStoreChecks.RunBatch. fixture는 기존 Readme 스크립트와 OS 임시 문서 폴더를 사용하고 실제 문서는 변경하지 않는다.
 
 ## Scripts 구조와 UI 방식
 - Assets/Scripts: Core(기반), Gameplay(게임 기능), UI(게임 UI), Infrastructure(외부 연동/저장), Utilities(보조), Tests(샘플). 빈 폴더는 .gitkeep으로 Git 유지.
 - Tests/BrainDocumentSample.cs는 문서 연결용 샘플이며 자동 테스트가 아니다. 호출 시에만 이동하며 씬을 자동 변경하지 않는다.
 - Brain 문서 창은 UI Toolkit CreateGUI 기반. 데이터 저장 서비스와 분리하며 재컴파일 시 편집 데이터를 직렬화해 유지한다.
+
+## 이미지 문서와 그래프 방향 (2026-09-04 사용자 결정)
+- 현재 문서 UI는 초기 편집기. 최종 UI는 중앙 관계 그래프와 선택 문서 패널이며 UI Toolkit 사용.
+- 이번 구현: schemaVersion 2, body 본문, imageGuids 첨부 이미지, relatedScriptGuids 수동 관계. v1은 읽을 때 메모리에서 v2로 변환하고 명시적 저장 전 원본을 바꾸지 않는다.
+- 이미지는 Assets의 Texture2D를 ObjectField로 선택하거나 드래그해 연결. 외부 파일은 먼저 Project 창으로 가져온다. GUID로 추적하며 누락을 표시한다. 연결 제거는 이미지 파일 삭제가 아니다.
+- 본문은 여러 줄 일반 텍스트. Markdown/코드 표기를 저장할 수 있지만 서식 렌더링, 이미지 본문 내 배치, 캡션, 독립 문서 노드는 아직 미구현.
+- 현재 문서는 스크립트당 하나. 관련 문서 열기는 연결된 스크립트의 문서를 열거나 새로 작성한다. 자동 코드 분석 결과가 아닌 사용자가 지정한 방향성 관계다.
+- 다음: 작은 그래프에서 노드/선, 선택, 문서 열기 구현. 이후 이동/확대·축소/검색과 변경·검증 상태 연결. 전체 노드 밀집도보다 선택 코드 주변 관계 탐색을 우선한다.
+- AI 맥락은 본문·관계·이미지 식별자를 우선하고 실제 이미지 데이터는 필요할 때 조회하도록 후속 MCP 설계. 토큰 절감 수치는 아직 측정하지 않음.

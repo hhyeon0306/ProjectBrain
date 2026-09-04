@@ -2,21 +2,16 @@
 Updated: 2026-09-04
 
 ## Current state
-T1 진행 중: 스크립트 문서 저장·조회 구현. Unity 6000.3.8f1에서 컴파일과 저장 검사 9개 통과. 작업 데이터 저장과 T2 이후는 미구현.
+T1 진행 중. 본문·이미지·관련 코드 문서 UI 완료, schema v2 저장 및 v1 호환. Unity MCP 재연결 실제 조회 성공. 그래프 및 작업/검증 업무 흐름 미구현.
 
 ## Decisions
-기존 Unity-MCP 기반 유지. 새 Editor 패키지는 Packages/com.projectbrain.editor. .projectbrain/docs/<GUID>.json을 사용. 문서 저장은 검토 승인/테스트 성공이 아니다.
+UI Toolkit 사용. 이미지는 Assets의 Texture2D GUID 참조이며 문서당 첨부 목록으로 표시. 문서는 스크립트당 하나, 관련 코드 GUID로 문서 연결. 본문은 일반 텍스트(서식 렌더링 미구현). 사용자 기존 문서는 검증에서 변경하지 않음.
 
 ## Next action
-Unity에서 Window/Project Brain/Script Document 열기 → Assets의 C# 스크립트 지정 → 역할/설계 의도/주의사항 저장·다시 읽기. UI 수동 검토 후 작업 저장과 변경 감지를 진행한다. 이번 세션 Unity는 배치 실행 후 종료, MCP 도구 미로드 상태였다.
+사용자는 기존 Brain 창에서 본문/이미지 추가/관련 코드 추가 확인. 다음 구현은 작은 관계 그래프에서 선택한 노드 문서 열기. 이후 T1 작업 데이터와 T2 변경 감지로 복귀. 큰 시각 효과보다 작은 실제 흐름 우선.
 
 ## Verification
-Unity batchmode -executeMethod ProjectBrain.DocumentStoreChecks.RunBatch: PROJECT_BRAIN_CHECKS_PASSED=9. 로그 Logs/brain-document-checks.log(로컬). UI 시각 확인 및 이동·삭제 시연 미실행. 관리 검사는 scripts/verify.ps1로 별도 실행한다.
+Unity MCP script_execute로 DocumentStoreChecks.RunInEditor: 13개 통과. 별도 임시 저장소에서 BrainDocumentSample + 실제 URP.png + Readme 관계를 저장/재읽기하고 임시 UI 창에서 이미지 미리보기, 본문 편집·dirty·저장 확인 성공. UI 미부착 테스트는 이벤트 미발생으로 실패하여 실제 창에 부착해 재검증. 전체 그래프/AI 사용 흐름 검증 아님.
 
-Unity-MCP 사용 지침: AGENTS와 Docs/unity_mcp_usage.md에 정리. 현재 사용자 문서 UI 검토 중이며 Editor 조작 없이 문서만 갱신. 다음 세션 실제 도구 노출부터 확인.
-
-최신 변경: Assets/Scripts 역할별 폴더와 Tests/BrainDocumentSample.cs 추가. 문서 창 UI Toolkit 전환. Editor csproj 컴파일 오류 0/참조 경고 3, 실제 UI 확인은 사용자 진행.
-
-경로 진단: Unity-MCP Startup이 Application.dataPath의 공백만 보고 LogError를 출력한다. 초기화는 계속되며 재로드마다 반복 가능. 사용자 승인으로 폴더를 C:/Dev/nexontutorial/ProjectBrain으로 변경. 상위/하위 MCP 실행 경로 및 식별자 cbd0af11 동기화, 포트 25766 유지. 새 경로로 Unity를 열고 Codex 재시작 후 실제 MCP 재연결 확인 필요.
-
-이동 후 주의: 구 경로 Project Brain에는 빈 .git 폴더만 남음. 빈 폴더 삭제가 자동 안전 정책에 차단됨. 실제 프로젝트와 Git 이력은 ProjectBrain에 있음. 사용자/Unity가 변경한 ProjectSettings.asset 및 NuGet meta, 생성된 Scripts meta는 보존하고 이번 커밋에서 제외.
+## Limitations
+그래프·Markdown 렌더링·독립 문서·자동 코드 관계 분석은 아직 없음. 이미지 파일을 먼저 Assets로 가져와야 함. 사용자 창의 전체 시각 확인은 사용자 검토 대기. NuGet meta, ProjectSettings.asset 및 기존 생성 Scripts meta는 사용자/Unity 변경으로 이번 커밋 제외. 구 경로 Project Brain에는 삭제 정책에 차단된 빈 .git 껍데기만 남음.

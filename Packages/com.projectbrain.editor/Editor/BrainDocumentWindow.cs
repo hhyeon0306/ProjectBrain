@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;
@@ -64,6 +65,9 @@ namespace ProjectBrain
             AddText("역할", document.role, value => document.role = value);
             AddText("설계 의도", document.designIntent, value => document.designIntent = value);
             AddText("주의사항", document.cautions, value => document.cautions = value);
+            AddText("본문", document.body, value => document.body = value);
+            BuildImages();
+            BuildRelations();
             form.Add(new HelpBox("문서 저장은 코드 검증이나 검토 승인을 의미하지 않습니다.", HelpBoxMessageType.Info));
             form.Add(new Button(() => SaveChanges()) { text = "문서 저장" });
             form.Add(new Button(() => Run(() =>
@@ -87,6 +91,90 @@ namespace ProjectBrain
             field.style.marginBottom = 10;
             field.RegisterValueChangedCallback(evt => { assign(evt.newValue); SetDirty(true); });
             form.Add(field);
+        }
+
+        private void BuildImages()
+        {
+            form.Add(new Label("첨부 이미지"));
+            var picker = new ObjectField("이미지 추가") { objectType = typeof(Texture2D), allowSceneObjects = false };
+            picker.RegisterValueChangedCallback(evt => Run(() =>
+            {
+                if (evt.newValue == null) return;
+                var path = AssetDatabase.GetAssetPath(evt.newValue);
+                if (!path.StartsWith("Assets/", StringComparison.Ordinal))
+                    throw new InvalidOperationException("이미지를 Project 창의 Assets에 넣고 선택하세요.");
+                var guid = AssetDatabase.AssetPathToGUID(path);
+                document.imageGuids = (document.imageGuids ?? Array.Empty<string>()).Append(guid).Distinct().ToArray();
+                SetDirty(true);
+                BuildForm();
+            }));
+            form.Add(picker);
+            foreach (var guid in document.imageGuids ?? Array.Empty<string>())
+            {
+                var path = AssetDatabase.GUIDToAssetPath(guid);
+                var texture = AssetDatabase.LoadAssetAtPath<Texture2D>(path);
+                if (texture == null) form.Add(new HelpBox("이미지 누락: " + guid, HelpBoxMessageType.Warning));
+                else
+                {
+                    var preview = new Image { image = texture, scaleMode = ScaleMode.ScaleToFit };
+                    preview.style.height = 180;
+                    form.Add(preview);
+                    var label = new Label(path);
+                    label.style.whiteSpace = WhiteSpace.Normal;
+                    form.Add(label);
+                }
+                form.Add(new Button(() =>
+                {
+                    document.imageGuids = document.imageGuids.Where(id => id != guid).ToArray();
+                    SetDirty(true);
+                    BuildForm();
+                }) { text = "이미지 연결 제거" });
+            }
+        }
+
+        private void BuildRelations()
+        {
+            form.Add(new Label("관련 코드와 문서"));
+            var picker = new ObjectField("관련 코드 추가") { objectType = typeof(MonoScript), allowSceneObjects = false };
+            picker.RegisterValueChangedCallback(evt => Run(() =>
+            {
+                if (evt.newValue == null) return;
+                var related = service.LoadOrCreate(evt.newValue as MonoScript);
+                if (related.scriptGuid == document.scriptGuid)
+                    throw new InvalidOperationException("다른 코드를 선택하세요.");
+                document.relatedScriptGuids = (document.relatedScriptGuids ?? Array.Empty<string>()).Append(related.scriptGuid).Distinct().ToArray();
+                SetDirty(true);
+                BuildForm();
+            }));
+            form.Add(picker);
+            foreach (var guid in document.relatedScriptGuids ?? Array.Empty<string>())
+            {
+                var path = AssetDatabase.GUIDToAssetPath(guid);
+                var script = AssetDatabase.LoadAssetAtPath<MonoScript>(path);
+                var label = new Label(script == null ? "코드 누락: " + guid : path);
+                label.style.whiteSpace = WhiteSpace.Normal;
+                form.Add(label);
+                var open = new Button(() =>
+                {
+                    if (!ConfirmDiscard()) return;
+                    Run(() =>
+                    {
+                        var next = service.LoadOrCreate(script);
+                        selectedScript = script;
+                        document = next;
+                        SetDirty(false);
+                        CreateGUI();
+                    });
+                }) { text = "관련 문서 열기 / 작성" };
+                open.SetEnabled(script != null);
+                form.Add(open);
+                form.Add(new Button(() =>
+                {
+                    document.relatedScriptGuids = document.relatedScriptGuids.Where(id => id != guid).ToArray();
+                    SetDirty(true);
+                    BuildForm();
+                }) { text = "관계 제거" });
+            }
         }
 
         private bool ConfirmDiscard() => !dirty || EditorUtility.DisplayDialog("미저장 문서", "저장하지 않은 변경을 버릴까요?", "변경 버리기", "취소");

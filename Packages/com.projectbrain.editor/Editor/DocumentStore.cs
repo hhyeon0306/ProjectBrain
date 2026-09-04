@@ -56,8 +56,12 @@ namespace ProjectBrain
         private static void Validate(ScriptDocument document, string guid)
         {
             ValidateGuid(guid);
-            if (document == null || document.schemaVersion != 1 || document.scriptGuid != guid)
+            if (document == null || document.schemaVersion < 1 || document.schemaVersion > 2 || document.scriptGuid != guid)
                 throw new InvalidDataException("문서 버전 또는 GUID가 일치하지 않습니다.");
+            document.schemaVersion = 2;
+            document.body = document.body ?? "";
+            if (document.imageGuids == null) document.imageGuids = Array.Empty<string>();
+            foreach (var image in document.imageGuids) ValidateGuid(image);
             if (document.relatedScriptGuids == null) document.relatedScriptGuids = Array.Empty<string>();
             foreach (var related in document.relatedScriptGuids) ValidateGuid(related);
         }

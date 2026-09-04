@@ -1,5 +1,14 @@
 # Brain 작업 이력
 
+## 2026-09-04 본문·이미지·관련 문서 확장
+- Goal: 그래프에 사용할 문서/관계를 저장하고 이미지 포함 문서를 다시 연다.
+- Changes: schema v2와 v1 메모리 마이그레이션, 본문·이미지 GUID, UI Toolkit 이미지 미리보기/관계 편집/관련 문서 이동. Editor 종료 없는 검사 진입점 추가.
+- Files: Packages/com.projectbrain.editor/Editor/{ScriptDocument,DocumentStore,BrainDocumentWindow,DocumentStoreChecks}.cs, Docs/{product_spec,task,session_handoff,work_log}.md.
+- Verification: Unity에서 저장/마이그레이션/손상 보호 13개 통과. 실제 샘플/이미지/관련 코드 임시 저장 후 UI 미리보기·본문 편집·dirty·저장 통과. 테스트 GUID 길이 오류와 미부착 UI 이벤트 테스트 실패를 수정 후 재검증.
+- Decisions: 이미지 외부 복사 대신 Assets GUID 연결. 현재 문서는 스크립트당 하나. 원본 사용자 문서/씬은 테스트에서 변경하지 않음.
+- Next: 작은 관계 그래프 선택 및 문서 표시 후 작업 추적 기능 구현.
+- Limitations: 서식 렌더링·그래프·AI 전용 도구 미구현. 검증용 임시 문서는 OS temp에 보존. 전체 UI 시각 검토 대기.
+
 ## 2026-09-04 Unity 프로젝트 공백 경로 제거
 - Goal: Unity-MCP 초기화 시 경로 공백 오류를 해결한다.
 - Changes: Unity 종료 확인 후 Project Brain 폴더를 ProjectBrain으로 이동. 양쪽 MCP 실행 경로와 프로젝트 식별자 cbd0af11 동기화, 현재 경로 지침 및 검사 스크립트 수정.
