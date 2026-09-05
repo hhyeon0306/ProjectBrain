@@ -1,5 +1,14 @@
 # Brain 작업 이력
 
+## 2026-09-06 목업 기준 문서·작업 구조 재편
+- Goal: 코드 중심 초기 계획을 최종 목업의 도메인·기능·증거 구조와 일치시킨다.
+- Changes: 제품 명세를 현재 목표 중심으로 재작성하고 범용 노드·관계·저장·v2 이관 계약을 architecture에 분리. 작업표를 기반/아키텍처/업무 흐름/MCP/검증/UI/포트폴리오 단계로 재구성하고 인계·AGENTS·문서 색인을 동기화.
+- Files: AGENTS.md, Docs/{README,task,product_spec,architecture,session_handoff,work_log}.md.
+- Verification: 상위 scripts/verify.ps1 -IncludeBrain 통과. 제품 코드는 변경하지 않았으며 새 모델은 구현·검증 결과가 아니다.
+- Decisions: Project→Domain→Feature→Artifact/Evidence/Activity/Reference 계층, 의미와 방향이 있는 관계, 비파괴·반복 가능한 v2 이관. 제품 Activity와 개발 work_log를 분리.
+- Next: A1 범용 노드·관계 저장소와 이관 검사 구현 후 Player 도메인 데모 구성.
+- Limitations: 마감 전 필수 수직 흐름을 우선하며 목업 전체 시각 효과는 권장 범위. 기존 사용자/Unity 변경은 보존.
+
 ## 2026-09-05 최종형 UI 목업
 - Goal: 도메인 아키텍처와 코드·문서·검증·작업 기록을 함께 탐색하는 완성형 화면을 먼저 정의한다.
 - Changes: 게임 클라이언트 도메인 그래프, 기능별 구현/문서/테스트/로그/참고 자료, 상세 패널, AI 맥락 표시를 포함한 고해상도 목업 생성 및 제품 기준 기록.

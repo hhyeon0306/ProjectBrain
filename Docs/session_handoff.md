@@ -1,24 +1,25 @@
 # Brain 세션 인계
-Updated: 2026-09-05
+Updated: 2026-09-06
 
 ## Current state
-T1 진행 중. 본문·이미지·관련 코드 문서 UI 완료, schema v2 저장 및 v1 호환. 선택 코드의 1단계 수동 관계 그래프와 7개 문서로 구성한 데모 관계망 추가. 작업/검증 업무 흐름 미구현.
+
+Unity-MCP 연결, 스크립트 문서 v2 저장, 이미지·관련 코드 UI, 다중 노드 관계 그래프와 양방향 탐색이 구현됐다. 7개 문서의 게임 구조 데모와 최종 UI 목업이 있다. 현재 구현은 Code 중심 시제품이며 Domain/Feature/Evidence/Activity/Reference 범용 모델은 미구현이다.
 
 ## Decisions
-UI Toolkit 사용. 이미지는 Assets의 Texture2D GUID 참조이며 문서당 첨부 목록으로 표시. 문서는 스크립트당 하나, 관련 코드 GUID로 문서 연결. 본문은 일반 텍스트(서식 렌더링 미구현). 사용자 기존 문서는 검증에서 변경하지 않음.
+
+최종 제품은 Project→Domain→Feature→Code/Document/Image/Evidence/Activity/Reference 계층을 사용한다. 관계는 종류와 방향을 저장하고 양방향으로 탐색한다. 제품 Activity와 개발 기록 `Docs/work_log.md`를 구분한다. 기존 v2 문서는 보존한 채 새 구조로 이관한다. 상세 계약은 `Docs/architecture.md`, 제품 동작은 `Docs/product_spec.md`가 기준이다.
 
 ## Next action
-열려 있는 BrainDocumentSample 문서에서 `저장된 문서 다시 읽기`를 눌러 중심 노드와 6개 관계 노드를 시각 확인한다. 다음은 실제 UI 확인 후 T1 작업 저장 및 T2 변경 감지.
+
+`Docs/architecture.md` 기준으로 BrainNode, BrainRelation 및 저장소를 구현하고 v2 문서의 비파괴 이관 검사를 만든다. 이어서 Player 도메인 하나를 목업 구조로 구성한다. 작업 순서는 `Docs/task.md`의 A1부터 따른다.
 
 ## Verification
-Unity MCP script_execute로 DocumentStoreChecks.RunInEditor: 13개 통과. 별도 임시 저장소에서 BrainDocumentSample + 실제 URP.png + Readme 관계를 저장/재읽기하고 임시 UI 창에서 이미지 미리보기, 본문 편집·dirty·저장 확인 성공. UI 미부착 테스트는 이벤트 미발생으로 실패하여 실제 창에 부착해 재검증. 전체 그래프/AI 사용 흐름 검증 아님.
+
+- 기존 문서 저장 검사: Unity MCP `DocumentStoreChecks.RunInEditor` 13개 통과.
+- 기존 그래프: Unity 6000.3.8f1 배치 컴파일과 저장 검사 통과.
+- 관계 역방향 탐색 수정: 생성 프로젝트 파일 기준 컴파일 오류 0, 기존 의존성 참조 경고 3. Unity 내 재검증은 남음.
+- 문서 재구성: 상위 `scripts/verify.ps1 -IncludeBrain` 통과. 새 데이터 모델은 아직 코드가 아니므로 제품 검증 결과가 아니다.
 
 ## Limitations
-전체 그래프 탐색·Markdown 렌더링·독립 문서·자동 코드 관계 분석은 아직 없음. 이미지 파일을 먼저 Assets로 가져와야 함. 사용자 창의 전체 시각 확인은 사용자 검토 대기. NuGet meta, ProjectSettings.asset 및 기존 생성 Scripts meta는 사용자/Unity 변경으로 이번 커밋 제외. 구 경로 Project Brain에는 삭제 정책에 차단된 빈 .git 껍데기만 남음.
-2026-09-05 검증: Logs/brain-graph-checks.log에 저장 검사 13개 통과, 컴파일 오류 없음. 관계 그래프 시각/클릭은 수동 확인 대기.
 
-2026-09-05 데모: BrainDocumentSample 중심으로 GameFlow/Input/Movement/Health/HUD/Save 문서와 관계를 추가했다. Unity가 파일을 가져왔고 Editor.log에 새 컴파일 오류가 없으며 Editor는 정상 응답 중이다. 현재 열린 창은 저장된 문서 다시 읽기가 필요하다.
-
-2026-09-05 탐색 수정: Sample→Flow처럼 한쪽 문서에만 저장된 관계도 Flow에서 Sample로 돌아갈 수 있도록 들어오는 관계를 함께 조회한다. dotnet 컴파일 오류 0/기존 참조 경고 3. 열린 Unity가 아직 외부 변경을 가져오지 않아 Unity 내 동작 검증은 재컴파일 후 필요하다.
-
-2026-09-05 최종 UI 방향: Docs/assets/project-brain-final-mockup.png 생성. 도메인→기능→코드/문서/테스트/작업 로그/참고 자료 계층과 우측 상세 패널을 구현 기준으로 채택. 이미지 속 수치는 시각 예시이며 실제 성과가 아니다.
+작업 등록, 변경 감지, 완료 거절, Brain 전용 MCP Tool, 실제 Unity 검증 기록은 아직 없다. 최종 목업의 테스트 수와 토큰 절감량은 예시다. 사용자/Unity 변경인 `ProjectSettings.asset`과 NuGet meta는 건드리지 않는다. 구 `Project Brain` 경로에는 자동 삭제 정책에 막힌 빈 `.git` 껍데기만 남아 있다.

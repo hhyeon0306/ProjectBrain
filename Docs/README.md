@@ -2,6 +2,7 @@
 
 - [task.md](task.md): 현재 작업 상태
 - [product_spec.md](product_spec.md): 기능·데이터·검증 계약의 단일 기준
+- [architecture.md](architecture.md): 노드·관계·저장·마이그레이션 계약
 - [session_handoff.md](session_handoff.md): 다음 세션용 현재 상태
 - [work_log.md](work_log.md): 누적 작업 이력
 - archive/: 초기 기획·조사 기록. 현재 지침이 아니며 필요할 때만 확인.

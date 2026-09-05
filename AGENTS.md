@@ -19,8 +19,8 @@
 - 도구 미노출 시 현재 목록/설정/Editor 실행 상태를 확인한다. CLI 자동 설치·재설정 루프를 돌리지 않는다. 배치 검증은 같은 프로젝트 Editor가 열려 있지 않을 때만 사용한다.
 - 현재 Brain 전용 MCP 도구는 미구현이다. 기존 MCP로 코드 편집이 자동 추적된다고 주장하지 않는다.
 
-- Brain 문서 저장은 구현됐지만 작업·검증 도구는 아직 미구현이다. 존재하지 않는 Brain 도구를 필수 호출로 요구하지 않는다. 이 초기 단계에서 일반 코드 편집과 기존 Unity MCP를 사용할 수 있다.
-- 첫 목표는 작업 등록 → 해시 기반 변경 감지 → 미검토/미검증 완료 거절을 실제 MCP 호출로 확인하는 것이다. UI 장식보다 작동하는 흐름을 우선한다.
+- Brain 문서 저장과 관계 그래프 시제품은 구현됐지만 범용 도메인 모델과 작업·검증 도구는 아직 미구현이다. 존재하지 않는 Brain 도구를 필수 호출로 요구하지 않는다.
+- 현재 목표는 `Docs/architecture.md`의 범용 노드·관계 모델과 v2 문서 이관 → Player 도메인 데모 → 작업 등록·변경 감지 → 미검토/미검증 완료 거절 순서다. UI 장식보다 작동하는 흐름을 우선한다.
 - Brain 핵심 규칙, 저장소, Unity 검증 실행기, MCP 연결 코드를 분리한다. 기존 오픈소스 및 Library/PackageCache를 수정하지 않는다.
 - 코드 검증은 실제 결과로 판단한다. 컴파일 성공을 테스트 통과로 표현하지 않고, 이전 코드에 대한 검증을 현재 결과로 재사용하지 않는다.
 - Unity 씬·프리팹 조작은 연결된 MCP를 우선 사용한다. 로그는 필요한 항목과 요약만 출력하고 긴 스택 추적은 오류 분석에 필요할 때만 읽는다.
@@ -35,7 +35,7 @@
 
 
 ## 개발 기록 및 검사
-- 시작 시 scripts/session-start.ps1 실행. task → handoff → product_spec 관련 절 → work_log 최신 기록만 읽는다.
+- 시작 시 scripts/session-start.ps1 실행. task → handoff → architecture/product_spec 관련 절 → work_log 최신 기록만 읽는다.
 - 작업별로 Docs/work_log.md에 Goal/Changes/Files/Verification/Decisions/Next/Limitations를 남기고 Docs/session_handoff.md를 갱신한다. 실패·미실행도 기록한다.
 - 기능·데이터·도구 계약 변경은 product_spec, 단계 상태는 task, 절차는 AGENTS를 수정한다. 과거 자료는 archive에 보존한다.
 - 관리 검사: scripts/verify.ps1. 실제 Unity 컴파일·테스트는 MCP/Unity 실행기로 따로 확인한다. 관리 검사 통과를 구현 검증으로 대체하지 않는다.
