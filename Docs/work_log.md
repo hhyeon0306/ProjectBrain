@@ -1,5 +1,14 @@
 # Brain 작업 이력
 
+## 2026-09-05 최종형 UI 목업
+- Goal: 도메인 아키텍처와 코드·문서·검증·작업 기록을 함께 탐색하는 완성형 화면을 먼저 정의한다.
+- Changes: 게임 클라이언트 도메인 그래프, 기능별 구현/문서/테스트/로그/참고 자료, 상세 패널, AI 맥락 표시를 포함한 고해상도 목업 생성 및 제품 기준 기록.
+- Files: Docs/assets/project-brain-final-mockup.png, Docs/product_spec.md, Docs/session_handoff.md, Docs/work_log.md.
+- Verification: 생성 이미지를 시각 확인하고 요구 요소와 계층 구조 포함 여부를 확인.
+- Decisions: 광활함은 무작위 노드 수가 아니라 도메인 계층과 의미 있는 관계로 표현. 목업 수치는 예시로만 사용.
+- Next: 목업을 기준으로 Domain/Feature/Code/Document/Test/WorkLog/Reference 노드 모델을 설계한다.
+- Limitations: 목업이며 현재 Unity UI 구현 상태를 나타내지 않는다. 토큰 절감 및 테스트 수치는 측정 전 사용 금지.
+
 ## 2026-09-05 관계 역방향 탐색 수정
 - Goal: Sample에서 Flow로 이동한 뒤 Sample로 돌아오지 못하는 그래프 탐색 문제를 해결한다.
 - Changes: 문서 저장소 전체 조회와 들어오는 관계 검색 추가. 그래프는 선택 문서가 등록한 관계와 다른 문서가 선택 문서를 가리키는 관계를 합쳐 표시한다. 저장 JSON을 강제로 양쪽 수정하지 않는다.
