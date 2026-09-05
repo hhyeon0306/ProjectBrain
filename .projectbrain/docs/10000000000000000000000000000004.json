@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 2,
+  "scriptGuid": "10000000000000000000000000000004",
+  "lastKnownPath": "Assets/Scripts/Gameplay/DemoHealth.cs",
+  "role": "체력 상태와 변경 알림 소유",
+  "designIntent": "체력 규칙과 화면 표시를 분리하고 이벤트로 변경을 알린다.",
+  "cautions": "초기 사용 전 RestoreFull 호출이 필요하다.",
+  "body": "피해량을 음수가 되지 않게 처리하고 체력을 유효 범위로 제한한다.",
+  "imageGuids": [],
+  "relatedScriptGuids": ["10000000000000000000000000000005", "10000000000000000000000000000001"],
+  "savedCodeHash": "",
+  "updatedUtc": "2026-09-05T00:00:00Z"
+}

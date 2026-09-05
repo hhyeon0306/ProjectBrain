@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 2,
+  "scriptGuid": "10000000000000000000000000000003",
+  "lastKnownPath": "Assets/Scripts/Gameplay/DemoPlayerMovement.cs",
+  "role": "입력을 월드 이동으로 변환",
+  "designIntent": "이동 속도와 시간 보정을 한 컴포넌트에서 관리한다.",
+  "cautions": "DemoPlayerInput 참조가 필요하며 Update에서 동작한다.",
+  "body": "입력 시스템의 2차원 값을 XZ 평면의 이동으로 바꾼다.",
+  "imageGuids": [],
+  "relatedScriptGuids": ["10000000000000000000000000000002", "10000000000000000000000000000001"],
+  "savedCodeHash": "",
+  "updatedUtc": "2026-09-05T00:00:00Z"
+}

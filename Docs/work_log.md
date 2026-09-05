@@ -1,5 +1,14 @@
 # Brain 작업 이력
 
+## 2026-09-05 관계도 데모 데이터
+- Goal: 사용자가 관계 그래프의 다중 노드와 문서 이동을 바로 확인할 수 있게 한다.
+- Changes: GameFlow, Input, Movement, Health, HUD, Save 역할의 데모 스크립트 6개와 문서 7개를 만들고 실제 책임에 맞춰 관계를 연결. 중심 문서에 기존 URP 이미지를 첨부.
+- Files: Assets/Scripts/{Core,Gameplay,UI,Infrastructure}/Demo*.cs(.meta), .projectbrain/docs/*.json, Docs/{task,session_handoff,work_log}.md.
+- Verification: 문서 JSON 7개 파싱 및 관계 수 확인. Unity가 파일을 가져온 뒤 새 C# 컴파일 오류가 Editor.log에 없고 Editor 응답 정상. 그래프 시각과 노드 클릭은 사용자 창에서 확인 대기.
+- Decisions: BrainDocumentSample을 중심 진입점으로 사용. 자동 분석으로 가장하지 않고 시연용 수동 관계임을 문서에 명시. savedCodeHash는 검토된 저장으로 오인하지 않도록 비워 둠.
+- Next: 열린 문서에서 저장된 문서 다시 읽기 후 그래프 시각 확인. 다음 구현은 작업 저장과 변경 감지.
+- Limitations: 데모 스크립트는 구조 시연용이며 씬에 배치하거나 플레이 동작을 검증하지 않음. 현재 그래프는 선택 노드의 1단계 관계만 표시.
+
 ## 2026-09-05 중단 복구 및 관계 그래프
 - Goal: 이전 커밋 상태를 확인하고 문서 관계 그래프 구현을 이어간다.
 - Changes: UI Toolkit 분할 화면, 선택 코드 중심 1단계 관계 그래프, 노드 클릭 문서 전환 및 미저장 보호. 스크립트 선택 후 남던 초기 안내도 갱신.

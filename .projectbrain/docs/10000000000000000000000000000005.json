@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 2,
+  "scriptGuid": "10000000000000000000000000000005",
+  "lastKnownPath": "Assets/Scripts/UI/DemoHudPresenter.cs",
+  "role": "체력 상태의 화면 표현",
+  "designIntent": "게임 상태를 UI가 표시할 문자열로 변환한다.",
+  "cautions": "현재 데모는 실제 VisualElement 대신 표시 문자열까지만 만든다.",
+  "body": "Health가 전달한 현재값과 최대값으로 HUD 문구를 갱신한다.",
+  "imageGuids": [],
+  "relatedScriptGuids": ["10000000000000000000000000000004", "10000000000000000000000000000001"],
+  "savedCodeHash": "",
+  "updatedUtc": "2026-09-05T00:00:00Z"
+}

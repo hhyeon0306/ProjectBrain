@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 2,
+  "scriptGuid": "10000000000000000000000000000006",
+  "lastKnownPath": "Assets/Scripts/Infrastructure/DemoSaveService.cs",
+  "role": "세션 결과 로컬 저장",
+  "designIntent": "게임 흐름과 저장 방식의 의존성을 한 곳에 모은다.",
+  "cautions": "PlayerPrefs는 데모 용도이며 대규모 저장 데이터에는 적합하지 않다.",
+  "body": "현재 체력과 위치를 로컬 저장소에 기록한다.",
+  "imageGuids": [],
+  "relatedScriptGuids": ["10000000000000000000000000000001"],
+  "savedCodeHash": "",
+  "updatedUtc": "2026-09-05T00:00:00Z"
+}
