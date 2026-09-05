@@ -2,7 +2,7 @@
 
 ## 작업 기준
 - Codex 작업 루트는 `C:/Dev/nexontutorial`이다. Unity 프로젝트 루트는 그 아래 `ProjectBrain`이다. 두 경로를 혼동하지 않는다.
-- 세션 시작 시 `Docs/session_handoff.md`, `Docs/task.md` 순서로 읽고 상세 완료 기준은 `Docs/product_spec.md`의 해당 절만 확인한다.
+- 세션 시작 시 `Docs/task.md`, `Docs/session_handoff.md` 순서로 읽고 `Docs/architecture.md`와 `Docs/product_spec.md`의 관련 절만 확인한다.
 - 사용자 최종 결정: IvanMurzak/Unity-MCP 0.90.0에 Brain 전용 MCP Tool을 추가한다. 독립 MCP 서버나 제품 CLI를 새로 만들지 않는다.
 - 상위 `../.codex/config.toml`은 현재 상위 작업의 연결 설정이다. 이 프로젝트의 `.codex/config.toml`은 Unity 플러그인이 생성한 설정이다. 현재 둘은 동일 서버를 가리킨다. 재설정 시 차이를 확인하고 필요한 항목만 동기화한다. 중복 서버 이름을 추가하거나 전역 설정을 덮어쓰지 않는다.
 - Unity가 생성한 `.agents/skills`는 외부 도구 사용 자료다. 프로젝트 문서와 함께 옮기거나 전체를 세션에 읽지 않는다.

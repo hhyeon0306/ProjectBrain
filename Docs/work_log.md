@@ -1,5 +1,14 @@
 # Brain 작업 이력
 
+## 2026-09-06 종료 및 재개 점검
+- Goal: 새 세션이 범용 모델 구현의 정확한 첫 단위에서 재개되도록 한다.
+- Changes: 지침의 문서 읽기 순서를 통일하고 인계에 구현 위치, 저장·재읽기 검사, 이관 착수 조건을 명시했다.
+- Files: AGENTS.md, Docs/{session_handoff,work_log}.md.
+- Verification: 양쪽 session-start와 상위 scripts/verify.ps1 -IncludeBrain 통과.
+- Decisions: 노드·관계 저장과 검사를 먼저 독립 완료하고 기존 v2 이관은 다음 작업 단위로 진행한다.
+- Next: 제출 일정 확인 후 Packages/com.projectbrain.editor/Editor에서 A1 저장소 구현.
+- Limitations: Unity 제품 코드는 변경하지 않았고 기존 Unity 생성 변경 두 파일은 보존한다.
+
 ## 2026-09-06 목업 기준 문서·작업 구조 재편
 - Goal: 코드 중심 초기 계획을 최종 목업의 도메인·기능·증거 구조와 일치시킨다.
 - Changes: 제품 명세를 현재 목표 중심으로 재작성하고 범용 노드·관계·저장·v2 이관 계약을 architecture에 분리. 작업표를 기반/아키텍처/업무 흐름/MCP/검증/UI/포트폴리오 단계로 재구성하고 인계·AGENTS·문서 색인을 동기화.

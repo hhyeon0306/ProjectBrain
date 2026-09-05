@@ -11,7 +11,7 @@ Unity-MCP 연결, 스크립트 문서 v2 저장, 이미지·관련 코드 UI, �
 
 ## Next action
 
-`Docs/architecture.md` 기준으로 BrainNode, BrainRelation 및 저장소를 구현하고 v2 문서의 비파괴 이관 검사를 만든다. 이어서 Player 도메인 하나를 목업 구조로 구성한다. 작업 순서는 `Docs/task.md`의 A1부터 따른다.
+9/7 새 세션은 상위 제출 일정부터 확인한다. Brain 작업 시간이 확보되면 `Packages/com.projectbrain.editor/Editor` 아래에서 `BrainNode`, `BrainRelation`, 저장소와 저장·재읽기 검사를 먼저 구현한다. 이 단위를 검증·기록·커밋한 뒤에만 v2 비파괴 이관을 시작한다. 이어서 Player 도메인 데모를 구성한다. 세부 계약은 `Docs/architecture.md`, 순서는 `Docs/task.md`의 A1을 따른다.
 
 ## Verification
 
@@ -19,6 +19,7 @@ Unity-MCP 연결, 스크립트 문서 v2 저장, 이미지·관련 코드 UI, �
 - 기존 그래프: Unity 6000.3.8f1 배치 컴파일과 저장 검사 통과.
 - 관계 역방향 탐색 수정: 생성 프로젝트 파일 기준 컴파일 오류 0, 기존 의존성 참조 경고 3. Unity 내 재검증은 남음.
 - 문서 재구성: 상위 `scripts/verify.ps1 -IncludeBrain` 통과. 새 데이터 모델은 아직 코드가 아니므로 제품 검증 결과가 아니다.
+- 종료 점검: 2026-09-06 상위·하위 `session-start.ps1` 및 상위 `verify.ps1 -IncludeBrain` 통과.
 
 ## Limitations
 
