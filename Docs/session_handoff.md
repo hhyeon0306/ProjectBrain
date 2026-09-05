@@ -11,7 +11,7 @@ Unity-MCP 연결, 스크립트 문서 v2 저장, 이미지·관련 코드 UI, �
 
 ## Next action
 
-9/7 새 세션은 상위 제출 일정부터 확인한다. Brain 작업 시간이 확보되면 `Packages/com.projectbrain.editor/Editor` 아래에서 `BrainNode`, `BrainRelation`, 저장소와 저장·재읽기 검사를 먼저 구현한다. 이 단위를 검증·기록·커밋한 뒤에만 v2 비파괴 이관을 시작한다. 이어서 Player 도메인 데모를 구성한다. 세부 계약은 `Docs/architecture.md`, 순서는 `Docs/task.md`의 A1을 따른다.
+한국시간 9/6 일요일 14:00경 새 세션에서 재개한다. `Packages/com.projectbrain.editor/Editor` 아래에서 `BrainNode`, `BrainRelation`, 저장소와 저장·재읽기 검사를 먼저 구현한다. 이 단위를 검증·기록·커밋한 뒤에만 v2 비파괴 이관을 시작한다. 이어서 Player 도메인 데모를 구성한다. 공식 마감은 9/7 월요일 16:00이며 15:00까지 제출을 마무리하도록 상위 일정 전환 지시를 우선한다. 세부 계약은 `Docs/architecture.md`, 순서는 `Docs/task.md`의 A1을 따른다.
 
 ## Verification
 

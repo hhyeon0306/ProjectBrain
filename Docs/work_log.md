@@ -6,7 +6,7 @@
 - Files: AGENTS.md, Docs/{session_handoff,work_log}.md.
 - Verification: 양쪽 session-start와 상위 scripts/verify.ps1 -IncludeBrain 통과.
 - Decisions: 노드·관계 저장과 검사를 먼저 독립 완료하고 기존 v2 이관은 다음 작업 단위로 진행한다.
-- Next: 제출 일정 확인 후 Packages/com.projectbrain.editor/Editor에서 A1 저장소 구현.
+- Next: 한국시간 9/6 14:00경 Packages/com.projectbrain.editor/Editor에서 A1 저장소 구현. 9/7 15:00 제출 완료 목표를 우선한다.
 - Limitations: Unity 제품 코드는 변경하지 않았고 기존 Unity 생성 변경 두 파일은 보존한다.
 
 ## 2026-09-06 목업 기준 문서·작업 구조 재편
