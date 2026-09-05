@@ -15,13 +15,13 @@ namespace ProjectBrain
         private readonly List<Button> nodes = new List<Button>();
         private Vector2 center;
 
-        public DocumentGraphView(ScriptDocument document, Action<MonoScript> select)
+        public DocumentGraphView(ScriptDocument document, string[] relatedGuids, Action<MonoScript> select)
         {
             style.minHeight = 320;
             style.flexGrow = 1;
             style.backgroundColor = new Color(0.075f, 0.085f, 0.11f);
             style.overflow = Overflow.Hidden;
-            var guids = new[] { document.scriptGuid }.Concat(document.relatedScriptGuids ?? Array.Empty<string>()).Distinct().ToArray();
+            var guids = new[] { document.scriptGuid }.Concat(relatedGuids ?? Array.Empty<string>()).Distinct().ToArray();
             foreach (var guid in guids)
             {
                 var path = AssetDatabase.GUIDToAssetPath(guid);

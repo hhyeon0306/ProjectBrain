@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -39,6 +40,15 @@ namespace ProjectBrain
                 else File.Move(temp, path);
             }
             finally { if (File.Exists(temp)) File.Delete(temp); }
+        }
+
+        public IReadOnlyList<ScriptDocument> LoadAll()
+        {
+            if (!Directory.Exists(directory)) return Array.Empty<ScriptDocument>();
+            var documents = new List<ScriptDocument>();
+            foreach (var path in Directory.GetFiles(directory, "*.json"))
+                documents.Add(Load(Path.GetFileNameWithoutExtension(path)));
+            return documents;
         }
 
         private string GetPath(string guid)

@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -39,6 +40,14 @@ namespace ProjectBrain
                 Require(restored.role == document.role && restored.designIntent == document.designIntent && restored.cautions == document.cautions, "roundtrip"); passed++;
                 Require(restored.body == document.body && restored.imageGuids[0] == document.imageGuids[0] && restored.relatedScriptGuids[0] == document.relatedScriptGuids[0], "body images relations roundtrip"); passed++;
                 Require(service.ResolvePath(restored) == "Assets/TutorialInfo/Scripts/Readme.cs" && restored.savedCodeHash.Length == 64, "GUID and hash"); passed++;
+                var inbound = new ScriptDocument
+                {
+                    scriptGuid = "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+                    lastKnownPath = "Assets/Inbound.cs",
+                    relatedScriptGuids = new[] { restored.scriptGuid }
+                };
+                store.Save(inbound);
+                Require(service.GetGraphRelatedGuids(restored).Contains(inbound.scriptGuid), "incoming relation is navigable"); passed++;
                 restored.role = "갱신";
                 service.Save(restored);
                 Require(store.Load(restored.scriptGuid).role == "갱신", "atomic replacement"); passed++;

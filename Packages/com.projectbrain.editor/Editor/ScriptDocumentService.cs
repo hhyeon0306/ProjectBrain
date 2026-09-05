@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Security.Cryptography;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -23,6 +24,16 @@ namespace ProjectBrain
         }
 
         public string ResolvePath(ScriptDocument document) => AssetDatabase.GUIDToAssetPath(document.scriptGuid);
+
+        public string[] GetGraphRelatedGuids(ScriptDocument document)
+        {
+            var outgoing = document.relatedScriptGuids ?? Array.Empty<string>();
+            var incoming = store.LoadAll()
+                .Where(candidate => candidate.scriptGuid != document.scriptGuid)
+                .Where(candidate => (candidate.relatedScriptGuids ?? Array.Empty<string>()).Contains(document.scriptGuid))
+                .Select(candidate => candidate.scriptGuid);
+            return outgoing.Concat(incoming).Distinct().ToArray();
+        }
 
         public void Save(ScriptDocument document)
         {

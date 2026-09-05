@@ -18,3 +18,5 @@ Unity MCP script_execute로 DocumentStoreChecks.RunInEditor: 13개 통과. 별�
 2026-09-05 검증: Logs/brain-graph-checks.log에 저장 검사 13개 통과, 컴파일 오류 없음. 관계 그래프 시각/클릭은 수동 확인 대기.
 
 2026-09-05 데모: BrainDocumentSample 중심으로 GameFlow/Input/Movement/Health/HUD/Save 문서와 관계를 추가했다. Unity가 파일을 가져왔고 Editor.log에 새 컴파일 오류가 없으며 Editor는 정상 응답 중이다. 현재 열린 창은 저장된 문서 다시 읽기가 필요하다.
+
+2026-09-05 탐색 수정: Sample→Flow처럼 한쪽 문서에만 저장된 관계도 Flow에서 Sample로 돌아갈 수 있도록 들어오는 관계를 함께 조회한다. dotnet 컴파일 오류 0/기존 참조 경고 3. 열린 Unity가 아직 외부 변경을 가져오지 않아 Unity 내 동작 검증은 재컴파일 후 필요하다.

@@ -72,7 +72,7 @@ namespace ProjectBrain
                 return;
             }
             graph.Add(new Label("직접 연결한 관련 코드 · 노드를 눌러 문서 열기"));
-            graph.Add(new DocumentGraphView(document, script =>
+            graph.Add(new DocumentGraphView(document, service.GetGraphRelatedGuids(document), script =>
             {
                 if (script == selectedScript || !ConfirmDiscard()) return;
                 Run(() =>

@@ -1,5 +1,14 @@
 # Brain 작업 이력
 
+## 2026-09-05 관계 역방향 탐색 수정
+- Goal: Sample에서 Flow로 이동한 뒤 Sample로 돌아오지 못하는 그래프 탐색 문제를 해결한다.
+- Changes: 문서 저장소 전체 조회와 들어오는 관계 검색 추가. 그래프는 선택 문서가 등록한 관계와 다른 문서가 선택 문서를 가리키는 관계를 합쳐 표시한다. 저장 JSON을 강제로 양쪽 수정하지 않는다.
+- Files: Editor/{DocumentStore,ScriptDocumentService,DocumentGraphView,BrainDocumentWindow,DocumentStoreChecks}.cs, Docs/{product_spec,session_handoff,work_log}.md.
+- Verification: ProjectBrain.Editor.csproj 컴파일 오류 0, 기존 의존성 참조 경고 3. 들어오는 관계 검사 코드를 추가했으나 열린 Unity가 아직 새 코드를 가져오지 않아 Unity 실행 검증은 대기.
+- Decisions: 관계는 저장은 단방향, 탐색은 양방향으로 정의. 사용자가 같은 관계를 두 문서에 반복 입력할 필요가 없게 한다.
+- Next: Unity가 재컴파일된 뒤 Flow에서 Sample 노드 표시와 클릭 복귀 확인.
+- Limitations: 손상된 문서 하나가 있으면 전체 관계 조회를 거절한다. 자동 코드 의존성 분석은 아직 없음.
+
 ## 2026-09-05 관계도 데모 데이터
 - Goal: 사용자가 관계 그래프의 다중 노드와 문서 이동을 바로 확인할 수 있게 한다.
 - Changes: GameFlow, Input, Movement, Health, HUD, Save 역할의 데모 스크립트 6개와 문서 7개를 만들고 실제 책임에 맞춰 관계를 연결. 중심 문서에 기존 URP 이미지를 첨부.
