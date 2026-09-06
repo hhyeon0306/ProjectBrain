@@ -68,3 +68,16 @@
 .brain .resource-card { margin-top: 16px; padding: 16px; border-width: 1px; border-color: #51555e; border-radius: 6px; background-color: #333639; }
 .brain .resource-title { font-size: 15px; -unity-font-style: bold; white-space: normal; margin-bottom: 6px; }
 .brain .document-window .unity-help-box { margin: 4px 20px; flex-shrink: 0; }
+.brain .structure-body { flex-grow: 1; min-height: 0; flex-direction: row; }
+.brain .domain-navigation { width: 185px; flex-shrink: 0; padding: 16px 10px; background-color: #292b2d; border-right-width: 1px; border-right-color: #46494f; }
+.brain .navigation-item { white-space: normal; -unity-text-align: middle-left; min-height: 32px; }
+.brain .domain-navigation .eyebrow { margin-top: 18px; }
+.brain .structure-inspector { width: 310px; flex-shrink: 0; padding: 14px; background-color: #35373b; border-left-width: 1px; border-left-color: #55585e; }
+.brain .structure-inspector .detail-title { font-size: 20px; margin-bottom: 12px; }
+.brain .selection-bar { flex-direction: row; align-items: center; padding: 6px 14px; min-height: 40px; flex-shrink: 0; border-bottom-width: 1px; border-bottom-color: #46494f; }
+.brain .map-heading { top: 16px; left: 24px; }
+.brain .scope-title { font-size: 18px; }
+.brain .map-count { top: 45px; left: 26px; }
+.brain .map-modes { top: 12px; }
+.brain .map-tools { left: 12px; }
+.brain .summary-panel { max-width: 90%; }

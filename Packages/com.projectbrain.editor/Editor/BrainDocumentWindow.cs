@@ -25,6 +25,15 @@ namespace ProjectBrain
 
         [MenuItem("Window/Project Brain/Script Document")]
         public static void Open() => GetWindow<BrainDocumentWindow>("Brain 문서");
+        public static void OpenScript(MonoScript script)
+        {
+            var window = GetWindow<BrainDocumentWindow>("Brain 문서");
+            if (window.form == null) window.CreateGUI();
+            if (window.selectedScript == script && window.document != null) { window.Focus(); return; }
+            if (!window.ConfirmDiscard()) return;
+            window.Run(() => { window.LoadScript(script); window.picker.SetValueWithoutNotify(window.selectedScript); });
+            window.Focus();
+        }
 
         public void CreateGUI()
         {

@@ -1,0 +1,58 @@
+{
+  "unit": "U1-4",
+  "project": "C:/Dev/nexontutorial/ProjectBrain",
+  "checks": {
+    "map": 11,
+    "scope": 10
+  },
+  "ui": {
+    "labelDoubleClick": "UI Toolkit ClickEvent clickCount=2 routed to DemoPlayerInput",
+    "sameScriptDraft": "preserved; temporary test change restored without save",
+    "records": "hidden by default",
+    "inspector": "sibling panel, not overlay",
+    "smallWindow": "860x600; toolbar clipping fixed and bounds checked",
+    "nativeMouseDoubleClick": "not tested"
+  },
+  "verification": [
+    {
+      "schemaVersion": 1,
+      "id": "02f5105f-867e-4afa-863d-d9c22a12b2ca",
+      "taskId": "a48a9ba7-be69-4985-a648-ed5d2ac5442f",
+      "kind": "compile",
+      "state": "passed",
+      "snapshotHash": "a82fcf3c82e9775670dbc41cb41b773f6c6ef4a29a9d8940bd98995537fb5e9f",
+      "startedUtc": "2026-09-06T22:45:17.1451026Z",
+      "endedUtc": "2026-09-06T22:45:38.7597633Z",
+      "summary": "Unity compilation callbacks; compiled=0, up-to-date=74, errors=0",
+      "total": 74,
+      "passed": 74,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "schemaVersion": 1,
+      "id": "4a34b53c-350f-412a-a44c-e6d322c1f175",
+      "taskId": "a48a9ba7-be69-4985-a648-ed5d2ac5442f",
+      "kind": "editmode",
+      "state": "passed",
+      "snapshotHash": "a82fcf3c82e9775670dbc41cb41b773f6c6ef4a29a9d8940bd98995537fb5e9f",
+      "startedUtc": "2026-09-06T22:46:02.0175046Z",
+      "endedUtc": "2026-09-06T22:46:08.8606757Z",
+      "summary": "All discovered EditMode tests. Passed; ",
+      "total": 9,
+      "passed": 9,
+      "failed": 0,
+      "skipped": 0
+    }
+  ],
+  "task": {
+    "revision": 14,
+    "baselineHash": "cba3ad3a33b00ac627f9a3823aae5a8f6f16c419911f8ce3b1a9a109ffac6dd9",
+    "baselineFileCount": 240
+  },
+  "reasons": {
+    "outside-allowed": 48,
+    "unmapped-change": 48,
+    "document-unreviewed": 2
+  }
+}

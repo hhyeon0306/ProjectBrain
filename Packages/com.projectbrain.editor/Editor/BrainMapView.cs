@@ -17,11 +17,14 @@ namespace ProjectBrain
         private readonly HashSet<string> hiddenTypes = new HashSet<string>();
         private string selected, query = "";
         private bool local;
+        private HashSet<string> scopeIds;
+        public Action<string> Activated;
         private Vector2 offset, lastPointer;
         private float zoom = 1;
         private int pointer = -1;
         private string dragged;
         private bool moved;
+        private int pressClicks;
         public Action Changed;
         public int VisibleCount => visibleNodes.Count;
         public int HiddenLabelCount { get; private set; }
@@ -41,6 +44,16 @@ namespace ProjectBrain
                 var title = node.type == "Evidence" ? "검증 기록 · " + id.Substring(Math.Max(0, id.Length - 6)) : node.title;
                 var button = new Button(() => { if (!moved) select(id); }) { text = title, name = "map-node-" + id, tooltip = BrainTheme.TypeName(node.type) + " · " + node.title + "\n" + node.summary + "\n" + id };
                 button.AddToClassList("node-label"); labels.Add(id, button); Add(button);
+                button.RegisterCallback<ClickEvent>(e => { if (e.button == 0 && e.clickCount == 2 && !moved) { Activated?.Invoke(id); e.StopPropagation(); } });
+                button.AddManipulator(new ContextualMenuManipulator(e =>
+                {
+                    e.menu.AppendAction(node.type == "Code" ? "문서 열기" : "선택 항목 열기", _ => Activated?.Invoke(id));
+                    if (node.type == "Code") e.menu.AppendAction("코드 열기", _ =>
+                    {
+                        var asset = UnityEditor.AssetDatabase.LoadAssetAtPath<UnityEditor.MonoScript>(UnityEditor.AssetDatabase.GUIDToAssetPath(node.assetGuid));
+                        if (asset != null) UnityEditor.AssetDatabase.OpenAsset(asset);
+                    });
+                }));
             }
             generateVisualContent += Draw;
             RegisterCallback<GeometryChangedEvent>(e => { if (e.newRect.size != e.oldRect.size) Fit(); });
@@ -53,6 +66,7 @@ namespace ProjectBrain
             RefreshVisible();
         }
         public void SetSelected(string id) { selected = id; RefreshVisible(); if (local) Fit(); }
+        public void SetScope(HashSet<string> ids) { scopeIds = ids; RefreshVisible(); Fit(); }
         public void SetQuery(string text) { query = text ?? ""; RefreshVisible(); Fit(); }
         public void SetLocal(bool value) { local = value; RefreshVisible(); Fit(); }
         public void ShowType(string type, bool show) { if (show) hiddenTypes.Remove(type); else hiddenTypes.Add(type); RefreshVisible(); Fit(); }
@@ -70,9 +84,9 @@ namespace ProjectBrain
             var min = new Vector2(points.Min(p => p.x), points.Min(p => p.y));
             var max = new Vector2(points.Max(p => p.x), points.Max(p => p.y));
             // Use the entire map; screen-space separation avoids the floating inspector below.
-            var size = new Vector2(Mathf.Max(160, contentRect.width - 240), Mathf.Max(100, contentRect.height - 230));
+            var size = new Vector2(Mathf.Max(160, contentRect.width - 240), Mathf.Max(100, contentRect.height - 140));
             zoom = Mathf.Clamp(Mathf.Min(size.x / Mathf.Max(1, max.x - min.x), size.y / Mathf.Max(1, max.y - min.y)), .2f, 1.15f);
-            offset = new Vector2(48, 148) + size * .5f - (min + max) * .5f * zoom;
+            offset = new Vector2(48, 68) + size * .5f - (min + max) * .5f * zoom;
             SeparateLabels();
             UpdatePositions();
         }
@@ -96,13 +110,7 @@ namespace ProjectBrain
                 }
                 for (int i = 0; i < points.Length; i++)
                 {
-                    var point = new Vector2(Mathf.Clamp(points[i].x, 34, right), Mathf.Clamp(points[i].y, 144, bottom));
-                    float panelLeft = Mathf.Max(190, contentRect.width - 520), panelTop = Mathf.Max(190, contentRect.height - 478);
-                    if (point.x > panelLeft && point.y > panelTop)
-                    {
-                        if (point.x - panelLeft < point.y - panelTop) point.x = panelLeft;
-                        else point.y = panelTop;
-                    }
+                    var point = new Vector2(Mathf.Clamp(points[i].x, 34, right), Mathf.Clamp(points[i].y, 64, bottom));
                     points[i] = point;
                 }
                 if (!overlap) break;
@@ -118,6 +126,7 @@ namespace ProjectBrain
                 for (int depth = 0; depth < 2; depth++)
                     foreach (var id in scope.ToArray()) foreach (var r in graph.Around(id)) { scope.Add(r.from); scope.Add(r.to); }
             }
+            if (scopeIds != null) scope.IntersectWith(scopeIds);
             visibleNodes = new HashSet<string>(scope.Where(id => !hiddenTypes.Contains(graph.Get(id).type) &&
                 (query.Length == 0 || (graph.Get(id).title + " " + graph.Get(id).summary + " " + id).IndexOf(query, StringComparison.OrdinalIgnoreCase) >= 0)));
             foreach (var pair in labels)
@@ -151,6 +160,7 @@ namespace ProjectBrain
         {
             if (e.button != 0 && e.button != 2) return;
             Focus(); moved = false; dragged = null;
+            pressClicks = e.clickCount;
             var element = e.target as VisualElement;
             while (element != null && element != this)
             {
@@ -175,7 +185,11 @@ namespace ProjectBrain
         private void Up(PointerUpEvent e)
         {
             if (pointer != e.pointerId) return;
-            if (!moved && dragged != null && this.HasPointerCapture(pointer)) select(dragged);
+            if (!moved && dragged != null && this.HasPointerCapture(pointer))
+            {
+                select(dragged);
+                if (e.button == 0 && pressClicks == 2) Activated?.Invoke(dragged);
+            }
             if (this.HasPointerCapture(pointer)) this.ReleasePointer(pointer);
             pointer = -1; dragged = null;
         }

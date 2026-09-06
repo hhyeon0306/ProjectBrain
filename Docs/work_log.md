@@ -382,3 +382,15 @@ U1-3 최종 검증: 실제 Explorer 작업 초안/필터 유지 확인. compile 
 U1-3 관리 검사: 양쪽 문서 구조 통과. 전체 Git 검사는 기존 사용자 SampleScene.unity:242 공백으로 실패했으며 원본을 보존한다. 이번 변경만 별도 staged 검사한다.
 
 U1-3 범위 검사: 양쪽 git diff --cached --check 통과. 사용자5개 경로는 staged에서 제외했다.
+
+
+## 2026-09-07 U1-4 · 구조도 탐색 개선
+- Goal: 사용자가 지적한 이름·도메인 구분·하단 상세 가독성·CS 더블클릭을 보완한다. 제안의 적절성을 판단해 필수 기능은 보존한다.
+- Changes: 프로젝트 구조도 이름, 도메인/기능 사이드바와 범위 맞춤, 경계 연결 묶음, 기본 기록 숨김, 상단 요약/접는 우측 상세, CS 문서 전환 및 우클릭 IDE 열기. 작은 창에서 잘리던 도구 위치/작업 기억 폭 보완.
+- Files: BrainExplorerWindow/BrainMapView/BrainDocumentWindow/BrainTheme.uss, BrainMapScope/BrainMapScopeChecks 및 meta, Docs 계약/인계/증거.
+- Verification: Map11/Scope10 자체 검사 통과. 실제 창의 ClickEvent(clickCount=2) 발송으로 DemoPlayerInput 문서 연결 확인; 동일 문서 재열기의 임시 초안 보존 후 원상복원, 저장하지 않음. 기록 기본 숨김/상세가 그래프와 형제 패널임 확인. 실제 도킹 화면과 임시860×600 창 확인; 작은 창 도구 잘림을 수정하고 경계 수치 재확인. 물리 마우스 더블클릭은 이번 검사에 포함하지 않음. 초기 scope fixture는 자산 GUID 누락으로 실패해 fixture를 수정한 뒤10항목 통과. 최종 Unity 결과는 reviews/2026-09-07-u1-4-evidence.json 참조.
+- Decisions: 정보 패널을 완전히 없애면 사람 확인·검증 경로를 잃으므로 필요할 때 펼치는 상세로 이동한다. 의존 관계 전체를 따라가면 도메인 필터가 무의미해지므로 경계 목록으로 제공한다.
+- Next: 사용자 추가 지적을 한 단위씩 판단·보정. 서류/PPT15:00 준비도 확인.
+- Limitations: 등록된 소속 기준이며 실제 Player 도메인은 기록 제외9노드다. 실제 작업의 사람 확인·허용 범위 문제를 자동 해결하지 않음. 사용자5경로 변경 보존.
+
+U1-4 관리 검사: verify -IncludeBrain 양쪽 문서 구조 통과. 전체 Git 검사는 기존 사용자 SampleScene.unity:242 공백으로 실패하여 보존하고 이번 변경만 별도 staged 검사한다.
