@@ -28,6 +28,20 @@ namespace ProjectBrain
         });
 
         private static BrainCompletionService CompletionService() => new BrainCompletionService(ScriptDocumentService.ProjectRoot, new UnityBrainJson(), AssetDatabase.GUIDToAssetPath);
+        private static BrainEditService EditService() => new BrainEditService(ScriptDocumentService.ProjectRoot, new UnityBrainJson(), AssetDatabase.GUIDToAssetPath);
+        private static void RequireEditIdle() => BrainWorkspace.Require(!EditorApplication.isCompiling && !EditorApplication.isUpdating && !EditorApplication.isPlayingOrWillChangePlaymode, "Editor가 처리 중입니다.");
+
+        [AiTool("brain_read_edit", Title = "Brain / Read Edit Target", ReadOnlyHint = true)]
+        [Description("Read one existing Code or Document with task revision, expectedHash and document expectedContextHash. UTF-8 up to 128KiB; Code content preserves BOM as a character. writable reflects task allowed paths. Document data is nodes, not legacy docs. No human approval.")]
+        public static BrainEditView ReadEdit(string taskId, int expectedRevision, string nodeId) => MainThread.Instance.Run(() => EditService().Read(taskId, expectedRevision, nodeId));
+
+        [AiTool("brain_apply", Title = "Brain / Apply Code", ReadOnlyHint = false)]
+        [Description("Replace one existing permitted C# Code node file using expected byte SHA256 and task revision. UTF-8 only; preserve returned BOM/newlines. No create/delete/rename/meta/policy change. Returns journal receipt; call assets-refresh afterwards if needsAssetRefresh. A prepared receipt after failure is an uncertain partial operation, not success.")]
+        public static BrainEditReceipt Apply(string taskId, int expectedRevision, string nodeId, string expectedHash, string content) => MainThread.Instance.Run(() => { RequireEditIdle(); return EditService().Apply(taskId, expectedRevision, nodeId, expectedHash, content); });
+
+        [AiTool("brain_update_document", Title = "Brain / Update Document", ReadOnlyHint = false)]
+        [Description("Update an existing nodes Document summary/body using expected node payload hash, document/code/relation context hash and task revision from brain_read_edit. Every linked Code path must be allowed. Marks changed content unreviewed; never updates human review or freshness basis. Legacy docs are not synchronized. Returns journal receipt.")]
+        public static BrainEditReceipt UpdateDocument(string taskId, int expectedRevision, string nodeId, string expectedHash, string expectedContextHash, string summary, string body) => MainThread.Instance.Run(() => { RequireEditIdle(); return EditService().UpdateDocument(taskId, expectedRevision, nodeId, expectedHash, expectedContextHash, summary, body); });
 
         [AiTool("brain_verify", Title = "Brain / Run Unity Verification", ReadOnlyHint = false)]
         [Description("Start real Unity compile or all discovered EditMode tests via the shared Ivan TestRunner API. Returns run ID immediately; poll brain_status for terminal records. Fixed kind compile/editmode; no caller supplied success. Refuses dirty scenes, busy editor and concurrent tests. Five minute timeout, interrupted reloads and changed snapshots are not passes.")]

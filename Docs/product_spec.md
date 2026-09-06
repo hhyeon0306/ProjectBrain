@@ -56,8 +56,8 @@ Project
 | brain_update_task | revision 확인 후 진행·결정·미해결·다음 행동 저장 (구현) | 작업 재개에 필수 |
 | brain_status | 변경·허용 밖 경로·coverage (구현), 문서 확인·완료 거절 이유도 구현, 실제 검증은 후속 | 필수 |
 | brain_record_basis | 설명/관계와 코드 bytes 기준선 명시적 기록 (구현, 승인 아님) | 최신성 |
-| brain_update_document | 문서 갱신, AI 작성과 사람 확인 구분 (후속) | 완전한 편집 흐름 |
-| brain_apply | 예상 해시가 맞는 파일 수정·이력 기록 | 완전한 편집 흐름 |
+| brain_update_document | 기존 nodes 문서 summary/body 갱신, AI 작성과 사람 확인 구분 (구현) | 완전한 편집 흐름 |
+| brain_apply | 기존 허용 C# 노드의 예상 해시 수정·이력 기록 (구현) | 완전한 편집 흐름 |
 | brain_verify | compile/EditMode 실제 요청·실행 ID·최종 결과 구현 | 필수 |
 | brain_complete | 현재 기준 조건 검사·거절 및 충족 시 Activity 기록 구현 | 필수 |
 
@@ -112,3 +112,5 @@ AGENTS를 Brain **사용 중심**으로 전환하려면 begin/context/apply/upda
 
 2026-09-07 사용자 다음 작업 진행 요청으로 A3/V1 최소 검증 연결을 수행했다. 디자인용 아트는 디자인 단계에서 직접 제작·적용한다. 서류·PPT 15:00 마감은 유지한다.
 현재 테스트 범위와 남은 실제 시연은 brain-usage의 A3/V1 절을 따른다.
+
+2026-09-07 M2b 최소 편집 구현: brain_read_edit를 더해 현재 도구는 10개다. 지원 형식·크기·허용 범위·prepared 이력 한계는 architecture의 M2b 절을 따른다. 전체 실제 사람 확인/완료 성공 시연 및 활성 작업 자동 교체는 여전히 남아 있다.

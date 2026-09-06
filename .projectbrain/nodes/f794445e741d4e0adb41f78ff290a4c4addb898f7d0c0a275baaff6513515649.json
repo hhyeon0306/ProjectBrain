@@ -1,0 +1,13 @@
+{
+    "schemaVersion": 1,
+    "id": "evidence:b6d8396b-b18a-4594-bf2f-e939f834f502",
+    "type": "Evidence",
+    "title": "compile · interrupted",
+    "summary": "Editor/domain restarted before a terminal callback.",
+    "body": ".projectbrain/evidence/b6d8396b-b18a-4594-bf2f-e939f834f502.json",
+    "assetGuid": "",
+    "lastKnownPath": "",
+    "tags": [],
+    "status": "recorded",
+    "updatedUtc": "2026-09-06T17:10:24.2149807Z"
+}

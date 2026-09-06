@@ -1,0 +1,15 @@
+{
+    "schemaVersion": 1,
+    "id": "b6d8396b-b18a-4594-bf2f-e939f834f502",
+    "taskId": "a48a9ba7-be69-4985-a648-ed5d2ac5442f",
+    "kind": "compile",
+    "state": "interrupted",
+    "snapshotHash": "db8c8a5523b8065e14b58addbb909db3c399333e77931f067b2b55226f80f5f4",
+    "startedUtc": "2026-09-06T17:07:25.9156058Z",
+    "endedUtc": "2026-09-06T17:10:24.2149807Z",
+    "summary": "Editor/domain restarted before a terminal callback.",
+    "total": 0,
+    "passed": 0,
+    "failed": 0,
+    "skipped": 0
+}

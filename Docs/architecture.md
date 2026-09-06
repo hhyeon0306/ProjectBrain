@@ -161,3 +161,13 @@ brain_verify는 taskId/revision과 compile 또는 editmode를 받아 실행 ID�
 완료 요청은 정책을 만족하면 activities/<UUID>.json에 작업 ID/revision·스냅샷·검증 실행 ID·완료 시각을 기록하고 Activity 노드/관계로 연결한다. status.ready는 현재 조건 충족 여부이고 completed는 실제 complete 호출의 기록 성공 여부다. 활성 작업 기준선은 유지하며 작업 자동 교체/아카이브는 별도 후속이다. 같은 작업의 나중 변경은 예전 Activity를 지우지 않지만 현재 완료 조건은 다시 검사한다. 여러 파일의 트랜잭션 보장은 없으며 부분 발행 실패 시 완료 성공을 반환하지 않는다.
 
 컴파일 결과의 total/passed는 어셈블리 단위이며 테스트 개수가 아니다. summary에 compiled와 up-to-date(assemblyCompilationNotRequired)를 구분한다. Unity가 재컴파일 불필요로 확인한 어셈블리를 새로 컴파일했다고 표현하지 않는다. 실행 ID·콜백 카운터는 SessionState로 도메인 재로딩을 넘어 복원하며, 콜백을 놓친 채 실행기가 비활성화되거나 Editor 재시작으로 세션이 사라지면 interrupted로 처리한다.
+
+## M2b 편집 계약 (2026-09-07)
+
+brain_read_edit(taskId, expectedRevision, nodeId)로 기존 Code/Document 하나의 content·summary·expectedHash·expectedContextHash·writable을 읽는다. Code 해시는 파일 bytes SHA256이고 Document 해시는 UnityBrainJson으로 직렬화한 전체 노드 payload SHA256이다. 서로 다른 해시 의미를 혼용하지 않는다. 문서 context 해시는 본문·연결 코드·의미 관계 기준이며 코드/관계 변경도 갱신 충돌로 거절한다.
+
+brain_apply는 nodeId에 연결된 기존 프로젝트 .cs 하나만 허용한다. 작업 허용 경로·revision·예상 해시가 맞아야 쓰며 경로는 GUID에서 해석한다. 생성/삭제/이동/meta/바이너리는 미지원. UTF-8 128KiB 이하, NUL 불허. 읽기 결과의 BOM 문자와 줄바꿈은 호출자가 유지한다. 변경 후 needsAssetRefresh=true이면 Ivan assets-refresh를 실행한다. 자동 재컴파일을 시작해 응답을 잃지 않도록 apply 자체는 refresh하지 않는다.
+
+brain_update_document는 nodes Document의 summary/body만 갱신한다. 연결 코드 경로가 모두 허용 범위여야 하고 expectedHash와 expectedContextHash를 함께 검사한다. ID/type/title/관계·작업 기준선은 변경하지 않는다. 본문이 바뀌면 status=unreviewed, updatedUtc를 갱신한다. 사람 review나 freshness는 자동 변경하지 않는다. 작성한 내용과 코드 근거를 확인한 뒤 brain_record_basis를 명시적으로 호출할 수 있으며 이는 사람 승인이 아니다. 기존 docs 사본과 자동 동기화하지 않는다.
+
+편집 이력은 .projectbrain/edits/<UUID>.json의 actor=agent, 작업/revision/노드/작업 종류, 전후 해시/시각/state다. 쓰기 전 prepared를 저장하고 파일과 최종 이력 저장까지 성공한 뒤 applied를 반환한다. 중간 실패는 prepared를 남기고 경로가 포함된 오류를 반환한다. 일부 내용이 이미 바뀌었을 수 있으므로 재조회·해시 확인 뒤 재시도하며 원본 복원을 자동 강제하지 않는다. 동일 내용은 unchanged로 반환하고 이력을 만들지 않는다. 파일+이력의 다중 파일 트랜잭션이나 외부 편집기와의 OS 수준 CAS는 보장하지 않는다. prepared의 자동 복구/정리 및 이력 요약 UI는 후속이다.

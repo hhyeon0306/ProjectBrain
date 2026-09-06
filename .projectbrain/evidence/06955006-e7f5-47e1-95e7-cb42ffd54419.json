@@ -1,0 +1,15 @@
+{
+    "schemaVersion": 1,
+    "id": "06955006-e7f5-47e1-95e7-cb42ffd54419",
+    "taskId": "a48a9ba7-be69-4985-a648-ed5d2ac5442f",
+    "kind": "editmode",
+    "state": "passed",
+    "snapshotHash": "db8c8a5523b8065e14b58addbb909db3c399333e77931f067b2b55226f80f5f4",
+    "startedUtc": "2026-09-06T17:10:22.3869438Z",
+    "endedUtc": "2026-09-06T17:10:31.1737742Z",
+    "summary": "All discovered EditMode tests. Passed; ",
+    "total": 9,
+    "passed": 9,
+    "failed": 0,
+    "skipped": 0
+}

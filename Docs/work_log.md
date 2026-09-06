@@ -1,5 +1,15 @@
 # Brain 작업 이력
 
+## 2026-09-07 M2b 에이전트 편집 최소 흐름
+- Goal: 허용된 코드와 연결 문서를 에이전트가 충돌을 확인하며 수정한다.
+- Changes: read_edit/apply/update_document 3개 도구, 해시·revision·문서 근거 확인, 편집 영수증. 실제 Movement 주석과 설명 문서 갱신, 작업 요약 revision8.
+- Files: BrainEditService/Checks.cs 및 meta, BrainTools.cs, DemoPlayerMovement.cs, .projectbrain 노드/edits/freshness/evidence/relations/tasks, AGENTS.md와 Docs 계약/사용법/인계/기록.
+- Verification: 격리 Edit22+Completion32 자체 검사 통과. 실제 HTTP 코드 적용·오래된 코드 해시 및 문서 맥락 거절·문서 저장 확인. 실제 EditMode9/9(WorkflowDemo). 최종 컴파일 재실행 compiled0/up-to-date74/errors0 통과(87d44a45-5334-44fe-b0f5-3c50178b9ee1).
+- Decisions: 기존 .cs 128KiB와 연결 Document만 지원. 문서 최신성은 현재 코드에 맞춰 작성한 뒤 명시적으로 기록하며 사람 확인과 분리. 사용자 요청에 따른 이번 단위이며 9/7 새 기능 금지 원칙의 전면 해제 아님.
+- Next: 서류·PPT 9/7 15:00 준비도 확인. 다음 개발은 활성 작업 범위·종료/교체 계약 및 실제 사람 확인/완료 시연. U1 전체 디자인은 핵심 흐름 이후.
+- Limitations: 문서 File.Replace 1회 실패 시 원본 보존 확인 후 재시도 성공. prepared 기록 fdc097c0-6119-429e-8c58-7d4f5279f424는 보존. 자동 복구·다중 파일 트랜잭션 없음. 최초 컴파일 종료 기록은 interrupted로 복구되어 성공으로 계산하지 않음. 사람 문서2개 미확인/범위 밖 변경으로 실제 완료는 거절. 기존 사용자 변경4개 보존, 원격 업로드 없음.
+
+
 ## 2026-09-07 WF-B 현재 API 연동
 - Goal: 실제 Brain 도구를 MCP 중심 작업 절차에 연결하고 사용 순서를 검증한다.
 - Changes: 상위/하위 AGENTS와 사용법에 7개 도구의 실제 순서를 반영. 작업표와 인계 갱신, 요약 revision6→7. 제품 C# 변경은 남기지 않음.
@@ -285,3 +295,7 @@
 이동 검증 보완: 두 MCP 설정의 새 경로/식별자와 서버 실행 파일 존재 확인. 상위 verify -IncludeBrain 통과. 실제 Unity/MCP 재연결은 재시작 후 확인 필요. 구 경로의 빈 .git 삭제는 자동 안전 정책에 차단되어 빈 껍데기를 보존함.
 
 검증 결과: Unity 6000.3.8f1 배치 컴파일 성공, PROJECT_BRAIN_CHECKS_PASSED=13. 관리 검사 통과. 그래프 시각/클릭 동작은 아직 수동 검증 전이며 저장 검사와 구분한다. 종료 시 Unity 임시 메모리 경고 기록됨.
+
+M2b 관리 검사: scripts/verify.ps1 -IncludeBrain의 양쪽 문서 구조 검사 통과. 전체 Git 검사는 기존 사용자 Assets/Scenes/SampleScene.unity:242 공백으로 실패. 해당 씬을 보존하고 이번 변경만 별도 staged 검사한다.
+
+M2b 최종 범위 검사: 양쪽 git diff --cached --check 통과. 기존 사용자 변경4개는 staged 대상에서 제외했다.

@@ -296,6 +296,30 @@
             "type": "verified_by",
             "source": "brain-unity-runner",
             "createdUtc": "2026-09-06T15:39:26.3544846Z"
+        },
+        {
+            "id": "relation:b886ffb6c37215b7bd1c0a028e6a565d3ca89f3876c662cfa63971326ae33725",
+            "from": "feature:player/movement",
+            "to": "evidence:b6d8396b-b18a-4594-bf2f-e939f834f502",
+            "type": "verified_by",
+            "source": "brain-unity-runner",
+            "createdUtc": "2026-09-06T17:10:24.2149807Z"
+        },
+        {
+            "id": "relation:cef60e68348de1613dd3dec1228bcfc0c5bf4f328b55c3d3f04be78519aaa683",
+            "from": "feature:player/movement",
+            "to": "evidence:06955006-e7f5-47e1-95e7-cb42ffd54419",
+            "type": "verified_by",
+            "source": "brain-unity-runner",
+            "createdUtc": "2026-09-06T17:10:31.1737742Z"
+        },
+        {
+            "id": "relation:86c980aefdba813b75a3b7d0200ec97d82dd87034332beecc7e59f7ad87943e8",
+            "from": "feature:player/movement",
+            "to": "evidence:87d44a45-5334-44fe-b0f5-3c50178b9ee1",
+            "type": "verified_by",
+            "source": "brain-unity-runner",
+            "createdUtc": "2026-09-06T17:11:04.9984126Z"
         }
     ]
 }

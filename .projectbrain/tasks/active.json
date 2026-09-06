@@ -1,15 +1,15 @@
 {
     "schemaVersion": 1,
     "id": "a48a9ba7-be69-4985-a648-ed5d2ac5442f",
-    "revision": 7,
+    "revision": 8,
     "purpose": "Player 이동 코드의 작업 재개와 맥락·최신성 시연",
     "targetNodeIds": [
         "feature:player/movement"
     ],
-    "progress": "WF-B 현재 7개 API 연동: 작업 재개·제한 맥락·코드 변경 후 검증 무효화·복원·실제 EditMode9/9·완료 거절을 확인했다.",
-    "decisions": "상위/하위 지침에 실제 호출 순서를 반영한다. 적용/문서 갱신 API는 아직 없으므로 완전한 Brain 사용 중심 전환과 구분한다. 원래 baseline과 사람 미확인 유지.",
-    "unresolved": "실제 문서 2개 사람 확인·허용 밖 변경 해소와 최종 완료 시연이 남았다. 상태 응답 요약/상세 분리는 후속 개선이며 토큰 절감은 미측정이다.",
-    "nextAction": "서류·PPT 준비도 확인. M2b 적용/문서 갱신과 활성 작업 범위 처리 계약을 정리한 뒤 실제 완료 시연, 이후 U1 디자인.",
+    "progress": "M2b 최소 편집 구현: 실제 코드/문서 저장, 충돌 거절, 자체54항목·EditMode9/9·컴파일 최신 상태 확인.",
+    "decisions": "기존 C# 및 연결 Document만 지원. 해시/revision/근거 일치 필요. 사람 확인과 기준선은 자동 변경하지 않는다.",
+    "unresolved": "실제 문서2개 사람 확인과 허용 밖 변경 처리/작업 종료·교체가 남았다. prepared 자동 복구 미구현. 파일 교체 순간 오류 원인 미확정.",
+    "nextAction": "서류·PPT 9/7 15:00 준비도 확인. 다음 개발은 활성 작업 범위·종료/교체 계약 및 실제 사람 확인/완료 시연. U1 전체 디자인은 핵심 흐름 이후.",
     "references": [
         "feature:player/movement",
         "document:10000000000000000000000000000003"
@@ -984,5 +984,5 @@
     },
     "gitStateAtBegin": "not-queried; baseline includes pre-existing working files",
     "createdUtc": "2026-09-06T08:18:14.4162169Z",
-    "updatedUtc": "2026-09-06T15:40:30.1882806Z"
+    "updatedUtc": "2026-09-06T17:11:24.4731025Z"
 }

@@ -1,0 +1,15 @@
+{
+    "schemaVersion": 1,
+    "id": "fdc097c0-6119-429e-8c58-7d4f5279f424",
+    "taskId": "a48a9ba7-be69-4985-a648-ed5d2ac5442f",
+    "revision": 7,
+    "nodeId": "document:10000000000000000000000000000003",
+    "operation": "update_document",
+    "actor": "agent",
+    "beforeHash": "a9cef978da4f4cc77e1ccda9e5be0278a7f9a9b32919e11556c3e44917d94378",
+    "afterHash": "e3c576d48c1c08ff81fc9ede4a3c44019ff7b72d940b0756fcab51ceb909967f",
+    "state": "prepared",
+    "createdUtc": "2026-09-06T17:06:19.4574887Z",
+    "recordPath": ".projectbrain/edits/fdc097c0-6119-429e-8c58-7d4f5279f424.json",
+    "needsAssetRefresh": false
+}
