@@ -1,5 +1,18 @@
 # U1 A2 화면 사용 (2026-09-07)
 
+## U1-3 · Script Document 저장 → Explorer 자동 반영 (2026-09-07)
+
+현재 문서 작성 경로는 Script Document다. 저장하면 역할/설계 의도/주의사항/본문을 기존 document:<GUID> 노드에 투영하고, 이미지/직접 연결 코드도 nodes/relations에 함께 반영한다. 열려 있는 Explorer는 저장 이벤트로 다시 읽으며 선택/검색/필터와 작업 요약 초안을 유지한다. 새로 읽기 버튼을 따로 누를 필요가 없다.
+
+쓰기 전 문서 원본 bytes·대상 노드·의미 관계의 버전을 비교한다. 오래된 편집은 거절하며 초안을 보존한다. 기존 노드 제목/태그와 수동 관계는 유지한다. source=script-document 및 해당 문서의 v2-migration 연결만 관리하며 연결 제거 시 공유 자산 노드를 삭제하지 않는다. 저장과 사람 확인/검증은 구분한다. 내용/의미 관계가 바뀌면 기존 확인·검증은 원래 해시 정책에 따라 무효화된다.
+
+.projectbrain/document-sync/pending.json에 쓰기 의도와 각 파일의 전후 bytes(base64)를 먼저 남긴다. 파일 단위 원자 교체 후 history/<UUID>.json으로 보관한다. 중단 후 저장소를 다시 열면 전후 bytes를 검사하고 남은 쓰기를 재개한다. 별도 변경/손상과 충돌하면 보존하고 거절한다. 단일 Editor 작성자 전제이며 다중 프로세스 동시 쓰기의 OS 트랜잭션은 아니다. 이력 정리/용량 제한은 아직 없다.
+
+초기 7문서 중 Movement의 Explorer 쪽 설명이 더 최신이었다. 1회 명시적 구조 변환으로 최신 설명을 Script Document 필드에 옮겼고 기존 양쪽 bytes를 동기화 이력에 보존했다. 일반 동기화는 Markdown을 역파싱하지 않는다. 최초 migration.json은 역사 기록으로 유지하며 재실행하지 않는다.
+
+이번 범위는 저장 시 Script Document → Explorer 단방향이다. 외부 파일 편집 감시/자동 병합이나 MCP brain_update_document → Script Document 역반영은 포함하지 않는다. MCP는 기존 nodes summary/body 계약을 유지한다. 별도 nodes 편집으로 불일치한 경우 Script Document 열기/저장은 조용히 덮어쓰지 않고 비교·정리를 안내한다. Agent의 구조화 문서 저장은 ScriptDocumentService.LoadOrCreate → Version → Save(document, expectedVersion) 공통 서비스를 사용한다(신규 MCP 도구 추가 없음).
+
+
 Window → Project Brain → Explorer에서 실제 관계 그래프를 연다. 배경을 드래그하면 이동, 노드를 드래그하면 화면 내 위치 변경, 휠 또는 하단 +/−로 확대·축소한다. `맞춤`은 표시 중인 노드를 다시 배치한다. 이름 위에 마우스를 두면 전체 제목·설명·ID를 확인할 수 있다.
 
 상단 검색은 제목·요약·ID에 적용되며 종류 필터 및 `선택 주변`(2단계)과 함께 적용된다. 검색 결과가 없으면 검색어/필터를 해제한다. 노드 클릭은 오른쪽 아래 상세를 열며, 관계 링크는 방향·종류와 툴팁의 출처를 유지한다. 긴 본문과 연결 목록은 상세 안에서 스크롤한다.

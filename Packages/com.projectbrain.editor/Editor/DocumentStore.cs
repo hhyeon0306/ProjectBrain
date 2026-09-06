@@ -11,7 +11,11 @@ namespace ProjectBrain
     public sealed class DocumentStore
     {
         private readonly string directory;
-        public DocumentStore(string directory) => this.directory = Path.GetFullPath(directory);
+        public DocumentStore(string directory)
+        {
+            this.directory = Path.GetFullPath(directory);
+            if (Path.GetFileName(this.directory) == "docs") BrainDocumentSync.Recover(Path.GetDirectoryName(this.directory), new UnityBrainJson());
+        }
 
         public ScriptDocument Load(string guid)
         {
@@ -60,13 +64,13 @@ namespace ProjectBrain
             return Path.Combine(directory, guid + ".json");
         }
 
-        private static void ValidateGuid(string guid)
+        internal static void ValidateGuid(string guid)
         {
             if (guid == null || !Regex.IsMatch(guid, "\\A[0-9a-f]{32}\\z"))
                 throw new InvalidDataException("유효한 Unity 스크립트 GUID가 필요합니다.");
         }
 
-        private static void Validate(ScriptDocument document, string guid)
+        internal static void Validate(ScriptDocument document, string guid)
         {
             ValidateGuid(guid);
             if (document == null || document.schemaVersion < 1 || document.schemaVersion > 2 || document.scriptGuid != guid)

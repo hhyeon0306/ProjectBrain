@@ -408,6 +408,22 @@
             "type": "verified_by",
             "source": "brain-unity-runner",
             "createdUtc": "2026-09-06T22:04:31.3292499Z"
+        },
+        {
+            "id": "relation:764f01701c1eb350f30f01dd094fe299599d6f8ed278040b83eb6ab9716d30c4",
+            "from": "feature:player/movement",
+            "to": "evidence:ebd69120-3bee-43fa-a00a-e44db38b0fe7",
+            "type": "verified_by",
+            "source": "brain-unity-runner",
+            "createdUtc": "2026-09-06T22:23:05.2586285Z"
+        },
+        {
+            "id": "relation:1dda45a3f936d693e6a0dc5818c8c9d695cef1484c0a956ea28bb90b54268e6d",
+            "from": "feature:player/movement",
+            "to": "evidence:3769fd29-1f4c-4ec7-804e-50571dcd8371",
+            "type": "verified_by",
+            "source": "brain-unity-runner",
+            "createdUtc": "2026-09-06T22:24:09.1030334Z"
         }
     ]
 }

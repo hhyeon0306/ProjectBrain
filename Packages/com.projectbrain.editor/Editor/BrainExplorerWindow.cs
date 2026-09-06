@@ -31,6 +31,17 @@ namespace ProjectBrain
         private readonly UnityBrainJson json = new UnityBrainJson();
         [MenuItem("Window/Project Brain/Explorer")]
         public static void Open() => GetWindow<BrainExplorerWindow>("Brain Explorer");
+        private void OnEnable() { ScriptDocumentService.Saved -= DocumentSaved; ScriptDocumentService.Saved += DocumentSaved; }
+        private void OnDisable() => ScriptDocumentService.Saved -= DocumentSaved;
+        private void DocumentSaved(string guid)
+        {
+            var filters = rootVisualElement.Query<Toggle>().ToList().Where(t => t.name != null && t.name.StartsWith("filter-", StringComparison.Ordinal)).ToDictionary(t => t.name, t => t.value);
+            bool drawerOpen = summaryDrawer != null && summaryDrawer.resolvedStyle.display != DisplayStyle.None;
+            CreateGUI();
+            foreach (var filter in filters) { var toggle = rootVisualElement.Q<Toggle>(filter.Key); if (toggle != null) toggle.value = filter.Value; }
+            if (drawerOpen && summaryDrawer != null) summaryDrawer.style.display = DisplayStyle.Flex;
+            Repaint();
+        }
         public void CreateGUI()
         {
             hasUnsavedChanges = taskDirty;
@@ -45,7 +56,7 @@ namespace ProjectBrain
             search.textEdition.placeholder = "노드·문서 검색"; search.AddToClassList("search"); bar.Add(search);
             search.RegisterValueChangedCallback(e => { searchText = e.newValue; map?.SetQuery(searchText); });
             bar.Add(BrainTheme.Button("작업 관리", BrainTaskWindow.Open, "open-tasks"));
-            bar.Add(BrainTheme.Button("기존 문서", BrainDocumentWindow.Open, "open-documents"));
+            bar.Add(BrainTheme.Button("문서 편집", BrainDocumentWindow.Open, "open-documents"));
             bar.Add(BrainTheme.Button("새로 읽기", CreateGUI, "map-refresh"));
             message = new HelpBox("", HelpBoxMessageType.Info); message.style.display = DisplayStyle.None; root.Add(message);
             Run(() =>
@@ -124,7 +135,7 @@ namespace ProjectBrain
             {
                 var body = new TextField("본문 · 읽기 전용") { value = node.body, multiline = true, isReadOnly = true };
                 BrainTheme.WrapField(body, 160); detail.Add(body);
-                Text("Explorer에 저장된 문서 사본입니다. 기존 문서 창의 수정은 자동 반영되지 않습니다.");
+                Text("Script Document에서 저장한 내용이 자동 반영됩니다. 문서 저장과 사람 확인은 별개입니다.");
                 AddReview(node.id);
             }
             if (node.type == "Code") detail.Add(new Button(() => Run(() =>

@@ -20,6 +20,7 @@ namespace ProjectBrain
         {
             this.root = Path.GetFullPath(root);
             this.json = json ?? throw new ArgumentNullException(nameof(json));
+            BrainDocumentSync.Recover(this.root, this.json);
         }
 
         // Hashing the complete ID avoids colon/slash, case and filename collisions on Windows.
@@ -93,7 +94,7 @@ namespace ProjectBrain
             return LoadRelations().Where(r => r.from == id || r.to == id).ToArray();
         }
 
-        private void ValidateRelations(BrainRelation[] relations)
+        internal void ValidateRelations(BrainRelation[] relations, Func<string, BrainNode> find = null)
         {
             var ids = new HashSet<string>(StringComparer.Ordinal);
             var edges = new HashSet<string>(StringComparer.Ordinal);
@@ -108,7 +109,7 @@ namespace ProjectBrain
                 Require(edges.Add(relation.from + "\n" + relation.type + "\n" + relation.to), "중복 관계입니다: " + relation.id);
                 Require(!string.IsNullOrWhiteSpace(relation.source), "관계 출처가 필요합니다.");
                 ValidateUtc(relation.createdUtc);
-                Require(LoadNode(relation.from) != null && LoadNode(relation.to) != null, "관계 참조 대상이 없습니다: " + relation.id);
+                Require((find ?? LoadNode)(relation.from) != null && (find ?? LoadNode)(relation.to) != null, "관계 참조 대상이 없습니다: " + relation.id);
             }
         }
 

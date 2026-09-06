@@ -1,5 +1,18 @@
 # Project Brain 제품 명세
 
+## U1-3 · Script Document 저장 → Explorer 자동 반영 (2026-09-07)
+
+현재 문서 작성 경로는 Script Document다. 저장하면 역할/설계 의도/주의사항/본문을 기존 document:<GUID> 노드에 투영하고, 이미지/직접 연결 코드도 nodes/relations에 함께 반영한다. 열려 있는 Explorer는 저장 이벤트로 다시 읽으며 선택/검색/필터와 작업 요약 초안을 유지한다. 새로 읽기 버튼을 따로 누를 필요가 없다.
+
+쓰기 전 문서 원본 bytes·대상 노드·의미 관계의 버전을 비교한다. 오래된 편집은 거절하며 초안을 보존한다. 기존 노드 제목/태그와 수동 관계는 유지한다. source=script-document 및 해당 문서의 v2-migration 연결만 관리하며 연결 제거 시 공유 자산 노드를 삭제하지 않는다. 저장과 사람 확인/검증은 구분한다. 내용/의미 관계가 바뀌면 기존 확인·검증은 원래 해시 정책에 따라 무효화된다.
+
+.projectbrain/document-sync/pending.json에 쓰기 의도와 각 파일의 전후 bytes(base64)를 먼저 남긴다. 파일 단위 원자 교체 후 history/<UUID>.json으로 보관한다. 중단 후 저장소를 다시 열면 전후 bytes를 검사하고 남은 쓰기를 재개한다. 별도 변경/손상과 충돌하면 보존하고 거절한다. 단일 Editor 작성자 전제이며 다중 프로세스 동시 쓰기의 OS 트랜잭션은 아니다. 이력 정리/용량 제한은 아직 없다.
+
+초기 7문서 중 Movement의 Explorer 쪽 설명이 더 최신이었다. 1회 명시적 구조 변환으로 최신 설명을 Script Document 필드에 옮겼고 기존 양쪽 bytes를 동기화 이력에 보존했다. 일반 동기화는 Markdown을 역파싱하지 않는다. 최초 migration.json은 역사 기록으로 유지하며 재실행하지 않는다.
+
+이번 범위는 저장 시 Script Document → Explorer 단방향이다. 외부 파일 편집 감시/자동 병합이나 MCP brain_update_document → Script Document 역반영은 포함하지 않는다. MCP는 기존 nodes summary/body 계약을 유지한다. 별도 nodes 편집으로 불일치한 경우 Script Document 열기/저장은 조용히 덮어쓰지 않고 비교·정리를 안내한다. Agent의 구조화 문서 저장은 ScriptDocumentService.LoadOrCreate → Version → Save(document, expectedVersion) 공통 서비스를 사용한다(신규 MCP 도구 추가 없음).
+
+
 ## 목적과 현재 상태
 
 Project Brain의 최종 목표는 Unity 프로젝트의 설계·구현·검증·작업 이력을 사람과 AI가 같은 구조로 탐색하고, 문서 확인과 실제 검증을 작업 완료 조건에 연결하는 Editor 도구다.
@@ -12,7 +25,7 @@ Project Brain의 최종 목표는 Unity 프로젝트의 설계·구현·검증·
 - 배열은 안정된 ID 순서의 자동 배치와 화면 공간 간격 보정을 사용한다. 배치 좌표는 UI 메모리에만 보관하고 저장된 관계를 수정하지 않는다. 필터는 교집합이며 빈 결과를 안내한다. 많은 노드에서는 확대·필터·주변 보기를 사용한다. 대규모 프로젝트 성능은 미측정이다.
 - 상세 패널에서 기존 문서 읽기/명시적 사람 확인, 실제 Code/Image/Evidence/Activity 탐색을 유지한다. Feature는 연결 코드에 달린 문서까지 바로 열 수 있다. 검증 노드는 과거 기록이며 녹색 성공으로 일괄 표시하지 않는다.
 - 작업 기억은 버튼으로 여는 서랍으로 옮겼다. 기존 작업 시작·요약 편집·검증·완료 조건 확인을 유지한다. 전용 작업 관리 및 기존 문서 편집 창에 공통 색·글자·입력·버튼 스타일을 적용했다.
-- 기존 문서 편집은 docs, Explorer 문서는 nodes다. 자동 동기화·이관 재실행을 추가하지 않았다. 각 창에서 이 경계를 명시한다. 문서/작업 정책과 MCP 데이터 계약은 그대로다.
+- U1-3에서 Script Document 저장을 docs/nodes/relations에 함께 반영한다. 최초 이관 재실행이 아닌 저장 경로이며 문서 확인·완료 정책은 유지한다.
 - 글리프와 관계선은 자체 Painter2D 벡터로 그린다. 런타임 외부 이미지·폰트 의존은 없다. 승인 목업 PNG는 설계 참고 자료다.
 
 2026-09-06 현재: 기존 문서 UI와 관계 그래프 시제품, 범용 저장소 및 v2 비파괴 이관은 구현됐다. 실제 노드는 Project 1·Domain 1·Feature 2·Code 7·Document 7·Image 1개(19개), 관계 32개다. A2 최소 계층 UI, 작업 저장·재개와 맥락/최신성 MCP 5개(9/7 complete 추가로 6개)는 구현·검증됐다. 9/7 W2/M1 문서 확인·완료 거절을 추가했다. A3/V1 compile/EditMode 결과 연결과 조건 충족 시 완료 Activity 저장을 추가했다. 실제 작업의 사람 확인과 허용 밖 변경 해소는 남아 있다. [작업표](task.md)의 A1-R 저장 검증·Git 재현성과 F2 오류 경계는 보완 완료했다. 최소 Explorer의 시각/마우스 QA는 확인했고 전체 목업 UI는 후속이다.

@@ -24,7 +24,7 @@
 - A2 최소 Explorer와 W1/M2a 작업 재개·맥락·최신성은 구현됐다. W2 문서 확인·완료 거절을 추가했다. verify는 실제 compile/editmode 실행과 기록을 연결한다. complete는 정책 충족 시 Activity를 기록한다. 실제 사람 확인은 대신하지 않으며 M2b 편집은 Docs/brain-usage.md의 지원 범위와 해시 계약을 따른다. 전체 Brain 사용 중심 지침 전환은 WF-B 이후다.
 - A1/A1-R/F2 보완과 A2/W1/M2a 최소 흐름을 구현·검증했다. W2/M1 최소 문서 확인·거절까지 구현했다. A3/V1과 현재 7개 API의 WF-B 연동도 검증했다. 남은 실제 사람 확인·범위 처리/최종 완료 및 M2b를 작업표에서 확인한다. 세부 범위는 Docs/task.md를 따르며 전면 재검토를 반복하지 않는다.
 - Brain 핵심 규칙, 저장소, Unity 검증 실행기, MCP 연결 코드를 분리한다. 현재는 단일 Editor asmdef 안의 논리적 분리이며 레거시 DocumentStore의 Unity 의존은 남아 있다. 기존 오픈소스 및 Library/PackageCache를 수정하지 않는다.
-- A1의 자체 검사 체크 수를 NUnit/Test Runner 케이스·플레이·UI 검증 수로 표현하지 않는다. 새 계층 UI는 nodes/relations를 기준으로 하고 기존 docs UI와의 쓰기 경계를 명시한다.
+- A1의 자체 검사 체크 수를 NUnit/Test Runner 케이스·플레이·UI 검증 수로 표현하지 않는다. 새 계층 UI는 nodes/relations를 기준으로 한다. U1-3 Script Document 저장은 공통 Sync 경로로 docs/nodes/relations에 반영하며 expectedVersion·재개 이력을 사용한다. MCP nodes 직접 편집의 역반영은 없고 불일치는 비교·정리 후 저장한다.
 - 코드 검증은 실제 결과로 판단한다. 컴파일 성공을 테스트 통과로 표현하지 않고, 이전 코드에 대한 검증을 현재 결과로 재사용하지 않는다.
 - Unity 씬·프리팹 조작은 연결된 MCP를 우선 사용한다. 로그는 필요한 항목과 요약만 출력하고 긴 스택 추적은 오류 분석에 필요할 때만 읽는다.
 - 작업 하나마다 구현, 필요한 검증, 문서 갱신을 끝낸다. 사용자 요청 없는 하위 에이전트 사용, 반복 조사, 과도한 전체 파일 읽기를 하지 않는다.

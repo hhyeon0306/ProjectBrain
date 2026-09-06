@@ -14,6 +14,7 @@ namespace ProjectBrain
         [SerializeField] private ScriptDocument document;
         [SerializeField] private bool dirty;
         [SerializeField] private int activeTab;
+        [SerializeField] private string loadedVersion;
         private readonly ScriptDocumentService service = new ScriptDocumentService();
         private ScrollView form;
         private VisualElement tabs;
@@ -67,9 +68,10 @@ namespace ProjectBrain
             }), "document-open-code"); footer.Add(codeButton);
             saveButton = BrainTheme.Button("문서 저장", SaveChanges, "document-save");
             saveButton.AddToClassList("primary"); footer.Add(saveButton);
-            var note = BrainTheme.Label("기존 문서 편집 · Explorer 사본과 자동 동기화되지 않습니다. 저장은 검증·사람 확인과 별개입니다.", "storage-note");
+            var note = BrainTheme.Label("문서 저장 시 Explorer의 본문·이미지·연결 코드에 자동 반영됩니다. 저장은 검증·사람 확인과 별개입니다.", "storage-note");
             root.Add(note);
             if (document == null && selectedScript != null) Run(() => document = service.LoadOrCreate(selectedScript));
+            if (document != null && string.IsNullOrEmpty(loadedVersion)) Run(() => loadedVersion = service.Version(document));
             BuildForm(); SetDirty(dirty);
         }
 
@@ -77,7 +79,8 @@ namespace ProjectBrain
         {
             // Read first. A failed read must not discard the current document or its draft.
             var next = script == null ? null : service.LoadOrCreate(script);
-            selectedScript = script; document = next; SetDirty(false); BuildForm();
+            var version = next == null ? "" : service.Version(next);
+            selectedScript = script; document = next; loadedVersion = version; SetDirty(false); BuildForm();
         }
 
         private void BuildForm()
@@ -256,8 +259,8 @@ namespace ProjectBrain
         public override void SaveChanges() => Run(() =>
         {
             if (document == null) return;
-            service.Save(document); SetDirty(false);
-            message.text = "문서를 저장했습니다."; message.messageType = HelpBoxMessageType.Info;
+            service.Save(document, loadedVersion); loadedVersion = service.Version(document); SetDirty(false);
+            message.text = "문서를 저장하고 Explorer에 반영했습니다."; message.messageType = HelpBoxMessageType.Info;
         });
         public override void DiscardChanges() { SetDirty(false); base.DiscardChanges(); }
         private void Run(Action action)

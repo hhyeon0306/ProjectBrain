@@ -1,13 +1,16 @@
 {
-  "schemaVersion": 2,
-  "scriptGuid": "10000000000000000000000000000003",
-  "lastKnownPath": "Assets/Scripts/Gameplay/DemoPlayerMovement.cs",
-  "role": "입력을 월드 이동으로 변환",
-  "designIntent": "이동 속도와 시간 보정을 한 컴포넌트에서 관리한다.",
-  "cautions": "DemoPlayerInput 참조가 필요하며 Update에서 동작한다.",
-  "body": "입력 시스템의 2차원 값을 XZ 평면의 이동으로 바꾼다.",
-  "imageGuids": [],
-  "relatedScriptGuids": ["10000000000000000000000000000002", "10000000000000000000000000000001"],
-  "savedCodeHash": "",
-  "updatedUtc": "2026-09-05T00:00:00Z"
+    "schemaVersion": 2,
+    "scriptGuid": "10000000000000000000000000000003",
+    "lastKnownPath": "Assets/Scripts/Gameplay/DemoPlayerMovement.cs",
+    "role": "입력을 월드 XZ 평면의 직접 이동으로 변환\nDemoPlayerInput의 2차원 입력을 월드 XZ 평면의 이동으로 변환한다.",
+    "designIntent": "Update에서 입력의 X를 월드 X, 입력의 Y를 월드 Z로 사용하고 speed와 Time.deltaTime을 곱해 이동량을 계산한다.",
+    "cautions": "Inspector에서 DemoPlayerInput 참조를 지정해야 한다. 현재 코드는 null 참조를 검사하지 않는다. Transform.position을 직접 변경하며 충돌 판정이나 물리 기반 이동 처리는 포함하지 않는다.",
+    "body": "이 컴포넌트는 입력 장치를 직접 읽지 않고 input.Move를 사용한다. 입력 공급과 이동 계산의 책임을 구분한다. 위 내용은 현재 코드에 근거한 AI 작성 설명이며 사람 확인이나 테스트 통과를 의미하지 않는다.\n",
+    "imageGuids": [],
+    "relatedScriptGuids": [
+        "10000000000000000000000000000002",
+        "10000000000000000000000000000001"
+    ],
+    "savedCodeHash": "",
+    "updatedUtc": "2026-09-06T22:20:46.8222520Z"
 }

@@ -3,13 +3,13 @@
     "id": "document:10000000000000000000000000000003",
     "type": "Document",
     "title": "DemoPlayerMovement.cs Design",
-    "summary": "입력을 월드 XZ 평면의 직접 이동으로 변환",
-    "body": "## 역할\nDemoPlayerInput의 2차원 입력을 월드 XZ 평면의 이동으로 변환한다.\n\n## 설계 의도\nUpdate에서 입력의 X를 월드 X, 입력의 Y를 월드 Z로 사용하고 speed와 Time.deltaTime을 곱해 이동량을 계산한다.\n\n## 주의사항\nInspector에서 DemoPlayerInput 참조를 지정해야 한다. 현재 코드는 null 참조를 검사하지 않는다. Transform.position을 직접 변경하며 충돌 판정이나 물리 기반 이동 처리는 포함하지 않는다.\n\n## 본문\n이 컴포넌트는 입력 장치를 직접 읽지 않고 input.Move를 사용한다. 입력 공급과 이동 계산의 책임을 구분한다. 위 내용은 현재 코드에 근거한 AI 작성 설명이며 사람 확인이나 테스트 통과를 의미하지 않는다.\n",
+    "summary": "입력을 월드 XZ 평면의 직접 이동으로 변환\nDemoPlayerInput의 2차원 입력을 월드 XZ 평면의 이동으로 변환한다.",
+    "body": "## 역할\n입력을 월드 XZ 평면의 직접 이동으로 변환\nDemoPlayerInput의 2차원 입력을 월드 XZ 평면의 이동으로 변환한다.\n\n## 설계 의도\nUpdate에서 입력의 X를 월드 X, 입력의 Y를 월드 Z로 사용하고 speed와 Time.deltaTime을 곱해 이동량을 계산한다.\n\n## 주의사항\nInspector에서 DemoPlayerInput 참조를 지정해야 한다. 현재 코드는 null 참조를 검사하지 않는다. Transform.position을 직접 변경하며 충돌 판정이나 물리 기반 이동 처리는 포함하지 않는다.\n\n## 본문\n이 컴포넌트는 입력 장치를 직접 읽지 않고 input.Move를 사용한다. 입력 공급과 이동 계산의 책임을 구분한다. 위 내용은 현재 코드에 근거한 AI 작성 설명이며 사람 확인이나 테스트 통과를 의미하지 않는다.\n\n\n## 원본 저장 코드 해시 (현재 검증 아님)\n",
     "assetGuid": "",
     "lastKnownPath": "",
     "tags": [
         "migrated-v2"
     ],
     "status": "unreviewed",
-    "updatedUtc": "2026-09-06T17:06:50.2563002Z"
+    "updatedUtc": "2026-09-06T22:20:46.8222520Z"
 }

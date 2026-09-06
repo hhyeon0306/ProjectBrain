@@ -1,5 +1,15 @@
 # Brain 작업 이력
 
+## 2026-09-07 U1-3 문서 저장 자동 반영
+- Goal: Script Document에서 저장한 설명과 자료를 Explorer가 즉시 읽도록 연결한다.
+- Changes: 공통 Sync 투영/소유 관계 갱신/버전 비교, pending→history 재개 이력과 이전 bytes 보존, 저장 이벤트로 Explorer 갱신. 초기 Movement 설명을 명시적으로 조정해7문서 일치.
+- Files: BrainDocumentSync/Checks(.cs/meta), ScriptDocumentService/DocumentStore/BrainStore/DocumentWindow/ExplorerWindow, .projectbrain 변경·sync history, Docs 계약/사용법/인계/작업표/검증 및 AGENTS.
+- Verification: Sync26/DocumentStore14/Store25/Edit22/Completion32(총119 자체 검사). 실제7문서 일치/LoadOrCreate 성공. 실제 Script Document SaveChanges → 열린 Explorer graph 교체 및 읽기 전용 본문 일치, 샘플 설명 원문 유지. 최초 실창 확인은 선택 문서가 없어 쓰기하지 않고 정상 선택 후 재검증. 최종 Unity 실행은 reviews/2026-09-07-u1-3-evidence.json 참조.
+- Decisions: 저장 시 단방향 반영. 기존 노드 메타/수동·들어오는 관계 보존, 기존 사람 확인 대행 없음. 초기 Movement 기존 docs/node bytes를 이력에 보존하고 최신 Explorer 설명을 사용했다.
+- Next: 사용자가 툴별로 지적하는 항목 보정, 서류/PPT 준비도와 P1 증거.
+- Limitations: 다중 프로세스 동시 쓰기/외부 자동 감시/역방향 자동 병합/이력 보존 용량 정책 미구현. 기존 사용자5경로 변경 보존.
+
+
 ## 2026-09-07 U1-2 문서 구조와 툴 텍스트 보완
 - Goal: 사용자가 지적한 문서 폼의 단순한 구조, 본문 잘림, 그래프 이름 겹침을 수정한다.
 - Changes: 문서4탭/고정 저장바/저장상태/작성 수/접힌 메타, 초안 보존, 전체 폭 문서 관계도. 공통 입력 줄바꿈/작업 정보 접기, 검증·확인 상태 한국어/원본 로그 접기. 전체 그래프 이름 겹침 시 이름만 생략하고 선택 우선 표시.
@@ -366,3 +376,9 @@ U1 A2 관리 검사: 양쪽 문서 구조 통과. 전체 Git 검사는 기존 �
 U1-2 최종 관리 검사: 양쪽 문서 구조 통과. 전체 Git 검사는 기존 사용자 SampleScene.unity:242 공백으로 실패하므로 해당 변경을 보존하고 이번 변경만 staged 검사한다. 최종 컴파일 오류0/캐시74, EditMode9/9 통과.
 
 U1-2 범위 검사: 양쪽 git diff --cached --check 통과. 기존4개 및 이동 스크립트 변경은 제외했다.
+
+U1-3 최종 검증: 실제 Explorer 작업 초안/필터 유지 확인. compile ebd69120-3bee-43fa-a00a-e44db38b0fe7 오류0/캐시74, EditMode3769fd29-1f4c-4ec7-804e-50571dcd8371 9/9. 활성 요약 revision13.
+
+U1-3 관리 검사: 양쪽 문서 구조 통과. 전체 Git 검사는 기존 사용자 SampleScene.unity:242 공백으로 실패했으며 원본을 보존한다. 이번 변경만 별도 staged 검사한다.
+
+U1-3 범위 검사: 양쪽 git diff --cached --check 통과. 사용자5개 경로는 staged에서 제외했다.

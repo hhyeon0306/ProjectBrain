@@ -1,0 +1,68 @@
+{
+  "task": "U1-3",
+  "date": "2026-09-07",
+  "direction": "Script Document save -> Explorer; not bidirectional merge",
+  "checks": {
+    "DocumentSync": 26,
+    "DocumentStore": 14,
+    "BrainStore": 25,
+    "BrainEdit": 22,
+    "BrainCompletion": 32
+  },
+  "live": [
+    "7/7 real documents match projected node summary/body",
+    "7/7 ScriptDocumentService.LoadOrCreate succeeds",
+    "Real SaveChanges refreshes open Explorer graph and read-only body without manual refresh; original sample narrative preserved",
+    "Explorer task draft and Evidence filter survive save-triggered refresh; test draft restored",
+    "brain_context returns reconciled Movement summary and stale basis rather than auto approval"
+  ],
+  "reconciliation": {
+    "guid": "10000000000000000000000000000003",
+    "policy": "Adopt newer Explorer narrative via explicit one-time field mapping; retain old source and node bytes in document-sync/history; no general Markdown reverse parser"
+  },
+  "verification": [
+    {
+      "schemaVersion": 1,
+      "id": "ebd69120-3bee-43fa-a00a-e44db38b0fe7",
+      "taskId": "a48a9ba7-be69-4985-a648-ed5d2ac5442f",
+      "kind": "compile",
+      "state": "passed",
+      "snapshotHash": "634c4c89265960309eb052004fe45916ab5010943bebb18dc97ec78d6578d2c9",
+      "startedUtc": "2026-09-06T22:22:43.1561586Z",
+      "endedUtc": "2026-09-06T22:23:05.2586285Z",
+      "summary": "Unity compilation callbacks; compiled=0, up-to-date=74, errors=0",
+      "total": 74,
+      "passed": 74,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "schemaVersion": 1,
+      "id": "3769fd29-1f4c-4ec7-804e-50571dcd8371",
+      "taskId": "a48a9ba7-be69-4985-a648-ed5d2ac5442f",
+      "kind": "editmode",
+      "state": "passed",
+      "snapshotHash": "634c4c89265960309eb052004fe45916ab5010943bebb18dc97ec78d6578d2c9",
+      "startedUtc": "2026-09-06T22:24:03.3119270Z",
+      "endedUtc": "2026-09-06T22:24:09.1030334Z",
+      "summary": "All discovered EditMode tests. Passed; ",
+      "total": 9,
+      "passed": 9,
+      "failed": 0,
+      "skipped": 0
+    }
+  ],
+  "activeRevision": 13,
+  "remainingReasons": {
+    "outside-allowed": 44,
+    "unmapped-change": 44,
+    "document-unreviewed": 2
+  },
+  "limitations": [
+    "Single Editor writer, not multi-process OS transaction",
+    "External node edits not reverse-synchronized; mismatch is rejected for comparison",
+    "Pending recovery stops on external byte conflicts",
+    "No human approval or final task closure performed",
+    "Existing user five paths preserved"
+  ]
+}
