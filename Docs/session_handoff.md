@@ -3,6 +3,8 @@ Updated: 2026-09-06 (세션 종료)
 
 ## Current state
 
+최신: Computer Use로 HTTP 전환/Start/Codex Reconfigure 완료, 양쪽 URL 설정 동기화. 직접 HTTP MCP에서 38개 도구 조회 및 씬/로그 조회 성공(RootCount=2, IsDirty=false). Unity가 단일 서버를 관리한다. 현재 대화 내장 연결은 구 stdio 상태여서 새 설정 로딩 후 재시험 필요. 아래 장애 기록은 전환 전 이력이다.
+
 15:33 Codex 단독 재실행 후 재시험: 현재 세션 Transport closed 재발. 다른 MCP 프로세스 PID 36240은 Unity 연결/tools-list 완료했으나 동시 서버 시작은 포트 충돌로 실패. 아래 통신 복구는 직전 시험 상태다. 단순 재시작으로 해결되지 않았으며 중복 시작 경로 확인 필요. 설정/서버 변경 없음.
 
 최신 확인(2026-09-06 재실행 후): MCP resources/list·templates/list 정상 응답으로 서버 통신 복구. 초기 tools/list가 Unity 연결 전에 재시도 소진했고 이후 15:31:54 Unity handshake 성공. 현재 세션 Unity 도구는 여전히 미노출. Unity 연결을 유지한 채 Codex MCP 재로딩 후 씬 조회 필요. 아래 Transport closed/포트 충돌은 재실행 전 상태다.

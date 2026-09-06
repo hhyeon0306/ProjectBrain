@@ -1,5 +1,13 @@
 # Brain 작업 이력
 
+## 2026-09-06 Computer Use로 HTTP 전환·실제 호출
+- Goal: 사용자 요청대로 Unity UI에서 HTTP 설정을 변경하고 연결/도구를 테스트한다.
+- Changes: computer-use sky로 http/Start/Reconfigure 클릭. 기존 stdio MCP만 종료하고 Unity 유지. 하위 생성 설정을 상위에 동기화. 운영 지침/사용법 갱신.
+- Files: 양쪽 AGENTS.md, Docs/session_handoff.md, Docs/work_log.md; 상위 Docs/unity-workflow.md; 하위 Docs/unity_mcp_usage.md; 양쪽 .codex/config.toml(로컬 Git 제외).
+- Verification: HTTP initialize 및 38개 tools/list, scene-list-opened/console-get-logs isError=false. 씬 RootCount=2, IsDirty=false. HTTP 서버 PID 35192는 Unity PID 38848의 자식. 양쪽 설정 동일 URL/timeout. 상위 verify -IncludeBrain 문서/Git 검사 통과.
+- Decisions: 단일 Unity 관리 HTTP 서버 공유. 설치/업데이트/제품 코드 수정 없음. 직접 HTTP MCP 검증과 Codex 내장 연결을 구분한다.
+- Next: Unity/HTTP 서버를 유지하고 Codex 새 설정 로딩 후 내장 도구 노출/씬 조회 재확인. 이후 Brain A1-R/F2 재개.
+- Limitations: 현재 내장 MCP는 종료된 stdio 연결로 Transport closed/도구 미노출. 컴파일/제품 테스트는 이번 연결 시험 범위가 아니다. 전환 시 연결 오류 로그는 보존. 기존 사용자 변경 두 파일 유지.
 ## 2026-09-06 Codex 단독 재실행 후 재시험
 - Goal: 사용자 재실행 후 MCP 연결/도구를 재시험한다.
 - Changes: 재실행만으로 해결되지 않은 MCP 포트 충돌 상태 기록.
