@@ -1,5 +1,13 @@
 # Brain 작업 이력
 
+## 2026-09-06 Codex 단독 재실행 후 재시험
+- Goal: 사용자 재실행 후 MCP 연결/도구를 재시험한다.
+- Changes: 재실행만으로 해결되지 않은 MCP 포트 충돌 상태 기록.
+- Files: 양쪽 Docs/session_handoff.md, Docs/work_log.md.
+- Verification: 현재 resources/list는 Transport closed로 실패, Unity 도구 미노출. 15:33:30 로그에 25766 address already in use. 살아 있는 서버 PID 36240(부모 codex PID 39436)은 15:33:36 Unity handshake 및 15:33:37 tools/list 완료. 전역 config에는 해당 서버 항목 없음. 상위/하위 설정은 동일하고 보존했다.
+- Decisions: 다른 연결의 tools/list 완료를 현재 세션 성공으로 보지 않는다. 단순 재시작 권고를 반복하지 않는다.
+- Next: 같은 Codex에서 발생하는 MCP 중복 시작/세션 소유 관계를 확인하고 현재 세션 도구 노출 복구 후 씬 조회.
+- Limitations: 중복 시작의 정확한 원인은 미확정. 씬 조회·컴파일·제품 테스트 미실행. 서버 종료·설정 변경 없음.
 ## 2026-09-06 재실행 후 MCP 재시험
 - Goal: Codex/Unity 재실행 후 연결 및 도구 사용 가능 여부를 확인한다.
 - Changes: 연결 진단 상태를 초기화 실패에서 서버 통신 복구·Unity 도구 미노출로 갱신.
