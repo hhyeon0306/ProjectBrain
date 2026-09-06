@@ -1,5 +1,13 @@
 # Brain 작업 이력
 
+## 2026-09-06 HTTP 복구 후 세션 종료
+- Goal: 사용자 요청으로 이번 세션을 종료하고 다음 세션의 재개 지점을 보존한다.
+- Changes: HTTP 내장 MCP 복구 완료를 유지하고 다음 작업을 Brain A1-R/F2 보완으로 명시.
+- Files: 양쪽 Docs/session_handoff.md, Docs/work_log.md.
+- Verification: 이번 세션 내장 MCP 도구 38개 노출 및 씬/도구 목록 조회 성공. 종료 시 제품 검사는 반복하지 않음. verify -IncludeBrain 문서/Git 검사 통과.
+- Decisions: 이번에는 새 제품 구현을 시작하지 않는다. Unity 관리 HTTP 서버와 양쪽 설정 유지.
+- Next: 다음 세션 시작 절차 후 날짜/제출 준비도 확인, MCP 읽기 연결 1회 확인, 확정된 W1/M2a 계약을 사용하여 A1-R/F2 보완부터 진행. 전면 재설계·연결 진단 반복 불필요.
+- Limitations: Brain JSON 필수 필드/clone 이관/UI 오류 경계 결함은 아직 미해결. 최종 UI/Brain MCP 기능 미구현. 기존 사용자 변경 두 파일 보존.
 ## 2026-09-06 HTTP 내장 MCP 연결 복구 확인
 - Goal: Codex 재실행 후 현재 대화의 내장 Unity MCP를 검증한다.
 - Changes: HTTP 전환 후 내장 연결 검증 대기를 완료로 갱신.

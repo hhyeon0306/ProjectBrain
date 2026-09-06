@@ -30,6 +30,8 @@ A1 범용 저장소·v2 비파괴 이관과 기존 문서/그래프 시제품은
 
 ## Next action
 
+세션 종료(사용자 요청): 다음 세션에서 날짜·제출 준비도를 확인하고 HTTP MCP 읽기 연결을 한 번 확인한 뒤 Brain A1-R/F2 보완부터 이어간다. W1/M2a 최소 계약은 확정됐으며 전면 검토/연결 장애 조사를 다시 시작하지 않는다. 9/7 새 기능 착수 금지와 제출 시간 확보 원칙 유지.
+
 1. task → 이 인계 → product_spec/architecture 관련 절 → 최신 work_log만 읽는다. 전체 리뷰·archive 재독은 필요 없다. 개발 시 실제 MCP 읽기 호출로 ProjectBrain 연결을 확인한다.
 2. architecture의 W1/M2a 확정 최소 계약을 사용한다. MCP 복구 후 다음 결함 보완부터 진행하며 계약 검토를 반복하지 않는다.
 3. A1-R의 누락 JSON 필드 거절·Git 줄바꿈 재현성, F2의 UI 오류 경계를 보완하고 관련 회귀 검사 및 새 clone 데이터 이관을 확인한다. 재현 세부가 필요할 때만 [기반 코드 검토](reviews/2026-09-06-project-review.md)와 [증거](reviews/2026-09-06-project-review-evidence.json)를 읽는다.
