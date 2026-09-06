@@ -6,7 +6,7 @@
 - 연결 설정은 상위 및 프로젝트 .codex/config.toml. 현재 서버 이름 ai-game-developer, stdio, 로컬 포트 25766, 프로젝트 식별자 cbd0af11. 재설정 후 달라질 수 있으므로 파일에서 재확인한다.
 - 실행 파일은 프로젝트 Library/mcp-server/win-x64/gamedev-mcp-server.exe. Library 삭제 후에는 플러그인의 서버 준비가 필요할 수 있다.
 - stdio는 Codex가 서버를 시작하는 구성이다. Unity 창의 Start를 별도로 누르거나 다른 서버를 중복 실행하는 것을 기본 절차로 삼지 않는다.
-- 과거 scene-list-opened 성공 이력은 있으나 현재 세션에서 도구가 노출되는지 별도 확인해야 한다.
+- 2026-09-06 A1 구현 때 scene-list-opened/console-get-logs/script-execute 실제 호출 성공, ProjectBrain/Assets 경로를 확인했다. 문서 검토 때도 씬 조회와 격리 재현 호출에 성공했다. 다음 세션의 연결은 별도 확인한다.
 
 ## 도구 확인과 호출
 실제 제공된 도구 스키마가 기준이다. 이 프로젝트의 `.agents/skills/<도구명>/SKILL.md`는 설치 버전의 보조 설명이다. 필요한 파일만 읽는다. 자동 생성 예제의 `string_value`, `maxEntries: 0` 등을 그대로 호출하지 않는다.
@@ -32,7 +32,7 @@ console-get-logs 입력 예: `{"maxEntries":5,"logTypeFilter":"Error","includeSt
 4. 관련 검증만 실행하고 결과를 work_log 및 handoff에 기록.
 5. 문서/Git 검사 후 관련 변경만 커밋.
 
-tests-run은 미저장 씬에서 실패하도록 구현되어 있다. 사용자가 작업 중인 씬을 도구 실행만을 위해 임의 저장하지 않는다. 재컴파일로 Processing을 반환하면 최종 결과를 확인할 때까지 통과라고 기록하지 않는다. 테스트 0개 실행도 의도한 검증의 성공 증거가 아니다.
+설치된 tests-run은 열린 씬의 isDirty=true이면 실패하도록 구현돼 있다. 경로가 비어 있는 새 씬과 dirty 상태를 혼동하지 않는다. 사용자가 작업 중인 씬을 도구 실행만을 위해 임의 저장하지 않는다. 재컴파일로 Processing을 반환하면 최종 결과를 확인할 때까지 통과라고 기록하지 않는다. 테스트 0개 실행도 의도한 검증의 성공 증거가 아니다.
 
 ## 연결 장애
 - 도구 미노출: 호스트가 제공한 목록 → 상위 config의 서버 항목 → 실행 파일 존재 → Unity 실행 상태 순으로 확인.
@@ -44,4 +44,8 @@ tests-run은 미저장 씬에서 실패하도록 구현되어 있다. 사용자�
 ## 확장 경계
 향후 Brain의 C# 서비스를 사용자 정의 MCP Tool에 연결한다. 설치된 패키지의 AiToolType/AiTool 및 메인 스레드 실행 패턴을 확인한 뒤 작성한다. Library/PackageCache의 원본을 수정하지 않는다. 별도 자체 MCP 서버·제품 CLI는 만들지 않는다.
 
-이 문서는 설치된 자동 생성 안내를 읽어 정리한 것이다. 비활성 도구 활성화나 신규 연결 검증을 이번 문서 작업에서 수행한 것은 아니다.
+설치된 0.90.0 패키지와 현재 제공 스키마가 기준이다. 도구 목록에 노출됐는지와 실제 호출 성공은 따로 확인한다. TCP 포트 연결이나 과거 오류 로그만으로 현재 MCP 도구 사용 가능 여부를 단정하지 않는다.
+
+## Brain 자체 검사와 Test Runner 구분
+
+BrainStoreChecks.RunInEditor, BrainMigrationChecks.RunInEditor, DocumentStoreChecks.RunInEditor는 종료 없는 자체 검사 진입점이다. 전용 MCP 진입점이 없을 때 script-execute로 호출하며 최종 반환·예외를 확인한다. 25/18/14는 체크 항목 수이고 Unity Test Runner의 테스트 케이스 수가 아니다. 검증은 OS temp 저장소를 사용하며 제품 Evidence를 생성하지 않는다. 배치 종료형 RunBatch를 열린 Editor에서 호출하지 않는다.

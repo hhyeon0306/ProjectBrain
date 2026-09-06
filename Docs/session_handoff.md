@@ -3,23 +3,24 @@ Updated: 2026-09-06
 
 ## Current state
 
-A1 범용 노드·관계 저장소와 v2 비파괴 이관 완료. 실제 기존 문서 7개를 Code 7개·Document 7개·Image 1개와 관계 26개로 이관했다. 원본 docs는 그대로 유지한다. UI는 기존 Code 중심 시제품이며 범용 모델과의 연결은 A2다.
+A1 기본 저장소·v2 이관 구현 후, 사용자 요청으로 A2 전 문서 21개를 전면 검토했다. A2는 미착수다. 실제 데이터는 Code 7개·Document 7개·Image 1개와 관계 26개이며 기존 docs 원본을 보존한다. UI는 아직 Code 중심 시제품이다.
 
 ## Decisions
 
-Project→Domain→Feature→Code/Document/Image/Evidence/Activity/Reference 계층을 사용한다. Core 저장소는 UI/MCP/Unity 타입에 독립적이고 UnityBrainJson만 JsonUtility를 사용한다. v2 이관은 명시적으로 실행하며 기존 UI 저장과 자동 동기화되지 않는다. 완료 후 원본이 바뀌면 재실행을 거절해 기존 노드 편집을 보호한다. 제품 Activity와 개발 work_log는 별개다.
+최종 목업과 도메인 계층 목표를 유지한다. 문서는 현재 구현/목표/미결정을 분리했다. A2는 최소 계층·자료 탐색, 실제 증거 연결은 A3/V1이다. context는 필수 M2a, apply/update_document는 M2b로 분리했다. [검토 보고서](reviews/2026-09-06-document-review.md)에 발견과 재현 근거가 있다.
 
 ## Next action
 
-A2 Player 도메인 데모와 BrainStore 기반 UI 탐색을 구현한다. 9/6 서류·PPT 시간을 확보하고 9/7에는 새 기능을 시작하지 않는다. 공식 마감 9/7 16:00, 제출 완료 목표 15:00을 우선한다.
+권장 다음 단위는 A1-R Git 줄바꿈·원본 해시 재현성 보완이다. 이후 A2에서 새 모델 UI의 저장 기준·contains 규칙을 정하고 Player 탐색을 구현한다. 이번 검토는 문서 수정까지만 수행했으며 코드 보완을 끝냈다고 간주하지 않는다. 9/6 서류·PPT 시간을 확보하고 9/7 새 기능 착수 금지, 15:00 제출 목표를 우선한다.
 
 ## Verification
 
-- 현재 Unity MCP scene-list-opened 및 console-get-logs 실제 호출 성공. ProjectBrain/Assets 경로 확인, isCompiling=false.
-- 최종 Unity 검사: BrainStoreChecks 25개, BrainMigrationChecks 18개, DocumentStoreChecks 14개 통과. 전용 임시 저장소에서 실행하며 씬 변경이나 Editor 종료 없음.
-- 실제 이관: 원본 7개 SHA256 일치, 노드 15개·관계 26개 재읽기 성공, 반복 실행으로 완료 시각 유지 및 중복 없음. git diff -- .projectbrain/docs 비어 있음.
-- 관리 검사: 상위 scripts/verify.ps1 -IncludeBrain 커밋 전 통과. Unity 검증과 별개다.
+- A1 당시 Unity 자체 검사: 저장소 25항목·이관 18항목·기존 문서 14항목 통과. NUnit/Test Runner·플레이·UI 테스트 수가 아니다.
+- 이번 문서 검토: 실제 MCP 씬 조회와 OS temp 격리 재현 성공. contains 순환·Domain 대상 verified_by 저장 허용, SaveNode 시각 자동 갱신 없음 확인.
+- autocrlf=true의 임시 Git 체크아웃으로 문서 해시가 바뀌고 이관 복제본 재실행이 거절됨을 확인. 실제 제품 데이터는 수정하지 않음.
+- 실데이터 읽기 노드 15개/관계 26개. 이번 리뷰에서 이전 57항목 전체 검사를 재실행하지 않음.
+- 커밋 전 상위 verify -IncludeBrain 및 Markdown 22개·로컬 링크 52개·코드 펜스 확인 통과. 제품 검증과 별개다.
 
 ## Limitations
 
-UI는 아직 새 노드/관계 데이터를 사용하지 않는다. 이관 관계의 종류를 수정하는 UI도 A2 이후다. 작업 등록·변경 감지·완료 거절·Brain 전용 MCP·실제 검증 증거 저장은 미구현이다. 이관의 missing 상태는 실행 시 자산 해석 결과이며 실시간 감시는 없다. 여러 파일의 이관은 전체 트랜잭션이 아니며 중단 시 같은 원본의 정확한 부분 결과에서 재실행한다. 기존 사용자/Unity 변경 ProjectSettings.asset과 NuGet meta는 보존하고 커밋 제외한다.
+A1-R은 미해결이다. 관계별 대상 type·계층 순환 규칙, 새 UI, 실제 Evidence/Activity 상세 기록, 문서 사람 확인, 작업·완료·Brain MCP는 미구현이다. 기존 docs UI와 새 모델은 자동 동기화하지 않는다. Core 논리 분리는 단일 Editor asmdef 안에 있고 레거시 DocumentStore의 Unity 의존은 남아 있다. 사용자/Unity 기존 ProjectSettings.asset과 NuGet meta 변경 두 파일은 보존·커밋 제외한다. 관리 스크립트가 이 기존 변경으로 기록 갱신을 요구할 수 있다.
