@@ -1,5 +1,13 @@
 # Brain 작업 이력
 
+## 2026-09-06 A1 범용 노드·관계 저장소
+- Goal: 도메인 중심 그래프를 위한 노드·관계의 안전한 저장과 조회를 구현한다.
+- Changes: BrainNode/BrainRelation, SHA256 ID 파일명, 원자 저장, 스키마·참조·중복 검증, 양방향 탐색, 증거·활동 덮어쓰기 거절. JSON 어댑터만 Unity에 의존한다.
+- Files: Editor/{BrainNode,BrainStore,UnityBrainJson,BrainStoreChecks}.cs 및 meta, Docs/{session_handoff,work_log,architecture,task}.md.
+- Verification: 실제 MCP 씬 조회 성공. Application.dataPath=ProjectBrain/Assets, isCompiling=false. Unity에서 저장소 21개와 기존 문서 14개 검사 통과. 관리 검사는 커밋 전 별도 실행.
+- Decisions: A1 상태는 unreviewed/missing/recorded만 허용하며 검증 성공을 임의 생성하지 않는다. 노드 ID 변경과 증거·활동 수정은 새 ID를 사용한다.
+- Next: 이 단위 커밋 후 v2 비파괴 이관 구현·검증.
+- Limitations: UI는 기존 저장소를 사용한다. 작업·검증 완료 규칙 및 다중 작성자 동시성 제어는 미구현. 기존 사용자/Unity 변경 두 파일은 보존하고 커밋 제외.
 ## 2026-09-06 종료 및 재개 점검
 - Goal: 새 세션이 범용 모델 구현의 정확한 첫 단위에서 재개되도록 한다.
 - Changes: 지침의 문서 읽기 순서를 통일하고 인계에 구현 위치, 저장·재읽기 검사, 이관 착수 조건을 명시했다.

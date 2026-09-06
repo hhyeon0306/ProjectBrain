@@ -98,3 +98,7 @@ ID 규칙:
 - MCP Adapter: 기존 Unity-MCP에 얇은 Tool로 노출하고 Core 서비스를 호출한다.
 
 UI와 MCP가 JSON 파일을 각각 직접 수정하지 않는다. 같은 검증·저장 서비스를 사용한다.
+
+## A1 저장소 구현 규칙
+
+노드 파일명은 전체 ID의 UTF-8 SHA256 소문자 hex를 사용한다. 저장소는 IBrainJson에 의존하며 UnityBrainJson이 직렬화를 담당한다. schemaVersion=1, 상태는 unreviewed/missing/recorded만 허용한다. Evidence/Activity 노드는 불변이며 정정은 새 ID로 추가한다. 관계 ID와 from/type/to 조합은 각각 유일해야 한다. 참조 대상이 없거나 손상되면 저장·조회가 실패하며 기존 파일은 유지한다. A1 저장소는 단일 Editor 작성자를 전제로 한다.
