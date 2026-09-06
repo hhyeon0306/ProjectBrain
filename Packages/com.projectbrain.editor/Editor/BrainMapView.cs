@@ -24,6 +24,7 @@ namespace ProjectBrain
         private bool moved;
         public Action Changed;
         public int VisibleCount => visibleNodes.Count;
+        public int HiddenLabelCount { get; private set; }
         public float Zoom => zoom;
         public string Selected => selected;
         public IReadOnlyDictionary<string, Vector2> Positions => positions;
@@ -128,9 +129,20 @@ namespace ProjectBrain
         }
         private void UpdatePositions()
         {
-            foreach (var id in visibleNodes)
+            // Preserve every node/edge while keeping names legible at overview scale.
+            // A selected node always gets its name; glyphs remain clickable when names are omitted.
+            var occupied = new List<Rect>();
+            HiddenLabelCount = 0;
+            foreach (var id in visibleNodes.OrderBy(id => id == selected ? 0 : graph.Get(id).type == "Evidence" ? 2 : 1).ThenBy(id => id, StringComparer.Ordinal))
             {
-                var p = Screen(id); labels[id].style.left = p.x + 12; labels[id].style.top = p.y - 14;
+                var p = Screen(id); var label = labels[id];
+                label.style.left = p.x + 12; label.style.top = p.y - 14;
+                float measured = label.MeasureTextSize(label.text, 0, MeasureMode.Undefined, 0, MeasureMode.Undefined).x;
+                float width = float.IsNaN(measured) ? 164 : Mathf.Min(164, measured + 8);
+                var bounds = new Rect(p.x - 8, p.y - 16, width + 24, 32);
+                bool show = id == selected || !occupied.Any(rect => rect.Overlaps(bounds));
+                label.style.display = show ? DisplayStyle.Flex : DisplayStyle.None;
+                if (show) occupied.Add(bounds); else HiddenLabelCount++;
             }
             MarkDirtyRepaint(); Changed?.Invoke();
         }

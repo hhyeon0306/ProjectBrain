@@ -1,5 +1,15 @@
 # Brain 작업 이력
 
+## 2026-09-07 U1-2 문서 구조와 툴 텍스트 보완
+- Goal: 사용자가 지적한 문서 폼의 단순한 구조, 본문 잘림, 그래프 이름 겹침을 수정한다.
+- Changes: 문서4탭/고정 저장바/저장상태/작성 수/접힌 메타, 초안 보존, 전체 폭 문서 관계도. 공통 입력 줄바꿈/작업 정보 접기, 검증·확인 상태 한국어/원본 로그 접기. 전체 그래프 이름 겹침 시 이름만 생략하고 선택 우선 표시.
+- Files: Editor BrainDocumentWindow/DocumentGraphView/BrainTheme.cs·uss/BrainTaskWindow/BrainExplorerWindow/BrainMapView; Docs 계약/사용법/작업표/인계/증거와 Brain 실제 검증기록.
+- Verification: DocumentStoreChecks14, BrainMapChecks11 통과. 실제 UI콜백으로 4탭 초안·CreateGUI·미저장 상태 유지 및 전체 docs bytes 보존. 720x560 긴 한글/개행 렌더, 1000x920 문서7노드 겹침·범위 검사, 780x850 작업창 렌더. 1000x800 전체40노드 중26이름 표시 상태에서 이름 교차0·생략 노드 선택 표시·노드 수 보존. 실제 마우스 문서 탭 전환 상태0 확인. 최종 Unity 결과는 reviews/2026-09-07-u1-2-evidence.json 참조.
+- Decisions: 저장소·MCP·사람 승인 규칙은 유지. 이름 생략 수와 확대/선택 안내를 표시해 전체 데이터가 줄어든 것으로 오해하지 않게 한다.
+- Next: 실제 사용 피드백, P1 증거·서류/PPT 준비.
+- Limitations: 큰 그래프의 모든 이름을 축소 화면에 동시에 표시하지 않는다. 전체 작업 종료/사람 확인은 대행하지 않았다. 기존4개 외 DemoPlayerMovement.cs 괄호 변경이 추가로 관찰돼 보존·커밋 제외했다.
+
+
 ## 2026-09-07 U1 A2 그래프 중심 디자인 적용
 - Goal: 사용자가 승인한 A2 시안대로 넓은 관계 그래프와 작은 상세/하단 도구를 실제 Unity UI로 구현한다.
 - Changes: BrainMapView/Painter2D 벡터 글리프·선·배치/간격 보정, 검색·종류 필터·주변2단계·줌/드래그·맞춤. Explorer 재구성/문서 바로가기/작업 기억 서랍, Theme.cs/uss 및 기존 작업·문서 창 공통 스타일.
@@ -352,3 +362,7 @@ W1b-UI 최종 범위 검사: 양쪽 git diff --cached --check 통과. 기존 사
 마우스 재검증 관리 검사: 양쪽 문서 구조 통과. 전체 Git 검사는 기존 씬242행 공백으로 실패하며 해당 사용자 변경은 보존한다.
 
 U1 A2 관리 검사: 양쪽 문서 구조 통과. 전체 Git 검사는 기존 사용자 SampleScene.unity:242 공백으로 실패. 이번 변경만 양쪽 staged 검사 통과. 자체 EOF 공백을 정리한 최종 스냅샷으로 compile/EditMode를 다시 기록했다. 기존 사용자 변경4개 보존.
+
+U1-2 최종 관리 검사: 양쪽 문서 구조 통과. 전체 Git 검사는 기존 사용자 SampleScene.unity:242 공백으로 실패하므로 해당 변경을 보존하고 이번 변경만 staged 검사한다. 최종 컴파일 오류0/캐시74, EditMode9/9 통과.
+
+U1-2 범위 검사: 양쪽 git diff --cached --check 통과. 기존4개 및 이동 스크립트 변경은 제외했다.

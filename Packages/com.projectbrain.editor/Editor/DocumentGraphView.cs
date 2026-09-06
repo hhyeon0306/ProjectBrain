@@ -17,11 +17,13 @@ namespace ProjectBrain
 
         public DocumentGraphView(ScriptDocument document, string[] relatedGuids, Action<MonoScript> select)
         {
+            name = "document-graph";
             style.minHeight = 320;
-            style.flexGrow = 1;
+            style.flexShrink = 0;
             style.backgroundColor = (Color)new Color32(48, 50, 52, 255);
             style.overflow = Overflow.Hidden;
             var guids = new[] { document.scriptGuid }.Concat(relatedGuids ?? Array.Empty<string>()).Distinct().ToArray();
+            style.height = Mathf.Max(320, (guids.Length - 1) * 76 + 40);
             foreach (var guid in guids)
             {
                 var path = AssetDatabase.GUIDToAssetPath(guid);
@@ -34,8 +36,11 @@ namespace ProjectBrain
                 };
                 button.SetEnabled(script != null);
                 button.style.position = Position.Absolute;
-                button.style.width = 140;
-                button.style.height = 30;
+                button.style.width = 220;
+                button.style.height = 52;
+                button.style.whiteSpace = WhiteSpace.Normal;
+                button.style.fontSize = 13;
+                button.style.paddingLeft = button.style.paddingRight = 10;
                 button.style.marginLeft = button.style.marginTop = 0;
                 button.style.backgroundColor = guid == document.scriptGuid ? BrainTheme.Accent : (Color)new Color32(59, 61, 64, 255);
                 button.style.color = guid == document.scriptGuid ? (Color)new Color32(37, 40, 51, 255) : Color.white;
@@ -47,12 +52,12 @@ namespace ProjectBrain
             {
                 var painter = context.painter2D;
                 painter.strokeColor = new Color(0.4f, 0.5f, 0.7f);
-                painter.lineWidth = 2;
+                painter.lineWidth = 1.2f;
                 foreach (var end in endpoints)
                 {
                     painter.BeginPath();
                     painter.MoveTo(center);
-                    painter.LineTo(end);
+                    painter.BezierCurveTo(center + new Vector2(70,0), end - new Vector2(70,0), end);
                     painter.Stroke();
                 }
             };
@@ -60,19 +65,18 @@ namespace ProjectBrain
 
         private void LayoutNodes()
         {
-            center = new Vector2(contentRect.width / 2, contentRect.height / 2);
+            if (float.IsNaN(contentRect.width) || contentRect.width < 1) return;
+            float width = Mathf.Clamp(contentRect.width * .36f, 150, 240);
+            center = new Vector2(24 + width, contentRect.height / 2);
             endpoints.Clear();
             for (int i = 0; i < nodes.Count; i++)
             {
-                var point = center;
-                if (i > 0)
-                {
-                    float angle = (i - 1) * Mathf.PI * 2 / (nodes.Count - 1) - Mathf.PI / 2;
-                    point += new Vector2(Mathf.Cos(angle) * Mathf.Max(0, center.x - 85), Mathf.Sin(angle) * Mathf.Max(0, center.y - 45));
-                    endpoints.Add(point);
-                }
-                nodes[i].style.left = point.x - 70;
-                nodes[i].style.top = point.y - 21;
+                float left = i == 0 ? 24 : Mathf.Max(24 + width + 60, contentRect.width - width - 24);
+                float top = i == 0 ? center.y - 26 : 20 + (i - 1) * 76;
+                nodes[i].style.width = width;
+                nodes[i].style.left = left;
+                nodes[i].style.top = top;
+                if (i > 0) endpoints.Add(new Vector2(left, top + 26));
             }
             MarkDirtyRepaint();
         }

@@ -65,8 +65,9 @@ namespace ProjectBrain
         private void BuildActive(VisualElement parent)
         {
             Label(parent, active.purpose, true);
-            Label(parent, "작업 " + active.id + " · 저장 버전 " + active.revision + " · 시작 기준 파일 " + active.baseline.files.Length + "개");
-            Label(parent, "현재 허용 범위\n" + string.Join("\n", active.allowedPaths));
+            var metadata = new Foldout { text = "작업 정보 · 버전 " + active.revision, value = false };
+            Label(metadata, "작업 ID  " + active.id + "\n시작 기준 파일  " + active.baseline.files.Length + "개");
+            parent.Add(metadata);
             if (draft.taskId != active.id || draft.revision != active.revision)
                 Label(parent, "다른 곳에서 작업이 바뀌었습니다. 아래 입력은 이전 버전입니다. 필요한 내용을 복사한 뒤 입력 버리고 최신 작업 읽기를 누르세요.");
             var scope = new Foldout { text = "수정할 수 있는 범위", value = true }; parent.Add(scope);
@@ -151,7 +152,7 @@ namespace ProjectBrain
         private void Input(VisualElement parent, string label, string name, string value, Action<string> assign)
         {
             var field = new TextField(label) { name = name, value = value, multiline = true };
-            field.style.whiteSpace = WhiteSpace.Normal; field.style.minHeight = 34;
+            BrainTheme.WrapField(field, 60);
             field.RegisterValueChangedCallback(e => { assign(e.newValue); draft.edited = true; Persist(); }); parent.Add(field);
         }
         private Button ActionButton(string text, string name, Action action)

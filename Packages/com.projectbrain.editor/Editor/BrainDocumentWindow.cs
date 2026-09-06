@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Linq;
 using UnityEditor;
 using UnityEditor.UIElements;
@@ -12,238 +13,258 @@ namespace ProjectBrain
         [SerializeField] private MonoScript selectedScript;
         [SerializeField] private ScriptDocument document;
         [SerializeField] private bool dirty;
+        [SerializeField] private int activeTab;
         private readonly ScriptDocumentService service = new ScriptDocumentService();
-        private VisualElement form;
-        private VisualElement graph;
-        private Label identity;
+        private ScrollView form;
+        private VisualElement tabs;
+        private Label documentTitle, subtitle, saveState, completeness;
         private HelpBox message;
+        private Button saveButton, reloadButton, codeButton;
+        private ObjectField picker;
 
         [MenuItem("Window/Project Brain/Script Document")]
         public static void Open() => GetWindow<BrainDocumentWindow>("Brain 문서");
 
         public void CreateGUI()
         {
-            minSize = new Vector2(820, 500);
-            var root = rootVisualElement;
-            root.Clear(); BrainTheme.Apply(root);
-            root.style.paddingLeft = root.style.paddingRight = 12;
-            root.style.paddingTop = root.style.paddingBottom = 12;
-            var title = new Label("설계 문서 / 기존 스크립트 문서");
-            title.style.unityFontStyleAndWeight = FontStyle.Bold;
-            title.style.fontSize = 16;
-            title.style.marginBottom = 12;
-            root.Add(title);
-            var picker = new ObjectField("스크립트") { objectType = typeof(MonoScript), allowSceneObjects = false };
+            minSize = new Vector2(720, 560);
+            var root = rootVisualElement; root.Clear(); BrainTheme.Apply(root);
+            root.AddToClassList("document-window");
+            root.style.paddingLeft = root.style.paddingRight = 0;
+            root.style.paddingTop = root.style.paddingBottom = 0;
+            var header = new VisualElement(); header.AddToClassList("doc-header"); root.Add(header);
+            var heading = new VisualElement(); heading.AddToClassList("row"); header.Add(heading);
+            var names = new VisualElement(); names.style.flexGrow = 1; names.style.minWidth = 0; heading.Add(names);
+            names.Add(BrainTheme.Label("SCRIPT DOCUMENT", "eyebrow"));
+            documentTitle = BrainTheme.Label("", "doc-title"); names.Add(documentTitle);
+            subtitle = BrainTheme.Label("", "single-line"); names.Add(subtitle);
+            saveState = BrainTheme.Label("", "save-state"); heading.Add(saveState);
+            picker = new ObjectField("스크립트 선택") { name = "document-script", objectType = typeof(MonoScript), allowSceneObjects = false };
             picker.SetValueWithoutNotify(selectedScript);
             picker.RegisterValueChangedCallback(evt =>
             {
                 if (!ConfirmDiscard()) { picker.SetValueWithoutNotify(selectedScript); return; }
-                Run(() =>
-                {
-                    var nextScript = evt.newValue as MonoScript;
-                    var next = nextScript == null ? null : service.LoadOrCreate(nextScript);
-                    selectedScript = nextScript;
-                    document = next;
-                    SetDirty(false);
-                    BuildForm();
-                });
+                Run(() => LoadScript(evt.newValue as MonoScript));
                 picker.SetValueWithoutNotify(selectedScript);
             });
-            root.Add(picker);
-            var split = new TwoPaneSplitView(0, 270, TwoPaneSplitViewOrientation.Horizontal);
-            split.style.flexGrow = 1;
-            graph = new VisualElement();
-            graph.style.minWidth = 230;
-            split.Add(graph);
-            form = new ScrollView();
-            form.AddToClassList("document-page");
-            form.style.minWidth = 330;
-            form.style.flexGrow = 1;
-            split.Add(form);
-            root.Add(split);
-            message = new HelpBox("C# 스크립트를 선택하세요. 기존 문서(docs) 편집이며 Explorer 문서(nodes)와 자동 동기화되지 않습니다.", HelpBoxMessageType.Info);
-            root.Add(message);
-            if (document == null && selectedScript != null) Run(() => document = service.LoadOrCreate(selectedScript));
-            BuildForm();
-            SetDirty(dirty);
-        }
-
-        private void BuildForm()
-        {
-            form.Clear();
-            graph.Clear();
-            if (document == null)
+            header.Add(picker);
+            tabs = new VisualElement { name = "document-tabs" }; tabs.AddToClassList("doc-tabs"); root.Add(tabs);
+            form = new ScrollView(ScrollViewMode.Vertical) { name = "document-content" };
+            form.AddToClassList("document-page"); form.style.flexGrow = 1; form.style.minWidth = 0; form.style.minHeight = 0; root.Add(form);
+            message = new HelpBox("", HelpBoxMessageType.Info) { name = "document-message" };
+            message.style.display = DisplayStyle.None; root.Add(message);
+            var footer = new VisualElement(); footer.AddToClassList("doc-footer"); root.Add(footer);
+            completeness = BrainTheme.Label("", "muted"); completeness.style.flexGrow = 1; footer.Add(completeness);
+            reloadButton = BrainTheme.Button("다시 읽기", () =>
             {
-                graph.Add(new Label("스크립트를 선택하면 관계 그래프가 표시됩니다."));
-                return;
-            }
-            message.text = "기존 문서(docs) 편집 · Explorer 문서(nodes)와 자동 동기화되지 않습니다. 밝은 노드가 현재 문서입니다.";
-            message.messageType = HelpBoxMessageType.Info;
-            Run(() =>
-            {
-                var related = service.GetGraphRelatedGuids(document);
-                graph.Add(new Label("직접 연결한 관련 코드 · 노드를 눌러 문서 열기"));
-                graph.Add(new DocumentGraphView(document, related, script =>
-                {
-                    if (script == selectedScript || !ConfirmDiscard()) return;
-                    Run(() =>
-                    {
-                        var next = service.LoadOrCreate(script);
-                        selectedScript = script;
-                        document = next;
-                        SetDirty(false);
-                        CreateGUI();
-                    });
-                }));
-            });
-            if (graph.childCount == 0)
-            {
-                graph.Add(new HelpBox("관계를 읽지 못했습니다. 아래 오류의 문서 파일을 확인한 뒤 다시 시도하세요. 현재 문서의 편집 내용은 유지됩니다.", HelpBoxMessageType.Error));
-                graph.Add(new Button(BuildForm) { text = "관계 다시 읽기" });
-            }
-            identity = new Label("GUID: " + document.scriptGuid + "\n" + service.ResolvePath(document));
-            identity.style.whiteSpace = WhiteSpace.Normal;
-            identity.style.marginTop = identity.style.marginBottom = 12;
-            form.Add(identity);
-            AddText("역할", document.role, value => document.role = value);
-            AddText("설계 의도", document.designIntent, value => document.designIntent = value);
-            AddText("주의사항", document.cautions, value => document.cautions = value);
-            AddText("본문", document.body, value => document.body = value);
-            BuildImages();
-            BuildRelations();
-            form.Add(new HelpBox("문서 저장은 코드 검증이나 검토 승인을 의미하지 않습니다.", HelpBoxMessageType.Info));
-            var save = new Button(() => SaveChanges()) { text = "문서 저장" }; save.AddToClassList("primary"); form.Add(save);
-            form.Add(new Button(() => Run(() =>
+                if (ConfirmDiscard()) Run(() => LoadScript(selectedScript));
+            }, "document-reload"); footer.Add(reloadButton);
+            codeButton = BrainTheme.Button("코드 열기", () => Run(() =>
             {
                 var script = AssetDatabase.LoadAssetAtPath<MonoScript>(service.ResolvePath(document));
                 if (script == null) throw new InvalidOperationException("연결된 코드가 없습니다.");
                 AssetDatabase.OpenAsset(script);
-            })) { text = "연결된 코드 열기" });
-            form.Add(new Button(() =>
-            {
-                if (!ConfirmDiscard()) return;
-                Run(() => { document = service.LoadOrCreate(selectedScript); SetDirty(false); BuildForm(); });
-            }) { text = "저장된 문서 다시 읽기" });
+            }), "document-open-code"); footer.Add(codeButton);
+            saveButton = BrainTheme.Button("문서 저장", SaveChanges, "document-save");
+            saveButton.AddToClassList("primary"); footer.Add(saveButton);
+            var note = BrainTheme.Label("기존 문서 편집 · Explorer 사본과 자동 동기화되지 않습니다. 저장은 검증·사람 확인과 별개입니다.", "storage-note");
+            root.Add(note);
+            if (document == null && selectedScript != null) Run(() => document = service.LoadOrCreate(selectedScript));
+            BuildForm(); SetDirty(dirty);
         }
 
-        private void AddText(string label, string value, Action<string> assign)
+        private void LoadScript(MonoScript script)
         {
-            form.Add(new Label(label));
-            var field = new TextField { multiline = true, value = value ?? "" };
-            field.style.minHeight = 64;
-            field.style.marginBottom = 10;
+            // Read first. A failed read must not discard the current document or its draft.
+            var next = script == null ? null : service.LoadOrCreate(script);
+            selectedScript = script; document = next; SetDirty(false); BuildForm();
+        }
+
+        private void BuildForm()
+        {
+            if (form == null) return;
+            form.Clear(); tabs.Clear();
+            Repaint();
+            documentTitle.text = document == null ? "설계 문서" : Path.GetFileNameWithoutExtension(service.ResolvePath(document));
+            if (document != null && string.IsNullOrEmpty(documentTitle.text)) documentTitle.text = "연결된 코드 없음";
+            subtitle.text = document == null ? "프로젝트의 C# 스크립트를 선택해 문서를 작성하세요." : service.ResolvePath(document);
+            subtitle.tooltip = subtitle.text;
+            var tabNames = new[] { "문서 내용", "첨부 이미지", "연결 코드", "관계도" };
+            for (int i = 0; i < tabNames.Length; i++)
+            {
+                int index = i; var name = tabNames[i];
+                if (document != null && i == 1) name += "  " + (document.imageGuids?.Length ?? 0);
+                if (document != null && i == 2) name += "  " + (document.relatedScriptGuids?.Length ?? 0);
+                var tab = BrainTheme.Button(name, () => { activeTab = index; BuildForm(); }, "document-tab-" + i);
+                tab.AddToClassList("quiet"); tab.EnableInClassList("active", activeTab == i);
+                tab.SetEnabled(document != null); tabs.Add(tab);
+            }
+            UpdateStatus();
+            if (document == null)
+            {
+                Section("코드에 설계 맥락을 남기세요", "역할과 설계 이유, 주의사항을 작성하고 이미지와 관련 코드를 연결할 수 있습니다.");
+                form.Add(BrainTheme.Label("1  상단에서 스크립트 선택\n\n2  문서 작성 및 자료 연결\n\n3  문서 저장", "empty-guide"));
+                return;
+            }
+            if (activeTab == 0)
+            {
+                Section("역할과 설계", "무엇을 하는 코드인지, 왜 이렇게 구현했는지 다음 작업자가 이해할 수 있게 작성하세요.");
+                AddText("역할", "이 코드가 담당하는 책임", "document-role", document.role, value => document.role = value, 82);
+                AddText("설계 의도", "구현 이유와 선택한 방식", "document-design", document.designIntent, value => document.designIntent = value, 100);
+                AddText("주의사항", "제약, 예외와 수정할 때 확인할 점", "document-cautions", document.cautions, value => document.cautions = value, 82);
+                AddText("상세 본문", "동작 흐름, 사용 예와 추가 설명", "document-body", document.body, value => document.body = value, 180);
+                var metadata = new Foldout { text = "문서 정보", value = false };
+                metadata.Add(BrainTheme.Label("GUID  " + document.scriptGuid, "muted"));
+                metadata.Add(BrainTheme.Label("저장 위치  .projectbrain/docs/" + document.scriptGuid + ".json", "muted"));
+                form.Add(metadata);
+            }
+            else if (activeTab == 1) BuildImages();
+            else if (activeTab == 2) BuildRelations();
+            else BuildGraph();
+            form.scrollOffset = Vector2.zero;
+        }
+
+        private void Section(string heading, string description)
+        {
+            form.Add(BrainTheme.Label(heading, "section-title"));
+            form.Add(BrainTheme.Label(description, "section-description"));
+        }
+
+        private void AddText(string label, string hint, string name, string value, Action<string> assign, int height)
+        {
+            var field = new TextField(label) { name = name, multiline = true, value = value ?? "" };
+            field.tooltip = hint; field.textEdition.placeholder = hint;
+            BrainTheme.WrapField(field, height);
             field.RegisterValueChangedCallback(evt => { assign(evt.newValue); SetDirty(true); });
             form.Add(field);
         }
 
+        private void BuildGraph()
+        {
+            Section("직접 연결된 문서 관계", "현재 문서에서 연결했거나 이 문서를 참조하는 코드입니다. 노드를 누르면 해당 문서로 이동합니다.");
+            // Build only after the complete relationship read succeeds.
+            try
+            {
+                var related = service.GetGraphRelatedGuids(document);
+                form.Add(new DocumentGraphView(document, related, script =>
+                {
+                    if (script == selectedScript || !ConfirmDiscard()) return;
+                    Run(() => { LoadScript(script); picker.SetValueWithoutNotify(selectedScript); });
+                }));
+                if (related.Length == 0) form.Add(BrainTheme.Label("연결 코드 탭에서 다른 코드를 추가해보세요.", "muted"));
+            }
+            catch (Exception e)
+            {
+                form.Add(new HelpBox("관계를 읽지 못했습니다. 문서 편집 내용은 유지됩니다.\n" + e.Message, HelpBoxMessageType.Error));
+                form.Add(BrainTheme.Button("관계 다시 읽기", BuildForm, "document-graph-retry"));
+            }
+        }
+
+        private VisualElement ResourceCard(string heading, string path)
+        {
+            var card = new VisualElement(); card.AddToClassList("resource-card");
+            var label = BrainTheme.Label(heading, "resource-title"); label.tooltip = heading; card.Add(label);
+            var location = BrainTheme.Label(path, "single-line"); location.tooltip = path; card.Add(location);
+            form.Add(card); return card;
+        }
+
         private void BuildImages()
         {
-            form.Add(new Label("첨부 이미지"));
-            var picker = new ObjectField("이미지 추가") { objectType = typeof(Texture2D), allowSceneObjects = false };
-            picker.RegisterValueChangedCallback(evt => Run(() =>
+            Section("첨부 이미지", "설계도와 참고 화면을 문서에 연결합니다. 제거는 연결만 해제하며 이미지 파일은 유지합니다.");
+            var add = new ObjectField("이미지 추가") { name = "document-add-image", objectType = typeof(Texture2D), allowSceneObjects = false };
+            add.RegisterValueChangedCallback(evt => Run(() =>
             {
                 if (evt.newValue == null) return;
                 var path = AssetDatabase.GetAssetPath(evt.newValue);
-                if (!path.StartsWith("Assets/", StringComparison.Ordinal))
-                    throw new InvalidOperationException("이미지를 Project 창의 Assets에 넣고 선택하세요.");
+                if (!path.StartsWith("Assets/", StringComparison.Ordinal)) throw new InvalidOperationException("Assets 안의 이미지를 선택하세요.");
                 var guid = AssetDatabase.AssetPathToGUID(path);
                 document.imageGuids = (document.imageGuids ?? Array.Empty<string>()).Append(guid).Distinct().ToArray();
-                SetDirty(true);
-                BuildForm();
+                SetDirty(true); BuildForm();
             }));
-            form.Add(picker);
+            form.Add(add);
+            if ((document.imageGuids?.Length ?? 0) == 0) form.Add(BrainTheme.Label("아직 첨부한 이미지가 없습니다.", "empty-guide"));
             foreach (var guid in document.imageGuids ?? Array.Empty<string>())
             {
                 var path = AssetDatabase.GUIDToAssetPath(guid);
                 var texture = AssetDatabase.LoadAssetAtPath<Texture2D>(path);
-                if (texture == null) form.Add(new HelpBox("이미지 누락: " + guid, HelpBoxMessageType.Warning));
-                else
+                var card = ResourceCard(texture == null ? "이미지 파일 없음" : Path.GetFileName(path), path.Length == 0 ? guid : path);
+                if (texture != null)
                 {
-                    var preview = new Image { image = texture, scaleMode = ScaleMode.ScaleToFit };
-                    preview.style.height = 180;
-                    form.Add(preview);
-                    var label = new Label(path);
-                    label.style.whiteSpace = WhiteSpace.Normal;
-                    form.Add(label);
+                    card.Add(new Image { image = texture, scaleMode = ScaleMode.ScaleToFit, style = { height = 230, marginTop = 12, marginBottom = 12 } });
+                    card.Add(BrainTheme.Button("프로젝트에서 찾기", () => EditorGUIUtility.PingObject(texture)));
                 }
-                form.Add(new Button(() =>
+                card.Add(BrainTheme.Button("이미지 연결 제거", () =>
                 {
                     document.imageGuids = document.imageGuids.Where(id => id != guid).ToArray();
-                    SetDirty(true);
-                    BuildForm();
-                }) { text = "이미지 연결 제거" });
+                    SetDirty(true); BuildForm();
+                }));
             }
         }
 
         private void BuildRelations()
         {
-            form.Add(new Label("관련 코드와 문서"));
-            var picker = new ObjectField("관련 코드 추가") { objectType = typeof(MonoScript), allowSceneObjects = false };
-            picker.RegisterValueChangedCallback(evt => Run(() =>
+            Section("연결 코드", "함께 이해해야 할 코드와 문서를 관리합니다. 여기서 추가한 연결은 문서 저장 시 반영됩니다.");
+            var add = new ObjectField("코드 추가") { name = "document-add-code", objectType = typeof(MonoScript), allowSceneObjects = false };
+            add.RegisterValueChangedCallback(evt => Run(() =>
             {
                 if (evt.newValue == null) return;
                 var related = service.LoadOrCreate(evt.newValue as MonoScript);
-                if (related.scriptGuid == document.scriptGuid)
-                    throw new InvalidOperationException("다른 코드를 선택하세요.");
+                if (related.scriptGuid == document.scriptGuid) throw new InvalidOperationException("다른 코드를 선택하세요.");
                 document.relatedScriptGuids = (document.relatedScriptGuids ?? Array.Empty<string>()).Append(related.scriptGuid).Distinct().ToArray();
-                SetDirty(true);
-                BuildForm();
+                SetDirty(true); BuildForm();
             }));
-            form.Add(picker);
+            form.Add(add);
+            if ((document.relatedScriptGuids?.Length ?? 0) == 0) form.Add(BrainTheme.Label("아직 직접 연결한 코드가 없습니다. 들어오는 연결은 관계도에서 확인할 수 있습니다.", "empty-guide"));
             foreach (var guid in document.relatedScriptGuids ?? Array.Empty<string>())
             {
                 var path = AssetDatabase.GUIDToAssetPath(guid);
                 var script = AssetDatabase.LoadAssetAtPath<MonoScript>(path);
-                var label = new Label(script == null ? "코드 누락: " + guid : path);
-                label.style.whiteSpace = WhiteSpace.Normal;
-                form.Add(label);
-                var open = new Button(() =>
+                var card = ResourceCard(script == null ? "코드 파일 없음" : Path.GetFileNameWithoutExtension(path), path.Length == 0 ? guid : path);
+                var row = new VisualElement(); row.AddToClassList("row"); card.Add(row);
+                var open = BrainTheme.Button("문서 열기", () =>
                 {
-                    if (!ConfirmDiscard()) return;
-                    Run(() =>
-                    {
-                        var next = service.LoadOrCreate(script);
-                        selectedScript = script;
-                        document = next;
-                        SetDirty(false);
-                        CreateGUI();
-                    });
-                }) { text = "관련 문서 열기 / 작성" };
-                open.SetEnabled(script != null);
-                form.Add(open);
-                form.Add(new Button(() =>
+                    if (ConfirmDiscard()) Run(() => { LoadScript(script); picker.SetValueWithoutNotify(selectedScript); });
+                }); open.SetEnabled(script != null); row.Add(open);
+                var code = BrainTheme.Button("코드 열기", () => AssetDatabase.OpenAsset(script)); code.SetEnabled(script != null); row.Add(code);
+                row.Add(BrainTheme.Button("연결 제거", () =>
                 {
                     document.relatedScriptGuids = document.relatedScriptGuids.Where(id => id != guid).ToArray();
-                    SetDirty(true);
-                    BuildForm();
-                }) { text = "관계 제거" });
+                    SetDirty(true); BuildForm();
+                }));
             }
         }
 
         private bool ConfirmDiscard() => !dirty || EditorUtility.DisplayDialog("미저장 문서", "저장하지 않은 변경을 버릴까요?", "변경 버리기", "취소");
+        private void UpdateStatus()
+        {
+            if (saveState == null) return;
+            saveState.text = document == null ? "선택 대기" : dirty ? "저장하지 않은 변경" : string.IsNullOrEmpty(document.updatedUtc) ? "새 문서" : "저장된 문서";
+            saveState.EnableInClassList("unsaved", dirty);
+            saveButton.SetEnabled(document != null);
+            reloadButton.SetEnabled(document != null && selectedScript != null);
+            codeButton.SetEnabled(document != null && selectedScript != null);
+            int filled = document == null ? 0 : new[] { document.role, document.designIntent, document.cautions, document.body }.Count(v => !string.IsNullOrWhiteSpace(v));
+            completeness.text = document == null ? "스크립트를 선택하세요" : "작성 항목 " + filled + " / 4 · 내용의 정확성은 직접 확인하세요";
+        }
         private void SetDirty(bool value)
         {
-            dirty = value;
-            hasUnsavedChanges = value;
+            dirty = value; hasUnsavedChanges = value;
+            if (message != null) { message.text = ""; message.style.display = DisplayStyle.None; }
             saveChangesMessage = "Brain 문서의 변경을 저장할까요?";
+            UpdateStatus();
         }
-        public override void SaveChanges()
+        public override void SaveChanges() => Run(() =>
         {
-            Run(() =>
-            {
-                if (document == null) return;
-                service.Save(document);
-                SetDirty(false);
-                message.text = "저장했습니다: .projectbrain/docs/" + document.scriptGuid + ".json";
-                message.messageType = HelpBoxMessageType.Info;
-                identity.text = "GUID: " + document.scriptGuid + "\n" + service.ResolvePath(document);
-            });
-        }
+            if (document == null) return;
+            service.Save(document); SetDirty(false);
+            message.text = "문서를 저장했습니다."; message.messageType = HelpBoxMessageType.Info;
+        });
         public override void DiscardChanges() { SetDirty(false); base.DiscardChanges(); }
         private void Run(Action action)
         {
             try { action(); }
             catch (Exception e) { if (message != null) { message.text = e.Message; message.messageType = HelpBoxMessageType.Error; } Debug.LogWarning("[Project Brain] " + e.Message); }
+            finally { if (message != null) message.style.display = string.IsNullOrEmpty(message.text) ? DisplayStyle.None : DisplayStyle.Flex; }
         }
     }
 }

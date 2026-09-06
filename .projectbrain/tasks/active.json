@@ -1,15 +1,15 @@
 {
     "schemaVersion": 1,
     "id": "a48a9ba7-be69-4985-a648-ed5d2ac5442f",
-    "revision": 11,
+    "revision": 12,
     "purpose": "Player 이동 코드의 작업 재개와 맥락·최신성 시연",
     "targetNodeIds": [
         "feature:player/movement"
     ],
-    "progress": "U1 A2 시안 적용: 실제 그래프·검색/필터/주변2단계·줌/드래그·상세/작업 기억 서랍. 세 창 공통 테마. Map11/UI콜백11/Workflow39/Lifecycle28 및 EditMode9/9 확인.",
-    "decisions": "UI 재구성. 저장/MCP/사람 확인/완료 정책 유지. 벡터 글리프 직접 제작, 예시 데이터 미삽입. 기존 docs/nodes 자동 동기화 없음.",
-    "unresolved": "문서2개 사람 확인·허용 밖 변경/최종 완료 남음. 검색 키보드 자동 입력은 미확인, 실제 UI 콜백 통과. 대규모 성능/저장소 통합 후속.",
-    "nextAction": "실제 A2 화면 사용 후 디자인 조정. 서류/PPT 준비도 및 P1 증거 정리.",
+    "progress": "U1 A2에 이어 U1-2 문서4탭·고정 저장바·초안 보존·본문 줄바꿈·문서 관계도 배치를 보완했다. Explorer/작업 관리의 상태 문구와 입력 가독성을 정리하고 축소 그래프의 겹치는 이름 생략/선택 표시를 적용했다.",
+    "decisions": "UI 표현 개선이며 기존 docs/nodes 분리, 최초 기준선, 허용 범위, MCP와 사람 확인·완료 규칙은 유지한다. 이름 생략 수를 명시하고 노드/관계는 그대로 유지한다.",
+    "unresolved": "실제 사람 문서 확인2건, 허용 범위 밖·미매핑 변경이 남아 전체 작업 종료는 막혀 있다. 기존 사용자 변경과 추가 관찰된 DemoPlayerMovement.cs 괄호 변경은 이번 UI 커밋에서 제외한다. 대규모 그래프 성능 미측정.",
+    "nextAction": "사용자 실제 화면 피드백, P1 증거 및 서류·PPT 준비. Docs/session_handoff.md와 U1-2 evidence 참조.",
     "references": [
         "feature:player/movement",
         "document:10000000000000000000000000000003"
@@ -985,5 +985,5 @@
     },
     "gitStateAtBegin": "not-queried; baseline includes pre-existing working files",
     "createdUtc": "2026-09-06T08:18:14.4162169Z",
-    "updatedUtc": "2026-09-06T18:38:17.0862559Z"
+    "updatedUtc": "2026-09-06T22:05:19.7395293Z"
 }

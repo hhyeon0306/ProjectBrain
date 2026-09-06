@@ -82,9 +82,9 @@ namespace ProjectBrain
                 summaryDrawer.Add(BrainTheme.Button("작업 기억 닫기", () => summaryDrawer.style.display = DisplayStyle.None));
                 taskPanel = new ScrollView(); taskPanel.style.flexGrow = 1; summaryDrawer.Add(taskPanel);
                 var legend = BrainTheme.Label("● 기능·계층   □ 코드   ▤ 문서   ◇ 기록    ·    드래그 이동 / 휠 확대", "map-legend"); legend.pickingMode = PickingMode.Ignore; canvas.Add(legend);
-                map.Changed = () => { zoomLabel.text = Mathf.RoundToInt(map.Zoom * 100) + "%"; mapCount.text = map.VisibleCount == 0 ? "검색·필터에 맞는 노드가 없습니다." : map.VisibleCount + " / " + graph.Nodes.Count + " 노드 · 저장된 관계"; };
+                map.Changed = () => { zoomLabel.text = Mathf.RoundToInt(map.Zoom * 100) + "%"; mapCount.text = map.VisibleCount == 0 ? "검색·필터에 맞는 노드가 없습니다." : map.VisibleCount + " / " + graph.Nodes.Count + " 노드 · 저장된 관계" + (map.HiddenLabelCount == 0 ? "" : " · 이름 " + map.HiddenLabelCount + "개 생략 · 확대하거나 노드 선택"); };
                 var footer = new VisualElement(); footer.AddToClassList("bar"); footer.style.minHeight = 30; root.Add(footer);
-                taskLabel = BrainTheme.Label("", "muted"); taskLabel.style.flexGrow = 1; footer.Add(taskLabel);
+                taskLabel = BrainTheme.Label("", "single-line"); taskLabel.style.flexGrow = 1; footer.Add(taskLabel);
                 footer.Add(BrainTheme.Button("작업 관리 ↗", BrainTaskWindow.Open));
                 if (!graph.Nodes.ContainsKey(selectedId)) selectedId = graph.Nodes.Keys.OrderBy(id => id, StringComparer.Ordinal).FirstOrDefault();
                 if (selectedId != null) SelectNode(selectedId);
@@ -98,17 +98,20 @@ namespace ProjectBrain
             detail.Add(BrainTheme.Label(BrainTheme.TypeName(node.type).ToUpperInvariant(), "eyebrow"));
             var parent = graph.Parent(id);
             if (parent != null) { var back = new Button(() => SelectNode(parent)) { text = "← " + graph.Get(parent).title }; back.AddToClassList("quiet"); detail.Add(back); }
-            detail.Add(BrainTheme.Label(node.title, "detail-title"));
-            Text(node.summary);
+            detail.Add(BrainTheme.Label(node.type == "Evidence" ? "Unity 검증 결과" : node.title, "detail-title"));
+            if (node.type != "Evidence") Text(node.summary);
             var freshness = new BrainFreshnessService(ScriptDocumentService.ProjectRoot, json, AssetDatabase.GUIDToAssetPath).Inspect(graph, id);
-            var metadata = new Foldout { text = "자료 정보 · " + freshness.state, value = false };
+            var metadata = new Foldout { text = "자료 정보 · " + BrainTheme.FreshnessName(freshness.state), value = false };
             metadata.Add(BrainTheme.Label(id, "muted")); metadata.Add(BrainTheme.Label("최신성은 저장 당시 코드와의 일치 여부입니다. 검증 통과나 사람 확인과는 별개입니다.", "muted"));
             if (node.type == "Evidence")
             {
                 var record = new BrainVerificationStore(ScriptDocumentService.ProjectRoot, json).Load(node.id.Substring("evidence:".Length));
                 var current = new BrainVerificationStore(ScriptDocumentService.ProjectRoot, json).CurrentPass(record, new BrainVerificationStore(ScriptDocumentService.ProjectRoot, json).Snapshot());
-                Text(record.kind + " · " + record.state + " · 현재 통과 근거: " + current);
-                Text("전체 " + record.total + " / 통과 " + record.passed + " / 실패 " + record.failed + " / 건너뜀 " + record.skipped); Text(record.summary); Text(node.body);
+                Text((record.kind == "compile" ? "컴파일" : "EditMode 테스트") + " · " + BrainTheme.VerificationName(record.state));
+                Text(current ? "현재 코드의 통과 근거로 사용할 수 있습니다." : "현재 코드의 통과 근거로 사용할 수 없습니다.");
+                Text("전체 " + record.total + " / 통과 " + record.passed + " / 실패 " + record.failed + " / 건너뜀 " + record.skipped);
+                var log = new Foldout { text = "원본 검증 기록", value = false };
+                log.Add(BrainTheme.Label(record.summary, "muted")); log.Add(BrainTheme.Label(node.body, "muted")); detail.Add(log);
             }
             if (node.type == "Activity") Text(node.body);
             if (node.type == "Image")
@@ -119,8 +122,9 @@ namespace ProjectBrain
             }
             if (node.type == "Document")
             {
-                detail.Add(new TextField("본문 (읽기 전용)") { value = node.body, multiline = true, isReadOnly = true, style = { whiteSpace = WhiteSpace.Normal } });
-                Text("이 화면은 nodes를 읽습니다. 기존 문서 창의 docs 수정은 여기에 자동 반영되지 않습니다.");
+                var body = new TextField("본문 · 읽기 전용") { value = node.body, multiline = true, isReadOnly = true };
+                BrainTheme.WrapField(body, 160); detail.Add(body);
+                Text("Explorer에 저장된 문서 사본입니다. 기존 문서 창의 수정은 자동 반영되지 않습니다.");
                 AddReview(node.id);
             }
             if (node.type == "Code") detail.Add(new Button(() => Run(() =>
@@ -155,7 +159,9 @@ namespace ProjectBrain
             if (active == null) { Text("문서 확인은 작업 시작 후 가능합니다."); return; }
             var service = new BrainCompletionService(ScriptDocumentService.ProjectRoot, json, AssetDatabase.GUIDToAssetPath);
             var review = service.InspectDocument(documentId, json.Write(graph.Get(documentId)));
-            Text("사람 문서 확인: " + review.state + " · 연결 코드: " + string.Join(", ", review.codePaths));
+            Text("사람 문서 확인 · " + BrainTheme.ReviewName(review.state));
+            var codes = new Foldout { text = "확인할 코드 · " + review.codePaths.Length + "개", value = false };
+            foreach (var path in review.codePaths) codes.Add(BrainTheme.Label(path, "muted")); detail.Add(codes);
             var acknowledged = new Toggle("현재 본문과 연결 코드를 직접 읽고 내용이 맞는지 확인했습니다.");
             acknowledged.style.whiteSpace = WhiteSpace.Normal; detail.Add(acknowledged);
             var button = new Button(() => Run(() =>
@@ -172,6 +178,7 @@ namespace ProjectBrain
         {
             taskPanel.Clear(); task = new BrainTaskService(ScriptDocumentService.ProjectRoot, json).Load();
             if (taskLabel != null) taskLabel.text = task == null ? "진행 중인 작업 없음 · 작업 기억에서 시작" : "현재 작업   " + task.purpose;
+            if (taskLabel != null) taskLabel.tooltip = taskLabel.text;
             taskPanel.Add(new Label("작업 기억"));
             if (task == null)
             {
@@ -185,7 +192,7 @@ namespace ProjectBrain
                 draftTaskId = task.id; draftRevision = task.revision; draftReferences = task.references;
                 draftProgress = task.progress; draftDecisions = task.decisions; draftUnresolved = task.unresolved; draftNext = task.nextAction;
             }
-            taskPanel.Add(new Label(task.purpose + " · revision " + task.revision) { style = { whiteSpace = WhiteSpace.Normal } });
+            taskPanel.Add(new Label(task.purpose + " · 버전 " + task.revision) { style = { whiteSpace = WhiteSpace.Normal } });
             taskPanel.Add(new Button(() => Run(() =>
             {
                 var result = new BrainCompletionService(ScriptDocumentService.ProjectRoot, json, AssetDatabase.GUIDToAssetPath).Check(task.id, task.revision);
@@ -200,7 +207,7 @@ namespace ProjectBrain
             taskPanel.Add(new Button(() => Run(() =>
             {
                 var state = new BrainTaskService(ScriptDocumentService.ProjectRoot, json).Status();
-                message.text = "변경 " + state.changes.Length + "개 · 허용 밖 " + state.changes.Count(c => !c.allowed) + "개 · coverage 제한 " + state.coverageLimitations.Length + "개";
+                message.text = "변경 " + state.changes.Length + "개 · 허용 밖 " + state.changes.Count(c => !c.allowed) + "개 · 검사 범위 제한 " + state.coverageLimitations.Length + "개";
                 message.messageType = HelpBoxMessageType.Info;
             })) { text = "변경 다시 확인" });
         }
@@ -215,6 +222,7 @@ namespace ProjectBrain
         private void Field(string label, string value, Action<string> assign)
         {
             var field = new TextField(label) { value = value, multiline = true, style = { whiteSpace = WhiteSpace.Normal } };
+            BrainTheme.WrapField(field, 72);
             field.RegisterValueChangedCallback(evt => { assign(evt.newValue); taskDirty = true; hasUnsavedChanges = true; });
             taskPanel.Add(field);
         }

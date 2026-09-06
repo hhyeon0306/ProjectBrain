@@ -1,0 +1,96 @@
+{
+  "task": "U1-2",
+  "date": "2026-09-07",
+  "project": "C:/Dev/nexontutorial/ProjectBrain",
+  "checks": {
+    "DocumentStoreChecks": 14,
+    "BrainMapChecks": 11
+  },
+  "uiChecks": [
+    "Four tabs retain draft after TextField value-change",
+    "CreateGUI retains draft and dirty state",
+    "Legacy docs JSON bytes unchanged during UI tests; original document state restored",
+    "720x560 long Korean text and newline rendering with no horizontal scroll",
+    "1000x920 legacy graph: 7 nodes, no rectangle overlaps, all inside graph bounds",
+    "780x850 task window: labels above input, wrapped content",
+    "1000x800 Explorer: 40 nodes retained, 26 displayed names have zero rectangle overlaps; selecting omitted name reveals it",
+    "Native document tab click reflected activeTab=0"
+  ],
+  "screenshots": [
+    "u1-2-document.png",
+    "u1-2-document-wrap.png",
+    "u1-2-document-graph.png"
+  ],
+  "verification": [
+    {
+      "schemaVersion": 1,
+      "id": "d49de03b-a6b2-4400-a973-c4cc22fa54b8",
+      "taskId": "a48a9ba7-be69-4985-a648-ed5d2ac5442f",
+      "kind": "compile",
+      "state": "passed",
+      "snapshotHash": "1592986a5b5bbc790cdcd0cac59ac854914ee81a7bc44376bab67ed4d1e6f80b",
+      "startedUtc": "2026-09-06T22:04:03.6076344Z",
+      "endedUtc": "2026-09-06T22:04:31.3292499Z",
+      "summary": "Unity compilation callbacks; compiled=0, up-to-date=74, errors=0",
+      "total": 74,
+      "passed": 74,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "schemaVersion": 1,
+      "id": "aff857e0-9c2f-42fb-b361-31979309159a",
+      "taskId": "a48a9ba7-be69-4985-a648-ed5d2ac5442f",
+      "kind": "editmode",
+      "state": "passed",
+      "snapshotHash": "1592986a5b5bbc790cdcd0cac59ac854914ee81a7bc44376bab67ed4d1e6f80b",
+      "startedUtc": "2026-09-06T22:05:03.8812349Z",
+      "endedUtc": "2026-09-06T22:05:06.7129296Z",
+      "summary": "All discovered EditMode tests. Passed; ",
+      "total": 9,
+      "passed": 9,
+      "failed": 0,
+      "skipped": 0
+    }
+  ],
+  "initialVerificationBeforeMapChange": [
+    {
+      "schemaVersion": 1,
+      "id": "789fe4c3-7771-4df2-903b-ec15f677f7ec",
+      "taskId": "a48a9ba7-be69-4985-a648-ed5d2ac5442f",
+      "kind": "compile",
+      "state": "passed",
+      "snapshotHash": "46bf869cfc9a43901ad2ac47f66346ebbe0b79caf5a79eba3447d5c601e3ec3d",
+      "startedUtc": "2026-09-06T22:01:21.8419707Z",
+      "endedUtc": "2026-09-06T22:02:00.4012080Z",
+      "summary": "Unity compilation callbacks; compiled=0, up-to-date=74, errors=0",
+      "total": 74,
+      "passed": 74,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "schemaVersion": 1,
+      "id": "a53914d5-dd0a-468f-b9c5-2c1127887287",
+      "taskId": "a48a9ba7-be69-4985-a648-ed5d2ac5442f",
+      "kind": "editmode",
+      "state": "passed",
+      "snapshotHash": "46bf869cfc9a43901ad2ac47f66346ebbe0b79caf5a79eba3447d5c601e3ec3d",
+      "startedUtc": "2026-09-06T22:02:28.8904231Z",
+      "endedUtc": "2026-09-06T22:02:37.4553201Z",
+      "summary": "All discovered EditMode tests. Passed; ",
+      "total": 9,
+      "passed": 9,
+      "failed": 0,
+      "skipped": 0
+    }
+  ],
+  "limitations": [
+    "NUnit 9 cases belong to WorkflowDemo, not 9 document UI tests",
+    "Dense overview omits colliding names, reports count; nodes and edges retained",
+    "Docs and nodes stores remain distinct; no automatic synchronization",
+    "No human review or task completion impersonation",
+    "Existing user changes plus observed movement parentheses change excluded from UI commit"
+  ],
+  "taskRevisionAfterSummary": 12
+}
