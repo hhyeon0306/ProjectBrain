@@ -96,6 +96,20 @@ receipt는 schemaVersion=1, completedUtc, sources(GUID/원본 버전/SHA256), no
 
 ## 작업·검증·활동 기록: 계획, 미구현
 
+### W1/M2a 최소 계약 확정 (2026-09-06, 구현 전)
+
+아래는 다음 구현의 수용 계약이다. 저장 모델·서비스·MCP가 이미 존재한다는 뜻은 아니다.
+
+- 작업 저장: tasks/active.json에 schemaVersion, UUID 작업 ID, revision, 목적, 대상 노드 ID, 진행 요약, 결정/근거, 미해결, 다음 행동, 원본 참조, 시작 스냅샷, createdUtc/updatedUtc를 저장한다. 필수 필드 누락·손상은 거절하고 기존 파일을 보존한다. 저장은 파일 단위 원자 교체이며 단일 Editor 작성자를 전제로 한다.
+- begin/restart: 활성 작업이 없을 때만 새 기준선을 만든다. 활성 작업이 있으면 그 ID와 요약을 반환하며 새 목적/대상으로 덮어쓰지 않는다. 명시한 taskId가 활성 ID와 다르면 충돌로 거절한다. 재개는 기존 기준선과 요약을 유지하고 현재 변경 목록을 다시 계산한다. 새 작업으로 교체·완료하는 정책은 W2에서 구현한다.
+- 요약 갱신: UI와 MCP가 같은 update-task 서비스에 taskId와 expectedRevision을 전달한다. revision 불일치 또는 잘못된 참조는 쓰기 전에 거절한다. 요약 저장은 기준선·확인·검증 결과를 갱신하지 않는다. MCP 어댑터 이름은 brain_update_task로 두고 문서 편집과 구분한다.
+- 감시: 프로젝트 내부 Assets/Packages/ProjectSettings의 실제 파일과 meta를 경로별 SHA256 bytes로 읽는다. Library/Temp/Logs/.git과 Brain 작업 기록은 제외한다. 외부 file: 패키지·심볼릭 링크 등 완전히 읽지 못하는 입력은 coverage 제한으로 반환하고 완료 근거로 삼지 않는다. 허용 변경 경로는 감시 범위 안의 별도 목록이다. 범위 밖 변경도 반환한다. 이름 변경은 삭제+추가로 표시하며 GUID로 추정한 이동은 별도 힌트다. begin 이전 변경은 기준선에 포함되므로 이후 변경과 혼동하지 않는다. Git의 기존 dirty 여부는 별도 참고 정보다.
+- context 입력: rootNodeId, depth(기본 1, 0~2), maxNodes(기본 12, 1~30), maxChars(기본 8000, 1000~20000)를 받는다. 관계는 양방향 BFS로 탐색하되 from/to/type/source를 보존한다. 같은 깊이에서는 contains, implemented_by, documented_by, illustrated_by, depends_on, verified_by, worked_on_in, references 순서 후 관계 ID의 ordinal 순서로 고정한다. 방문 집합으로 순환·중복 확장을 막는다.
+- context 출력: 선택 노드·요약·원본 참조·관계·최신성 근거와 조회량을 반환한다. 긴 body, 이미지 bytes, 로그 원문은 자동 포함하지 않는다. maxChars는 직렬화된 응답의 UTF-16 코드 단위 수로 계산하며 메타데이터도 예산에 포함한다. 생략 이유(depth/nodes/chars), 생략 수(계산한 범위만), 후속 조회용 노드 ID를 예산 내에서 반환한다. 루트의 최소 식별 정보도 맞지 않으면 budget-too-small로 거절한다. 전체 그래프를 세지 않고 미탐색 수를 추정 수치로 꾸미지 않는다.
+- 최신성: 설명/관계의 근거는 별도 freshness 기록에 대상 ID, 설명 또는 관계 payload 해시, 근거 코드 ID/경로/SHA256 집합으로 저장한다. 자료 내용과 근거 코드 모두 일치하면 current, 달라지면 stale, 근거가 없으면 unknown, 참조 파일이 없으면 missing이다. 이관된 자료는 명시적 근거를 등록하기 전 unknown이다. current는 bytes 일치만 뜻하며 정확성·사람 확인·검증 성공을 대신하지 않는다. 조회 시 다시 계산하며 재개만으로 근거를 새 코드에 맞춰 덮어쓰지 않는다.
+
+회귀 수용 사례: 새 서비스 인스턴스에서 동일 작업/기준선 재개, 다른 begin의 덮어쓰기 거절, revision 충돌의 원본 보존, 순환 그래프의 결정적 제한 조회, 응답 예산/생략 표시, 코드·설명·관계 변경 후 stale, 근거 없음 unknown, 파일 삭제 missing. 실제 구현 결과와 조회량은 이후 실행 증거로 남긴다.
+
 BrainTask는 ID, 목적, 대상 Feature/노드, 감시 범위, 허용 변경 범위, 시작 스냅샷, 변경 목록, 상태를 가진다. 활성 작업은 하나다. 기존 사용자 변경과 begin 이후 변경을 구분한다. 추가로 진행 요약·결정/근거·미해결·다음 행동을 지속 저장해 세션 재개에 사용한다. 정확한 스키마와 갱신/재개 API는 W1에서 확정한다.
 
 M2a 착수 시 관계별 탐색 방향·깊이·우선순위·분량 예산과 생략/후속 조회 응답을 정한다. 반환 자료는 노드 ID·관계 출처·최신성 근거를 포함하도록 설계한다. 설명/관계의 기준 코드 해시와 변경 후 재확인 상태를 어떻게 저장할지는 W1/M2a에서 확정하며, 기존 updatedUtc나 missing만으로 최신성을 보장하지 않는다. UI 전체 완성은 공통 맥락 서비스의 선행 조건이 아니다.

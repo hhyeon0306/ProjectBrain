@@ -3,6 +3,8 @@ Updated: 2026-09-06 (세션 종료)
 
 ## Current state
 
+2026-09-06 재개: W1/M2a의 작업 저장·충돌 없는 재개·revision 갱신·제한된 context·최신성 최소 계약을 architecture에 확정했다. 현재 세션 도구 목록에 Ivan MCP가 없으며 검색 도구도 없다. Unity 실행과 양쪽 설정 일치는 읽기로 확인했다. 실제 연결·컴파일·테스트는 미확인이고 제품 코드는 변경하지 않았다.
+
 최종 운영: MCP 중심 개발·최종 검증, CLI는 필요 시 환경 점검만 기본 사용한다. task의 WF-B는 Brain 관련 기능 구축 후 현재 파이프라인과 연동하고 양쪽 AGENTS.md/사용법을 실제 호출 계약으로 갱신하는 후속 작업이다. 현재는 연동하지 않는다.
 
 독립 워크플로우 시연: [대시 예제](workflow-development-demo.md)와 실제 NUnit 테스트 9개를 Assets/WorkflowDemo에 추가했다. MCP 최초 9/9, 의도적 경계 결함 7/9, 수정 후 9/9 통과. Brain 기능/연동은 수정하지 않았다. 최종 결정에 따라 CLI 배치/Editor 종료 시연은 진행하지 않는다. 데모 meta의 자동 생성 후행 공백을 정리했다.
@@ -21,13 +23,15 @@ A1 범용 저장소·v2 비파괴 이관과 기존 문서/그래프 시제품은
 ## Next action
 
 1. task → 이 인계 → product_spec/architecture 관련 절 → 최신 work_log만 읽는다. 전체 리뷰·archive 재독은 필요 없다. 개발 시 실제 MCP 읽기 호출로 ProjectBrain 연결을 확인한다.
-2. W1/M2a의 지속 작업 요약과 재개, 관계 탐색/분량 제한, 코드 변경 후 재확인 상태의 최소 계약을 확정한다. 별도 대규모 재설계는 하지 않는다.
+2. architecture의 W1/M2a 확정 최소 계약을 사용한다. MCP 복구 후 다음 결함 보완부터 진행하며 계약 검토를 반복하지 않는다.
 3. A1-R의 누락 JSON 필드 거절·Git 줄바꿈 재현성, F2의 UI 오류 경계를 보완하고 관련 회귀 검사 및 새 clone 데이터 이관을 확인한다. 재현 세부가 필요할 때만 [기반 코드 검토](reviews/2026-09-06-project-review.md)와 [증거](reviews/2026-09-06-project-review-evidence.json)를 읽는다.
 4. A2 공통 계층 서비스·최소 탐색과 W1/M2a를 연결해 작업 등록/요약 저장 → 새 세션 재개 → 관련 맥락 조회 → 변경 후 오래된 자료 표시를 먼저 검증한다. 이후 W2/M1 거절, A3/V1 성공, P1 기록으로 진행한다. UI 장식은 후속이다.
 
 지원 일정은 유지한다. 9/6 서류·PPT 시간 확보, 9/7 새 기능 착수 금지, 내부 제출 목표 15:00/공식 마감 16:00 KST. 다음 개발 단위 전 날짜와 상위 제출 준비도를 확인한다.
 
 ## Verification
+
+현재 연결 진단: resources/list 및 templates/list 모두 MCP startup failed: Transport closed. 25766은 기존 codex.exe 자식 MCP PID 40524가 점유하며 서버 로그(15:28:03)에 address already in use 확인. 실제 Unity 도구는 미노출이라 씬 조회/제품 검증 미실행. 기존 서버 종료·설정 변경 없음.
 
 이번 종료 작업은 문서 정리이며 Unity 제품 검사를 재실행하지 않았다. 이전 검토에서 Unity 자체 검사 25/18/14 통과, 실제 MCP 코드 실행 성공, 실데이터 자산 누락 0을 확인했다. 자체 57항목은 Test Runner·플레이·UI 검증 수가 아니다. JSON 누락 수용·clone 이관 거절·UI 예외 누락도 별도로 재현됐으며 아직 미수정이다. 이번 문서 관리 검증 결과는 최신 work_log에 기록한다.
 

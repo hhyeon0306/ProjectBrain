@@ -1,5 +1,13 @@
 # Brain 작업 이력
 
+## 2026-09-06 재개 계약·MCP 연결 진단
+- Goal: 작업 재개 후 사용자 요청에 따라 MCP 연결·도구 테스트를 우선한다.
+- Changes: Brain W1/M2a 최소 계약을 문서화한 뒤 제품 작업 중단. 현재 세션의 MCP 초기화 실패와 포트 충돌을 읽기 진단했다.
+- Files: Docs/session_handoff.md, Docs/work_log.md; 하위 Docs/{architecture,product_spec,task,session_handoff,work_log}.md.
+- Verification: ai-game-developer resources/list 및 resources/templates/list 모두 MCP startup failed: Transport closed. 도구 목록에 Unity 도구 없음. 실행 파일 존재, Unity 실행, 양쪽 설정 일치 확인. 25766 소유 PID 40524(gamedev-mcp-server), 부모 codex.exe 확인. 15:28:03 로그에 address already in use. 상위 scripts/verify.ps1 -IncludeBrain 통과(문서/Git 검사).
+- Decisions: 기존 서버·Unity 종료, 설정 변경, CLI Editor 우회를 수행하지 않는다. TCP 리스닝이나 과거 도구 성공을 이번 연결 성공으로 보지 않는다.
+- Next: Codex MCP 연결 재로딩으로 포트 소유 충돌을 해소한 뒤 도구 노출·scene-list-opened부터 재시험. 이후 A1-R/F2 구현.
+- Limitations: 현재 세션의 실제 Unity 도구 호출·컴파일·제품 테스트 미실행. 포트 충돌 원인은 확인했으나 연결 복구 미완료. 기존 사용자 변경 두 파일 보존.
 ## 2026-09-06 MCP 중심 정책·WF-B 후속 작업 등록
 - Goal: MCP 중심 운영과 Brain 구축 후 연동/AGENTS 갱신 요구를 유지한다.
 - Changes: 하위 AGENTS와 task의 WF-B에 관련 기능 구축 → 현재 파이프라인 연결 → 최신성/완료 검증 → 상위/하위 AGENTS 및 사용법 갱신 조건 명시. CLI 시연 대기는 종료.

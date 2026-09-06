@@ -53,6 +53,7 @@ Project
 |---|---|---|
 | brain_begin | 목적·대상·시작 스냅샷 등록 | 필수 |
 | brain_context | 노드/검색어 기반 제한된 주변 맥락, 생략 표시 | 필수 |
+| brain_update_task | revision 확인 후 진행·결정·미해결·다음 행동 저장 | 작업 재개에 필수 |
 | brain_status | 변경·문서 확인·검증 상태와 다음 행동 | 필수 |
 | brain_update_document | 문서 갱신, AI 작성과 사람 확인 구분 | 완전한 편집 흐름 |
 | brain_apply | 예상 해시가 맞는 파일 수정·이력 기록 | 완전한 편집 흐름 |
