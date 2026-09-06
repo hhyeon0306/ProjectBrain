@@ -67,3 +67,6 @@ brain_verify(taskId, expectedRevision, kind=compile 또는 editmode) → 실행 
 ready는 현재 완료 조건 충족 여부, completed는 complete가 Activity를 실제 기록한 경우만 true다. 전체 EditMode의 발견된 9개 테스트는 WorkflowDemo 대시 테스트로, Movement/Brain 전체 기능을 검증했다는 뜻이 아니다. 실제 문서 사람 확인과 허용 밖 변경이 남아 실작업의 최종 완료는 아직 거절된다. 성공 분기는 격리 fixture로 검증한다.
 
 이 절과 architecture의 A3/V1 계약이 앞선 W2의 verification-unavailable/완료 성공 미지원 설명을 대체한다. PlayMode·Player 빌드·자동 작업 교체/아카이브는 미지원이다.
+
+## WF-B 연결
+현재 실제 호출 순서는 ../../Docs/unity-workflow.md의 WF-B 절을 따른다. begin/context/status, 일반 편집 감지, verify 결과 연결 및 변경 후 무효화를 실제 검증했다. 전체 사용 중심 전환·실제 사람 확인/완료 성공과는 구분한다. 요약 revision은 7이다. 증거 reviews/2026-09-07-wfb-evidence.json.

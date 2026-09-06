@@ -1,15 +1,15 @@
 {
     "schemaVersion": 1,
     "id": "a48a9ba7-be69-4985-a648-ed5d2ac5442f",
-    "revision": 6,
+    "revision": 7,
     "purpose": "Player 이동 코드의 작업 재개와 맥락·최신성 시연",
     "targetNodeIds": [
         "feature:player/movement"
     ],
-    "progress": "A3/V1 최소 검증 연결 구현: Unity 컴파일 상태와 EditMode 9/9 실제 결과를 Evidence로 저장·조회했다.",
-    "decisions": "검증은 현재 스냅샷으로 검사한다. compiled=0/up-to-date=74는 신규 컴파일 74개가 아니다. 실제 사람 확인을 대신하지 않는다.",
-    "unresolved": "문서 2개 사람 미확인과 허용 밖 변경으로 실제 작업 complete는 거절된다. 초기 종료 저장 IOException 1회는 성공 근거에서 제외했다. WF-B 전체 연동과 디자인 정리가 남는다.",
-    "nextAction": "서류·PPT 준비도 확인 후 실제 문서 확인·허용 범위 정리 및 WF-B 시연. 디자인 아트는 직접 제작한다.",
+    "progress": "WF-B 현재 7개 API 연동: 작업 재개·제한 맥락·코드 변경 후 검증 무효화·복원·실제 EditMode9/9·완료 거절을 확인했다.",
+    "decisions": "상위/하위 지침에 실제 호출 순서를 반영한다. 적용/문서 갱신 API는 아직 없으므로 완전한 Brain 사용 중심 전환과 구분한다. 원래 baseline과 사람 미확인 유지.",
+    "unresolved": "실제 문서 2개 사람 확인·허용 밖 변경 해소와 최종 완료 시연이 남았다. 상태 응답 요약/상세 분리는 후속 개선이며 토큰 절감은 미측정이다.",
+    "nextAction": "서류·PPT 준비도 확인. M2b 적용/문서 갱신과 활성 작업 범위 처리 계약을 정리한 뒤 실제 완료 시연, 이후 U1 디자인.",
     "references": [
         "feature:player/movement",
         "document:10000000000000000000000000000003"
@@ -984,5 +984,5 @@
     },
     "gitStateAtBegin": "not-queried; baseline includes pre-existing working files",
     "createdUtc": "2026-09-06T08:18:14.4162169Z",
-    "updatedUtc": "2026-09-06T15:29:33.5360603Z"
+    "updatedUtc": "2026-09-06T15:40:30.1882806Z"
 }

@@ -10,7 +10,7 @@
 ## 현재 단계: Brain 자체 개발
 ### Unity-MCP 사용 규칙
 - 현재 기본 파이프라인: 개발·컴파일·일반 테스트·최종 검증은 Ivan MCP, CLI는 필요 시 버전/설치 경로/프로젝트 잠금 등 환경 점검에만 사용한다. 동일 검사를 CLI로 중복 실행하거나 CLI 성공을 필수 완료 조건으로 두지 않는다. 배치/CI는 향후 명시적 요청 때만 사용한다. 상세는 [상위 워크플로우](../Docs/unity-workflow.md).
-- Brain 연동은 아직 미구현이다. 작업·맥락·결과 저장·최신성 기능 구축 후 Docs/task.md의 WF-B로 현재 파이프라인에 연결하고 상위/하위 AGENTS.md를 실제 호출 계약으로 갱신한다. 그 전에는 없는 Brain 도구를 호출 요구하지 않는다.
+- 현재 7개 Brain API의 WF-B 연동을 확인했다. 상위 Docs/unity-workflow.md의 WF-B 순서(begin/context/status → 편집·assets-refresh → 필요한 verify/status → complete → update_task)를 따른다. apply/update_document는 미구현이며 사람 확인·허용 범위를 우회하지 않는다. 전체 사용 중심 전환은 product_spec의 전체 흐름 검증 후다.
 - 설치 제품은 IvanMurzak/Unity-MCP 0.90.0이다. Unity 공식 CLI/Pipeline과 혼동하거나 교체하지 않는다. 상세 절차: [Docs/unity_mcp_usage.md](Docs/unity_mcp_usage.md).
 - 매 세션 실제 제공된 MCP 도구 이름과 입력 스키마를 먼저 확인한다. 설정 파일 존재나 과거 연결 성공만으로 현재 연결을 가정하지 않는다.
 - 연결 확인은 scene-list-opened 등 읽기 호출로 한다. 현재 프로젝트가 Project Brain인지 연결 설정과 함께 확인한다. 사용자가 UI를 확인 중이면 씬 저장·재생·테스트·Editor 재시작을 임의 실행하지 않는다.
@@ -22,7 +22,7 @@
 - Brain begin/update_task/status/context/record_basis/verify/complete 7개는 구현·HTTP 호출 검증됐다. [현재 사용법](Docs/brain-usage.md)을 따른다. status/begin이 파일을 재스캔하며 일반 편집을 가로채거나 자동 승인하지 않는다. 도구 동적 등록과 현재 Codex 내장 카탈로그 노출은 구분한다.
 
 - A2 최소 Explorer와 W1/M2a 작업 재개·맥락·최신성은 구현됐다. W2 문서 확인·완료 거절을 추가했다. verify는 실제 compile/editmode 실행과 기록을 연결한다. complete는 정책 충족 시 Activity를 기록한다. 실제 사람 확인은 대신하지 않으며 없는 apply 도구를 요구하지 않는다. 전체 Brain 사용 중심 지침 전환은 WF-B 이후다.
-- A1/A1-R/F2 보완과 A2/W1/M2a 최소 흐름을 구현·검증했다. W2/M1 최소 문서 확인·거절까지 구현했다. 다음은 A3/V1 실제 검증 성공과 WF-B 연동이다. 세부 범위는 Docs/task.md를 따르며 전면 재검토를 반복하지 않는다.
+- A1/A1-R/F2 보완과 A2/W1/M2a 최소 흐름을 구현·검증했다. W2/M1 최소 문서 확인·거절까지 구현했다. A3/V1과 현재 7개 API의 WF-B 연동도 검증했다. 남은 실제 사람 확인·범위 처리/최종 완료 및 M2b를 작업표에서 확인한다. 세부 범위는 Docs/task.md를 따르며 전면 재검토를 반복하지 않는다.
 - Brain 핵심 규칙, 저장소, Unity 검증 실행기, MCP 연결 코드를 분리한다. 현재는 단일 Editor asmdef 안의 논리적 분리이며 레거시 DocumentStore의 Unity 의존은 남아 있다. 기존 오픈소스 및 Library/PackageCache를 수정하지 않는다.
 - A1의 자체 검사 체크 수를 NUnit/Test Runner 케이스·플레이·UI 검증 수로 표현하지 않는다. 새 계층 UI는 nodes/relations를 기준으로 하고 기존 docs UI와의 쓰기 경계를 명시한다.
 - 코드 검증은 실제 결과로 판단한다. 컴파일 성공을 테스트 통과로 표현하지 않고, 이전 코드에 대한 검증을 현재 결과로 재사용하지 않는다.

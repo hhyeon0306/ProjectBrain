@@ -1,5 +1,15 @@
 # Brain 작업 이력
 
+## 2026-09-07 WF-B 현재 API 연동
+- Goal: 실제 Brain 도구를 MCP 중심 작업 절차에 연결하고 사용 순서를 검증한다.
+- Changes: 상위/하위 AGENTS와 사용법에 7개 도구의 실제 순서를 반영. 작업표와 인계 갱신, 요약 revision6→7. 제품 C# 변경은 남기지 않음.
+- Files: AGENTS.md, Docs/task.md, brain-usage.md, session_handoff.md, work_log.md, reviews/2026-09-07-wfb-evidence.json; .projectbrain/tasks/active.json 및 새 실제 Evidence/노드/관계. 상위 상세 사용법은 ../Docs/unity-workflow.md.
+- Verification: 실제 MCP 연결/7개 스키마 확인, begin 재개·context7,326자/9노드. DemoPlayerMovement 임시 주석 뒤 verification-compile/editmode 거절, 원본 bytes/작업 기준선 보존 복원 후 기존 결과 재유효. assets-refresh 후 실제 EditMode9/9. complete는 문서 미확인/허용 밖 사유로 거절. 문서 구조 검사 통과. 전체 verify는 기존 사용자 SampleScene.unity:242 공백으로 중단됐으며 해당 씬은 보존하고 이번 staged 변경 검사는 통과했다.
+- Decisions: 현재 API의 WF-B 연동 완료와 전체 Brain 사용 중심 전환을 구분한다. apply/update_document·실제 사람 확인/완료 성공은 남아 있다. 자동 승인·기준선 변경·CLI 중복 검증 없음.
+- Next: 서류·PPT 준비도 확인. 실제 문서/범위 정리, M2b와 활성 작업 범위/교체 계약. 이후 U1 디자인.
+- Limitations: 9개는 WorkflowDemo 검사이며 Brain 전체 검증 아님. 상태 응답 요약/상세 분리 미구현·토큰 절감 미측정. 실제 완료 Activity는 생성하지 않았다. 기존 사용자 변경4개 보존, 원격 업로드 없음.
+
+
 ## 2026-09-07 A3/V1 최소 검증 연결
 - Goal: 실제 Unity 결과를 현재 스냅샷 및 완료 조건에 연결한다.
 - Changes: brain_verify, 공유 Ivan TestRunner/CompilationPipeline 어댑터, 재로딩 복원/중단/timeout, Evidence 상세/노드, 성공 Activity 분기, UI 결과 표시. 작업 요약 revision6. 디자인 아트 직접 제작 승인 기록.
