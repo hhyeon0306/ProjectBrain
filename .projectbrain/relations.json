@@ -320,6 +320,22 @@
             "type": "verified_by",
             "source": "brain-unity-runner",
             "createdUtc": "2026-09-06T17:11:04.9984126Z"
+        },
+        {
+            "id": "relation:40b1037d2a01ab68e81c8c0eda1a9b1a8ca677ccca358dfe9a6becf458ae6d94",
+            "from": "feature:player/movement",
+            "to": "evidence:3473ac83-ddc4-4fa3-89b1-4a86492be6c2",
+            "type": "verified_by",
+            "source": "brain-unity-runner",
+            "createdUtc": "2026-09-06T17:47:34.5699269Z"
+        },
+        {
+            "id": "relation:61d9d20671126bcba8f268ccd27e71dd9cb35d4f617b631e1f7947eb2e5bf7ce",
+            "from": "feature:player/movement",
+            "to": "evidence:51a1a6b4-4019-42fc-865c-c08ddd0d4291",
+            "type": "verified_by",
+            "source": "brain-unity-runner",
+            "createdUtc": "2026-09-06T17:48:10.6171769Z"
         }
     ]
 }

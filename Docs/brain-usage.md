@@ -82,3 +82,15 @@ brain_update_document는 nodes Document의 summary/body만 갱신한다. 연결 
 편집 이력은 .projectbrain/edits/<UUID>.json의 actor=agent, 작업/revision/노드/작업 종류, 전후 해시/시각/state다. 쓰기 전 prepared를 저장하고 파일과 최종 이력 저장까지 성공한 뒤 applied를 반환한다. 중간 실패는 prepared를 남기고 경로가 포함된 오류를 반환한다. 일부 내용이 이미 바뀌었을 수 있으므로 재조회·해시 확인 뒤 재시도하며 원본 복원을 자동 강제하지 않는다. 동일 내용은 unchanged로 반환하고 이력을 만들지 않는다. 파일+이력의 다중 파일 트랜잭션이나 외부 편집기와의 OS 수준 CAS는 보장하지 않는다. prepared의 자동 복구/정리 및 이력 요약 UI는 후속이다.
 
 실제 호출: read_edit Code/Document → apply(이동 방식 주석) → 오래된 Code 해시 거절 → 오래된 Document context 거절 → 다시 읽고 update_document → 첫 파일 교체 실패/원본 보존 → 다시 읽고 재시도 성공 → assets-refresh → verify. 사람 확인 상태는 unreviewed 유지.
+
+## W1b 작업 범위·종료 계약 (2026-09-07)
+
+현재 MCP는 13개다. brain_set_scope(taskId, expectedRevision, allowedPaths, reason)는 사용자에게 승인된 범위를 명시적으로 바꾼다. 자동 범위 확장/실패 우회 용도가 아니다. 목적/대상 노드/최초 baseline은 유지하고 revision을 올리며 이전/새 경로·이유·시각을 active.json.scopeChanges에 함께 원자 저장한다. 동일 경로 배열은 무변경이다. 기존 작업의 생략된 scopeChanges는 빈 배열로 읽으며 명시적 null/잘못된 형식은 거절한다. 범위 변경은 미매핑·문서 확인·검증을 승인하지 않는다.
+
+brain_close_task(taskId, expectedRevision, disposition, reason)는 completed 또는 abandoned를 요구한다. completed는 현재 고정 완료 정책을 다시 검사하고 Activity를 저장해야 종료한다. abandoned는 미완료 종료이며 성공을 만들지 않고 미해결 사유를 보존한다. 막힌 작업을 숨기기 위해 자동 abandoned로 전환하지 않는다. 검증 running 중에는 범위 변경/종료를 거절한다.
+
+종료 기록 .projectbrain/tasks/archive/<taskId>.json은 전체 작업/기준선·범위 이력·종료 이유/시각·변경 목록/감시 한계·완료 판정을 보존한다. 이 단일 파일이 종료 표시이며 active.json bytes는 복구용으로 남긴다. 유효한 종료 사본일 때 Load는 활성 작업 없음으로 처리한다. 이후 brain_begin에 새 목적/대상/허용 경로를 주면 새 ID와 현재 baseline을 만든다. 기존 작업의 결과가 새 작업의 성공으로 이전되지는 않는다. 종료한 ID를 begin으로 재개하는 기능은 없다.
+
+동일 ID/revision/종류/이유의 종료 재시도는 기존 결과를 반환한다. 새 작업이 시작된 뒤 이전 종료를 재시도해도 새 작업은 닫히지 않는다. 종료 기록은 덮어쓰지 않으며 손상·active 사본 불일치는 자동 덮어쓰기를 막는다. brain_task_history(taskId)는 현재/종료 요약·범위 이력과 archivePath를 반환한다. 종료 판정은 그 시점의 역사이며 현재 검증이 아니다. 전체 baseline은 파일에 둔다. 활성 작업이 없을 때 status/edit/update는 명시적 오류를 반환하므로 history 또는 begin을 사용한다.
+
+최소 구현은 MCP/API 흐름이다. Explorer의 기존 새 작업 시작은 종료 후 사용할 수 있으나 범위/종료 전용 화면과 전체 작업 목록·재개 UI는 후속이다. 완료 Activity와 archive의 여러 파일 트랜잭션/외부 편집기와의 OS CAS는 없다. Activity 저장 후 archive 실패 시 활성 작업은 남을 수 있으며 성공 종료로 처리하지 않고 history/status를 재조회한다. abandoned 이후 새 기준선에 포함되는 기존 변경은 옛 archive에 남으며 자동 해결된 것으로 설명하지 않는다.

@@ -48,7 +48,8 @@ namespace ProjectBrain
             }
             foreach (var field in type.GetFields(BindingFlags.Public | BindingFlags.Instance))
             {
-                bool optional = type == typeof(ScriptDocument) && field.Name != "schemaVersion" && field.Name != "scriptGuid"
+                bool optional = type == typeof(BrainTaskRecord) && field.Name == "scopeChanges"
+                    || type == typeof(ScriptDocument) && field.Name != "schemaVersion" && field.Name != "scriptGuid"
                     || type == typeof(BrainNode) && (field.Name == "assetGuid" || field.Name == "lastKnownPath");
                 if (!optional) Require(names.Contains(field.Name), path + "." + field.Name + " (필수)");
             }

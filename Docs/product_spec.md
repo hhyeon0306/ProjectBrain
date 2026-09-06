@@ -114,3 +114,5 @@ AGENTS를 Brain **사용 중심**으로 전환하려면 begin/context/apply/upda
 현재 테스트 범위와 남은 실제 시연은 brain-usage의 A3/V1 절을 따른다.
 
 2026-09-07 M2b 최소 편집 구현: brain_read_edit를 더해 현재 도구는 10개다. 지원 형식·크기·허용 범위·prepared 이력 한계는 architecture의 M2b 절을 따른다. 전체 실제 사람 확인/완료 성공 시연 및 활성 작업 자동 교체는 여전히 남아 있다.
+
+2026-09-07 W1b 최소 구현: 명시적 범위 변경(set_scope)·완료/미완료 종료(close_task)·기록 조회(task_history), 현재13도구. active의 기준선은 범위 변경으로 초기화하지 않으며 종료 후 begin은 새 ID를 만든다. 상세 계약은 architecture의 W1b 절. 전체 실제 사람 확인/완료 성공 시연·전용 수명 관리 UI는 미완료다.

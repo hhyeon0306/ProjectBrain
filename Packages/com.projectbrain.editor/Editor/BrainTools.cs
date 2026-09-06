@@ -27,6 +27,19 @@ namespace ProjectBrain
             return result;
         });
 
+        [AiTool("brain_set_scope", Title = "Brain / Set Task Scope", ReadOnlyHint = false)]
+        [Description("Explicitly amend allowed paths with a reason and expected revision. Caller must have user authorization for the scope. Keeps original baseline/targets, stores before/after scope history atomically, and never approves documents or unmapped changes. Refuses running verification.")]
+        public static BrainTaskView SetScope(string taskId, int expectedRevision, string[] allowedPaths, string reason) => MainThread.Instance.Run(() => { RequireEditIdle(); return Lifecycle().SetScope(taskId, expectedRevision, allowedPaths, reason); });
+
+        [AiTool("brain_close_task", Title = "Brain / Close Task", ReadOnlyHint = false)]
+        [Description("Explicitly close as completed (rechecks fixed policy and records Activity) or abandoned (unfinished, preserves blockers; no success). Reason/revision required. Archive preserves task/baseline/changes; next brain_begin may create a new task. Same exact close retry is idempotent. Never auto-abandon a blocked task to hide its failures.")]
+        public static BrainTaskHistoryView CloseTask(string taskId, int expectedRevision, string disposition, string reason) => MainThread.Instance.Run(() => { RequireEditIdle(); return Lifecycle().Close(taskId, expectedRevision, disposition, reason); });
+
+        [AiTool("brain_task_history", Title = "Brain / Task History", ReadOnlyHint = true)]
+        [Description("Read compact active/archived task summary and scope changes by task ID. Archived blockers are historical, not current verification. Full baseline and closure evidence remain at archivePath; no reopen or mutation.")]
+        public static BrainTaskHistoryView TaskHistory(string taskId) => MainThread.Instance.Run(() => Lifecycle().History(taskId));
+
+        private static BrainTaskLifecycle Lifecycle() => new BrainTaskLifecycle(ScriptDocumentService.ProjectRoot, new UnityBrainJson(), AssetDatabase.GUIDToAssetPath);
         private static BrainCompletionService CompletionService() => new BrainCompletionService(ScriptDocumentService.ProjectRoot, new UnityBrainJson(), AssetDatabase.GUIDToAssetPath);
         private static BrainEditService EditService() => new BrainEditService(ScriptDocumentService.ProjectRoot, new UnityBrainJson(), AssetDatabase.GUIDToAssetPath);
         private static void RequireEditIdle() => BrainWorkspace.Require(!EditorApplication.isCompiling && !EditorApplication.isUpdating && !EditorApplication.isPlayingOrWillChangePlaymode, "Editor가 처리 중입니다.");

@@ -1,5 +1,15 @@
 # Brain 작업 이력
 
+## 2026-09-07 W1b 작업 범위·종료 관리
+- Goal: 원래 기준선과 미해결 기록을 보존하며 작업 범위를 바꾸고 다음 작업으로 전환한다.
+- Changes: scopeChanges 원자 저장·레거시 호환, 완료/미완료 archive 종료 표시, 종료 뒤 새 begin, 기록 조회. MCP set_scope/close_task/task_history 추가로 총13도구.
+- Files: BrainTaskLifecycle/Checks.cs 및 meta, TaskService, UnityBrainJson, BrainTools; .projectbrain/tasks/evidence/nodes/relations, AGENTS.md와 Docs 계약/사용법/인계/증거.
+- Verification: 실제 Unity MCP 자체 Lifecycle28+Edit22+Completion32 통과(총82). 격리 fixture에서 범위 변경/기준선 보존·미완료 종료/교체·정책 충족 완료·중복 요청·손상 보호 확인. 실제 HTTP13도구 등록·history/무변경 scope·revision 충돌/완료 조건 거절 및 active bytes 보존 확인. compile 최신 상태74/errors0, 실제 EditMode9/9(WorkflowDemo만) 통과. 검증 ID는 reviews/2026-09-07-lifecycle-evidence.json 참조.
+- Decisions: 실제 기존 작업은 범위를 자동 확장하거나 미완료 종료하지 않는다. fixture의 사람 확인/검증 데이터는 실제 프로젝트 승인으로 사용하지 않는다. 사용자 진행 요청에 따른 이번 단위이며 9/7 마감 원칙은 유지.
+- Next: 서류·PPT 9/7 15:00 준비도 확인. 실제 사람 문서 확인과 완료 시연 준비, 전용 범위/종료 UI 및 U1 전체 스타일은 후속.
+- Limitations: 최소 API 구현이며 범위/종료 전용 UI·목록/재개는 후속. 다중 파일 트랜잭션/외부 변조 방지 없음. 기존 사용자 변경4개 보존·원격 업로드 없음. 실제 문서 확인/완료 성공은 아직 하지 않았다.
+
+
 ## 2026-09-07 M2b 에이전트 편집 최소 흐름
 - Goal: 허용된 코드와 연결 문서를 에이전트가 충돌을 확인하며 수정한다.
 - Changes: read_edit/apply/update_document 3개 도구, 해시·revision·문서 근거 확인, 편집 영수증. 실제 Movement 주석과 설명 문서 갱신, 작업 요약 revision8.
@@ -299,3 +309,7 @@
 M2b 관리 검사: scripts/verify.ps1 -IncludeBrain의 양쪽 문서 구조 검사 통과. 전체 Git 검사는 기존 사용자 Assets/Scenes/SampleScene.unity:242 공백으로 실패. 해당 씬을 보존하고 이번 변경만 별도 staged 검사한다.
 
 M2b 최종 범위 검사: 양쪽 git diff --cached --check 통과. 기존 사용자 변경4개는 staged 대상에서 제외했다.
+
+W1b 최종 검증: 컴파일 compiled0/up-to-date74/errors0 및 실제 EditMode9/9 통과. scripts/verify.ps1 -IncludeBrain 양쪽 문서 구조 검사 통과. 전체 Git 검사는 기존 사용자 SampleScene.unity:242 공백으로 실패하여 보존하고 이번 변경만 staged 검사한다.
+
+W1b 범위 검사: 양쪽 git diff --cached --check 통과. 기존 사용자 변경4개는 제외했다.

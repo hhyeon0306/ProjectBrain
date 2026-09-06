@@ -17,6 +17,7 @@ namespace ProjectBrain
         public string nextAction = "";
         public string[] references = Array.Empty<string>();
         public string[] allowedPaths;
+        public BrainScopeChange[] scopeChanges = Array.Empty<BrainScopeChange>();
         public BrainSnapshot baseline;
         public string gitStateAtBegin = "not-queried; baseline includes pre-existing working files";
         public string createdUtc;
@@ -41,13 +42,20 @@ namespace ProjectBrain
             store = new BrainStore(Path.Combine(projectRoot, ".projectbrain"), json);
             path = Path.Combine(projectRoot, ".projectbrain", "tasks", "active.json");
         }
-        private void Validate(BrainTaskRecord task)
+        internal void Validate(BrainTaskRecord task)
         {
             BrainWorkspace.Require(task != null && task.schemaVersion == 1 && Guid.TryParseExact(task.id, "D", out _) && task.revision > 0 && !string.IsNullOrWhiteSpace(task.purpose), "손상된 작업 기록입니다.");
             BrainWorkspace.Require(task.targetNodeIds != null && task.targetNodeIds.Length > 0 && task.references != null && task.baseline != null && task.baseline.files != null && task.baseline.limitations != null, "작업 필드 누락입니다.");
             BrainWorkspace.Require(task.progress != null && task.decisions != null && task.unresolved != null && task.nextAction != null && task.gitStateAtBegin != null, "작업 요약 누락입니다.");
             BrainWorkspace.Require(DateTimeOffset.TryParse(task.createdUtc, out _) && DateTimeOffset.TryParse(task.updatedUtc, out _), "작업 시각 오류입니다.");
             workspace.ValidateAllowed(task.allowedPaths);
+            task.scopeChanges = task.scopeChanges ?? Array.Empty<BrainScopeChange>();
+            int previousRevision = 0;
+            foreach (var change in task.scopeChanges)
+            {
+                BrainWorkspace.Require(change.revision > previousRevision && change.revision <= task.revision && !string.IsNullOrWhiteSpace(change.reason) && DateTimeOffset.TryParse(change.changedUtc, out _), "범위 변경 이력 오류입니다.");
+                workspace.ValidateAllowed(change.before); workspace.ValidateAllowed(change.after); previousRevision = change.revision;
+            }
             var graph = new BrainGraphService(store);
             foreach (var id in task.targetNodeIds.Concat(task.references)) graph.Get(id);
             BrainWorkspace.Require(task.baseline.files.Select(f => f.path).Distinct(StringComparer.Ordinal).Count() == task.baseline.files.Length, "기준선 경로 중복입니다.");
@@ -61,7 +69,7 @@ namespace ProjectBrain
         public BrainTaskRecord Load()
         {
             if (!File.Exists(path)) return null;
-            try { var task = json.Read<BrainTaskRecord>(File.ReadAllText(path)); Validate(task); return task; }
+            try { var task = json.Read<BrainTaskRecord>(File.ReadAllText(path)); Validate(task); return new BrainTaskLifecycle(workspace.Root, json, _ => "").IsClosed(task) ? null : task; }
             catch (InvalidDataException e) { throw new InvalidDataException(path + ": " + e.Message, e); }
         }
         public BrainTaskStatus Begin(string purpose, string[] targets, string[] allowedPaths, string taskId = "")
