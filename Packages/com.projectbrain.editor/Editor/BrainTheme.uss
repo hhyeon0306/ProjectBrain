@@ -71,13 +71,30 @@
 .brain .structure-body { flex-grow: 1; min-height: 0; flex-direction: row; }
 .brain .domain-navigation { width: 185px; flex-shrink: 0; padding: 16px 10px; background-color: #292b2d; border-right-width: 1px; border-right-color: #46494f; }
 .brain .navigation-item { white-space: normal; -unity-text-align: middle-left; min-height: 32px; }
-.brain .domain-navigation .eyebrow { margin-top: 18px; }
+.brain .domain-navigation .eyebrow { margin-top: 4px; margin-bottom: 12px; }
 .brain .structure-inspector { width: 310px; flex-shrink: 0; padding: 14px; background-color: #35373b; border-left-width: 1px; border-left-color: #55585e; }
 .brain .structure-inspector .detail-title { font-size: 20px; margin-bottom: 12px; }
 .brain .selection-bar { flex-direction: row; align-items: center; padding: 6px 14px; min-height: 40px; flex-shrink: 0; border-bottom-width: 1px; border-bottom-color: #46494f; }
 .brain .map-heading { top: 16px; left: 24px; }
-.brain .scope-title { font-size: 18px; }
+.brain .scope-title { font-size: 18px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .brain .map-count { top: 45px; left: 26px; }
 .brain .map-modes { top: 12px; }
-.brain .map-tools { left: 12px; }
+.brain .map-tools { left: auto; right: 16px; bottom: 32px; }
 .brain .summary-panel { max-width: 90%; }
+.brain #map-detail-close { margin-bottom: 20px; flex-shrink: 0; }
+.brain .detail-content { min-height: 0; }
+.brain .detail-content #unity-content-container { padding-right: 4px; padding-bottom: 16px; }
+.brain .structure-inspector .eyebrow { margin-bottom: 10px; }
+.brain .structure-inspector .detail-title { margin-bottom: 16px; }
+.brain .structure-inspector Foldout { margin-top: 12px; margin-bottom: 10px; }
+.brain .structure-inspector .quiet { margin-top: 8px; -unity-text-align: middle-left; }
+.brain .structure-inspector .review-acknowledgement { margin-top: 10px; margin-bottom: 12px; }
+.brain .review-section { margin-top: 16px; margin-bottom: 12px; padding-top: 16px; border-top-width: 1px; border-top-color: #50535a; }
+.brain .review-acknowledgement .unity-toggle__input { align-items: flex-start; min-width: 0; flex-shrink: 1; }
+.brain .review-acknowledgement .unity-toggle__text { white-space: normal; min-width: 0; flex-shrink: 1; margin-left: 8px; }
+.brain .domain-navigation .muted { margin-top: 14px; margin-bottom: 12px; }
+.brain .map-count { right: 20px; }
+.brain .map-header { position: absolute; top: 0; left: 0; right: 0; height: 70px; background-color: #303234; }
+.brain .map-heading { right: 180px; }
+.brain .filter-panel { top: auto; bottom: 88px; }
+.brain .map-legend { bottom: 8px; right: 16px; }

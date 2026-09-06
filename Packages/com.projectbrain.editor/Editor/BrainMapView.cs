@@ -95,7 +95,7 @@ namespace ProjectBrain
             // Fit uses fixed-size readable labels. Resolve their screen-space collisions after scaling.
             var ids = visibleNodes.OrderBy(id => id, StringComparer.Ordinal).ToArray();
             var points = ids.Select(Screen).ToArray();
-            float right = Mathf.Max(190, contentRect.width - 190), bottom = Mathf.Max(220, contentRect.height - 90);
+            float right = Mathf.Max(190, contentRect.width - 190), bottom = Mathf.Max(220, contentRect.height - 100);
             for (int pass = 0; pass < 180; pass++)
             {
                 bool overlap = false;
@@ -110,7 +110,7 @@ namespace ProjectBrain
                 }
                 for (int i = 0; i < points.Length; i++)
                 {
-                    var point = new Vector2(Mathf.Clamp(points[i].x, 34, right), Mathf.Clamp(points[i].y, 64, bottom));
+                    var point = new Vector2(Mathf.Clamp(points[i].x, 34, right), Mathf.Clamp(points[i].y, 88, bottom));
                     points[i] = point;
                 }
                 if (!overlap) break;

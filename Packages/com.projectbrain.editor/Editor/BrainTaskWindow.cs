@@ -84,7 +84,8 @@ namespace ProjectBrain
                 Show(result.ready ? "완료 조건을 충족했습니다. 아직 종료하지 않았습니다." : "아직 완료할 수 없습니다.\n" + string.Join("\n", result.reasons.GroupBy(r => r.code).Select(g => g.Count() + "건 · " + g.First().nextAction)), !result.ready);
             }));
             close.Add(ActionButton("조건 확인 후 완료 종료", "close-completed", () => CloseTask("completed")));
-            var acknowledge = new Toggle("미해결 사항을 남긴 채 종료합니다. 완료로 기록되지 않습니다.") { name = "acknowledge-abandon" };
+            var acknowledge = new Toggle { text = "미해결 사항을 남긴 채 종료합니다. 완료로 기록되지 않습니다.", name = "acknowledge-abandon" };
+            acknowledge.AddToClassList("review-acknowledgement");
             acknowledge.style.whiteSpace = WhiteSpace.Normal; close.Add(acknowledge);
             var abandon = ActionButton("미완료로 종료", "close-abandoned", () => { BrainWorkspace.Require(acknowledge.value, "미완료 종료 여부를 선택하세요."); CloseTask("abandoned"); });
             abandon.SetEnabled(false); acknowledge.RegisterValueChangedCallback(e => abandon.SetEnabled(e.newValue)); close.Add(abandon);

@@ -394,3 +394,15 @@ U1-3 범위 검사: 양쪽 git diff --cached --check 통과. 사용자5개 경�
 - Limitations: 등록된 소속 기준이며 실제 Player 도메인은 기록 제외9노드다. 실제 작업의 사람 확인·허용 범위 문제를 자동 해결하지 않음. 사용자5경로 변경 보존.
 
 U1-4 관리 검사: verify -IncludeBrain 양쪽 문서 구조 통과. 전체 Git 검사는 기존 사용자 SampleScene.unity:242 공백으로 실패하여 보존하고 이번 변경만 별도 staged 검사한다.
+
+
+## 2026-09-07 U1-5 · 세부 레이아웃 보정
+- Goal: 닫기/문서 밀착·확대 조작 위치 및 실제 화면의 세부 간격을 점검한다.
+- Changes: 상세 간격20px/확인 구역 구분선, 체크박스 앞 배치/폭 보정, 우측 조작부/필터 정렬, 노드 안내 한 줄/툴팁, 상단 그래프 가림, 맞춤 배치 여백, 문서 창 표시 이름.
+- Files: BrainExplorerWindow/BrainMapView/BrainTaskWindow/BrainDocumentWindow/BrainTheme.uss 및 Docs.
+- Verification: computer-use로 도킹된 세 툴 관찰, 문서 탭 클릭,1100×820/860×600 임시 창 관찰, 상세 휠 스크롤, 필터 열기, 확대20→24%, 상세 닫기 실제 마우스 확인. 작은 창 수치: 닫기-본문20px/조작부 오른쪽16px/체크 문장 폭258px 안에236px. Map11 자체 검사 통과. 툴팁을 창으로 잘못 선택한1회 입력은 bounds 오류로 거절되어 재관찰 후 창 크기로 올바른 영역 선택. 최종 Unity 증거는 reviews/2026-09-07-u1-5-evidence.json 참조.
+- Decisions: A2 스타일/데이터/확인 정책을 유지하며 실제 발견한 레이아웃만 보정. 상단 제목과 그래프 이름 겹침은 맞춤 여백과 불투명 헤더로 해결.
+- Next: 사용자 추가 지적 판단·보정, 서류/PPT15:00 준비도 확인.
+- Limitations: 모든 해상도/데이터 조합의 전수 검증 아님. 사람 확인·저장·작업 종료 버튼 실행 안 함. 임시 검사 창 닫음. 사용자5경로 변경 보존.
+
+U1-5 관리 검사: verify -IncludeBrain 양쪽 문서 구조 통과. 전체 Git 검사는 기존 사용자 SampleScene.unity:242 공백으로 실패하여 보존하고 이번 변경만 별도 staged 검사한다.

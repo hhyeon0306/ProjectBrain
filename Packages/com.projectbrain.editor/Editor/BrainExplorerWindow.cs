@@ -77,17 +77,18 @@ namespace ProjectBrain
                 var canvas = new VisualElement { name = "map-workspace" }; canvas.style.flexGrow = 1; canvas.style.minWidth = 0; canvas.style.overflow = Overflow.Hidden; body.Add(canvas);
                 map = new BrainMapView(graph, SelectNode); canvas.Add(map);
                 map.Activated = ActivateNode;
+                var mapHeader = new VisualElement { pickingMode = PickingMode.Ignore }; mapHeader.AddToClassList("map-header"); canvas.Add(mapHeader);
                 var heading = new VisualElement { pickingMode = PickingMode.Ignore }; heading.AddToClassList("map-heading");
-                scopeTitle = BrainTheme.Label("전체 구조", "scope-title"); heading.Add(scopeTitle); canvas.Add(heading);
-                mapCount = BrainTheme.Label("", "map-count"); mapCount.pickingMode = PickingMode.Ignore; canvas.Add(mapCount);
-                var modes = new VisualElement(); modes.AddToClassList("map-modes"); canvas.Add(modes);
+                scopeTitle = BrainTheme.Label("전체 구조", "scope-title"); heading.Add(scopeTitle); mapHeader.Add(heading);
+                mapCount = BrainTheme.Label("", "map-count"); mapCount.AddToClassList("single-line"); mapHeader.Add(mapCount);
+                var modes = new VisualElement(); modes.AddToClassList("map-modes"); mapHeader.Add(modes);
                 Button all = null, nearby = null;
                 Action<bool> mode = value => { localView = value; map.SetLocal(value); all.EnableInClassList("active", !value); nearby.EnableInClassList("active", value); };
                 all = BrainTheme.Button("전체", () => mode(false), "map-all"); nearby = BrainTheme.Button("선택 주변", () => mode(true), "map-local");
                 nearby.tooltip = "선택한 노드에서 두 단계 이내의 관계를 표시합니다."; modes.Add(all); modes.Add(nearby);
                 inspector = new VisualElement { name = "map-inspector" }; inspector.AddToClassList("structure-inspector"); body.Add(inspector);
                 inspector.Add(BrainTheme.Button("상세 닫기", () => SetDetail(false), "map-detail-close"));
-                detail = new ScrollView(); detail.style.flexGrow = 1; inspector.Add(detail);
+                detail = new ScrollView { name = "map-detail-content" }; detail.AddToClassList("detail-content"); detail.style.flexGrow = 1; inspector.Add(detail);
                 SetDetail(detailOpen);
                 var toolbar = new VisualElement(); toolbar.AddToClassList("floating"); toolbar.AddToClassList("map-tools"); canvas.Add(toolbar);
                 toolbar.Add(BrainTheme.Button("맞춤", () => map.Fit(), "map-fit"));
@@ -109,7 +110,7 @@ namespace ProjectBrain
                 summaryDrawer.Add(BrainTheme.Button("작업 기억 닫기", () => summaryDrawer.style.display = DisplayStyle.None));
                 taskPanel = new ScrollView(); taskPanel.style.flexGrow = 1; summaryDrawer.Add(taskPanel);
                 var legend = BrainTheme.Label("● 기능·계층   □ 코드   ▤ 문서   ◇ 기록    ·    드래그 이동 / 휠 확대", "map-legend"); legend.pickingMode = PickingMode.Ignore; canvas.Add(legend);
-                map.Changed = () => { zoomLabel.text = Mathf.RoundToInt(map.Zoom * 100) + "%"; mapCount.text = map.VisibleCount == 0 ? "검색·필터에 맞는 노드가 없습니다." : map.VisibleCount + " / " + graph.Nodes.Count + " 노드 · 저장된 관계" + (map.HiddenLabelCount == 0 ? "" : " · 이름 " + map.HiddenLabelCount + "개 생략 · 확대하거나 노드 선택"); };
+                map.Changed = () => { zoomLabel.text = Mathf.RoundToInt(map.Zoom * 100) + "%"; mapCount.text = map.VisibleCount == 0 ? "검색·필터에 맞는 노드가 없습니다." : map.VisibleCount + " / " + graph.Nodes.Count + " 노드 · 저장된 관계" + (map.HiddenLabelCount == 0 ? "" : " · 이름 " + map.HiddenLabelCount + "개 생략 · 확대하거나 노드 선택"); mapCount.tooltip = mapCount.text; };
                 var footer = new VisualElement(); footer.AddToClassList("bar"); footer.style.minHeight = 30; root.Add(footer);
                 taskLabel = BrainTheme.Label("", "single-line"); taskLabel.style.flexGrow = 1; footer.Add(taskLabel);
                 footer.Add(BrainTheme.Button("작업 관리 ↗", BrainTaskWindow.Open));
@@ -188,6 +189,8 @@ namespace ProjectBrain
         {
             detailOpen = open;
             if (inspector != null) inspector.style.display = open ? DisplayStyle.Flex : DisplayStyle.None;
+            var toggle = rootVisualElement.Q<Button>("map-detail");
+            if (toggle != null) toggle.text = open ? "상세 접기" : "상세 보기";
         }
         public void FocusScope(string id) => Run(() =>
         {
@@ -251,11 +254,13 @@ namespace ProjectBrain
             if (active == null) { Text("문서 확인은 작업 시작 후 가능합니다."); return; }
             var service = new BrainCompletionService(ScriptDocumentService.ProjectRoot, json, AssetDatabase.GUIDToAssetPath);
             var review = service.InspectDocument(documentId, json.Write(graph.Get(documentId)));
-            Text("사람 문서 확인 · " + BrainTheme.ReviewName(review.state));
+            var reviewSection = new VisualElement(); reviewSection.AddToClassList("review-section"); detail.Add(reviewSection);
+            reviewSection.Add(BrainTheme.Label("사람 문서 확인 · " + BrainTheme.ReviewName(review.state)));
             var codes = new Foldout { text = "확인할 코드 · " + review.codePaths.Length + "개", value = false };
-            foreach (var path in review.codePaths) codes.Add(BrainTheme.Label(path, "muted")); detail.Add(codes);
-            var acknowledged = new Toggle("현재 본문과 연결 코드를 직접 읽고 내용이 맞는지 확인했습니다.");
-            acknowledged.style.whiteSpace = WhiteSpace.Normal; detail.Add(acknowledged);
+            foreach (var path in review.codePaths) codes.Add(BrainTheme.Label(path, "muted")); reviewSection.Add(codes);
+            var acknowledged = new Toggle { text = "현재 본문과 연결 코드를 직접 읽고 내용이 맞는지 확인했습니다." };
+            acknowledged.AddToClassList("review-acknowledgement");
+            acknowledged.style.whiteSpace = WhiteSpace.Normal; reviewSection.Add(acknowledged);
             var button = new Button(() => Run(() =>
             {
                 service.ConfirmFromHuman(active.id, active.revision, documentId, review.snapshotHash);
@@ -264,7 +269,7 @@ namespace ProjectBrain
             })) { text = "사람 확인 기록" };
             button.SetEnabled(false);
             acknowledged.RegisterValueChangedCallback(e => button.SetEnabled(e.newValue && review.state != "missing-code"));
-            detail.Add(button);
+            reviewSection.Add(button);
         }
         private void BuildTask()
         {

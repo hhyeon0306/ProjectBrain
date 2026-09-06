@@ -37,6 +37,7 @@ namespace ProjectBrain
 
         public void CreateGUI()
         {
+            titleContent = new GUIContent("Brain 문서");
             minSize = new Vector2(720, 560);
             var root = rootVisualElement; root.Clear(); BrainTheme.Apply(root);
             root.AddToClassList("document-window");
