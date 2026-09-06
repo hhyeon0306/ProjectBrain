@@ -1,27 +1,34 @@
 # Brain 세션 인계
-Updated: 2026-09-06
+Updated: 2026-09-06 (세션 종료)
 
 ## Current state
 
-문서 전면 검토 후 사용자 요청으로 프로젝트 기반 코드를 검토했다. 정상 경로와 자체 검사는 동작하지만 확정 결함 3건이 남아 있어 A2는 미착수다. 실제 데이터는 Code 7개·Document 7개·Image 1개/관계 26개, 참조 자산 해석 누락 없음.
+기초 설계 검토 완료. 사용자의 질문은 무결함 여부가 아니라 원하는 AI Second Brain을 현재 구조로 구현할 수 있는지였다. 가능하다고 판단했으며 전면 재설계·추가 전면 검토 없이 구현으로 진행한다. 이번에는 문서만 정리하고 세션을 종료했다. 다음 세션에서 구현을 재개한다.
+
+A1 범용 저장소·v2 비파괴 이관과 기존 문서/그래프 시제품은 구현됐다. 마지막 확인 데이터는 Code 7·Document 7·Image 1, 관계 26개다. 새 계층 UI, Brain 전용 MCP, 작업 기억·맥락 조회·최신성 관리·완료 규칙은 미구현이다. 제품 코드 마지막 구현은 7fd9d66, 후속 검토 기록은 d41f9f1이다.
 
 ## Decisions
 
-프로젝트 구조·최종 목업·Unity-MCP 재사용을 유지한다. 전면 재작성 대신 A1-R(필수 JSON 필드 누락 거절·Git 줄바꿈/해시 재현성)과 F2(UI 오류 경계)를 보완한다. 상세는 [기반 코드 검토](reviews/2026-09-06-project-review.md) 및 [실행 증거](reviews/2026-09-06-project-review-evidence.json). 제품 코드 수정은 이번 검토에서 하지 않았다.
+- 최종 목업과 노드/관계 구조, UI와 AI의 공통 서비스, 기존 Unity-MCP 재사용을 유지한다.
+- 핵심 목표는 매 세션 전체 문서를 다시 읽지 않고 작업을 복원하고 현재 코드의 관련 맥락을 찾는 것이다. 그래프 UI만으로 달성했다고 판단하지 않는다.
+- 작업 기억·관련 맥락 선별·최신성 계약을 구현 과정에서 구체화한다. 상세는 product_spec의 Second Brain 절과 architecture의 작업 기록 절이다.
+- 알려진 결함은 A1-R/F2로 보완한다. 과거 리뷰의 ‘기반 재판정’은 최종 설계 결론이 아니다. 리뷰와 work_log는 당시 실행 근거로 보존한다.
 
 ## Next action
 
-A1-R 및 F2 오류 경계를 수정하고 회귀 검사·새 clone 데이터 이관을 확인한 뒤 A2 착수를 판단한다. 9/6 서류·PPT 시간을 확보하고 9/7 새 기능 착수 금지, 제출 목표 15:00 KST를 우선한다.
+1. task → 이 인계 → product_spec/architecture 관련 절 → 최신 work_log만 읽는다. 전체 리뷰·archive 재독은 필요 없다. 개발 시 실제 MCP 읽기 호출로 ProjectBrain 연결을 확인한다.
+2. W1/M2a의 지속 작업 요약과 재개, 관계 탐색/분량 제한, 코드 변경 후 재확인 상태의 최소 계약을 확정한다. 별도 대규모 재설계는 하지 않는다.
+3. A1-R의 누락 JSON 필드 거절·Git 줄바꿈 재현성, F2의 UI 오류 경계를 보완하고 관련 회귀 검사 및 새 clone 데이터 이관을 확인한다. 재현 세부가 필요할 때만 [기반 코드 검토](reviews/2026-09-06-project-review.md)와 [증거](reviews/2026-09-06-project-review-evidence.json)를 읽는다.
+4. A2 공통 계층 서비스·최소 탐색과 W1/M2a를 연결해 작업 등록/요약 저장 → 새 세션 재개 → 관련 맥락 조회 → 변경 후 오래된 자료 표시를 먼저 검증한다. 이후 W2/M1 거절, A3/V1 성공, P1 기록으로 진행한다. UI 장식은 후속이다.
+
+지원 일정은 유지한다. 9/6 서류·PPT 시간 확보, 9/7 새 기능 착수 금지, 내부 제출 목표 15:00/공식 마감 16:00 KST. 다음 개발 단위 전 날짜와 상위 제출 준비도를 확인한다.
 
 ## Verification
 
-- 이번 Unity 자체 검사 재실행: BrainStoreChecks 25 / BrainMigrationChecks 18 / DocumentStoreChecks 14 통과. Test Runner·플레이 테스트 수가 아니다.
-- 실제 MCP 씬 조회·코드 실행 성공, ProjectBrain/Assets, Unity 6000.3.8f1, isCompiling=false.
-- 경계 재현: 관계 파일 {}를 정상 빈 목록으로 수용·덮어쓰기, 노드/레거시 문서의 누락 버전 수용, 손상 문서 예외가 CreateGUI 밖으로 전파됨.
-- 새 로컬 clone(기준 1f9bd8f, Git 변경 0)의 데이터에 이관 재실행하면 원본 변경 거절. clone Unity 최초 import·빌드는 미실행.
-- 격리 창의 그래프 버튼 이동·복귀 콜백 통과. meta 93개 중복 GUID 0, 검사한 소스 meta 누락 0.
-- 커밋 전 verify -IncludeBrain 및 Markdown 23개·로컬 링크 66개·코드 펜스·증거 JSON 확인 통과.
+이번 종료 작업은 문서 정리이며 Unity 제품 검사를 재실행하지 않았다. 이전 검토에서 Unity 자체 검사 25/18/14 통과, 실제 MCP 코드 실행 성공, 실데이터 자산 누락 0을 확인했다. 자체 57항목은 Test Runner·플레이·UI 검증 수가 아니다. JSON 누락 수용·clone 이관 거절·UI 예외 누락도 별도로 재현됐으며 아직 미수정이다. 이번 문서 관리 검증 결과는 최신 work_log에 기록한다.
 
 ## Limitations
 
-확정 결함 3건 미수정. 새 계층 UI·작업·실제 증거·완료 규칙은 미구현이다. UI 시각/실제 마우스·미저장 취소 대화상자·플레이·클린 Unity 빌드·전체 보안 검사는 하지 않았다. 실제 원본/이관 데이터·사용자 씬·설정은 변경하지 않았다. 기존 ProjectSettings.asset과 NuGet meta 변경 두 파일은 보존·커밋 제외한다.
+기초 설계 준비 완료는 제품 완성·무결함·효율 측정 완료가 아니다. 자동 코드 의존 분석과 토큰 절감은 구현/측정되지 않았다. 실제 UI 시각/마우스·플레이·클린 Unity import/빌드는 미검증이다.
+
+기존 사용자/Unity 변경은 보존하고 커밋하지 않는다: Assets/Plugins/NuGet/System.Runtime.CompilerServices.Unsafe.dll.meta, ProjectSettings/ProjectSettings.asset. 양쪽 .codex/config.toml은 같은 서버의 정상 설정이며 단순 중복으로 삭제하지 않는다. 커밋 후 기존 변경만 남아 문서 갱신 검사가 거절될 수 있다. 구현·실제 데이터·씬·설정은 이번 종료 작업에서 변경하지 않았다.
