@@ -32,7 +32,7 @@ namespace ProjectBrain
         public void CreateGUI()
         {
             minSize = new Vector2(580, 540);
-            var root = rootVisualElement; root.Clear();
+            var root = rootVisualElement; root.Clear(); BrainTheme.Apply(root);
             root.style.paddingLeft = root.style.paddingRight = 14;
             root.Add(new Label("작업 관리") { style = { fontSize = 21, marginTop = 12, marginBottom = 8 } });
             message = new HelpBox("작업 범위와 종료 기록을 관리합니다. 문서 확인과 검증은 탐색 화면에서 진행하세요.", HelpBoxMessageType.Info);
@@ -41,7 +41,7 @@ namespace ProjectBrain
             toolbar.Add(ActionButton("다시 읽기 · 입력 유지", "refresh", CreateGUI));
             toolbar.Add(ActionButton("입력 버리고 최신 작업 읽기", "discard", () => { draft = null; SessionState.EraseString(DraftKey); CreateGUI(); }));
             toolbar.Add(ActionButton("탐색 화면", "explorer", BrainExplorerWindow.Open)); root.Add(toolbar);
-            var scroll = new ScrollView { style = { flexGrow = 1 } }; root.Add(scroll);
+            var scroll = new ScrollView { style = { flexGrow = 1 } }; scroll.AddToClassList("task-body"); root.Add(scroll);
             Run(() =>
             {
                 active = new BrainTaskService(Root, json).Load();
@@ -157,6 +157,7 @@ namespace ProjectBrain
         private Button ActionButton(string text, string name, Action action)
         {
             var button = new Button(() => Run(action)) { text = text, name = name };
+            if (name == "check-completion" || name == "save-scope") button.AddToClassList("primary");
             button.style.whiteSpace = WhiteSpace.Normal; button.style.height = StyleKeyword.Auto; button.style.minHeight = 26; return button;
         }
         private static void Label(VisualElement parent, string text, bool heading = false) => parent.Add(new Label(text) { style = { whiteSpace = WhiteSpace.Normal, marginTop = heading ? 12 : 4, marginBottom = 5, fontSize = heading ? 16 : 12 } });

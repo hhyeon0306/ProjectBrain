@@ -1,15 +1,15 @@
 {
     "schemaVersion": 1,
     "id": "a48a9ba7-be69-4985-a648-ed5d2ac5442f",
-    "revision": 10,
+    "revision": 11,
     "purpose": "Player 이동 코드의 작업 재개와 맥락·최신성 시연",
     "targetNodeIds": [
         "feature:player/movement"
     ],
-    "progress": "W1b-UI 전용 범위/종료/기록 창 구현. 실제 버튼 콜백9+Lifecycle28, 780x800/580x540 렌더 확인.",
-    "decisions": "MCP와 동일 서비스/완료 정책. 초안 SessionState 보존, 오래된 작업 저장 거절. 실제 범위/종료/사람 확인은 변경하지 않았다.",
-    "unresolved": "실제 문서2개 사람 확인·허용 밖 변경 처리/최종 완료 시연 남음. 물리 마우스는 활성화 도구 실패로 미검증. 종료 작업 재개·전체 U1 스타일 후속.",
-    "nextAction": "서류·PPT15:00 준비도 확인, 실제 사람 확인/완료 시연 준비 및 P1 증거 정리.",
+    "progress": "U1 A2 시안 적용: 실제 그래프·검색/필터/주변2단계·줌/드래그·상세/작업 기억 서랍. 세 창 공통 테마. Map11/UI콜백11/Workflow39/Lifecycle28 및 EditMode9/9 확인.",
+    "decisions": "UI 재구성. 저장/MCP/사람 확인/완료 정책 유지. 벡터 글리프 직접 제작, 예시 데이터 미삽입. 기존 docs/nodes 자동 동기화 없음.",
+    "unresolved": "문서2개 사람 확인·허용 밖 변경/최종 완료 남음. 검색 키보드 자동 입력은 미확인, 실제 UI 콜백 통과. 대규모 성능/저장소 통합 후속.",
+    "nextAction": "실제 A2 화면 사용 후 디자인 조정. 서류/PPT 준비도 및 P1 증거 정리.",
     "references": [
         "feature:player/movement",
         "document:10000000000000000000000000000003"
@@ -985,5 +985,5 @@
     },
     "gitStateAtBegin": "not-queried; baseline includes pre-existing working files",
     "createdUtc": "2026-09-06T08:18:14.4162169Z",
-    "updatedUtc": "2026-09-06T17:58:26.6308351Z"
+    "updatedUtc": "2026-09-06T18:38:17.0862559Z"
 }

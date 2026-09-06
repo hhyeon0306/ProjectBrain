@@ -1,0 +1,44 @@
+.brain { background-color: #303234; color: #e2e3e5; font-size: 13px; }
+.brain Button { background-color: #3b3d40; color: #dedfe3; border-width: 1px; border-color: #55585e; border-radius: 5px; min-height: 29px; padding-left: 12px; padding-right: 12px; margin: 3px; }
+.brain Button:hover { background-color: #484b51; border-color: #a6b4eb; }
+.brain Button:focus { border-color: #a6b4eb; }
+.brain Button:disabled { opacity: 0.4; }
+.brain .quiet { background-color: rgba(0,0,0,0); border-color: rgba(0,0,0,0); }
+.brain .primary { background-color: #a6b4eb; color: #252833; border-color: #a6b4eb; -unity-font-style: bold; }
+.brain .primary:hover { background-color: #bcc7f3; }
+.brain .active { color: #b8c4f4; border-color: #8595ce; background-color: #3b414f; }
+.brain .muted { color: #a8abb1; font-size: 11px; white-space: normal; }
+.brain .headline { font-size: 27px; margin-bottom: 10px; margin-top: 6px; }
+.brain .eyebrow { color: #a8abb1; font-size: 10px; margin-bottom: 8px; }
+.brain .bar { flex-direction: row; align-items: center; background-color: #292b2d; padding: 7px 12px; min-height: 42px; }
+.brain .bar .brand { font-size: 15px; margin-right: 20px; }
+.brain .search { width: 265px; margin-left: 8px; margin-right: 8px; }
+.brain .unity-base-text-field__input { background-color: #292b2e; color: #e2e3e5; border-width: 1px; border-color: #54575e; border-radius: 4px; padding: 6px 8px; }
+.brain .unity-base-text-field__input:focus { border-color: #a6b4eb; }
+.brain .unity-base-field__label { color: #bfc2c9; }
+.brain .unity-toggle__label { white-space: normal; }
+.brain .unity-help-box { background-color: #393c42; border-color: #555b68; border-radius: 5px; padding: 8px; }
+.brain .unity-help-box__text { color: #d7d9df; white-space: normal; }
+.brain .floating { position: absolute; background-color: #3b3d40; border-width: 1px; border-color: #575a60; border-radius: 7px; padding: 14px; }
+.brain .inspector { right: 20px; bottom: 72px; width: 304px; max-height: 380px; }
+.brain .inspector .detail-title { font-size: 21px; white-space: normal; margin-bottom: 9px; }
+.brain .inspector Button { -unity-text-align: middle-left; white-space: normal; height: auto; padding-top: 5px; padding-bottom: 5px; }
+.brain .map-heading { position: absolute; left: 32px; top: 26px; }
+.brain .map-heading .headline { font-size: 32px; }
+.brain .map-modes { position: absolute; top: 26px; right: 20px; flex-direction: row; }
+.brain .map-tools { position: absolute; bottom: 22px; left: 28%; flex-direction: row; align-items: center; padding: 3px 6px; }
+.brain .map-legend { position: absolute; bottom: 4px; left: 16px; color: #b5b8bf; font-size: 10px; }
+.brain .map-count { position: absolute; top: 108px; left: 34px; color: #b5b8bf; font-size: 11px; }
+.brain .node-label { position: absolute; height: 28px; min-height: 28px; max-width: 164px; padding: 0 4px; margin: 0; background-color: rgba(0,0,0,0); border-width: 0; border-radius: 3px; font-size: 12px; -unity-text-align: middle-left; overflow: hidden; text-overflow: ellipsis; }
+.brain .node-label:hover { background-color: #454950; }
+.brain .node-label.selected { color: #c5cff6; -unity-font-style: bold; }
+.brain .filter-panel { top: 74px; right: 20px; width: 220px; }
+.brain .summary-panel { right: 20px; top: 22px; bottom: 76px; width: 420px; }
+.brain .section { margin-top: 14px; margin-bottom: 10px; padding: 12px; border-top-width: 1px; border-top-color: #50535a; }
+.brain .document-page { padding: 22px 28px; }
+.brain .document-page TextField { margin-bottom: 12px; }
+.brain .document-page .unity-base-text-field__input { background-color: #333538; border-color: #494c52; padding: 12px; }
+.brain .document-page .unity-base-text-field__input:focus { border-color: #a6b4eb; }
+.brain .document-page Label { white-space: normal; }
+.brain .task-body { padding: 12px 20px; }
+.brain .task-body Foldout { margin-top: 12px; padding: 12px; border-top-width: 1px; border-top-color: #50535a; }

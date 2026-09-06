@@ -1,5 +1,15 @@
 # Brain 작업 이력
 
+## 2026-09-07 U1 A2 그래프 중심 디자인 적용
+- Goal: 사용자가 승인한 A2 시안대로 넓은 관계 그래프와 작은 상세/하단 도구를 실제 Unity UI로 구현한다.
+- Changes: BrainMapView/Painter2D 벡터 글리프·선·배치/간격 보정, 검색·종류 필터·주변2단계·줌/드래그·맞춤. Explorer 재구성/문서 바로가기/작업 기억 서랍, Theme.cs/uss 및 기존 작업·문서 창 공통 스타일.
+- Files: Editor BrainMapView/Checks/Theme(.uss)/Explorer/TaskWindow/DocumentWindow/DocumentGraphView와 meta; 승인 목업/실제 화면/검증 JSON; Docs 계약·사용법·작업표·인계, .projectbrain 검증·요약 기록.
+- Verification: Map11, 실제 UI콜백11, Workflow39, Lifecycle28. 실제 마우스 선택/주변/휠/배경 드래그 및1320x850/900x640 렌더. 최종compile 8db0deaf-8c1d-4774-b97c-155506cc69bd 오류0/compiled0/cache74. 실제EditMode 7e785569-bb05-4ee7-abe2-bbd377857f57 9/9(WorkflowDemo). 첫 컴파일 증거 a8c817d9-ae8a-4842-b4d1-f000dae3fa85는 뒤의 meta 공백 정리 전 스냅샷으로 보존한다.
+- Decisions: 사용자 적용 승인으로 U1을 우선. 실제33노드에서 시작하고 검증기록을 누적 표시(화면 증거는36노드 시점); 예시 데이터 미삽입. 저장/MCP/확인·완료 규칙 유지. 기존 docs/nodes 분리 안내.
+- Next: 실제 사용 피드백에 따른 디자인 보정, 서류/PPT 준비도와 P1 증거.
+- Limitations: 초기 Color32 변환 오류와 레이아웃 전 NaN 발생은 수정 후 재컴파일/회귀 통과. 검색 키보드 자동 주입은 값 변경을 확인 못해 UI콜백 검증으로 구분한다. 대규모 성능 미측정, 조밀한 그래프는 확대·필터 필요. 요약 File.Replace 실패1회 후 기존rev10 보존 확인/재시도11 성공. 기존 사용자4개 변경 보존. 전체 작업 완료·사람 확인 대행 없음.
+
+
 ## 2026-09-07 W1b-UI 마우스 재검증
 - Goal: 이전에 남은 물리 마우스 상호작용 확인.
 - Changes: 코드 변경 없이 마우스 검증 결과 갱신.
@@ -340,3 +350,5 @@ W1b-UI 관리 검사: verify -IncludeBrain 양쪽 문서 구조 검사 통과. �
 W1b-UI 최종 범위 검사: 양쪽 git diff --cached --check 통과. 기존 사용자 변경4개 제외.
 
 마우스 재검증 관리 검사: 양쪽 문서 구조 통과. 전체 Git 검사는 기존 씬242행 공백으로 실패하며 해당 사용자 변경은 보존한다.
+
+U1 A2 관리 검사: 양쪽 문서 구조 통과. 전체 Git 검사는 기존 사용자 SampleScene.unity:242 공백으로 실패. 이번 변경만 양쪽 staged 검사 통과. 자체 EOF 공백을 정리한 최종 스냅샷으로 compile/EditMode를 다시 기록했다. 기존 사용자 변경4개 보존.

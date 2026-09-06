@@ -25,10 +25,10 @@ namespace ProjectBrain
         {
             minSize = new Vector2(820, 500);
             var root = rootVisualElement;
-            root.Clear();
+            root.Clear(); BrainTheme.Apply(root);
             root.style.paddingLeft = root.style.paddingRight = 12;
             root.style.paddingTop = root.style.paddingBottom = 12;
-            var title = new Label("스크립트와 설계 문서");
+            var title = new Label("설계 문서 / 기존 스크립트 문서");
             title.style.unityFontStyleAndWeight = FontStyle.Bold;
             title.style.fontSize = 16;
             title.style.marginBottom = 12;
@@ -50,17 +50,18 @@ namespace ProjectBrain
                 picker.SetValueWithoutNotify(selectedScript);
             });
             root.Add(picker);
-            var split = new TwoPaneSplitView(0, 400, TwoPaneSplitViewOrientation.Horizontal);
+            var split = new TwoPaneSplitView(0, 270, TwoPaneSplitViewOrientation.Horizontal);
             split.style.flexGrow = 1;
             graph = new VisualElement();
-            graph.style.minWidth = 300;
+            graph.style.minWidth = 230;
             split.Add(graph);
             form = new ScrollView();
+            form.AddToClassList("document-page");
             form.style.minWidth = 330;
             form.style.flexGrow = 1;
             split.Add(form);
             root.Add(split);
-            message = new HelpBox("C# 스크립트를 위 필드에 넣으세요.", HelpBoxMessageType.Info);
+            message = new HelpBox("C# 스크립트를 선택하세요. 기존 문서(docs) 편집이며 Explorer 문서(nodes)와 자동 동기화되지 않습니다.", HelpBoxMessageType.Info);
             root.Add(message);
             if (document == null && selectedScript != null) Run(() => document = service.LoadOrCreate(selectedScript));
             BuildForm();
@@ -76,7 +77,7 @@ namespace ProjectBrain
                 graph.Add(new Label("스크립트를 선택하면 관계 그래프가 표시됩니다."));
                 return;
             }
-            message.text = "관련 코드 추가로 관계를 연결하세요. 보라색은 현재 문서입니다.";
+            message.text = "기존 문서(docs) 편집 · Explorer 문서(nodes)와 자동 동기화되지 않습니다. 밝은 노드가 현재 문서입니다.";
             message.messageType = HelpBoxMessageType.Info;
             Run(() =>
             {
@@ -111,7 +112,7 @@ namespace ProjectBrain
             BuildImages();
             BuildRelations();
             form.Add(new HelpBox("문서 저장은 코드 검증이나 검토 승인을 의미하지 않습니다.", HelpBoxMessageType.Info));
-            form.Add(new Button(() => SaveChanges()) { text = "문서 저장" });
+            var save = new Button(() => SaveChanges()) { text = "문서 저장" }; save.AddToClassList("primary"); form.Add(save);
             form.Add(new Button(() => Run(() =>
             {
                 var script = AssetDatabase.LoadAssetAtPath<MonoScript>(service.ResolvePath(document));

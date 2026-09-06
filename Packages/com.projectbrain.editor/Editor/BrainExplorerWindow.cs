@@ -23,6 +23,11 @@ namespace ProjectBrain
         private ScrollView detail;
         private ScrollView taskPanel;
         private BrainTaskRecord task;
+        private BrainMapView map;
+        private VisualElement inspector, summaryDrawer, filterPanel;
+        private Label mapCount, zoomLabel, taskLabel;
+        [SerializeField] private bool localView;
+        [SerializeField] private string searchText = "";
         private readonly UnityBrainJson json = new UnityBrainJson();
         [MenuItem("Window/Project Brain/Explorer")]
         public static void Open() => GetWindow<BrainExplorerWindow>("Brain Explorer");
@@ -30,43 +35,74 @@ namespace ProjectBrain
         {
             hasUnsavedChanges = taskDirty;
             saveChangesMessage = "Brain 작업 요약의 변경을 저장할까요?";
-            minSize = new Vector2(760, 500);
-            var root = rootVisualElement; root.Clear(); root.style.paddingLeft = root.style.paddingRight = 10;
-            root.Add(new Label("PROJECT BRAIN · 코드와 작업 기억") { style = { fontSize = 18, marginTop = 10, marginBottom = 8 } });
-            root.Add(new Button(BrainTaskWindow.Open) { text = "작업 관리 · 범위와 종료 기록" });
-            root.Add(new Button(CreateGUI) { text = "자료 새로 읽기" });
-            message = new HelpBox("저장은 검증·사람 확인·완료 승인이 아닙니다.", HelpBoxMessageType.Info); root.Add(message);
+            minSize = new Vector2(860, 600);
+            var root = rootVisualElement; root.Clear(); BrainTheme.Apply(root);
+            root.style.paddingLeft = root.style.paddingRight = 0;
+            var bar = new VisualElement(); bar.AddToClassList("bar"); root.Add(bar);
+            bar.Add(BrainTheme.Label("◈  Brain / Project map", "brand"));
+            var space = new VisualElement(); space.style.flexGrow = 1; bar.Add(space);
+            var search = new TextField { name = "map-search", value = searchText, tooltip = "제목·설명·ID로 노드를 검색합니다." };
+            search.textEdition.placeholder = "노드·문서 검색"; search.AddToClassList("search"); bar.Add(search);
+            search.RegisterValueChangedCallback(e => { searchText = e.newValue; map?.SetQuery(searchText); });
+            bar.Add(BrainTheme.Button("작업 관리", BrainTaskWindow.Open, "open-tasks"));
+            bar.Add(BrainTheme.Button("기존 문서", BrainDocumentWindow.Open, "open-documents"));
+            bar.Add(BrainTheme.Button("새로 읽기", CreateGUI, "map-refresh"));
+            message = new HelpBox("", HelpBoxMessageType.Info); message.style.display = DisplayStyle.None; root.Add(message);
             Run(() =>
             {
                 graph = new BrainGraphService(new BrainStore(Path.Combine(ScriptDocumentService.ProjectRoot, ".projectbrain"), json));
-                var columns = new TwoPaneSplitView(0, 240, TwoPaneSplitViewOrientation.Horizontal); columns.style.flexGrow = 1;
-                var tree = new ScrollView(); tree.style.minWidth = 180; columns.Add(tree);
-                foreach (var node in graph.Nodes.Values.Where(n => n.type == "Project").OrderBy(n => n.id, StringComparer.Ordinal)) AddTree(tree, node.id, 0);
-                tree.Add(new Label("기존 문서·이미지 (Player 전용 아님)"));
-                foreach (var node in graph.Nodes.Values.Where(n => n.type == "Document" || n.type == "Image").OrderBy(n => n.title, StringComparer.Ordinal))
-                    tree.Add(Link(node.type + " · " + node.title, () => SelectNode(node.id)));
-                var right = new VisualElement(); right.style.flexGrow = 1; right.style.minWidth = 340;
-                detail = new ScrollView(); detail.style.flexGrow = 1; right.Add(detail);
-                taskPanel = new ScrollView(); taskPanel.style.maxHeight = 240; right.Add(taskPanel); columns.Add(right); root.Add(columns);
+                var canvas = new VisualElement { name = "map-workspace" }; canvas.style.flexGrow = 1; canvas.style.overflow = Overflow.Hidden; root.Add(canvas);
+                map = new BrainMapView(graph, SelectNode); canvas.Add(map);
+                var heading = new VisualElement { pickingMode = PickingMode.Ignore }; heading.AddToClassList("map-heading");
+                heading.Add(BrainTheme.Label("Project map", "headline"));
+                heading.Add(BrainTheme.Label("기능과 코드, 문서를 연결해서 탐색합니다", "muted")); canvas.Add(heading);
+                mapCount = BrainTheme.Label("", "map-count"); mapCount.pickingMode = PickingMode.Ignore; canvas.Add(mapCount);
+                var modes = new VisualElement(); modes.AddToClassList("map-modes"); canvas.Add(modes);
+                Button all = null, nearby = null;
+                Action<bool> mode = value => { localView = value; map.SetLocal(value); all.EnableInClassList("active", !value); nearby.EnableInClassList("active", value); };
+                all = BrainTheme.Button("전체", () => mode(false), "map-all"); nearby = BrainTheme.Button("선택 주변", () => mode(true), "map-local");
+                nearby.tooltip = "선택한 노드에서 두 단계 이내의 관계를 표시합니다."; modes.Add(all); modes.Add(nearby);
+                inspector = new VisualElement { name = "map-inspector" }; inspector.AddToClassList("floating"); inspector.AddToClassList("inspector"); canvas.Add(inspector);
+                detail = new ScrollView(); detail.style.flexGrow = 1; inspector.Add(detail);
+                var toolbar = new VisualElement(); toolbar.AddToClassList("floating"); toolbar.AddToClassList("map-tools"); canvas.Add(toolbar);
+                toolbar.Add(BrainTheme.Button("맞춤", () => map.Fit(), "map-fit"));
+                toolbar.Add(BrainTheme.Button("−", () => map.ZoomBy(1 / 1.2f), "map-zoom-out"));
+                zoomLabel = new Label("100%"); toolbar.Add(zoomLabel);
+                toolbar.Add(BrainTheme.Button("+", () => map.ZoomBy(1.2f), "map-zoom-in"));
+                toolbar.Add(BrainTheme.Button("필터", () => filterPanel.style.display = filterPanel.resolvedStyle.display == DisplayStyle.None ? DisplayStyle.Flex : DisplayStyle.None, "map-filter"));
+                toolbar.Add(BrainTheme.Button("작업 기억", () => summaryDrawer.style.display = summaryDrawer.resolvedStyle.display == DisplayStyle.None ? DisplayStyle.Flex : DisplayStyle.None, "map-summary"));
+                filterPanel = new VisualElement { name = "map-filters" }; filterPanel.AddToClassList("floating"); filterPanel.AddToClassList("filter-panel"); filterPanel.style.display = DisplayStyle.None; canvas.Add(filterPanel);
+                filterPanel.Add(BrainTheme.Label("표시할 노드", "eyebrow"));
+                foreach (var type in graph.Nodes.Values.Select(n => n.type).Distinct().OrderBy(t => t))
+                {
+                    var toggle = new Toggle(BrainTheme.TypeName(type)) { value = true, name = "filter-" + type };
+                    toggle.RegisterValueChangedCallback(e => map.ShowType(type, e.newValue)); filterPanel.Add(toggle);
+                }
+                summaryDrawer = new VisualElement { name = "map-summary-drawer" }; summaryDrawer.AddToClassList("floating"); summaryDrawer.AddToClassList("summary-panel"); summaryDrawer.style.display = taskDirty ? DisplayStyle.Flex : DisplayStyle.None; canvas.Add(summaryDrawer);
+                summaryDrawer.Add(BrainTheme.Button("작업 기억 닫기", () => summaryDrawer.style.display = DisplayStyle.None));
+                taskPanel = new ScrollView(); taskPanel.style.flexGrow = 1; summaryDrawer.Add(taskPanel);
+                var legend = BrainTheme.Label("● 기능·계층   □ 코드   ▤ 문서   ◇ 기록    ·    드래그 이동 / 휠 확대", "map-legend"); legend.pickingMode = PickingMode.Ignore; canvas.Add(legend);
+                map.Changed = () => { zoomLabel.text = Mathf.RoundToInt(map.Zoom * 100) + "%"; mapCount.text = map.VisibleCount == 0 ? "검색·필터에 맞는 노드가 없습니다." : map.VisibleCount + " / " + graph.Nodes.Count + " 노드 · 저장된 관계"; };
+                var footer = new VisualElement(); footer.AddToClassList("bar"); footer.style.minHeight = 30; root.Add(footer);
+                taskLabel = BrainTheme.Label("", "muted"); taskLabel.style.flexGrow = 1; footer.Add(taskLabel);
+                footer.Add(BrainTheme.Button("작업 관리 ↗", BrainTaskWindow.Open));
                 if (!graph.Nodes.ContainsKey(selectedId)) selectedId = graph.Nodes.Keys.OrderBy(id => id, StringComparer.Ordinal).FirstOrDefault();
                 if (selectedId != null) SelectNode(selectedId);
+                map.SetQuery(searchText); mode(localView);
                 BuildTask();
             });
         }
-        private void AddTree(VisualElement parent, string id, int level)
-        {
-            var button = Link(graph.Get(id).title, () => SelectNode(id)); button.style.marginLeft = level * 14; parent.Add(button);
-            foreach (var child in graph.Children(id)) AddTree(parent, child, level + 1);
-        }
         public void SelectNode(string id) => Run(() =>
         {
-            var node = graph.Get(id); selectedId = id; detail.Clear();
+            var node = graph.Get(id); selectedId = id; detail.Clear(); map?.SetSelected(id);
+            detail.Add(BrainTheme.Label(BrainTheme.TypeName(node.type).ToUpperInvariant(), "eyebrow"));
             var parent = graph.Parent(id);
-            if (parent != null) detail.Add(new Button(() => SelectNode(parent)) { text = "← " + graph.Get(parent).title });
-            detail.Add(new Label(node.title) { style = { fontSize = 18, whiteSpace = WhiteSpace.Normal } });
-            Text(node.type + " · " + id); Text(node.summary);
+            if (parent != null) { var back = new Button(() => SelectNode(parent)) { text = "← " + graph.Get(parent).title }; back.AddToClassList("quiet"); detail.Add(back); }
+            detail.Add(BrainTheme.Label(node.title, "detail-title"));
+            Text(node.summary);
             var freshness = new BrainFreshnessService(ScriptDocumentService.ProjectRoot, json, AssetDatabase.GUIDToAssetPath).Inspect(graph, id);
-            Text("최신성: " + freshness.state + " · 검증 결과는 Evidence와 작업 상태에서 확인");
+            var metadata = new Foldout { text = "자료 정보 · " + freshness.state, value = false };
+            metadata.Add(BrainTheme.Label(id, "muted")); metadata.Add(BrainTheme.Label("최신성은 저장 당시 코드와의 일치 여부입니다. 검증 통과나 사람 확인과는 별개입니다.", "muted"));
             if (node.type == "Evidence")
             {
                 var record = new BrainVerificationStore(ScriptDocumentService.ProjectRoot, json).Load(node.id.Substring("evidence:".Length));
@@ -93,13 +129,24 @@ namespace ProjectBrain
                 if (asset == null) throw new InvalidDataException("코드 자산이 없습니다."); AssetDatabase.OpenAsset(asset);
             })) { text = "코드 열기" });
             var related = graph.Around(id);
-            if ((node.type == "Feature" || node.type == "Code") && !related.Any(r => r.type == "documented_by" && r.from == id)) Text("직접 연결된 설계 문서가 없습니다. 관련 코드의 문서도 확인하세요.");
+            if (node.type == "Feature" || node.type == "Code")
+            {
+                var codeIds = node.type == "Code" ? new[] { id } : related.Where(r => r.from == id && r.type == "implemented_by").Select(r => r.to).ToArray();
+                var documents = graph.Relations.Where(r => r.type == "documented_by" && (r.from == id || codeIds.Contains(r.from))).Select(r => r.to).Distinct().ToArray();
+                if (documents.Length == 0) Text("연결된 설계 문서가 없습니다.");
+                foreach (var document in documents)
+                {
+                    var open = Link("문서 열기 ↗  " + graph.Get(document).title, () => SelectNode(document)); open.AddToClassList("primary"); detail.Add(open);
+                }
+            }
             foreach (var r in related)
             {
                 var next = r.from == id ? r.to : r.from;
-                detail.Add(Link((r.from == id ? "→ " : "← ") + r.type + " · " + graph.Get(next).title, () => SelectNode(next)));
-                Text("출처: " + r.source);
+                var link = Link((r.from == id ? "→ " : "← ") + BrainTheme.RelationName(r.type) + " · " + graph.Get(next).title, () => SelectNode(next));
+                link.AddToClassList("quiet");
+                link.tooltip = r.from + " → " + r.to + "\n" + r.type + " · 출처: " + r.source; detail.Add(link);
             }
+            detail.Add(metadata);
         });
         private void Text(string text) => detail.Add(new Label(text) { style = { whiteSpace = WhiteSpace.Normal, marginBottom = 5 } });
         private void AddReview(string documentId)
@@ -124,6 +171,7 @@ namespace ProjectBrain
         private void BuildTask()
         {
             taskPanel.Clear(); task = new BrainTaskService(ScriptDocumentService.ProjectRoot, json).Load();
+            if (taskLabel != null) taskLabel.text = task == null ? "진행 중인 작업 없음 · 작업 기억에서 시작" : "현재 작업   " + task.purpose;
             taskPanel.Add(new Label("작업 기억"));
             if (task == null)
             {
@@ -171,6 +219,6 @@ namespace ProjectBrain
             taskPanel.Add(field);
         }
         private static Button Link(string text, Action action) => new Button(action) { text = text, tooltip = text, style = { whiteSpace = WhiteSpace.Normal, height = StyleKeyword.Auto, minHeight = 24, unityTextAlign = TextAnchor.MiddleLeft } };
-        private void Run(Action action) { try { action(); } catch (Exception e) { if (message != null) { message.text = e.Message; message.messageType = HelpBoxMessageType.Error; } } }
+        private void Run(Action action) { try { action(); } catch (Exception e) { if (message != null) { message.text = e.Message; message.messageType = HelpBoxMessageType.Error; } } finally { if (message != null) message.style.display = string.IsNullOrEmpty(message.text) ? DisplayStyle.None : DisplayStyle.Flex; } }
     }
 }

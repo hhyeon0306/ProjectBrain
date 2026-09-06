@@ -1,0 +1,136 @@
+{
+  "unit": "U1-A2",
+  "reference": "../assets/u1-a2-concept.png",
+  "screenshot": "u1-a2-explorer.png",
+  "checks": {
+    "map": 11,
+    "actualUiCallbacks": 11,
+    "workflow": 39,
+    "lifecycle": 28
+  },
+  "ui": {
+    "renderedSizes": [
+      [
+        1320,
+        850
+      ],
+      [
+        900,
+        640
+      ]
+    ],
+    "nativeMouse": [
+      "node label selection",
+      "two-hop mode",
+      "wheel zoom",
+      "background drag"
+    ],
+    "callbackChecks": [
+      "all graph",
+      "query match",
+      "empty results",
+      "clear query",
+      "filter panel",
+      "node type filter",
+      "summary drawer",
+      "zoom",
+      "fit finite positions",
+      "read-only document",
+      "active bytes preserved"
+    ],
+    "keyboardInjection": "Native type_text/press_key did not change the floating-window search field; search verified via actual UI value-change callback.",
+    "dataWrites": "No scope/close/human-review action. Summary updated separately after verification.",
+    "limitations": [
+      "Dense graphs need zoom/filter/local scope",
+      "Large-project performance unmeasured",
+      "docs and nodes remain separate",
+      "Drag positions/type filter not persisted"
+    ]
+  },
+  "verification": [
+    {
+      "schemaVersion": 1,
+      "id": "8db0deaf-8c1d-4774-b97c-155506cc69bd",
+      "taskId": "a48a9ba7-be69-4985-a648-ed5d2ac5442f",
+      "kind": "compile",
+      "state": "passed",
+      "snapshotHash": "4b7130d6c1c63e4875e68ff3305825e509033a5c27187d7d5798f62c0b81c7c0",
+      "startedUtc": "2026-09-06T18:39:49.0231876Z",
+      "endedUtc": "2026-09-06T18:40:14.8182623Z",
+      "summary": "Unity compilation callbacks; compiled=0, up-to-date=74, errors=0",
+      "total": 74,
+      "passed": 74,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "schemaVersion": 1,
+      "id": "7e785569-bb05-4ee7-abe2-bbd377857f57",
+      "taskId": "a48a9ba7-be69-4985-a648-ed5d2ac5442f",
+      "kind": "editmode",
+      "state": "passed",
+      "snapshotHash": "4b7130d6c1c63e4875e68ff3305825e509033a5c27187d7d5798f62c0b81c7c0",
+      "startedUtc": "2026-09-06T18:40:34.2310540Z",
+      "endedUtc": "2026-09-06T18:40:36.5759910Z",
+      "summary": "All discovered EditMode tests. Passed; ",
+      "total": 9,
+      "passed": 9,
+      "failed": 0,
+      "skipped": 0
+    }
+  ],
+  "activeTask": {
+    "id": "a48a9ba7-be69-4985-a648-ed5d2ac5442f",
+    "revision": 11,
+    "baselineHash": "cba3ad3a33b00ac627f9a3823aae5a8f6f16c419911f8ce3b1a9a109ffac6dd9",
+    "actualCompletion": false,
+    "blockingCounts": {
+      "outside-allowed": 37,
+      "unmapped-change": 37,
+      "document-unreviewed": 2
+    }
+  },
+  "incidents": [
+    "Color32 to StyleColor compile conversion fixed",
+    "Fit before panel geometry poisoned coordinates; NaN guard and regression added",
+    "Summary File.Replace failed once; old revision10 verified, retry succeeded at11",
+    "Own EOF blank line removed before final snapshot verification; earlier records retained."
+  ],
+  "management": {
+    "documentChecks": "both passed",
+    "fullGitCheck": "blocked only by preexisting Assets/Scenes/SampleScene.unity:242 trailing whitespace",
+    "stagedCheck": "both passed"
+  },
+  "earlierVerification": [
+    {
+      "schemaVersion": 1,
+      "id": "78938830-5c75-4fe4-b2e6-99003f233012",
+      "taskId": "a48a9ba7-be69-4985-a648-ed5d2ac5442f",
+      "kind": "compile",
+      "state": "passed",
+      "snapshotHash": "b3f5d3ee9621892fd2038cfa2d8a98bc335165212a215ec051d1801910e0e955",
+      "startedUtc": "2026-09-06T18:36:34.1545049Z",
+      "endedUtc": "2026-09-06T18:36:59.2934168Z",
+      "summary": "Unity compilation callbacks; compiled=0, up-to-date=74, errors=0",
+      "total": 74,
+      "passed": 74,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "schemaVersion": 1,
+      "id": "da8c0944-ca27-4bb3-a31e-5d8532422a65",
+      "taskId": "a48a9ba7-be69-4985-a648-ed5d2ac5442f",
+      "kind": "editmode",
+      "state": "passed",
+      "snapshotHash": "b3f5d3ee9621892fd2038cfa2d8a98bc335165212a215ec051d1801910e0e955",
+      "startedUtc": "2026-09-06T18:37:14.5066660Z",
+      "endedUtc": "2026-09-06T18:37:16.8660822Z",
+      "summary": "All discovered EditMode tests. Passed; ",
+      "total": 9,
+      "passed": 9,
+      "failed": 0,
+      "skipped": 0
+    }
+  ]
+}

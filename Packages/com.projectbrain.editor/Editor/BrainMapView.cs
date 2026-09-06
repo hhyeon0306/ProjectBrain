@@ -1,0 +1,233 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+using UnityEngine.UIElements;
+
+namespace ProjectBrain
+{
+    // UI-only coordinates. Stored graph IDs/edges remain untouched by layout, drag and filters.
+    public sealed class BrainMapView : VisualElement
+    {
+        private readonly BrainGraphService graph;
+        private readonly Action<string> select;
+        private readonly Dictionary<string, Vector2> positions = new Dictionary<string, Vector2>();
+        private readonly Dictionary<string, Button> labels = new Dictionary<string, Button>();
+        private HashSet<string> visibleNodes = new HashSet<string>();
+        private readonly HashSet<string> hiddenTypes = new HashSet<string>();
+        private string selected, query = "";
+        private bool local;
+        private Vector2 offset, lastPointer;
+        private float zoom = 1;
+        private int pointer = -1;
+        private string dragged;
+        private bool moved;
+        public Action Changed;
+        public int VisibleCount => visibleNodes.Count;
+        public float Zoom => zoom;
+        public string Selected => selected;
+        public IReadOnlyDictionary<string, Vector2> Positions => positions;
+        public string[] VisibleIds => visibleNodes.OrderBy(id => id, StringComparer.Ordinal).ToArray();
+
+        public BrainMapView(BrainGraphService graph, Action<string> select)
+        {
+            this.graph = graph; this.select = select;
+            name = "brain-map"; style.flexGrow = 1; style.overflow = Overflow.Hidden; focusable = true;
+            ComputeLayout();
+            foreach (var node in graph.Nodes.Values.OrderBy(n => n.id, StringComparer.Ordinal))
+            {
+                var id = node.id;
+                var title = node.type == "Evidence" ? "검증 기록 · " + id.Substring(Math.Max(0, id.Length - 6)) : node.title;
+                var button = new Button(() => { if (!moved) select(id); }) { text = title, name = "map-node-" + id, tooltip = BrainTheme.TypeName(node.type) + " · " + node.title + "\n" + node.summary + "\n" + id };
+                button.AddToClassList("node-label"); labels.Add(id, button); Add(button);
+            }
+            generateVisualContent += Draw;
+            RegisterCallback<GeometryChangedEvent>(e => { if (e.newRect.size != e.oldRect.size) Fit(); });
+            RegisterCallback<WheelEvent>(e => { ZoomAt(Mathf.Pow(1.05f, -e.delta.y), e.localMousePosition); e.StopPropagation(); });
+            RegisterCallback<PointerDownEvent>(Down, TrickleDown.TrickleDown);
+            RegisterCallback<PointerMoveEvent>(Move);
+            RegisterCallback<PointerUpEvent>(Up);
+            RegisterCallback<PointerCaptureOutEvent>(_ => { pointer = -1; dragged = null; });
+            RegisterCallback<KeyDownEvent>(e => { if (e.keyCode == KeyCode.F) { Fit(); e.StopPropagation(); } });
+            RefreshVisible();
+        }
+        public void SetSelected(string id) { selected = id; RefreshVisible(); if (local) Fit(); }
+        public void SetQuery(string text) { query = text ?? ""; RefreshVisible(); Fit(); }
+        public void SetLocal(bool value) { local = value; RefreshVisible(); Fit(); }
+        public void ShowType(string type, bool show) { if (show) hiddenTypes.Remove(type); else hiddenTypes.Add(type); RefreshVisible(); Fit(); }
+        public void ZoomBy(float factor) => ZoomAt(factor, new Vector2(contentRect.width * .4f, contentRect.height * .5f));
+        private void ZoomAt(float factor, Vector2 anchor)
+        {
+            if (float.IsNaN(anchor.x) || float.IsNaN(anchor.y)) return;
+            var next = Mathf.Clamp(zoom * factor, .2f, 2.5f);
+            offset = anchor - (anchor - offset) * (next / zoom); zoom = next; UpdatePositions();
+        }
+        public void Fit()
+        {
+            if (visibleNodes.Count == 0 || float.IsNaN(contentRect.width) || float.IsNaN(contentRect.height) || contentRect.width < 10 || contentRect.height < 10) { UpdatePositions(); return; }
+            var points = visibleNodes.Select(id => positions[id]).ToArray();
+            var min = new Vector2(points.Min(p => p.x), points.Min(p => p.y));
+            var max = new Vector2(points.Max(p => p.x), points.Max(p => p.y));
+            // Use the entire map; screen-space separation avoids the floating inspector below.
+            var size = new Vector2(Mathf.Max(160, contentRect.width - 240), Mathf.Max(100, contentRect.height - 230));
+            zoom = Mathf.Clamp(Mathf.Min(size.x / Mathf.Max(1, max.x - min.x), size.y / Mathf.Max(1, max.y - min.y)), .2f, 1.15f);
+            offset = new Vector2(48, 148) + size * .5f - (min + max) * .5f * zoom;
+            SeparateLabels();
+            UpdatePositions();
+        }
+        private void SeparateLabels()
+        {
+            // Fit uses fixed-size readable labels. Resolve their screen-space collisions after scaling.
+            var ids = visibleNodes.OrderBy(id => id, StringComparer.Ordinal).ToArray();
+            var points = ids.Select(Screen).ToArray();
+            float right = Mathf.Max(190, contentRect.width - 190), bottom = Mathf.Max(220, contentRect.height - 90);
+            for (int pass = 0; pass < 180; pass++)
+            {
+                bool overlap = false;
+                for (int i = 0; i < ids.Length; i++) for (int j = i + 1; j < ids.Length; j++)
+                {
+                    var d = points[j] - points[i];
+                    float x = 182 - Mathf.Abs(d.x), y = 40 - Mathf.Abs(d.y);
+                    if (x <= 0 || y <= 0) continue;
+                    overlap = true;
+                    var shift = x < y ? new Vector2((d.x >= 0 ? 1 : -1) * (x * .51f + 1), 0) : new Vector2(0, (d.y >= 0 ? 1 : -1) * (y * .51f + 1));
+                    points[i] -= shift; points[j] += shift;
+                }
+                for (int i = 0; i < points.Length; i++)
+                {
+                    var point = new Vector2(Mathf.Clamp(points[i].x, 34, right), Mathf.Clamp(points[i].y, 144, bottom));
+                    float panelLeft = Mathf.Max(190, contentRect.width - 520), panelTop = Mathf.Max(190, contentRect.height - 478);
+                    if (point.x > panelLeft && point.y > panelTop)
+                    {
+                        if (point.x - panelLeft < point.y - panelTop) point.x = panelLeft;
+                        else point.y = panelTop;
+                    }
+                    points[i] = point;
+                }
+                if (!overlap) break;
+            }
+            for (int i = 0; i < ids.Length; i++) positions[ids[i]] = (points[i] - offset) / zoom;
+        }
+        private void RefreshVisible()
+        {
+            var scope = new HashSet<string>(graph.Nodes.Keys);
+            if (local && selected != null)
+            {
+                scope = new HashSet<string> { selected };
+                for (int depth = 0; depth < 2; depth++)
+                    foreach (var id in scope.ToArray()) foreach (var r in graph.Around(id)) { scope.Add(r.from); scope.Add(r.to); }
+            }
+            visibleNodes = new HashSet<string>(scope.Where(id => !hiddenTypes.Contains(graph.Get(id).type) &&
+                (query.Length == 0 || (graph.Get(id).title + " " + graph.Get(id).summary + " " + id).IndexOf(query, StringComparison.OrdinalIgnoreCase) >= 0)));
+            foreach (var pair in labels)
+            {
+                pair.Value.style.display = visibleNodes.Contains(pair.Key) ? DisplayStyle.Flex : DisplayStyle.None;
+                pair.Value.EnableInClassList("selected", pair.Key == selected);
+            }
+            UpdatePositions();
+        }
+        private void UpdatePositions()
+        {
+            foreach (var id in visibleNodes)
+            {
+                var p = Screen(id); labels[id].style.left = p.x + 12; labels[id].style.top = p.y - 14;
+            }
+            MarkDirtyRepaint(); Changed?.Invoke();
+        }
+        private Vector2 Screen(string id) => positions[id] * zoom + offset;
+        private void Down(PointerDownEvent e)
+        {
+            if (e.button != 0 && e.button != 2) return;
+            Focus(); moved = false; dragged = null;
+            var element = e.target as VisualElement;
+            while (element != null && element != this)
+            {
+                if (element.name != null && element.name.StartsWith("map-node-", StringComparison.Ordinal)) { dragged = element.name.Substring(9); break; }
+                element = element.parent;
+            }
+            if (dragged == null)
+                dragged = visibleNodes.FirstOrDefault(id => Vector2.Distance(Screen(id), this.WorldToLocal(e.position)) < 12);
+            pointer = e.pointerId; lastPointer = this.WorldToLocal(e.position);
+            // Background and glyph drags capture immediately; label drags capture after a movement threshold.
+            if (e.target == this) { this.CapturePointer(pointer); e.StopPropagation(); }
+        }
+        private void Move(PointerMoveEvent e)
+        {
+            if (pointer != e.pointerId || e.pressedButtons == 0) return;
+            var p = this.WorldToLocal(e.position); var delta = p - lastPointer;
+            if (!moved && delta.sqrMagnitude < 16) return;
+            moved = true; this.CapturePointer(pointer);
+            if (dragged == null) offset += delta; else positions[dragged] += delta / zoom;
+            lastPointer = p; UpdatePositions(); e.StopPropagation();
+        }
+        private void Up(PointerUpEvent e)
+        {
+            if (pointer != e.pointerId) return;
+            if (!moved && dragged != null && this.HasPointerCapture(pointer)) select(dragged);
+            if (this.HasPointerCapture(pointer)) this.ReleasePointer(pointer);
+            pointer = -1; dragged = null;
+        }
+        private void ComputeLayout()
+        {
+            var ids = graph.Nodes.Keys.OrderBy(id => id, StringComparer.Ordinal).ToArray();
+            for (int i = 0; i < ids.Length; i++)
+            {
+                float angle = i * 2.399963f;
+                positions[ids[i]] = new Vector2(Mathf.Cos(angle) * 1.7f, Mathf.Sin(angle)) * (110 + Mathf.Sqrt(i) * 72);
+            }
+            // Deterministic relaxation runs once, not every frame. Cycles and disconnected components are valid.
+            for (int iteration = 0; iteration < 220; iteration++)
+            {
+                var force = ids.ToDictionary(id => id, id => -positions[id] * .007f);
+                for (int i = 0; i < ids.Length; i++) for (int j = i + 1; j < ids.Length; j++)
+                {
+                    var d = positions[ids[i]] - positions[ids[j]];
+                    var scaled = new Vector2(d.x * .52f, d.y);
+                    float distance = Mathf.Max(1, scaled.magnitude);
+                    var f = scaled.normalized * Mathf.Min(38, 21000 / (distance * distance));
+                    f.x *= 1.8f; force[ids[i]] += f; force[ids[j]] -= f;
+                }
+                foreach (var r in graph.Relations)
+                {
+                    var d = positions[r.to] - positions[r.from];
+                    var f = d.normalized * (d.magnitude - 205) * .035f;
+                    force[r.from] += f; force[r.to] -= f;
+                }
+                foreach (var id in ids) positions[id] += Vector2.ClampMagnitude(force[id], 24) * (1 - iteration / 280f);
+            }
+        }
+        private void Draw(MeshGenerationContext context)
+        {
+            var p = context.painter2D;
+            foreach (var r in graph.Relations)
+            {
+                if (!visibleNodes.Contains(r.from) || !visibleNodes.Contains(r.to)) continue;
+                bool active = r.from == selected || r.to == selected;
+                p.strokeColor = active ? BrainTheme.Accent : new Color32(111, 115, 121, 180);
+                p.lineWidth = active ? 1.3f : .8f;
+                var a = Screen(r.from); var b = Screen(r.to); var direction = (b - a).normalized;
+                p.BeginPath(); p.MoveTo(a + direction * 9); p.LineTo(b - direction * 10); p.Stroke();
+                if (active)
+                {
+                    var end = b - direction * 11; var side = new Vector2(-direction.y, direction.x) * 3;
+                    p.BeginPath(); p.MoveTo(end - direction * 6 + side); p.LineTo(end); p.LineTo(end - direction * 6 - side); p.Stroke();
+                }
+            }
+            foreach (var id in visibleNodes)
+            {
+                var center = Screen(id); var type = graph.Get(id).type;
+                p.strokeColor = p.fillColor = id == selected ? BrainTheme.Accent : new Color32(190, 194, 201, 255); p.lineWidth = 1.3f;
+                if (id == selected) { p.BeginPath(); p.Arc(center, 16, 0, 360); p.Stroke(); }
+                p.BeginPath();
+                if (type == "Evidence" || type == "Activity")
+                { p.MoveTo(center + new Vector2(0,-7)); p.LineTo(center + new Vector2(7,0)); p.LineTo(center + new Vector2(0,7)); p.LineTo(center + new Vector2(-7,0)); p.ClosePath(); p.Stroke(); }
+                else if (type == "Code" || type == "Document" || type == "Image" || type == "Reference")
+                {
+                    p.MoveTo(center + new Vector2(-6,-7)); p.LineTo(center + new Vector2(6,-7)); p.LineTo(center + new Vector2(6,7)); p.LineTo(center + new Vector2(-6,7)); p.ClosePath(); p.Stroke();
+                    if (type == "Document") { p.BeginPath(); p.MoveTo(center + new Vector2(-3,-2)); p.LineTo(center + new Vector2(3,-2)); p.MoveTo(center + new Vector2(-3,2)); p.LineTo(center + new Vector2(3,2)); p.Stroke(); }
+                }
+                else { p.Arc(center, type == "Domain" || type == "Project" ? 7 : 5, 0, 360); p.Fill(); }
+            }
+        }
+    }
+}

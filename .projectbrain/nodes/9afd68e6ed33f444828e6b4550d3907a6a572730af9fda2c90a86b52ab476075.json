@@ -1,0 +1,13 @@
+{
+    "schemaVersion": 1,
+    "id": "evidence:78938830-5c75-4fe4-b2e6-99003f233012",
+    "type": "Evidence",
+    "title": "compile · passed",
+    "summary": "Unity compilation callbacks; compiled=0, up-to-date=74, errors=0",
+    "body": ".projectbrain/evidence/78938830-5c75-4fe4-b2e6-99003f233012.json",
+    "assetGuid": "",
+    "lastKnownPath": "",
+    "tags": [],
+    "status": "recorded",
+    "updatedUtc": "2026-09-06T18:36:59.2934168Z"
+}

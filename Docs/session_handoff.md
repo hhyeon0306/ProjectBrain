@@ -2,25 +2,21 @@
 Updated: 2026-09-07
 
 ## Current state
-W1b-UI 전용 작업 관리 창 구현. Explorer 버튼/Window 메뉴에서 범위·종료·이력 조회. 초안 보존과 오래된 작업 거절. 버튼 콜백9/Lifecycle28 및 두 창 크기 렌더 검증. 물리 마우스는 활성화 도구 실패로 미완료. 최신 실제 검증은 work_log 참조.
+U1 A2 승인 시안을 적용했다. Explorer는 실제 nodes/relations 그래프, 검색·종류 필터·선택 주변2단계·줌/배경·노드 드래그·화면 맞춤·작은 상세·작업 기억 서랍을 제공한다. 작업 관리와 기존 문서 편집에도 공통 차콜 테마를 적용했다. 실제 화면은 [Explorer](reviews/u1-a2-explorer.png), 설계 기준은 [A2](assets/u1-a2-concept.png).
 
 ## Decisions
-작업 a48a9ba7-be69-4985-a648-ed5d2ac5442f revision 10. 원래 baseline과 사람 미확인 상태 유지. 실제 complete는 문서 2개 미확인·허용 밖/미매핑 변경으로 거절된다. 격리 fixture에서만 성공 Activity 분기를 확인했다. 명시적 종료/archive 후 새 begin은 W1b에서 구현했다. 전용 작업 관리 UI 구현. PlayMode·Player 빌드·종료 작업 재개는 후속. 사용자 요청에 따라 디자인용 아트는 직접 제작·적용한다.
+사용자의 “시안대로 진행” 승인으로 U1을 P1보다 먼저 수행했다. 목업 예시 데이터는 생성하지 않았다. UI 배치만 메모리에 두고 기존 저장소·MCP·완료 규칙을 유지한다. 글리프/선은 자체 Painter2D 벡터이며 외부 폰트 의존은 없다. 기존 docs 편집과 Explorer nodes는 자동 동기화되지 않는다.
+
+활성 작업 a48a9ba7-be69-4985-a648-ed5d2ac5442f revision11. 최초 baseline240/허용 범위는 유지했다. 요약 저장 최초 File.Replace 실패 후 revision10 원본을 읽어 확인하고 재시도하여11로 저장했다. 실패 원인 자체를 해결한 것은 아니다.
 
 ## Next action
-서류·PPT 9/7 15:00 준비도 확인. 실제 사람 문서 확인과 완료 시연 준비, P1 증거 정리 및 U1 전체 스타일은 후속.
+사용자가 실제 화면을 사용한 뒤 디자인 보정. 서류/PPT 9/7 15:00 준비도·실제 사람 문서 확인/완료 시연·P1 증거 정리. 새 전체 기능 확장이나 저장소 통합은 별도다.
 
 ## Verification
-자체 Completion32+Workflow39 통과. 실제 HTTP verify(compile/editmode)→status→complete 거절. UI Evidence current=True, 9/9 표시 확인. 증거 reviews/2026-09-07-verification-evidence.json. 전체 verify는 기존 사용자 씬 242행 공백으로 중단. 문서 구조 검사는 통과했으며 이번 staged 변경 검사는 통과했다.
+Map11(주기·분리 그래프·한글/대소문자 검색·필터·빈 결과·초기 NaN 보호·원본 보존), 실제 UI 콜백11, 기존 Workflow39/Lifecycle28 통과. 마우스 노드 선택/주변 전환/휠 확대/배경 이동 성공. 1320×850과900×640 렌더 확인. 검색 텍스트 자동 주입은 필드 값 변경을 확인하지 못했으며, 검색 기능은 실제 UI 콜백으로 확인했다.
+최종 compile 8db0deaf-8c1d-4774-b97c-155506cc69bd: compiled0/up-to-date74/errors0. EditMode 7e785569-bb05-4ee7-abe2-bbd377857f57:9/9(WorkflowDemo). 상세 [증거](reviews/2026-09-07-u1-a2-evidence.json). 자체 검사 항목 수와 NUnit 케이스 수를 구분한다.
 
 ## Limitations
-초기 콜백/상태 복원 보완, up-to-date 이벤트 구분을 추가했다. 00:23:17 Finish의 File.Replace IOException 1회로 해당 실행은 성공 근거가 되지 않았고 재실행 저장 성공. 순간 파일 교체 오류 원인은 미확정. SessionState와 재등록으로 재로딩을 처리하고 종료를 놓친 실행은 중단/오래됨으로 남긴다. 다중 파일 트랜잭션·외부 파일 변조 방지·실제 사람 확인 대행 없음.
-기존 사용자 변경 4개: Assets/Plugins/NuGet/System.Runtime.CompilerServices.Unsafe.dll.meta, Assets/Scenes/SampleScene.unity, ProjectSettings/ProjectSettings.asset, 미추적 ProjectSettings/SceneTemplateSettings.json. 수정/커밋하지 않는다. 전체 verify는 기존 씬 242행 공백 때문에 막힐 수 있다.
+실제 작업 완료는 허용 밖37/미매핑37/사람 문서미확인2로 막혀 있다. 사람 확인·실제 종료를 대신하지 않았다. 많은 노드에서는 필터/주변/확대가 필요하며 대규모 성능과 글자 충돌 완전 제거는 미검증이다. 선택/검색/주변은 창 재생성에 유지하고 종류 필터/드래그 위치는 초기화한다. 기존 docs 편집 UI는 공통 스타일만 적용하며 저장소 통합은 하지 않았다.
 
-WF-B 검증: 실제 begin/context(7,326자/9노드)→임시 코드 주석으로 이전 검증 무효화→원본 bytes 복원→assets-refresh→EditMode9/9→complete 거절→summary7. 작업 기준선과 기존 사용자 변경 보존. 증거 reviews/2026-09-07-wfb-evidence.json. 상태 요약/상세 분리 최적화는 이번에 구현하지 않았다.
-
-M2b: 실제 Movement 주석/Document 갱신, document freshness 명시적 재기록. 사람 확인은 그대로 미확인. 편집 File.Replace 실패 원본 보존 후 재시도 성공, prepared 영수증 보존 및 자동 복구 미구현. 상세 증거 reviews/2026-09-07-edit-evidence.json.
-
-W1b 실제 작업은 ID/최초baseline/허용범위를 유지했다. 전체 정책 완료를 조작하지 않고 종료 거절을 확인했다. 증거 reviews/2026-09-07-lifecycle-evidence.json.
-
-2026-09-07 W1b-UI 마우스 재검증: 사용자 요청 후 computer-use 실제 마우스로 새로 읽기, 완료 조건 조회, 창 제목줄 드래그, 휠 스크롤, 범위 이력 펼치기, 기존 ID 기록 조회를 확인했다. 최초 오래된 버전 안내 후 새로 읽기로 revision10을 표시했고 완료 조건은 허용 밖27/미매핑27/사람미확인2를 표시했다. 이번 활성화 오류 없음. 앞선 실패 원인은 확정하지 않는다. 범위 저장·종료·사람 확인 버튼은 실행하지 않았다.
+기존 사용자 변경4개를 수정/커밋하지 않는다: Assets/Plugins/NuGet/System.Runtime.CompilerServices.Unsafe.dll.meta, Assets/Scenes/SampleScene.unity, ProjectSettings/ProjectSettings.asset, 미추적 ProjectSettings/SceneTemplateSettings.json. 전체 관리 Git 검사는 기존 씬242행 공백으로 실패할 수 있다. 원격 업로드 없음.

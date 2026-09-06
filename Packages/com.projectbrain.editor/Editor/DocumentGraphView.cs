@@ -19,7 +19,7 @@ namespace ProjectBrain
         {
             style.minHeight = 320;
             style.flexGrow = 1;
-            style.backgroundColor = new Color(0.075f, 0.085f, 0.11f);
+            style.backgroundColor = (Color)new Color32(48, 50, 52, 255);
             style.overflow = Overflow.Hidden;
             var guids = new[] { document.scriptGuid }.Concat(relatedGuids ?? Array.Empty<string>()).Distinct().ToArray();
             foreach (var guid in guids)
@@ -35,10 +35,10 @@ namespace ProjectBrain
                 button.SetEnabled(script != null);
                 button.style.position = Position.Absolute;
                 button.style.width = 140;
-                button.style.height = 42;
+                button.style.height = 30;
                 button.style.marginLeft = button.style.marginTop = 0;
-                button.style.backgroundColor = guid == document.scriptGuid ? new Color(0.36f, 0.24f, 0.65f) : new Color(0.15f, 0.22f, 0.3f);
-                button.style.color = Color.white;
+                button.style.backgroundColor = guid == document.scriptGuid ? BrainTheme.Accent : (Color)new Color32(59, 61, 64, 255);
+                button.style.color = guid == document.scriptGuid ? (Color)new Color32(37, 40, 51, 255) : Color.white;
                 nodes.Add(button);
                 Add(button);
             }
