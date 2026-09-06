@@ -27,6 +27,7 @@ namespace ProjectBrain
         {
             if (type == typeof(string)) { Require(value.ValueKind == JsonValueKind.String, path); return; }
             if (type == typeof(int)) { Require(value.ValueKind == JsonValueKind.Number && value.TryGetInt32(out _), path); return; }
+            if (type == typeof(bool)) { Require(value.ValueKind == JsonValueKind.True || value.ValueKind == JsonValueKind.False, path); return; }
             if (type.IsArray)
             {
                 Require(value.ValueKind == JsonValueKind.Array, path);

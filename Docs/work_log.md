@@ -1,5 +1,13 @@
 # Brain 작업 이력
 
+## 2026-09-06 A2/W1/M2a 최소 흐름 구현
+- Goal: Player 계층 탐색·작업 기억 재개·제한된 맥락·최신성의 첫 수용 흐름을 구현한다.
+- Changes: 공통 계층 검증, Explorer, 4개 계층 노드/6개 관계, 작업 저장/revision/전체 감시와 허용 범위 분리, freshness 기록, BFS/응답 예산, 기존 Ivan Brain 도구 5개 추가. 이동 코드의 입력 공급 의존성 주석 명시. 사용자 서류/PPT 9/7 15:00 마감 반영.
+- Files: Packages/com.projectbrain.editor/Editor의 BrainWorkspace/GraphService/TaskService/TaskView/FreshnessService/ContextService/Wire/Tools/ExplorerWindow/PlayerSetup/WorkflowChecks 및 meta, UnityBrainJson; .projectbrain 계층/작업/근거 데이터; Assets/Scripts/Gameplay/DemoPlayerMovement.cs; AGENTS.md 및 Docs 계약/인계/사용법/증거.
+- Verification: MCP 컴파일 완료. 기존 자체 25+18+14+61 및 새 39항목 통과. 실제 HTTP 등록/호출, begin→summary→basis/current→코드 주석 변경/도메인 reload→동일 작업/기준선 resume→modified/stale·revision 충돌 거절. UI 역방향·본문·이미지·두 창 크기와 부착 창 초안 보존 확인. 최종 context 실제 6,988자/8노드/9관계로 보고값 일치. UI 저장 재시도 revision4 확인. 커밋 전 상위 scripts/verify.ps1 -IncludeBrain 문서/Git 검사 통과.
+- Decisions: typed DTO 응답으로 이중 JSON 인코딩 방지. 같은 BFS 깊이 전체에서 관계 우선순위 정렬. 원래 baseline/freshness는 유지하며 최신성 차이를 승인으로 덮지 않는다. W2/V1 미구현이므로 작업은 active 유지하고 전체 WF-B 완료로 표시하지 않는다.
+- Next: 제출 준비도 점검 후 W2/M1 문서 확인·완료 거절, 이후 A3/V1/WF-B/P1.
+- Limitations: JsonElement 반환형은 Reflector schema 등록 오류가 발생해 DTO로 교체하고 UI Refresh 1회로 복구. 부착되지 않은 UI fixture는 이벤트가 발생하지 않아 부착 창에서 재검증. UI 저장 첫 시도 File.Replace 오류는 revision3 보존, 명시적 재시도 revision4 성공이며 원인은 미확정. 기존 두 사용자 파일 보존. NUnit/Player 빌드/실제 플레이/전체 검증 결과 연동은 이번 범위 아님. Git dirty 자동 조회·GUID 이동 추정·토큰 절감 측정 없음.
 ## 2026-09-06 A1-R/F2 보완 완료
 - Goal: JSON 손상 보호·Git clone 이관 실패·문서 UI 오류 경계의 확정 결함 3건을 보완한다.
 - Changes: JSON 구조 선검증과 오류 경로 전달, Git 데이터 bytes 보존 정책, 관계 실패 시 편집/미저장 상태 유지·재조회, 격리 회귀 검사 추가. 인계의 과거 장애 설명은 이력에 남기고 현재 상태로 정리.

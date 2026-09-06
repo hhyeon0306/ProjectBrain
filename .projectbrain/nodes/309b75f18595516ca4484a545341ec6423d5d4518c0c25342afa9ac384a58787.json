@@ -1,0 +1,13 @@
+{
+    "schemaVersion": 1,
+    "id": "project:brain-demo",
+    "type": "Project",
+    "title": "Project Brain 데모",
+    "summary": "기존 데모 코드·설계 자료 탐색. 실행 가능한 게임 완성을 뜻하지 않습니다.",
+    "body": "",
+    "assetGuid": "",
+    "lastKnownPath": "",
+    "tags": [],
+    "status": "unreviewed",
+    "updatedUtc": "2026-09-06T00:00:00Z"
+}

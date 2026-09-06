@@ -208,6 +208,54 @@
             "type": "illustrated_by",
             "source": "v2-migration",
             "createdUtc": "2026-09-05T00:00:00Z"
+        },
+        {
+            "id": "relation:a2-project-player",
+            "from": "project:brain-demo",
+            "to": "domain:player",
+            "type": "contains",
+            "source": "manual-demo-mapping",
+            "createdUtc": "2026-09-06T00:00:00Z"
+        },
+        {
+            "id": "relation:a2-player-movement",
+            "from": "domain:player",
+            "to": "feature:player/movement",
+            "type": "contains",
+            "source": "manual-demo-mapping",
+            "createdUtc": "2026-09-06T00:00:00Z"
+        },
+        {
+            "id": "relation:a2-player-health",
+            "from": "domain:player",
+            "to": "feature:player/health",
+            "type": "contains",
+            "source": "manual-demo-mapping",
+            "createdUtc": "2026-09-06T00:00:00Z"
+        },
+        {
+            "id": "relation:a2-movement-input",
+            "from": "feature:player/movement",
+            "to": "asset:10000000000000000000000000000002",
+            "type": "implemented_by",
+            "source": "manual-demo-mapping",
+            "createdUtc": "2026-09-06T00:00:00Z"
+        },
+        {
+            "id": "relation:a2-movement-code",
+            "from": "feature:player/movement",
+            "to": "asset:10000000000000000000000000000003",
+            "type": "implemented_by",
+            "source": "manual-demo-mapping",
+            "createdUtc": "2026-09-06T00:00:00Z"
+        },
+        {
+            "id": "relation:a2-health-code",
+            "from": "feature:player/health",
+            "to": "asset:10000000000000000000000000000004",
+            "type": "implemented_by",
+            "source": "manual-demo-mapping",
+            "createdUtc": "2026-09-06T00:00:00Z"
         }
     ]
 }

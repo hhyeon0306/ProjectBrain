@@ -1,0 +1,988 @@
+{
+    "schemaVersion": 1,
+    "id": "a48a9ba7-be69-4985-a648-ed5d2ac5442f",
+    "revision": 4,
+    "purpose": "Player 이동 코드의 작업 재개와 맥락·최신성 시연",
+    "targetNodeIds": [
+        "feature:player/movement"
+    ],
+    "progress": "Player 계층 탐색과 작업 재개·맥락 조회의 최소 흐름을 구현·검증했다.",
+    "decisions": "실제 주석 변경 뒤 원래 기준선은 유지하고 설명·관계의 stale을 남겼다. current는 검증·사람 확인이 아니다.",
+    "unresolved": "W2 문서 확인·완료 거절, V1 검증 결과 연결, WF-B 전체 연동이 남아 있다. 시작 이후 UI/맥락 코드 보완은 허용 경로 밖 변경으로 표시된다.",
+    "nextAction": "지원 준비도 확인 후 W2/M1 문서 확인·완료 거절 흐름을 구현한다.",
+    "references": [
+        "feature:player/movement",
+        "document:10000000000000000000000000000003"
+    ],
+    "allowedPaths": [
+        "Assets/Scripts/Gameplay/DemoPlayerMovement.cs"
+    ],
+    "baseline": {
+        "files": [
+            {
+                "path": "Assets/InputSystem_Actions.inputactions",
+                "sha256": "1c6cbb519d65ecfe19a29231735b7f54741a20ac1a8ad4f46a18e1bfb28a3c39"
+            },
+            {
+                "path": "Assets/InputSystem_Actions.inputactions.meta",
+                "sha256": "3b4e424a80f5b4fa76b6abd774884a24285eaa61f22ff9bb20e5ad505fd8b569"
+            },
+            {
+                "path": "Assets/Plugins.meta",
+                "sha256": "24bd8e41a53c1da779906ad477cf18a6dd8ee6bcad472968297c25a9a76985b8"
+            },
+            {
+                "path": "Assets/Plugins/NuGet.meta",
+                "sha256": "48d3210168a85b9903e2c09f44d6470984d0883cd26594b62a0bc4199f85d3b3"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/.nuget-installed.json",
+                "sha256": "7e5b6f1a9ac4ac02b78c0b064cbc1a1d361047c7e119605bb8d906f299f88363"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/McpPlugin.Common.dll",
+                "sha256": "97d5c94213e08b9824af00a7ad38dd7094e307d62ca6377c703b7f390983aa64"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/McpPlugin.Common.dll.meta",
+                "sha256": "7393e9fb10b7e7397712afb10c48ac8460aa6bda14be09358097e31f162fb20e"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/McpPlugin.dll",
+                "sha256": "d4fda2951768d9682768ea175a7b95194ccb7de45b7158442079597f14390913"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/McpPlugin.dll.meta",
+                "sha256": "f33827c4413c296dc0211ce83a97023fe4693719f6ba40e3bdee1139daec3402"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/Microsoft.AspNetCore.Connections.Abstractions.dll",
+                "sha256": "b0112096de7f764be03ca966cf3c9a13ca186e77bdfa3cdd9d2df3e5bdbf04c9"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/Microsoft.AspNetCore.Connections.Abstractions.dll.meta",
+                "sha256": "617b73c70d1986838483ded67a9b46446e3d3b1bbbf6ec727678c1b9dd830c01"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/Microsoft.AspNetCore.Http.Connections.Client.dll",
+                "sha256": "d4bf0364745c05a9e8c7024ac58725d9d069896f3bce633353a0057baec5794a"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/Microsoft.AspNetCore.Http.Connections.Client.dll.meta",
+                "sha256": "a402af6dd1cf3cf65bb5f551dca04aec25e5454273514fd2a12de08601672247"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/Microsoft.AspNetCore.Http.Connections.Common.dll",
+                "sha256": "af3e7b9c8bb9aa352468d9483d7565b22b32b742ed1a393a1a56524e7c02af55"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/Microsoft.AspNetCore.Http.Connections.Common.dll.meta",
+                "sha256": "93aa49c9d9018c5226a912e260b09bb8f03085cf0329d252741812dd69d82e2b"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/Microsoft.AspNetCore.SignalR.Client.Core.dll",
+                "sha256": "5189c7d994fe8d6e6a2699beaca89fdf3fc226ab59085766e4d209bbcd9bd182"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/Microsoft.AspNetCore.SignalR.Client.Core.dll.meta",
+                "sha256": "680ad53102135c9e510f8572b585e4f4c8025ba9f05699e1cd51878fa91d680c"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/Microsoft.AspNetCore.SignalR.Client.dll",
+                "sha256": "9ad116fd737283c414bb9e4eb03a9791955674850091264b2af3a99ed7a7aa4f"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/Microsoft.AspNetCore.SignalR.Client.dll.meta",
+                "sha256": "f19c41997f5efd1bdf1daf67b07b8832dcbf7576f5b0a4041718f577518e51a2"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/Microsoft.AspNetCore.SignalR.Common.dll",
+                "sha256": "1645e09f54d861a0a966ad600232c4dc55295e6f54a252a425aa2052134186e7"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/Microsoft.AspNetCore.SignalR.Common.dll.meta",
+                "sha256": "b751017b234ed5442725b01bad22f3d5fa1ae180e13998b4cdf65d495b91f5d4"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/Microsoft.AspNetCore.SignalR.Protocols.Json.dll",
+                "sha256": "9562c415b61af21d4c92b80190abc2249435437eb4279824524954e0bd419530"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/Microsoft.AspNetCore.SignalR.Protocols.Json.dll.meta",
+                "sha256": "e72c2bcfc644804d017ff52d5271bf7eeec96c15572e470a2472c41f3c851b5d"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/Microsoft.Bcl.AsyncInterfaces.dll",
+                "sha256": "136d5965cf4768e8420b547a8bddea882921f426c371833d558a858a2f0c235a"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/Microsoft.Bcl.AsyncInterfaces.dll.meta",
+                "sha256": "eb588d3f413cf754b98230d9e7b5b3455102b01201451d52a9be30b8552ea558"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/Microsoft.Bcl.Memory.dll",
+                "sha256": "3df6ddc66a0b091e8832df1973a652f02cdfda60c2d3b7381028aab55c840c96"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/Microsoft.Bcl.Memory.dll.meta",
+                "sha256": "c349a7891a7440c4566e3a0d3a6b46d8cdd592a94a4516147aa6c4764d92761a"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/Microsoft.Bcl.TimeProvider.dll",
+                "sha256": "44cf869c35153c510505052ad85364f7591a791342bd5e4f52c8dc6dd181d84f"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/Microsoft.Bcl.TimeProvider.dll.meta",
+                "sha256": "703dfd59af476d0ff756c1b9e5b392eaf392dca827a3f5fb3348361a21518715"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/Microsoft.CodeAnalysis.CSharp.dll",
+                "sha256": "bc4e4cfe276fb97e70978e1d484e806c5a1c9301d1f9752c6d39840840118723"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/Microsoft.CodeAnalysis.CSharp.dll.meta",
+                "sha256": "95094c3f945103da74ca4a923e8612e28b5db24d1589c14877b2b8b9e78ab189"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/Microsoft.CodeAnalysis.dll",
+                "sha256": "aab3674134122f9c04fcb55a2d1af2d19342cf92a1e593159236dfbce05de59c"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/Microsoft.CodeAnalysis.dll.meta",
+                "sha256": "15e3e3471ce8a254ba700930d906f7751d7e8bdd18701b6305f4cbf6d617a432"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/Microsoft.Extensions.Caching.Abstractions.dll",
+                "sha256": "c2597940e5ca6d717b378456905fec1945c30d7989d65f6a0e712a747df0c85c"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/Microsoft.Extensions.Caching.Abstractions.dll.meta",
+                "sha256": "5a43aea17255454fbbfaae89b587342e9145335eaa7654fc7243721e28142443"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/Microsoft.Extensions.Configuration.Abstractions.dll",
+                "sha256": "01bc4348be66184ee5c453157e078d11be6451d7e684db9d38035149cd2212d9"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/Microsoft.Extensions.Configuration.Abstractions.dll.meta",
+                "sha256": "c59658d13f938330ba3848ab50e43413c6af53cf8b4a23dc92f56c06b7b1d780"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/Microsoft.Extensions.DependencyInjection.Abstractions.dll",
+                "sha256": "6c479c61bd03ac7cac4421e5a5689359cb83634e06895eb2d93b4b6df2773dc0"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/Microsoft.Extensions.DependencyInjection.Abstractions.dll.meta",
+                "sha256": "7756efa7caf1e8df07607e47a67dde61e70406c730bc79d29b8053b16d4d00ee"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/Microsoft.Extensions.DependencyInjection.dll",
+                "sha256": "e23df94fc2bca057bd88d87c18afc22fb41281f41d3b38430c483ee6fc95d53b"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/Microsoft.Extensions.DependencyInjection.dll.meta",
+                "sha256": "fd010c1212104a9b14029110d114baeffe435c2f96af373931520cb48fe6494e"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/Microsoft.Extensions.Diagnostics.Abstractions.dll",
+                "sha256": "adb1206b247f42fb5611d8798d9f44b7be1bd6d2a6976d87ff95ef2e6c17b6db"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/Microsoft.Extensions.Diagnostics.Abstractions.dll.meta",
+                "sha256": "8b6a8af4ea1a479dcd1bf56bb2758aa15b6c76acdaaa5643a13c9e01214898e3"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/Microsoft.Extensions.Features.dll",
+                "sha256": "6ae042121467e32c466e07ac360c6fc5395d67d8bd8043dc6137d1b9e7485e06"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/Microsoft.Extensions.Features.dll.meta",
+                "sha256": "b0c2d7745a7f86931d1de4e8bef201a6269f90deb7ee0ef2071b9d94d335492b"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/Microsoft.Extensions.FileProviders.Abstractions.dll",
+                "sha256": "e6074cf1392c6d77d379efcb241cc8e0ac984d27ebf16ad17b979bd49ab2b4c3"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/Microsoft.Extensions.FileProviders.Abstractions.dll.meta",
+                "sha256": "923cd72d217b0df191bdfd9c8110bbbe3ce160befd4490065982971db90805e5"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/Microsoft.Extensions.Hosting.Abstractions.dll",
+                "sha256": "d39cfc54d4b0419a5c05bbc4915553bb6295134c66f904ae546e8fdbcec7c23d"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/Microsoft.Extensions.Hosting.Abstractions.dll.meta",
+                "sha256": "0da2707e04190a1e6f433fe92df3f4334237cc66b12b97e862238e92649ce721"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/Microsoft.Extensions.Logging.Abstractions.dll",
+                "sha256": "79f67ff002712d6589370db25f751d3f53fb49ef1a6d750d1c62419ef3a4392c"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/Microsoft.Extensions.Logging.Abstractions.dll.meta",
+                "sha256": "b2682c614e51296320581f9da1c106a1a449563c5e4729fe886f50abdf85aa99"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/Microsoft.Extensions.Logging.dll",
+                "sha256": "64c8cbe07b84a8b319ee37b444386c67308178517c86de366a9a45c668ceec23"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/Microsoft.Extensions.Logging.dll.meta",
+                "sha256": "4dec0f5cbaa02a9e93a908f5b05075d73b6e6c95c075cfb29d70a6e086f0eb91"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/Microsoft.Extensions.Options.dll",
+                "sha256": "4f80160a712ef065a64ec3c23e87746130462377fe39f82b35673d1567281001"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/Microsoft.Extensions.Options.dll.meta",
+                "sha256": "f47b870179850b356fce13e3a8d811221c9ba7f43c0566bc16f24a9dfe32c28d"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/Microsoft.Extensions.Primitives.dll",
+                "sha256": "6d492e7919789c7ab3d4afb5d2e5841cc0e2f28b07bf561bd1fcf8945e2170b3"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/Microsoft.Extensions.Primitives.dll.meta",
+                "sha256": "8dfcd157186cd5559ed1beb47a6c6a0b913b2ab424860e65e0295bfcc1d3ad1e"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/R3.dll",
+                "sha256": "48af716f8ace2fd771241de7e3ebd9ee54bffeafeed14a1ddd69df4ac61226db"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/R3.dll.meta",
+                "sha256": "2b74bafcb726c2ec97c4b5096f4ee4e3505d93e2f845f439e5b97f507650c97a"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/ReflectorNet.dll",
+                "sha256": "9e553b1625f59c34af00c6ade172d548c3e01c82891dfb6aa83fa965a2831347"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/ReflectorNet.dll.meta",
+                "sha256": "4584a8200a5ccc021c5d646ae4c228b520919290e490ab163d64b2f1a2ce9dcf"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/System.Buffers.dll",
+                "sha256": "c65fff603b283dc966d1a8b730c11d5e5e750e8021bd24640612f6cc3f2c6fb7"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/System.Buffers.dll.meta",
+                "sha256": "ecfd3608361428a4a4a5d5c87ab93e71fc5493bfe119b6d97032cc9ddfb72130"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/System.Collections.Immutable.dll",
+                "sha256": "1255194f6ec9c1874085cdab24495fcd1430958018350d7b6630fd04b44bcb81"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/System.Collections.Immutable.dll.meta",
+                "sha256": "f6ddcaefff40e56c220d4171bbe5df02753056a78f75686e7b373046d5944263"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/System.ComponentModel.Annotations.dll",
+                "sha256": "c46069e29ad23fee7f5d2ced736ffea27b0177f82341296d9af6325acf821c69"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/System.ComponentModel.Annotations.dll.meta",
+                "sha256": "a2b40397d3db3379f8695346b486c6b57ed96eac9ce385957a6993a28a648667"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/System.Diagnostics.DiagnosticSource.dll",
+                "sha256": "989b1797b5cacdf19e7130eddd8ae51f0d79595d6020cbaf51910c1c3637cec9"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/System.Diagnostics.DiagnosticSource.dll.meta",
+                "sha256": "dd77c96d2332846d13befe9eab392f70f7459a4f1520b80233287ba2e989ab85"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/System.IO.Pipelines.dll",
+                "sha256": "3702e2403cf265588d1544a292ea17c01d337cdb91b5bdd64690894331345ad4"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/System.IO.Pipelines.dll.meta",
+                "sha256": "b4a4d69287407bf9f61630e879f28b84529a65c30f5f2fb70704f27eedfd920b"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/System.Memory.dll",
+                "sha256": "11590d8bb3b12f29f4202b3ef8593229a5cd6debb61e76cba9ac5493a82ee382"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/System.Memory.dll.meta",
+                "sha256": "58185c80e033dfec5b6ee7f3e02fe0afd1841ca63631787a27af7df023fe9081"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/System.Numerics.Vectors.dll",
+                "sha256": "2324ee5a35674269225e2aa20957ce8830dbca0cffb918bd593f7a3222dee480"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/System.Numerics.Vectors.dll.meta",
+                "sha256": "219c45a1c207cb2646be3a96a1a8b5fda9117e3efb3c6f3dab53747327381ba1"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/System.Reflection.Metadata.dll",
+                "sha256": "c03b73b3ae01363313d151ad9fb77c3dff378814bdeb12b9b435a6d50f40b833"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/System.Reflection.Metadata.dll.meta",
+                "sha256": "e243f54103331e399947ce159544897cd340bacb1e36a03e617d22e07f46a6ab"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/System.Runtime.CompilerServices.Unsafe.dll",
+                "sha256": "fd67abc4c4af10affbcd42fd68a2a7bc361b26714afe6965d4d0d139459d8297"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/System.Runtime.CompilerServices.Unsafe.dll.meta",
+                "sha256": "051c8b22047c6befccdd32a1cba3bc619a3173efe70c211dbbd23dbcf57793fa"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/System.Text.Encoding.CodePages.dll",
+                "sha256": "eaf68151619943ab2dc46247f2d22a29de0ea3805a56de0c32b75af12f89e74c"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/System.Text.Encoding.CodePages.dll.meta",
+                "sha256": "52657285edb7be5914e504fc680364295f0c4bdf6cb8ce83ee86b7b9873c6251"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/System.Text.Encodings.Web.dll",
+                "sha256": "5ad1f348223f281c34b9b857445a1c3412a430026ef049aeac641c53a92408be"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/System.Text.Encodings.Web.dll.meta",
+                "sha256": "54f8d2db1e1fa03698ea814a13d3760f0fabc51861a69d3b59b420f74acd95bb"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/System.Text.Json.dll",
+                "sha256": "42a3d66464aa3f52202a625fb8d719663ceae07678081253b54d6ed56a95ea0a"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/System.Text.Json.dll.meta",
+                "sha256": "7462c00bd4107f033fae822cdfbb731746eb09c44f512d1e2a927bab016a8d1d"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/System.Threading.Channels.dll",
+                "sha256": "31c7e3704c0477c53d9306362dc6abe741088efb7a7b4e46cded0169cf7bb0b2"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/System.Threading.Channels.dll.meta",
+                "sha256": "49b33ff2dd1f8e4901cc4d0fadab9172c6d880936cc4f8d33557f218aae9c0f4"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/System.Threading.Tasks.Extensions.dll",
+                "sha256": "09901f63ebc4b8f0897b0128fb230c146529aee5c5cc90d7a7872e66a976bb5f"
+            },
+            {
+                "path": "Assets/Plugins/NuGet/System.Threading.Tasks.Extensions.dll.meta",
+                "sha256": "afed9ceaad0ed4a5fee9e76e0b06e49695c6db93f989a15f7f6329413fad028e"
+            },
+            {
+                "path": "Assets/Readme.asset",
+                "sha256": "6d098604e909b6a0e64fe5910c2719704864d49678bcf5413bd47b67e5490107"
+            },
+            {
+                "path": "Assets/Readme.asset.meta",
+                "sha256": "46c6b89ac1d47bd0c0d1a8b141ae3e32cd95d3e74c49381f0d9f942488c254ce"
+            },
+            {
+                "path": "Assets/Scenes.meta",
+                "sha256": "ffd6509af2fd71fde11b10eb639b5d7e45a69b829ca460bc39961f0df995b3ba"
+            },
+            {
+                "path": "Assets/Scenes/SampleScene.unity",
+                "sha256": "07fce8b04804ddccb3026db5b43d8dc41ba138e49d50d36a5c24877081eacdca"
+            },
+            {
+                "path": "Assets/Scenes/SampleScene.unity.meta",
+                "sha256": "b5815a6b12afaf810577bc89041c4ce46516c7cd6609693f8db616f8e5584d80"
+            },
+            {
+                "path": "Assets/Scripts.meta",
+                "sha256": "853b31d54f2f29bc0a13d80960df2b6d33f9900dc94f48be415a4285962eed4b"
+            },
+            {
+                "path": "Assets/Scripts/Core.meta",
+                "sha256": "3cbc0ddedbd89e2ed82e156a96b5ae31bc62abec158f5fa0e10a7cff19c2a6fa"
+            },
+            {
+                "path": "Assets/Scripts/Core/.gitkeep",
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+                "path": "Assets/Scripts/Core/DemoGameFlow.cs",
+                "sha256": "6cd393e68d41a784ed17d87efd980693452af0bb4f28b485b9a25c9130d4b960"
+            },
+            {
+                "path": "Assets/Scripts/Core/DemoGameFlow.cs.meta",
+                "sha256": "505c47c7781f99bc99c045fbccbadaabb8572444864bd9bc63325b9dcd219bd7"
+            },
+            {
+                "path": "Assets/Scripts/Gameplay.meta",
+                "sha256": "61a2b2092bc185d1fe9db17374afa9f07a3acdafbe9309c653f92a991ba02eab"
+            },
+            {
+                "path": "Assets/Scripts/Gameplay/.gitkeep",
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+                "path": "Assets/Scripts/Gameplay/DemoHealth.cs",
+                "sha256": "bb823aa8ae54b28a87fbe33d3a48c8c89cde258da1e63e417a2f3a4de03c99e8"
+            },
+            {
+                "path": "Assets/Scripts/Gameplay/DemoHealth.cs.meta",
+                "sha256": "24f178aee9e5f1bda04376b562f737a30d217631b1c89c206bc8d71746fc68e1"
+            },
+            {
+                "path": "Assets/Scripts/Gameplay/DemoPlayerInput.cs",
+                "sha256": "097618ffd983ed0718c3815e2173006678c4d8f527f7c6cd1d347fa7b4218f64"
+            },
+            {
+                "path": "Assets/Scripts/Gameplay/DemoPlayerInput.cs.meta",
+                "sha256": "0cf0eac82097adbbd28fae622bce73a27ac6ff3dc90536a0dca531af0c3131d8"
+            },
+            {
+                "path": "Assets/Scripts/Gameplay/DemoPlayerMovement.cs",
+                "sha256": "23e528aed81f5664dc15700e76675355f03fec8bd13742c6cc271e43ffa782e1"
+            },
+            {
+                "path": "Assets/Scripts/Gameplay/DemoPlayerMovement.cs.meta",
+                "sha256": "f65cbe9c80129e5e233c2987ad32fdced317ede7b0ef76e75d7c01dae6e9e26f"
+            },
+            {
+                "path": "Assets/Scripts/Infrastructure.meta",
+                "sha256": "35be76eb0c5cc79732d2881c0bd0ebb6d011a17ad7842ff1eeaf7b9e25ca549f"
+            },
+            {
+                "path": "Assets/Scripts/Infrastructure/.gitkeep",
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+                "path": "Assets/Scripts/Infrastructure/DemoSaveService.cs",
+                "sha256": "0e46d42b2893e5e0b3438a2fb96f5fa3041ee1fd9a2820f2dc4766d62eb17f76"
+            },
+            {
+                "path": "Assets/Scripts/Infrastructure/DemoSaveService.cs.meta",
+                "sha256": "dd8f915af9f5b52e5faa38201f798241d6a3c4a3bd320f76f1b9f03458960fb2"
+            },
+            {
+                "path": "Assets/Scripts/Tests.meta",
+                "sha256": "cfeb9902df75f238dba3be7f73c360fc8bbbf7266b44f16dfe2a4547b79702f4"
+            },
+            {
+                "path": "Assets/Scripts/Tests/BrainDocumentSample.cs",
+                "sha256": "03bbfe4cb90a8ee8f3687e68f0fe4f1f3c1888ac5d5f6986af8653343b64c923"
+            },
+            {
+                "path": "Assets/Scripts/Tests/BrainDocumentSample.cs.meta",
+                "sha256": "661a8250f0609e45ea776f4924cadf97bed59a893b62115cac86c55685ac17d2"
+            },
+            {
+                "path": "Assets/Scripts/UI.meta",
+                "sha256": "c9fe50c7fc638b3a65bd76a78d0d954bbb7f460f72184a6716909ff85dd64621"
+            },
+            {
+                "path": "Assets/Scripts/UI/.gitkeep",
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+                "path": "Assets/Scripts/UI/DemoHudPresenter.cs",
+                "sha256": "df0b2dfc8c5644b4f527f52082168c495278e19fc0e9e99c74c74ed7a0777cb9"
+            },
+            {
+                "path": "Assets/Scripts/UI/DemoHudPresenter.cs.meta",
+                "sha256": "b00fc9d9a2a297a91a45982a01cd0a9d80747954984867c25bae9efd575741a4"
+            },
+            {
+                "path": "Assets/Scripts/Utilities.meta",
+                "sha256": "efb4c1d93c5b29f15776ecf126daa452f6767dcdffc03dc51dcf998c75649ba9"
+            },
+            {
+                "path": "Assets/Scripts/Utilities/.gitkeep",
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+                "path": "Assets/Settings.meta",
+                "sha256": "73c8e19843240273facb0af6bdbf430d719e397aded705629594060ce25ce7ad"
+            },
+            {
+                "path": "Assets/Settings/DefaultVolumeProfile.asset",
+                "sha256": "3a6f825e8d07fe8b9f3b52e7d4e2dfa0e22c555b22335adb19f0ecc66dfa38dd"
+            },
+            {
+                "path": "Assets/Settings/DefaultVolumeProfile.asset.meta",
+                "sha256": "efbcb026cee6b8e32fdf27018c06b0515296a6ccbb43969e792fea270310700a"
+            },
+            {
+                "path": "Assets/Settings/Mobile_RPAsset.asset",
+                "sha256": "077b30c366ee79c2b0906284297c3433c470b59a7bca563801901512d6cabf64"
+            },
+            {
+                "path": "Assets/Settings/Mobile_RPAsset.asset.meta",
+                "sha256": "53ea46647712c615fd1a3f2e0dddfa8559eeedc649e9a1dbf93ff913de28544c"
+            },
+            {
+                "path": "Assets/Settings/Mobile_Renderer.asset",
+                "sha256": "aa93274c9521fa941170becec9e87c5fa36b8587eefd5eeb5c0eed0d1d4b1dbe"
+            },
+            {
+                "path": "Assets/Settings/Mobile_Renderer.asset.meta",
+                "sha256": "a148ee2b4987b05b8ff7ae5f9bf84916184f77aefddc821dceb551f5a69f8179"
+            },
+            {
+                "path": "Assets/Settings/PC_RPAsset.asset",
+                "sha256": "08a9c221b335a0dbca1b6967b7de5c42b957c5f0d5e43da9edb36ca8fce5966b"
+            },
+            {
+                "path": "Assets/Settings/PC_RPAsset.asset.meta",
+                "sha256": "bb469b9b6f318e9e9bed29c3b2e73e79371c04743c6f95dd6603941f1cd3e53e"
+            },
+            {
+                "path": "Assets/Settings/PC_Renderer.asset",
+                "sha256": "3d0b01d8ded3327263b6690be128a3de58d17c514943ae42fe743a3e084a9c79"
+            },
+            {
+                "path": "Assets/Settings/PC_Renderer.asset.meta",
+                "sha256": "b5df8ddb2708c6ed4c133a5ff9ee95a75cc20e4ee3ed6181366a61aedbaf31ec"
+            },
+            {
+                "path": "Assets/Settings/SampleSceneProfile.asset",
+                "sha256": "a8677d4bac051d24caa11cd622e39f968155ee277bfce132274f1de225692fe9"
+            },
+            {
+                "path": "Assets/Settings/SampleSceneProfile.asset.meta",
+                "sha256": "2e23abc214069f0adbf2b2207f1db54be7876629ec2a3681d0f4aa5b61622ef0"
+            },
+            {
+                "path": "Assets/Settings/UniversalRenderPipelineGlobalSettings.asset",
+                "sha256": "95edaa65b0c62b328804fba26c09fafb53133a2718e220d208f846f6d84b268d"
+            },
+            {
+                "path": "Assets/Settings/UniversalRenderPipelineGlobalSettings.asset.meta",
+                "sha256": "f61661d8bc8dbe531daf09f6211ef978c7ba145c9207c8e76524396ae0722d7c"
+            },
+            {
+                "path": "Assets/TutorialInfo.meta",
+                "sha256": "07f022e5932c833d026e020b27d73452ebd781993b616d76003494af1e140946"
+            },
+            {
+                "path": "Assets/TutorialInfo/Icons.meta",
+                "sha256": "546e7d7af6b4d5e17d284c8f1188d05472e681911b8359905ee9b9e20769a106"
+            },
+            {
+                "path": "Assets/TutorialInfo/Icons/URP.png",
+                "sha256": "1d17a9ff3537859abe2c008603d29d90cf43191ae77aa386167cc65e53ba03d9"
+            },
+            {
+                "path": "Assets/TutorialInfo/Icons/URP.png.meta",
+                "sha256": "b330f1fcfc4e6ceccc95fc34a38434141603469b135633e1c4e8a03c19f9fdbc"
+            },
+            {
+                "path": "Assets/TutorialInfo/Layout.wlt",
+                "sha256": "0a18bf035aa7ce914f19f7ce6b60a5a2d33e2371af6f492a8ea7a1bc78755b8b"
+            },
+            {
+                "path": "Assets/TutorialInfo/Layout.wlt.meta",
+                "sha256": "b8745a251df078ffa75dbaac0c4c6debecb61ab306b5b119a490ce6c635a11d8"
+            },
+            {
+                "path": "Assets/TutorialInfo/Scripts.meta",
+                "sha256": "930d0c8276cea1559a3e315f8500ea6ca8b58d980eee3b44aaa1d461742c47e0"
+            },
+            {
+                "path": "Assets/TutorialInfo/Scripts/Editor.meta",
+                "sha256": "7036bdbc8af05799b5fd508484343b35c28a68b390198da4673d34357d7d667f"
+            },
+            {
+                "path": "Assets/TutorialInfo/Scripts/Editor/ReadmeEditor.cs",
+                "sha256": "d2023934bc2be23af69cd930ade85eff41c5db0a6f6666b05324b975befdb5b5"
+            },
+            {
+                "path": "Assets/TutorialInfo/Scripts/Editor/ReadmeEditor.cs.meta",
+                "sha256": "f59080b424c16fa13edd105bf006fdbad98c11fce0c921043e63c8877f144cd9"
+            },
+            {
+                "path": "Assets/TutorialInfo/Scripts/Readme.cs",
+                "sha256": "c09c93844f93eb252a6fb39c222d169c63a63e96008fd040b9e7628c3e7ccc2e"
+            },
+            {
+                "path": "Assets/TutorialInfo/Scripts/Readme.cs.meta",
+                "sha256": "80a3df9969fab6e656583ee9bbca884d0507e2b7de3417f6ea3118fba901cd60"
+            },
+            {
+                "path": "Assets/WorkflowDemo.meta",
+                "sha256": "e7e3cc43f787f2d1759ee09e762a7a1bff2ae1549776bd13e9deb777ca621c96"
+            },
+            {
+                "path": "Assets/WorkflowDemo/Runtime.meta",
+                "sha256": "8f2138f52dedf00b0e3a0809272b1d8bf4854719ed8695d007f1dc1d17e692ad"
+            },
+            {
+                "path": "Assets/WorkflowDemo/Runtime/DashCooldown.cs",
+                "sha256": "173b08ea5fb27b9cb22c3f98f380710fe31f098639cb1a0d24c602661e8017d7"
+            },
+            {
+                "path": "Assets/WorkflowDemo/Runtime/DashCooldown.cs.meta",
+                "sha256": "2e85d8e41ba0a57c049e44746319f10dfd7be9d81db25e04c2646efd6f2c65dd"
+            },
+            {
+                "path": "Assets/WorkflowDemo/Runtime/DashMover.cs",
+                "sha256": "a2cb2ac6a05e1a53d9fbcb4617026322338202afdccbaca952e57f2024cd9865"
+            },
+            {
+                "path": "Assets/WorkflowDemo/Runtime/DashMover.cs.meta",
+                "sha256": "74c42bce570fa08bacdb2a9d611a11e740cf2c28a8365f09f4946c45ce4cd93e"
+            },
+            {
+                "path": "Assets/WorkflowDemo/Runtime/WorkflowDemo.Runtime.asmdef",
+                "sha256": "e5994782e10edab95ae06ed79048db253714be44801f76b62cf34c1d24232482"
+            },
+            {
+                "path": "Assets/WorkflowDemo/Runtime/WorkflowDemo.Runtime.asmdef.meta",
+                "sha256": "6281cbbc006fa082af3474380f5761f477a81491d9aa6f6aa55e8ed4bc53407d"
+            },
+            {
+                "path": "Assets/WorkflowDemo/Tests.meta",
+                "sha256": "b73d8467e8913dd1efe18073304b977bdae0957edeecf73eff81c535231298da"
+            },
+            {
+                "path": "Assets/WorkflowDemo/Tests/Editor.meta",
+                "sha256": "d35c8069800ee27b5642c34109283f9f2e61a0161aa44ff13bb445ab7038a37c"
+            },
+            {
+                "path": "Assets/WorkflowDemo/Tests/Editor/DashTests.cs",
+                "sha256": "6d9731e12af16bb9e5790629b6c3018d4908362ff46c9ab9c705a456fadc8d6e"
+            },
+            {
+                "path": "Assets/WorkflowDemo/Tests/Editor/DashTests.cs.meta",
+                "sha256": "0aeb77cdc9c2fe60e02b475c662eaf25d90afc3fa4c3687ddfd8da1939dfcf70"
+            },
+            {
+                "path": "Assets/WorkflowDemo/Tests/Editor/WorkflowDemo.EditorTests.asmdef",
+                "sha256": "80ca1caeebfc6450aec7aa009ad617ca5baf1c76d722080bd9952a5386685e49"
+            },
+            {
+                "path": "Assets/WorkflowDemo/Tests/Editor/WorkflowDemo.EditorTests.asmdef.meta",
+                "sha256": "e7b6152b2e12ce411533b834c9cc04fc26583836dd8c236b756a1048e8d8481b"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor.meta",
+                "sha256": "a0f68aca5222dca31e2ae725587349e5817f077fcc40f218c5d344236cb397e1"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/BrainContextService.cs",
+                "sha256": "ac1eced9490e25ae00a3a51206c53a446d4f2a7d9116aa7c582d7484db910748"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/BrainContextService.cs.meta",
+                "sha256": "4cfdd7af2febbdfa8f4b43901fec470febeb76551a0c6f491f4ccfc0ca0a9a42"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/BrainDocumentWindow.cs",
+                "sha256": "7e10429ee8f789fc79e7b403eebfee958b6991ebddf9a14cbb2e57ef8b22d19a"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/BrainDocumentWindow.cs.meta",
+                "sha256": "4273317d6fa090140743e7f371d12d6d17bd4753a78ff872f9fdbe3ea35da778"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/BrainExplorerWindow.cs",
+                "sha256": "24669451becf31de8c4b2b4bea455429d00b1caa7c56cba29933b49a7ced82e3"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/BrainExplorerWindow.cs.meta",
+                "sha256": "dcea94bb818841eba9ba4d9ae04823d4b2005752867bc336991c5176bcacd495"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/BrainFreshnessService.cs",
+                "sha256": "61f2e4ff09e2816db2e8fab20c8a0d43e97747d672a8ac7cadfe1f643f689bc8"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/BrainFreshnessService.cs.meta",
+                "sha256": "a73edc5e51daea8a4a9627b6bc6f799025c11e3b04d2d8da5c59e18692443d4d"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/BrainGraphService.cs",
+                "sha256": "1ddeaac7a9cf493ffea5c20a6aa0f69f9053984560dd5816fd99aa3e3412c8ea"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/BrainGraphService.cs.meta",
+                "sha256": "b61520559ad362ba597cc19315d60ced42f3ede04e3c9b01979e10123348e34a"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/BrainMigration.cs",
+                "sha256": "20ba2c95bc8f39560c219992656610dd5d40740db9a8bb62b404bbf9a2986c64"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/BrainMigration.cs.meta",
+                "sha256": "8b18caba1d2e3993be8e3efefff8efc91484b8dfc37a2b9a3689c382c0f2d2fc"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/BrainMigrationChecks.cs",
+                "sha256": "17a21e94ffa8ddabd215f26141510a214703fc081a8906a55087bd854fbfa469"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/BrainMigrationChecks.cs.meta",
+                "sha256": "b7d4983d7ef055157c56398f2486ca8c3235e019206bd7db5ad54ab77cffa2b9"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/BrainNode.cs",
+                "sha256": "5686d5362463163bceeac2f29825b8ba9bc0c3d97d1ad008129d97cb3bbceecf"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/BrainNode.cs.meta",
+                "sha256": "67f2bc2a7597bca2e83ebd0c4c05f70683a4dc239f8795883d00c713ae738336"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/BrainPlayerSetup.cs",
+                "sha256": "e0c9018df344f42bc5e075aca3e02491d325e53e656e57b90234b2c549de8a8f"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/BrainPlayerSetup.cs.meta",
+                "sha256": "1bc464bd808f6b5d4807756bd9a427cc9ffa28afae2378f4743c2feab8d328c7"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/BrainRepairChecks.cs",
+                "sha256": "108f33cb992bb02fb8525c2eca165267d48f20722195fd10ff708800b8d07863"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/BrainRepairChecks.cs.meta",
+                "sha256": "0a44902b557dc57dae2aa9caceb13b0dd045e08a5a6f5e3e5f6e69781b62e655"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/BrainStore.cs",
+                "sha256": "c90b740e6af53cc5bf9396ad4eef0685fbbbd91cfa4e6e006337d9a9cd73c311"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/BrainStore.cs.meta",
+                "sha256": "f28e3d118b9d43959b90df0dc1773221b2da4f20af1bde7fd6d84a972772c541"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/BrainStoreChecks.cs",
+                "sha256": "f1a8430ca86dd900e8de9183216c5926eb2f35ed85f45e55017b7468cd5bb73a"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/BrainStoreChecks.cs.meta",
+                "sha256": "a237343ca7aa643b8fae06106119aa9463e085b1619a6b34f33909ce0618d50f"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/BrainTaskService.cs",
+                "sha256": "3b7cc11da766c041113528b78183b793c5f1281edc21a4f966574f9f76b5b475"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/BrainTaskService.cs.meta",
+                "sha256": "f36e6bd9389a56f2e5f4d71fc5315ce42e93aa3edeb1d5e0d45fed023df8b1b9"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/BrainTaskView.cs",
+                "sha256": "abb961ca5e4105dab908b36bfc2a49af6be77e8c8284ad64bf0521638f2e3b44"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/BrainTaskView.cs.meta",
+                "sha256": "9ad3040474004d06c2f33377fdf0be27c336f2ff09538010a10867f9ba84a8a8"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/BrainTools.cs",
+                "sha256": "c8a18509e5ad0a09526a418ec7244a932ef415875f49079bfab20c876608ba35"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/BrainTools.cs.meta",
+                "sha256": "fdcefe8e4f1465b385647fedf530ff0c06599e5108efb99d0abc2b16f544b1cc"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/BrainWire.cs",
+                "sha256": "e67d912615528b0c549d12fd7fa023215d49790f070c964136c4fbb63687e4d7"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/BrainWire.cs.meta",
+                "sha256": "9424a9a32d6a3013dfb69625ab888f69289c64719c7adbe6bf341b01c377a3f3"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/BrainWorkflowChecks.cs",
+                "sha256": "a8af96b24f0b4c48216fb423f3d805535fbc66adf74f4758ddc12f063b2354f3"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/BrainWorkflowChecks.cs.meta",
+                "sha256": "5717cb2aeec6fb785537e377fd77c3279219da4c11f0d805bad58d2af62969ee"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/BrainWorkspace.cs",
+                "sha256": "f498a03547fe33a51a474c61c8400974e5b77e70ce949766fb80594180f7962b"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/BrainWorkspace.cs.meta",
+                "sha256": "1e5b550fba5ce3510615f3993bd142d7b02f47eb715b40e02485828c934227e4"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/DocumentGraphView.cs",
+                "sha256": "b16278b7e07fe02542f2fbaea58df900b9f8ba41d52a693ed50e949b5216d397"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/DocumentGraphView.cs.meta",
+                "sha256": "bbf73d608c220b1fd85e4ee0339fb9e685a771c7f24f036333a363bf9ee7ce2d"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/DocumentStore.cs",
+                "sha256": "8894bcb09d10b4d6011dfde2987f2a06c17be7d16f73d4ea913a3c0fcc442b40"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/DocumentStore.cs.meta",
+                "sha256": "e1a6ed3d5864e2514147f075dbd94540ad14b1bf55a3cb36c774aedd2da848f3"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/DocumentStoreChecks.cs",
+                "sha256": "ac0929bff1d457f8e67256a90ce581d7980da0e15e02a6e72ea2aeaf2c7594dd"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/DocumentStoreChecks.cs.meta",
+                "sha256": "212e0d1031ecd500464925fb0c9950fb425e96a409c97393e8c6b52edc1d325c"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/ProjectBrain.Editor.asmdef",
+                "sha256": "08091c9a2fca776a4f54db07c2851ed576650a309a59b66541da79c3afb8df97"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/ProjectBrain.Editor.asmdef.meta",
+                "sha256": "9621dce70440ae9eb6236de30d0aca1e2e36fe4f65e34e7060f637a9c9083f6f"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/ScriptDocument.cs",
+                "sha256": "0ac7623e56e83bc6b7de45585852e04a87c38a8b71460882662ea150bbfdb3f9"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/ScriptDocument.cs.meta",
+                "sha256": "ca469f1ec01cfaebd067aadb8b063430bc241941c3243294b3435c9fb36d6032"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/ScriptDocumentService.cs",
+                "sha256": "ed46d184f881547f178bde062c6172d9c533523d6fd539735a8326c8e6ccce70"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/ScriptDocumentService.cs.meta",
+                "sha256": "4d7f657e07e9874cd2eb76f29dfc4bcfc0772ca5d953c61ef185b9359fc5d4e4"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/UnityBrainJson.cs",
+                "sha256": "d6def84477df9b2166413c7cc23916f647de0703c0c730ffa7d80ca9c290b85e"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/UnityBrainJson.cs.meta",
+                "sha256": "e42405daee2d355bd24fc2ea73a86c0d0cc0a009112db439e1734a0885216ff0"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/package.json",
+                "sha256": "3dca331831b18a7a24c4ec4f2a8fd963e5ab71cba4f1989b50706a67d576ee14"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/package.json.meta",
+                "sha256": "e20512b55e480fd61f7d5eabef57b65bf7116c33a1a7503c940746337fc6a57e"
+            },
+            {
+                "path": "Packages/manifest.json",
+                "sha256": "b8ad9d07728729d124d060630bce8db68d2b726a9757fef0589dd1ba58474dea"
+            },
+            {
+                "path": "Packages/packages-lock.json",
+                "sha256": "4e3e2f4f1d45bfcc1e5ef1e26119d9e30cc5920fa60ba746f436522166d323ca"
+            },
+            {
+                "path": "ProjectSettings/AudioManager.asset",
+                "sha256": "aeedeb3243f07b61dbbe854aa08b5ef6f0b5274dd9852ad9f6129dde3e105a31"
+            },
+            {
+                "path": "ProjectSettings/ClusterInputManager.asset",
+                "sha256": "40e65dd214bf254955d2c8829ca8ce2130fd3510485560ce012e9a1ddd93e623"
+            },
+            {
+                "path": "ProjectSettings/DynamicsManager.asset",
+                "sha256": "b7c9a9dc08b98990109d4346f68745e15e238de400f96c583e53e1c83c743a78"
+            },
+            {
+                "path": "ProjectSettings/EditorBuildSettings.asset",
+                "sha256": "348ba1eca4b0698957f264f877f76227b78583acd3138fd5fc85be92f158e261"
+            },
+            {
+                "path": "ProjectSettings/EditorSettings.asset",
+                "sha256": "32d6a9be4c9aa9795a96bd951820a2d9be1bfefab82ed05a5db111af0863938f"
+            },
+            {
+                "path": "ProjectSettings/GraphicsSettings.asset",
+                "sha256": "6736f33dc62c35b0e7a88e275242080bc7a1d94c91154d18fceb332b661a6bce"
+            },
+            {
+                "path": "ProjectSettings/InputManager.asset",
+                "sha256": "7a1bb836a1008d26d0860d143e9d9df7ca41731d30a72901b518063819c62df2"
+            },
+            {
+                "path": "ProjectSettings/MemorySettings.asset",
+                "sha256": "1e8379a461b10ae09f3f696911088c16875d63e87ed5f2d95df9e1892703f9fd"
+            },
+            {
+                "path": "ProjectSettings/MultiplayerManager.asset",
+                "sha256": "aba89fd1a1ddad182727ad82727e536d27372e90328a8196da2a4560398983dd"
+            },
+            {
+                "path": "ProjectSettings/NavMeshAreas.asset",
+                "sha256": "80106cfa7e6181a1928b142c075f3e510d527441e3d79bc83590e4ac91e7cd66"
+            },
+            {
+                "path": "ProjectSettings/PackageManagerSettings.asset",
+                "sha256": "2e54857d1045fbcfe2f43b866f5acbd9d243cfe9560ae61594da3b47cc91f8b8"
+            },
+            {
+                "path": "ProjectSettings/Physics2DSettings.asset",
+                "sha256": "e3cbdbf0be15244b7b67d2f07bdb8e8981911c11a8c7fe8035f5261272fec658"
+            },
+            {
+                "path": "ProjectSettings/PresetManager.asset",
+                "sha256": "29c125923fe6e29f90190d4fce1c82d660e7051546e2c9d02908d18c9cf2436c"
+            },
+            {
+                "path": "ProjectSettings/ProjectSettings.asset",
+                "sha256": "3771eecbbdbaf92a5f349afc19a47d80d32e5dbbc9d9cc3a368739b1c8d69210"
+            },
+            {
+                "path": "ProjectSettings/ProjectVersion.txt",
+                "sha256": "12fd5a6a7d4ca0ead22613ac6bf2e8128342b55088881946bb7bc530358dd5e7"
+            },
+            {
+                "path": "ProjectSettings/QualitySettings.asset",
+                "sha256": "6814d6cc3eb850dd7d2a069a8b17ba9f7591deba8b1758a855978bd9c8627643"
+            },
+            {
+                "path": "ProjectSettings/ShaderGraphSettings.asset",
+                "sha256": "cdba1e5d65bcf6e3269d76ed3e60b6c21f98322002996642c9d74f1eb89f6b91"
+            },
+            {
+                "path": "ProjectSettings/TagManager.asset",
+                "sha256": "23fc56b484aa3d7edf5914cd3591f7a823ccef5e3f3496f8a51f30388ead63dc"
+            },
+            {
+                "path": "ProjectSettings/TimeManager.asset",
+                "sha256": "1a83e54adbbda7c9f4851103a0c6ab7f6448a3343d4ea5b7620452fa08416ecd"
+            },
+            {
+                "path": "ProjectSettings/URPProjectSettings.asset",
+                "sha256": "c317fe22b9488785c0611f0642429922e5d324430d929bffb41648130f30c218"
+            },
+            {
+                "path": "ProjectSettings/UnityConnectSettings.asset",
+                "sha256": "b7dd1e8290598f5ce86919ba1c98b42b766c8c42191a30fa2c4d12195c4ecd00"
+            },
+            {
+                "path": "ProjectSettings/VFXManager.asset",
+                "sha256": "f066c6483919961332415ee64204f74fe52f38c02e82892eb02b7a5b2e381f0e"
+            },
+            {
+                "path": "ProjectSettings/VersionControlSettings.asset",
+                "sha256": "e7bda45bf7a394745fee1316e6c71fa676004d591ad1f3aa247fd3e4ceb86071"
+            },
+            {
+                "path": "ProjectSettings/XRSettings.asset",
+                "sha256": "edd2beb4a2e388312b4b7da241aa51070434005d82c59363f1237dd2e567585f"
+            }
+        ],
+        "limitations": []
+    },
+    "gitStateAtBegin": "not-queried; baseline includes pre-existing working files",
+    "createdUtc": "2026-09-06T08:18:14.4162169Z",
+    "updatedUtc": "2026-09-06T08:25:16.8086859Z"
+}

@@ -58,3 +58,7 @@ console-get-logs 입력 예: `{"maxEntries":5,"logTypeFilter":"Error","includeSt
 ## Brain 자체 검사와 Test Runner 구분
 
 BrainStoreChecks.RunInEditor, BrainMigrationChecks.RunInEditor, DocumentStoreChecks.RunInEditor는 종료 없는 자체 검사 진입점이다. 전용 MCP 진입점이 없을 때 script-execute로 호출하며 최종 반환·예외를 확인한다. 25/18/14는 체크 항목 수이고 Unity Test Runner의 테스트 케이스 수가 아니다. 검증은 OS temp 저장소를 사용하며 제품 Evidence를 생성하지 않는다. 배치 종료형 RunBatch를 열린 Editor에서 호출하지 않는다.
+
+## Brain 추가 도구 (2026-09-06)
+
+brain_begin/update_task/status/context/record_basis의 실제 HTTP 등록·호출을 확인했다. 현재 단계의 정확한 순서·분량·한계는 [brain-usage.md](brain-usage.md)를 따른다. 새 세션의 내장 노출은 별도 확인한다. 전체 WF-B는 W2/V1 후속이다.
