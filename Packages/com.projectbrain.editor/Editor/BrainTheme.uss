@@ -31,7 +31,10 @@
 .brain .map-count { position: absolute; top: 108px; left: 34px; color: #b5b8bf; font-size: 11px; }
 .brain .node-label { position: absolute; height: 28px; min-height: 28px; max-width: 164px; padding: 0 4px; margin: 0; background-color: rgba(0,0,0,0); border-width: 0; border-radius: 3px; font-size: 12px; -unity-text-align: middle-left; overflow: hidden; text-overflow: ellipsis; }
 .brain .node-label:hover { background-color: #454950; }
-.brain .node-label.selected { color: #c5cff6; -unity-font-style: bold; }
+.brain .node-label.unrelated { color: #a1a7b1; }
+.brain .node-label.related { color: #c3d0f1; background-color: #363b47; }
+.brain .node-label.selected { color: #e1e7fc; background-color: #454d65; -unity-font-style: bold; }
+.brain .node-label.related:hover, .brain .node-label.selected:hover { background-color: #4b546b; }
 .brain .node-label.node-root { font-size: 16px; -unity-font-style: bold; max-width: 200px; }
 .brain .node-label.node-domain { font-size: 14px; -unity-font-style: bold; max-width: 200px; }
 .brain .filter-panel { top: 74px; right: 20px; width: 220px; }

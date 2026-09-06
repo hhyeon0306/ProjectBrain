@@ -1,0 +1,29 @@
+{
+  "unit": "U1-8",
+  "verification": [
+    {
+      "schemaVersion": 1,
+      "id": "b162ac01-b548-41f9-b8c1-29d5a0719699",
+      "taskId": "a48a9ba7-be69-4985-a648-ed5d2ac5442f",
+      "kind": "compile",
+      "state": "passed",
+      "snapshotHash": "372419e0c7209d4f95a09dab6e29c05c0287e46f4157b4a51c41250d3cf4a943",
+      "startedUtc": "2026-09-06T23:20:58.7667711Z",
+      "endedUtc": "2026-09-06T23:21:20.6578001Z",
+      "summary": "Unity compilation callbacks; compiled=0, up-to-date=74, errors=0",
+      "total": 74,
+      "passed": 74,
+      "failed": 0,
+      "skipped": 0
+    }
+  ],
+  "mapChecks": 11,
+  "focusChecks": [
+    "six direct neighbors match graph",
+    "selection changes reset neighbors",
+    "hidden selection clears related and dim classes",
+    "null selection clears related and dim classes"
+  ],
+  "visual": "Native DemoGameFlow selection screenshot",
+  "limitations": "No new EditMode run; crowded label collision suppression remains"
+}

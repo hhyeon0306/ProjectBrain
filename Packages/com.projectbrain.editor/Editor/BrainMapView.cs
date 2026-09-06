@@ -16,6 +16,8 @@ namespace ProjectBrain
         private HashSet<string> visibleNodes = new HashSet<string>();
         private readonly HashSet<string> hiddenTypes = new HashSet<string>();
         private readonly HashSet<string> curvedRelations = new HashSet<string>();
+        private readonly HashSet<string> relatedNodes = new HashSet<string>();
+        private bool HasVisibleSelection => selected != null && visibleNodes.Contains(selected);
         private string selected, query = "";
         private bool local;
         private HashSet<string> scopeIds;
@@ -136,10 +138,20 @@ namespace ProjectBrain
             if (scopeIds != null) scope.IntersectWith(scopeIds);
             visibleNodes = new HashSet<string>(scope.Where(id => !hiddenTypes.Contains(graph.Get(id).type) &&
                 (query.Length == 0 || (graph.Get(id).title + " " + graph.Get(id).summary + " " + id).IndexOf(query, StringComparison.OrdinalIgnoreCase) >= 0)));
+            relatedNodes.Clear();
+            if (HasVisibleSelection)
+                foreach (var relation in graph.Relations)
+                {
+                    if (relation.from == selected && visibleNodes.Contains(relation.to)) relatedNodes.Add(relation.to);
+                    if (relation.to == selected && visibleNodes.Contains(relation.from)) relatedNodes.Add(relation.from);
+                }
+            relatedNodes.Remove(selected);
             foreach (var pair in labels)
             {
                 pair.Value.style.display = visibleNodes.Contains(pair.Key) ? DisplayStyle.Flex : DisplayStyle.None;
                 pair.Value.EnableInClassList("selected", pair.Key == selected);
+                pair.Value.EnableInClassList("related", relatedNodes.Contains(pair.Key));
+                pair.Value.EnableInClassList("unrelated", HasVisibleSelection && pair.Key != selected && !relatedNodes.Contains(pair.Key));
             }
             UpdatePositions();
         }
@@ -149,7 +161,7 @@ namespace ProjectBrain
             // A selected node always gets its name; glyphs remain clickable when names are omitted.
             var occupied = new List<Rect>();
             HiddenLabelCount = 0;
-            foreach (var id in visibleNodes.OrderBy(id => id == selected ? 0 : graph.Get(id).type == "Project" ? 1 : graph.Get(id).type == "Domain" ? 2 : graph.Get(id).type == "Evidence" ? 4 : 3).ThenBy(id => id, StringComparer.Ordinal))
+            foreach (var id in visibleNodes.OrderBy(id => id == selected ? 0 : relatedNodes.Contains(id) ? 1 : graph.Get(id).type == "Project" ? 2 : graph.Get(id).type == "Domain" ? 3 : graph.Get(id).type == "Evidence" ? 5 : 4).ThenBy(id => id, StringComparer.Ordinal))
             {
                 var p = Screen(id); var label = labels[id];
                 bool major = graph.Get(id).type == "Project" || graph.Get(id).type == "Domain";
@@ -261,7 +273,7 @@ namespace ProjectBrain
                 var endDirection = (b - c2).normalized;
                 var start = a + startDirection * Mathf.Min(EdgeInset(r.from), length * .2f);
                 var end = b - endDirection * Mathf.Min(EdgeInset(r.to), length * .2f);
-                p.strokeColor = active ? BrainTheme.Accent : new Color32(143, 150, 163, (byte)(selected == null ? 115 : 80));
+                p.strokeColor = active ? BrainTheme.Accent : new Color32(143, 150, 163, (byte)(HasVisibleSelection ? 80 : 115));
                 p.lineWidth = active ? 1.65f : 1f;
                 p.BeginPath(); p.MoveTo(start);
                 if (curved) p.BezierCurveTo(c1, c2, end); else p.LineTo(end);
@@ -278,7 +290,14 @@ namespace ProjectBrain
             foreach (var id in visibleNodes)
             {
                 var center = Screen(id); var type = graph.Get(id).type;
-                p.strokeColor = p.fillColor = id == selected ? BrainTheme.Accent : new Color32(190, 194, 201, 255); p.lineWidth = 1.3f;
+                bool related = relatedNodes.Contains(id);
+                if (related || id == selected)
+                {
+                    p.fillColor = id == selected ? new Color32(73, 83, 112, 255) : new Color32(59, 65, 80, 255);
+                    p.BeginPath(); p.Arc(center, SelectionRadius(id) - 2, 0, 360); p.Fill();
+                }
+                p.strokeColor = p.fillColor = id == selected ? BrainTheme.Accent : related ? new Color32(188, 202, 242, 255) : HasVisibleSelection ? new Color32(146, 153, 166, 255) : new Color32(190, 194, 201, 255);
+                p.lineWidth = related || id == selected ? 1.7f : 1.3f;
                 if (id == selected) { p.BeginPath(); p.Arc(center, SelectionRadius(id), 0, 360); p.Stroke(); }
                 p.BeginPath();
                 if (type == "Evidence" || type == "Activity")

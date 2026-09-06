@@ -428,3 +428,14 @@ U1-6 관리 검사: 문서 구조 검사 통과. 전체 Git 검사는 기존 사
 - Limitations: 모든 관계의 교차/라벨 우회 라우팅은 구현하지 않았다. 표시 변경으로 EditMode 재실행은 하지 않았다. 사용자5경로 보존.
 
 U1-7 관리 검사: 양쪽 문서 구조 통과. 기존 사용자 SampleScene.unity:242 공백으로 전체 Git 검사 실패, 해당 변경 보존 후 이번 변경만 staged 검사.
+
+## 2026-09-07 U1-8 · 직접 연결 노드 강조
+- Goal: 선만 강조되어 연결 끝을 찾기 어려운 문제를 보완한다.
+- Changes: 선택/직접 연결/나머지 3단계 아이콘·이름 대비, 은은한 원형 배경/이름 배경, 관련 이름 표시 우선순위. 필터로 선택 노드가 숨으면 강조/흐림 해제.
+- Files: BrainMapView.cs/BrainTheme.uss 및 Docs/compile Evidence.
+- Verification: Map11 자체 검사. 별도 비표시 뷰에서 관련6노드 일치·선택 전환·선택 숨김·선택 해제4항목 검사. computer-use 실제 DemoGameFlow와 연결6노드 강조 화면 확인. compile b162ac01-b548-41f9-b8c1-29d5a0719699 passed(errors0/up-to-date74). reviews/2026-09-07-u1-8-evidence.json/focus.jpg 참조.
+- Decisions: 직접 연결까지만 강조해 중심 유지. 선택 링은 선택 노드만, 관련 노드는 색/배경/조금 굵은 아이콘. 이름 배경으로 선의 글자 가로지름 감소.
+- Next: 추가 지적 판단 및 서류/PPT15:00 준비도 확인.
+- Limitations: 밀집 시 이름 충돌 생략은 유지하며 관련 이름만 우선. EditMode 재실행 없음. 사용자5경로 변경 보존.
+
+U1-8 관리 검사: 양쪽 문서 구조 통과. 전체 Git 검사는 기존 사용자 SampleScene.unity:242 공백으로 실패하여 보존, 이번 변경만 staged 검사.

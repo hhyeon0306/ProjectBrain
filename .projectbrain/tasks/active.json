@@ -1,13 +1,13 @@
 {
     "schemaVersion": 1,
     "id": "a48a9ba7-be69-4985-a648-ed5d2ac5442f",
-    "revision": 17,
+    "revision": 18,
     "purpose": "Player 이동 코드의 작업 재개와 맥락·최신성 시연",
     "targetNodeIds": [
         "feature:player/movement"
     ],
-    "progress": "U1-7 기본 직선·양방향만 약한 곡선으로 절충. Project/Domain 노드와 이름을 확대·굵게 하고 선택 링/클릭 범위/선 끝 간격을 동기화했다. Map11, 실제 화면·선택 및 컴파일 오류0 확인.",
-    "decisions": "곡선은 서로 반대 방향의 선을 구분할 때만 사용. Project22px/16px Bold, Domain18px/14px Bold. 데이터와 관계 방향 유지.",
+    "progress": "U1-8 선택 노드·직접 연결 노드·나머지의 3단계 강조를 적용했다. 관련 아이콘/이름 배경·색/이름 표시 우선순위 보정. 실제 DemoGameFlow 연결6노드 렌더, Map11/강조 전환4항목·컴파일 오류0 확인.",
+    "decisions": "직접 연결만 강조해 중심을 유지한다. 필터로 선택이 사라지거나 선택 해제 시 강조·흐림을 지운다. 이름 배경으로 선이 글자를 가로지르는 현상을 줄인다.",
     "unresolved": "사람 문서 확인2건·허용 밖48/미매핑48 유지. 사용자5개 경로 변경 보존. 모든 화면 크기/데이터 조합을 검증한 것은 아니다.",
     "nextAction": "사용자 추가 지적 판단·보정과 서류/PPT15:00 준비도 확인. Docs/session_handoff.md 참조.",
     "references": [
@@ -985,5 +985,5 @@
     },
     "gitStateAtBegin": "not-queried; baseline includes pre-existing working files",
     "createdUtc": "2026-09-06T08:18:14.4162169Z",
-    "updatedUtc": "2026-09-06T23:18:50.5697976Z"
+    "updatedUtc": "2026-09-06T23:22:12.6088750Z"
 }
