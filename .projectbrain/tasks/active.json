@@ -1,15 +1,15 @@
 {
     "schemaVersion": 1,
     "id": "a48a9ba7-be69-4985-a648-ed5d2ac5442f",
-    "revision": 13,
+    "revision": 14,
     "purpose": "Player 이동 코드의 작업 재개와 맥락·최신성 시연",
     "targetNodeIds": [
         "feature:player/movement"
     ],
-    "progress": "U1-3 Script Document 저장 → Explorer 본문·이미지·연결 자동 반영을 구현했다. 충돌 버전 검사/중단 재개 이력/변경 전 bytes를 보존한다. 기존7문서를 일치시키고 실제 열린 Explorer 갱신 및 작업 초안/필터 유지 확인.",
-    "decisions": "Script Document가 작성 경로이며 저장 시 단방향 투영한다. Movement의 더 최신 Explorer 설명을1회 구조화해 채택하고 양쪽 원본을 sync history에 보존했다. 최초 이관 receipt·사람 확인/완료 정책·기준선은 유지한다.",
-    "unresolved": "실제 사람 문서 확인2건·허용 밖44/미매핑44가 남아 전체 작업 종료는 거절된다. 외부 자동 감시·MCP 문서 역반영/자동 병합·다중 프로세스 쓰기/이력 용량 정책은 범위 밖이다. 사용자5개 파일 변경 보존.",
-    "nextAction": "사용자가 지적하는 툴별 항목을 하나씩 보정. 서류/PPT15:00 준비도·P1 증거 정리. Docs/session_handoff.md 참조.",
+    "progress": "U1-4 프로젝트 구조도 이름·도메인/기능 사이드바·범위 맞춤·접는 오른쪽 상세·CS 더블클릭 문서 연결을 구현했다. Map11/Scope10 자체 검사와 실제 UI 이벤트 문서 전환/초안 보존 및 작은 창 배치를 확인했다.",
+    "decisions": "사용자 지적을 검토해 부유 패널은 제거하되 필수 사람 확인·검증 기능은 상세에 유지한다. 등록된 소속만 따라 범위를 좁히고 외부 의존은 경계 목록으로 남긴다. 문서 저장 자동 반영·기준선·사람 확인 정책은 유지한다.",
+    "unresolved": "실제 사람 문서 확인2건·허용 밖48/미매핑48이 남아 전체 작업 종료는 거절된다. 사용자5개 경로 변경 보존. 도메인 자동 재분류·전면 재디자인은 이번 범위가 아니다.",
+    "nextAction": "사용자 추가 지적을 적절성 판단 후 한 단위씩 보정. 서류/PPT15:00 준비도와 P1 증거 정리 확인. Docs/session_handoff.md 참조.",
     "references": [
         "feature:player/movement",
         "document:10000000000000000000000000000003"
@@ -985,5 +985,5 @@
     },
     "gitStateAtBegin": "not-queried; baseline includes pre-existing working files",
     "createdUtc": "2026-09-06T08:18:14.4162169Z",
-    "updatedUtc": "2026-09-06T22:24:27.9161006Z"
+    "updatedUtc": "2026-09-06T22:46:12.2601235Z"
 }
