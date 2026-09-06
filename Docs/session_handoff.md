@@ -22,3 +22,5 @@ WF-B 검증: 실제 begin/context(7,326자/9노드)→임시 코드 주석으로
 M2b: 실제 Movement 주석/Document 갱신, document freshness 명시적 재기록. 사람 확인은 그대로 미확인. 편집 File.Replace 실패 원본 보존 후 재시도 성공, prepared 영수증 보존 및 자동 복구 미구현. 상세 증거 reviews/2026-09-07-edit-evidence.json.
 
 W1b 실제 작업은 ID/최초baseline/허용범위를 유지했다. 전체 정책 완료를 조작하지 않고 종료 거절을 확인했다. 증거 reviews/2026-09-07-lifecycle-evidence.json.
+
+2026-09-07 W1b-UI 마우스 재검증: 사용자 요청 후 computer-use 실제 마우스로 새로 읽기, 완료 조건 조회, 창 제목줄 드래그, 휠 스크롤, 범위 이력 펼치기, 기존 ID 기록 조회를 확인했다. 최초 오래된 버전 안내 후 새로 읽기로 revision10을 표시했고 완료 조건은 허용 밖27/미매핑27/사람미확인2를 표시했다. 이번 활성화 오류 없음. 앞선 실패 원인은 확정하지 않는다. 범위 저장·종료·사람 확인 버튼은 실행하지 않았다.

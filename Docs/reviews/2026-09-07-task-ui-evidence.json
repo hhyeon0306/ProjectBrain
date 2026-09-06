@@ -26,7 +26,21 @@
       "completed close rejected",
       "active history rendered",
       "stale revision rejected, input preserved"
-    ]
+    ],
+    "mouseReverification": {
+      "passed": true,
+      "actions": [
+        "refresh",
+        "completion check",
+        "window drag",
+        "wheel scroll",
+        "expand scope history",
+        "read history"
+      ],
+      "observedRevision": 10,
+      "previousActivationFailureCause": "unconfirmed",
+      "writesPerformed": false
+    }
   },
   "verification": [
     {
