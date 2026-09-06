@@ -1,5 +1,14 @@
 # Brain 작업 이력
 
+## 2026-09-06 독립 대시 개발 워크플로우 시연
+- Goal: Brain 연동 없이 현재 프로젝트에서 실제 코드 작성·결함 재현·수정·검증을 시연한다.
+- Changes: WorkflowDemo의 DashCooldown/DashMover 및 NUnit EditMode 검사 9개 추가. 의도한 경계 결함 재현 후 수정, 원본 결과 저장.
+- Files: Assets/WorkflowDemo 및 meta, Docs/{workflow-development-demo,workflow-demo-initial,workflow-demo-regression,workflow-demo-fixed,task,session_handoff,work_log} 문서/JSON.
+- Verification: 실제 MCP NUnit 최초 9/9 → 의도적 결함 7/9 → 수정 9/9. 원래 씬 RootCount=2/IsDirty=false 유지. 상위 verify -IncludeBrain 통과. CLI 실제 배치는 동의 응답 대기.
+- Decisions: Brain 제품 코드는 수정하지 않고 독립 예제만 추가. 임의 Editor 종료/씬 저장을 하지 않는다.
+- Next: 사용자 응답 후 허용된 범위에서 CLI 배치 검증. 워크플로우 결과와 제품 완성은 구분한다.
+- Limitations: 데모는 입력/UI/충돌/애니메이션이 없는 즉시 대시 모델. 기존 사용자 변경 두 파일 보존. CLI 배치는 아직 미실행.
+
 ## 2026-09-06 세션 종료·Second Brain 기초 설계 결론 확정
 - Goal: 사용자 의도와 최종 결론을 보존하고 다음 세션에서 구현을 이어가게 한다.
 - Changes: 기초 설계 검토 완료·기존 구조로 구현 가능 판정 반영. 작업 기억·관련 맥락 조회·최신성 관리의 초기 수용 기준과 다음 순서 정리. 알려진 코드 결함은 A1-R/F2에 유지하고 과거 리뷰의 재판정 문구와 현재 결론을 구분했다.

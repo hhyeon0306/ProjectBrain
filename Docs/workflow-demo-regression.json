@@ -1,0 +1,26 @@
+{
+  "result": {
+    "Summary": {
+      "Status": "Failed",
+      "TotalTests": 9,
+      "PassedTests": 7,
+      "FailedTests": 2,
+      "SkippedTests": 0,
+      "Duration": "00:00:00.9947153"
+    },
+    "Results": [
+      {
+        "Name": "WorkflowDemo.Tests.DashCooldownTests.DashIsReadyAtExactBoundary",
+        "Status": "Failed",
+        "Duration": "00:00:00.0130000",
+        "Message": "  Dash must recover at exactly two seconds.\r\n  Expected: True\r\n  But was:  False\r\n"
+      },
+      {
+        "Name": "WorkflowDemo.Tests.DashMoverTests.CooldownRejectsMovementThenAllowsNextDash",
+        "Status": "Failed",
+        "Duration": "00:00:00.0040000",
+        "Message": "  Expected: True\r\n  But was:  False\r\n"
+      }
+    ]
+  }
+}

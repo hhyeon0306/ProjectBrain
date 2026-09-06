@@ -1,0 +1,59 @@
+{
+  "result": {
+    "Summary": {
+      "Status": "Passed",
+      "TotalTests": 9,
+      "PassedTests": 9,
+      "FailedTests": 0,
+      "SkippedTests": 0,
+      "Duration": "00:00:00.9942064"
+    },
+    "Results": [
+      {
+        "Name": "WorkflowDemo.Tests.DashCooldownTests.DashIsReadyAtExactBoundary",
+        "Status": "Passed",
+        "Duration": "00:00:00.0110000"
+      },
+      {
+        "Name": "WorkflowDemo.Tests.DashCooldownTests.FirstUseIsImmediatelyAvailable",
+        "Status": "Passed",
+        "Duration": "00:00:00"
+      },
+      {
+        "Name": "WorkflowDemo.Tests.DashCooldownTests.InvalidClockIsRejected",
+        "Status": "Passed",
+        "Duration": "00:00:00.0030000"
+      },
+      {
+        "Name": "WorkflowDemo.Tests.DashCooldownTests.InvalidDurationIsRejected",
+        "Status": "Passed",
+        "Duration": "00:00:00"
+      },
+      {
+        "Name": "WorkflowDemo.Tests.DashCooldownTests.RemainingNeverBecomesNegative",
+        "Status": "Passed",
+        "Duration": "00:00:00.0040000"
+      },
+      {
+        "Name": "WorkflowDemo.Tests.DashCooldownTests.RepeatedInputDoesNotExtendCooldown",
+        "Status": "Passed",
+        "Duration": "00:00:00"
+      },
+      {
+        "Name": "WorkflowDemo.Tests.DashMoverTests.CooldownRejectsMovementThenAllowsNextDash",
+        "Status": "Passed",
+        "Duration": "00:00:00.0040000"
+      },
+      {
+        "Name": "WorkflowDemo.Tests.DashMoverTests.DirectionMagnitudeDoesNotChangeDistance",
+        "Status": "Passed",
+        "Duration": "00:00:00.0020000"
+      },
+      {
+        "Name": "WorkflowDemo.Tests.DashMoverTests.ZeroDirectionDoesNotConsumeCooldown",
+        "Status": "Passed",
+        "Duration": "00:00:00.0010000"
+      }
+    ]
+  }
+}
