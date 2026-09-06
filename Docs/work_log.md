@@ -1,5 +1,13 @@
 # Brain 작업 이력
 
+## 2026-09-06 재실행 후 MCP 재시험
+- Goal: Codex/Unity 재실행 후 연결 및 도구 사용 가능 여부를 확인한다.
+- Changes: 연결 진단 상태를 초기화 실패에서 서버 통신 복구·Unity 도구 미노출로 갱신.
+- Files: Docs/session_handoff.md, Docs/work_log.md (상위/하위).
+- Verification: 현재 resources/list와 resources/templates/list 정상 응답(빈 목록). 서버 PID 39872. 로그 15:31:41 tools/list 시작 → 15:31:51 Unity 미연결 재시도 소진 → 15:31:54 Unity 0.90.0/Editor 6000.3.8f1 handshake 성공. 현재 ALL_TOOLS에는 Unity 도구 없음. verify -IncludeBrain 문서/Git 검사 통과.
+- Decisions: 리소스 응답 성공과 Unity 도구 성공을 구분. 과거 씬 조회 결과를 재사용하지 않음. 프로세스/설정 변경 없음.
+- Next: Unity 연결을 유지한 상태에서 Codex MCP를 다시 로드하고 도구 목록·scene-list-opened 확인.
+- Limitations: 현재 도구 재로딩 API가 제공되지 않아 실제 씬 조회·컴파일·테스트 미실행.
 ## 2026-09-06 재개 계약·MCP 연결 진단
 - Goal: 작업 재개 후 사용자 요청에 따라 MCP 연결·도구 테스트를 우선한다.
 - Changes: Brain W1/M2a 최소 계약을 문서화한 뒤 제품 작업 중단. 현재 세션의 MCP 초기화 실패와 포트 충돌을 읽기 진단했다.

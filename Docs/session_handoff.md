@@ -3,6 +3,8 @@ Updated: 2026-09-06 (세션 종료)
 
 ## Current state
 
+최신 확인(2026-09-06 재실행 후): MCP resources/list·templates/list 정상 응답으로 서버 통신 복구. 초기 tools/list가 Unity 연결 전에 재시도 소진했고 이후 15:31:54 Unity handshake 성공. 현재 세션 Unity 도구는 여전히 미노출. Unity 연결을 유지한 채 Codex MCP 재로딩 후 씬 조회 필요. 아래 Transport closed/포트 충돌은 재실행 전 상태다.
+
 2026-09-06 재개: W1/M2a의 작업 저장·충돌 없는 재개·revision 갱신·제한된 context·최신성 최소 계약을 architecture에 확정했다. 현재 세션 도구 목록에 Ivan MCP가 없으며 검색 도구도 없다. Unity 실행과 양쪽 설정 일치는 읽기로 확인했다. 실제 연결·컴파일·테스트는 미확인이고 제품 코드는 변경하지 않았다.
 
 최종 운영: MCP 중심 개발·최종 검증, CLI는 필요 시 환경 점검만 기본 사용한다. task의 WF-B는 Brain 관련 기능 구축 후 현재 파이프라인과 연동하고 양쪽 AGENTS.md/사용법을 실제 호출 계약으로 갱신하는 후속 작업이다. 현재는 연동하지 않는다.
