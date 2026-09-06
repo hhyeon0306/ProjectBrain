@@ -6,7 +6,7 @@ Project Brain의 최종 목표는 Unity 프로젝트의 설계·구현·검증·
 
 기준 화면은 [최종형 UI 목업](assets/project-brain-final-mockup.png)이다. 도메인 계층 그래프, 왼쪽 탐색, 오른쪽 상세 패널, 다크 테마와 종류별 색상을 최종 목표로 유지한다. 마감 전 최소 구현과 최종 목표는 구분한다. 목업의 파일명·테스트 수·토큰 절감량은 예시이며 실제 성과가 아니다.
 
-2026-09-06 현재: 기존 문서 UI와 관계 그래프 시제품, 범용 저장소 및 v2 비파괴 이관은 구현됐다. 실제 노드는 Project 1·Domain 1·Feature 2·Code 7·Document 7·Image 1개(19개), 관계 32개다. A2 최소 계층 UI, 작업 저장·재개와 맥락/최신성 MCP 5개는 구현·검증됐다. 문서 확인·실제 검증·완료 규칙은 미구현이다. [작업표](task.md)의 A1-R 저장 검증·Git 재현성과 F2 오류 경계는 보완 완료했다. 최소 Explorer의 시각/마우스 QA는 확인했고 전체 목업 UI는 후속이다.
+2026-09-06 현재: 기존 문서 UI와 관계 그래프 시제품, 범용 저장소 및 v2 비파괴 이관은 구현됐다. 실제 노드는 Project 1·Domain 1·Feature 2·Code 7·Document 7·Image 1개(19개), 관계 32개다. A2 최소 계층 UI, 작업 저장·재개와 맥락/최신성 MCP 5개(9/7 complete 추가로 6개)는 구현·검증됐다. 9/7 W2/M1 문서 확인·완료 거절을 추가했다. 실제 검증·완료 성공은 아직 미구현이다. [작업표](task.md)의 A1-R 저장 검증·Git 재현성과 F2 오류 경계는 보완 완료했다. 최소 Explorer의 시각/마우스 QA는 확인했고 전체 목업 UI는 후속이다.
 
 ## Second Brain의 핵심 가치와 초기 수용 기준
 
@@ -54,12 +54,12 @@ Project
 | brain_begin | 목적·대상·시작 스냅샷 등록/재개 (구현) | 필수 |
 | brain_context | 노드 ID 기반 제한 맥락·생략·최신성 (구현, 검색어 미지원) | 필수 |
 | brain_update_task | revision 확인 후 진행·결정·미해결·다음 행동 저장 (구현) | 작업 재개에 필수 |
-| brain_status | 변경·허용 밖 경로·coverage (구현), 문서 확인/검증 상태는 후속 | 필수 |
+| brain_status | 변경·허용 밖 경로·coverage (구현), 문서 확인·완료 거절 이유도 구현, 실제 검증은 후속 | 필수 |
 | brain_record_basis | 설명/관계와 코드 bytes 기준선 명시적 기록 (구현, 승인 아님) | 최신성 |
 | brain_update_document | 문서 갱신, AI 작성과 사람 확인 구분 (후속) | 완전한 편집 흐름 |
 | brain_apply | 예상 해시가 맞는 파일 수정·이력 기록 | 완전한 편집 흐름 |
 | brain_verify | 실제 Unity 검증 요청·실행 ID·최종 결과 | 필수 |
-| brain_complete | 현재 기준으로 조건 검사·거절 또는 완료 | 필수 |
+| brain_complete | 현재 기준 조건 검사·거절 구현. 완료 성공은 V1 이후 | 필수 |
 
 brain_apply가 없는 초기 시연은 Codex의 일반 파일 편집을 사용하고 Brain이 이를 감지한다고 명시한다. 이를 brain_apply 시연으로 표현하지 않는다. 사람이 문서를 확인하는 경로는 UI에 별도로 필요하며 AI 문서 저장을 승인으로 간주하지 않는다.
 

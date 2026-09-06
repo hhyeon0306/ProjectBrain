@@ -1,6 +1,6 @@
-# Brain 최소 사용 흐름 — A2/W1/M2a
+# Brain 최소 사용 흐름 — A2/W1/M2a/W2/M1
 
-2026-09-06 구현·검증 기준. Unity 프로젝트는 `C:/Dev/nexontutorial/ProjectBrain`이다. 전체 완료 규칙과 WF-B 연동은 아직 없다.
+2026-09-07 구현·검증 기준. Unity 프로젝트는 `C:/Dev/nexontutorial/ProjectBrain`이다. 완료 거절은 구현했고 완료 성공·WF-B 연동은 아직 없다.
 
 ## Explorer
 
@@ -22,7 +22,7 @@ Explorer는 `.projectbrain/nodes`와 `relations.json`을 읽는다. 기존 Scrip
 | brain_context | rootNodeId, depth=1(0~2), maxNodes=12(1~30), maxChars=8000(1000~20000). 구조화된 JSON 반환 |
 | brain_record_basis | targetId(설명 노드 또는 관계), codeNodeIds[](1~16). 현재 payload/코드 bytes 기준선을 명시적으로 기록. 검토·테스트 승인 아님 |
 
-검증한 실제 순서: begin → update_task(revision 1→2) → record_basis(설명/관계) → context current → 실제 코드 주석 변경 → assets-refresh/도메인 재로딩 → begin(taskId) 재개 → status modified/allowed → context stale → 오래된 revision update 거절 → 요약 갱신/Explorer 저장. 현재 작업 ID는 `a48a9ba7-be69-4985-a648-ed5d2ac5442f`, revision 4이며 완료/교체 API가 없으므로 활성 상태로 유지한다.
+검증한 실제 순서: begin → update_task(revision 1→2) → record_basis(설명/관계) → context current → 실제 코드 주석 변경 → assets-refresh/도메인 재로딩 → begin(taskId) 재개 → status modified/allowed → context stale → 오래된 revision update 거절 → 요약 갱신/Explorer 저장. 현재 작업 ID는 `a48a9ba7-be69-4985-a648-ed5d2ac5442f`, 최신 revision 5이며 완료 성공/교체 API가 없으므로 활성 상태로 유지한다.
 
 ## 저장과 검사 범위
 
@@ -47,3 +47,15 @@ Explorer는 `.projectbrain/nodes`와 `relations.json`을 읽는다. 기존 Scrip
 [실행 근거](reviews/2026-09-06-workflow-evidence.json), [Explorer 화면](reviews/2026-09-06-explorer.png).
 
 다음은 W2/M1 문서 확인·완료 거절 → A3/V1 실행 결과·완료 성공 → WF-B 전체 연동이다. `brain_apply`, `brain_update_document`, `brain_verify`, `brain_complete`는 아직 없으며 이 흐름을 완료된 것으로 기록하지 않는다. 최종 목업 전체 스타일·편집·검색·전체 포트폴리오 시연도 후속이다.
+
+## W2/M1 구현 계약 (2026-09-07)
+
+고정 정책 w2-human-review-v1-pending: 작업 대상의 contains/implemented_by 하위와 감시 변경에 매핑된 Code, 그 소유 Feature 및 형제 Code를 검사한다. Code마다 직접 documented_by 문서가 1개 이상 필요하며 연결된 문서는 모두 필수다. Feature 직접 문서도 포함한다. 연결 없는 Code/문서, 미매핑 변경, 허용 밖 변경, coverage 제한은 거절한다. 삭제 파일은 lastKnownPath도 매핑에 사용한다. 자동 의존 분석은 아니다.
+
+확인 기록은 .projectbrain/reviews/SHA256(taskId + 개행 + documentId).json이다. schemaVersion/taskId/documentId/snapshotHash/actor=human-ui/reviewedUtc를 저장한다. snapshotHash는 문서 전체 payload, 정렬된 전체 관계, 연결 Code 노드와 파일 경로/bytes를 포함한다. 전체 관계 변경도 보수적으로 stale 처리한다. 바이트를 정확히 되돌리면 current로 복원된다. missing-code/unreviewed/current/stale을 구분하며 손상 기록은 덮어쓰지 않는다.
+
+Explorer에서 현재 본문과 연결 코드를 읽었다는 체크 후 사람 확인 기록 버튼을 누른다. 화면 문서가 디스크와 다르거나 작업 ID/revision·확인 대상 해시가 바뀌면 거절한다. AI basis 저장은 사람 확인이 아니며 MCP에 승인/정책 낮추기 입력은 없다. 이 경로는 사용자 확인 진술 기록이며 인증·외부 파일 변조 방지 보안 경계는 아니다. 실제 프로젝트의 사람 확인은 이번에 수행하지 않았다.
+
+brain_status.completion은 고정 정책 판정을 포함한다. brain_complete(taskId, expectedRevision)는 현재 파일을 다시 검사하여 completed=false, documents, reasons(code/target/nextAction)를 반환한다. V1 미구현이므로 verification-unavailable은 항상 포함하고 작업/기준선/상태를 변경하지 않는다. begin 응답의 completion은 null이며 status에서 조회한다. 다중 파일 원자 스냅샷/동시 편집 보장은 없다. 실제 검증 성공·작업 교체·archive는 후속이다.
+
+실제 검증: begin 재개 → status의 문서 2개 unreviewed → complete 거절 → 오래된 revision 거절 → 원본 보존 확인 → 요약만 revision 4→5 갱신(기준선 유지). 상세: reviews/2026-09-07-completion-evidence.json.

@@ -1,15 +1,15 @@
 {
     "schemaVersion": 1,
     "id": "a48a9ba7-be69-4985-a648-ed5d2ac5442f",
-    "revision": 4,
+    "revision": 5,
     "purpose": "Player 이동 코드의 작업 재개와 맥락·최신성 시연",
     "targetNodeIds": [
         "feature:player/movement"
     ],
-    "progress": "Player 계층 탐색과 작업 재개·맥락 조회의 최소 흐름을 구현·검증했다.",
-    "decisions": "실제 주석 변경 뒤 원래 기준선은 유지하고 설명·관계의 stale을 남겼다. current는 검증·사람 확인이 아니다.",
-    "unresolved": "W2 문서 확인·완료 거절, V1 검증 결과 연결, WF-B 전체 연동이 남아 있다. 시작 이후 UI/맥락 코드 보완은 허용 경로 밖 변경으로 표시된다.",
-    "nextAction": "지원 준비도 확인 후 W2/M1 문서 확인·완료 거절 흐름을 구현한다.",
+    "progress": "A2/W1/M2a와 W2/M1 문서 확인·완료 거절의 최소 흐름을 구현·검증했다.",
+    "decisions": "사람 확인은 UI 별도 기록이며 AI basis와 구분한다. 시작 기준선과 기존 freshness는 유지한다. V1 없이는 완료하지 않는다.",
+    "unresolved": "A3/V1 실제 검증 결과 연결·완료 성공, WF-B 연동은 남아 있다. 현재 문서 2개는 사람이 확인하지 않았고 허용 밖 변경도 남는다.",
+    "nextAction": "서류·PPT 마감 준비도를 먼저 확인한다. 개발상 다음은 A3/V1이다.",
     "references": [
         "feature:player/movement",
         "document:10000000000000000000000000000003"
@@ -984,5 +984,5 @@
     },
     "gitStateAtBegin": "not-queried; baseline includes pre-existing working files",
     "createdUtc": "2026-09-06T08:18:14.4162169Z",
-    "updatedUtc": "2026-09-06T08:25:16.8086859Z"
+    "updatedUtc": "2026-09-06T15:13:59.9039963Z"
 }

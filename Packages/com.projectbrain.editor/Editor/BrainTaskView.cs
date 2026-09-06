@@ -32,6 +32,7 @@ namespace ProjectBrain
     }
     [Serializable] public sealed class BrainStatusView
     {
+        public BrainCompletionResult completion;
         public BrainTaskView task;
         public bool resumed;
         public BrainChange[] changes;

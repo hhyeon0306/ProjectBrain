@@ -110,7 +110,7 @@ receipt는 schemaVersion=1, completedUtc, sources(GUID/원본 버전/SHA256), no
 
 회귀 수용 사례: 새 서비스 인스턴스에서 동일 작업/기준선 재개, 다른 begin의 덮어쓰기 거절, revision 충돌의 원본 보존, 순환 그래프의 결정적 제한 조회, 응답 예산/생략 표시, 코드·설명·관계 변경 후 stale, 근거 없음 unknown, 파일 삭제 missing. 실제 구현 결과와 조회량은 reviews/2026-09-06-workflow-evidence.json에 기록했다. 동일 깊이 전체의 관계 종류/ID 정렬 회귀를 포함한다.
 
-BrainTask는 ID, 목적, 대상 Feature/노드, 감시 범위, 허용 변경 범위, 시작 스냅샷, 변경 목록, 상태를 가진다. 활성 작업은 하나다. 기존 사용자 변경과 begin 이후 변경을 구분한다. 추가로 진행 요약·결정/근거·미해결·다음 행동을 지속 저장해 세션 재개에 사용한다. 현재 BrainTaskRecord와 BrainTaskService에 저장·revision 갱신·재개 계약을 구현했다. 상태는 active 하나이며 완료/새 작업 교체는 W2 후속이다.
+BrainTask는 ID, 목적, 대상 Feature/노드, 감시 범위, 허용 변경 범위, 시작 스냅샷, 변경 목록, 상태를 가진다. 활성 작업은 하나다. 기존 사용자 변경과 begin 이후 변경을 구분한다. 추가로 진행 요약·결정/근거·미해결·다음 행동을 지속 저장해 세션 재개에 사용한다. 현재 BrainTaskRecord와 BrainTaskService에 저장·revision 갱신·재개 계약을 구현했다. 상태는 active 하나이며 완료 거절 검사는 W2에 구현했고 성공/새 작업 교체는 후속이다.
 
 M2a의 탐색 방향·깊이·순서·예산·관측된 생략/후속 ID는 위 계약으로 구현했다. 반환 자료는 노드 ID·관계 출처·최신성 근거를 포함하도록 설계한다. freshness/<SHA256(target ID)>.json에 payload 해시와 코드 ID/현재 경로/해시를 별도로 저장한다. 명시적 brain_record_basis는 바이트 기준선이며 사람 확인이 아니다. UI 전체 완성은 공통 맥락 서비스의 선행 조건이 아니다.
 
@@ -139,3 +139,13 @@ Unity 어댑터는 자산 해석, 컴파일·테스트, 메인 스레드를 담�
 ## 기반 코드 검토에서 추가 확인
 
 2026-09-06 [프로젝트 검토](reviews/2026-09-06-project-review.md)에서 빈 관계 객체/누락 schemaVersion 수용과 덮어쓰기, 새 Git clone의 이관 거절을 재현했다. 문서 명세의 목표와 현재 유효성 검사가 다르므로 수정 전까지 일반적인 손상 데이터 보호 또는 클린 체크아웃 재현성을 완료했다고 주장하지 않는다.
+
+## W2/M1 구현 계약 (2026-09-07)
+
+고정 정책 w2-human-review-v1-pending: 작업 대상의 contains/implemented_by 하위와 감시 변경에 매핑된 Code, 그 소유 Feature 및 형제 Code를 검사한다. Code마다 직접 documented_by 문서가 1개 이상 필요하며 연결된 문서는 모두 필수다. Feature 직접 문서도 포함한다. 연결 없는 Code/문서, 미매핑 변경, 허용 밖 변경, coverage 제한은 거절한다. 삭제 파일은 lastKnownPath도 매핑에 사용한다. 자동 의존 분석은 아니다.
+
+확인 기록은 .projectbrain/reviews/SHA256(taskId + 개행 + documentId).json이다. schemaVersion/taskId/documentId/snapshotHash/actor=human-ui/reviewedUtc를 저장한다. snapshotHash는 문서 전체 payload, 정렬된 전체 관계, 연결 Code 노드와 파일 경로/bytes를 포함한다. 전체 관계 변경도 보수적으로 stale 처리한다. 바이트를 정확히 되돌리면 current로 복원된다. missing-code/unreviewed/current/stale을 구분하며 손상 기록은 덮어쓰지 않는다.
+
+Explorer에서 현재 본문과 연결 코드를 읽었다는 체크 후 사람 확인 기록 버튼을 누른다. 화면 문서가 디스크와 다르거나 작업 ID/revision·확인 대상 해시가 바뀌면 거절한다. AI basis 저장은 사람 확인이 아니며 MCP에 승인/정책 낮추기 입력은 없다. 이 경로는 사용자 확인 진술 기록이며 인증·외부 파일 변조 방지 보안 경계는 아니다. 실제 프로젝트의 사람 확인은 이번에 수행하지 않았다.
+
+brain_status.completion은 고정 정책 판정을 포함한다. brain_complete(taskId, expectedRevision)는 현재 파일을 다시 검사하여 completed=false, documents, reasons(code/target/nextAction)를 반환한다. V1 미구현이므로 verification-unavailable은 항상 포함하고 작업/기준선/상태를 변경하지 않는다. begin 응답의 completion은 null이며 status에서 조회한다. 다중 파일 원자 스냅샷/동시 편집 보장은 없다. 실제 검증 성공·작업 교체·archive는 후속이다.

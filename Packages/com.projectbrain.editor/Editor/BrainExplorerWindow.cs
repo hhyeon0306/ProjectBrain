@@ -76,6 +76,7 @@ namespace ProjectBrain
             {
                 detail.Add(new TextField("본문 (읽기 전용)") { value = node.body, multiline = true, isReadOnly = true, style = { whiteSpace = WhiteSpace.Normal } });
                 Text("이 화면은 nodes를 읽습니다. 기존 문서 창의 docs 수정은 여기에 자동 반영되지 않습니다.");
+                AddReview(node.id);
             }
             if (node.type == "Code") detail.Add(new Button(() => Run(() =>
             {
@@ -92,6 +93,25 @@ namespace ProjectBrain
             }
         });
         private void Text(string text) => detail.Add(new Label(text) { style = { whiteSpace = WhiteSpace.Normal, marginBottom = 5 } });
+        private void AddReview(string documentId)
+        {
+            var active = new BrainTaskService(ScriptDocumentService.ProjectRoot, json).Load();
+            if (active == null) { Text("문서 확인은 작업 시작 후 가능합니다."); return; }
+            var service = new BrainCompletionService(ScriptDocumentService.ProjectRoot, json, AssetDatabase.GUIDToAssetPath);
+            var review = service.InspectDocument(documentId, json.Write(graph.Get(documentId)));
+            Text("사람 문서 확인: " + review.state + " · 연결 코드: " + string.Join(", ", review.codePaths));
+            var acknowledged = new Toggle("현재 본문과 연결 코드를 직접 읽고 내용이 맞는지 확인했습니다.");
+            acknowledged.style.whiteSpace = WhiteSpace.Normal; detail.Add(acknowledged);
+            var button = new Button(() => Run(() =>
+            {
+                service.ConfirmFromHuman(active.id, active.revision, documentId, review.snapshotHash);
+                SelectNode(documentId); message.text = "사람 확인을 기록했습니다. 코드 검증·작업 완료와는 별개입니다.";
+                message.messageType = HelpBoxMessageType.Info;
+            })) { text = "사람 확인 기록" };
+            button.SetEnabled(false);
+            acknowledged.RegisterValueChangedCallback(e => button.SetEnabled(e.newValue && review.state != "missing-code"));
+            detail.Add(button);
+        }
         private void BuildTask()
         {
             taskPanel.Clear(); task = new BrainTaskService(ScriptDocumentService.ProjectRoot, json).Load();
@@ -109,6 +129,12 @@ namespace ProjectBrain
                 draftProgress = task.progress; draftDecisions = task.decisions; draftUnresolved = task.unresolved; draftNext = task.nextAction;
             }
             taskPanel.Add(new Label(task.purpose + " · revision " + task.revision) { style = { whiteSpace = WhiteSpace.Normal } });
+            taskPanel.Add(new Button(() => Run(() =>
+            {
+                var result = new BrainCompletionService(ScriptDocumentService.ProjectRoot, json, AssetDatabase.GUIDToAssetPath).Check(task.id, task.revision);
+                message.text = "완료 거절\n" + string.Join("\n", result.reasons.GroupBy(r => r.code).Select(g => g.Key + " (" + g.Count() + "건) · " + g.First().nextAction));
+                message.messageType = HelpBoxMessageType.Warning;
+            })) { text = "완료 조건 확인 (현재 성공 미지원)" });
             Field("진행", draftProgress, v => draftProgress = v); Field("결정·근거", draftDecisions, v => draftDecisions = v);
             Field("미해결", draftUnresolved, v => draftUnresolved = v); Field("다음 행동", draftNext, v => draftNext = v);
             taskPanel.Add(new Button(() => SaveChanges()) { text = "요약 저장" });

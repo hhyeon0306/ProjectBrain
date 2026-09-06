@@ -1,5 +1,15 @@
 # Brain 작업 이력
 
+## 2026-09-07 W2/M1 문서 확인·완료 거절
+- Goal: 문서 확인과 현재 코드 기준을 연결하고 미검증 완료를 거절한다.
+- Changes: 고정 필수 문서 정책, 사람 UI 확인 기록/해시 무효화/손상 보호, status completion·brain_complete 6번째 MCP, 거절 이유 UI. 요약 revision 4→5, 기준선 보존.
+- Files: BrainCompletionService/Checks.cs 및 meta, BrainTools/TaskView/ExplorerWindow.cs, .projectbrain/tasks/active.json, AGENTS.md와 Docs 계약/인계/사용법/증거.
+- Verification: Ivan assets-refresh 후 컴파일 완료. 격리 Completion22+Workflow39 자체 검사 통과. 실제 HTTP begin/status/complete 미확인·범위 밖·미검증 거절, revision 충돌 거절과 원본 보존. Computer Use로 문서 unreviewed·확인 버튼 비활성 및 완료 버튼 거절 표시 확인. 전체 verify -IncludeBrain은 기존 사용자 SampleScene.unity:242의 줄 끝 공백으로 중단됐다. 문서 구조 검사는 통과했으며 이번 변경의 staged diff --check는 통과했다.
+- Decisions: V1 전 completed는 항상 false. AI basis와 사람 확인 분리. 전체 관계 변경도 보수적으로 stale. 사용자 최신 진행 요청으로 이번 한 단위 수행; 서류·PPT 15:00 마감 유지.
+- Next: 서류·PPT 준비도 확인. 개발상 A3/V1 실제 결과 연결, WF-B.
+- Limitations: 첫 검사에서 Windows 중첩 경로 길이 실패 → flat SHA256 경로로 수정, SafeId 유효성 오류 → Hash로 수정 후 통과. 실제 사람 확인 진술은 자동으로 기록하지 않음. 인증/변조 방지·동시 다중 파일 스냅샷·V1·완료 성공·NUnit/Player 빌드는 이번 범위 아님. 기존 사용자 변경 네 파일 보존.
+
+
 ## 2026-09-06 A2/W1/M2a 최소 흐름 구현
 - Goal: Player 계층 탐색·작업 기억 재개·제한된 맥락·최신성의 첫 수용 흐름을 구현한다.
 - Changes: 공통 계층 검증, Explorer, 4개 계층 노드/6개 관계, 작업 저장/revision/전체 감시와 허용 범위 분리, freshness 기록, BFS/응답 예산, 기존 Ivan Brain 도구 5개 추가. 이동 코드의 입력 공급 의존성 주석 명시. 사용자 서류/PPT 9/7 15:00 마감 반영.

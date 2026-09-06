@@ -19,8 +19,23 @@ namespace ProjectBrain
         public static BrainTaskView UpdateTask(string taskId, int expectedRevision, string progress, string decisions, string unresolved, string nextAction, string[] references) => MainThread.Instance.Run(() => BrainTaskView.From(new BrainTaskService(ScriptDocumentService.ProjectRoot, new UnityBrainJson()).Update(taskId, expectedRevision, progress, decisions, unresolved, nextAction, references)));
 
         [AiTool("brain_status", Title = "Brain / Status", ReadOnlyHint = true)]
-        [Description("Read the active task and recompute added/modified/deleted files across Assets, Packages and ProjectSettings. Includes changes outside allowed paths and coverage limitations. No validation/complete policy yet.")]
-        public static BrainStatusView Status() => MainThread.Instance.Run(() => BrainStatusView.From(new BrainTaskService(ScriptDocumentService.ProjectRoot, new UnityBrainJson()).Status()));
+        [Description("Read the active task, watched changes, coverage and fixed completion policy reasons including current human document review. V1 validation is unavailable; never reports completion success.")]
+        public static BrainStatusView Status() => MainThread.Instance.Run(() =>
+        {
+            var result = BrainStatusView.From(new BrainTaskService(ScriptDocumentService.ProjectRoot, new UnityBrainJson()).Status());
+            result.completion = CompletionService().Check(result.task.id, result.task.revision);
+            return result;
+        });
+
+        private static BrainCompletionService CompletionService() => new BrainCompletionService(ScriptDocumentService.ProjectRoot, new UnityBrainJson(), AssetDatabase.GUIDToAssetPath);
+
+        [AiTool("brain_complete", Title = "Brain / Check Completion", ReadOnlyHint = true)]
+        [Description("Recheck current task ID/revision, required human document reviews, watched changes and coverage. Returns completed=false with actionable reasons. V1 real validation is not implemented, so success is impossible. Does not alter/archive the task or approve documents; no policy override parameters.")]
+        public static BrainCompletionResult Complete(string taskId, int expectedRevision) => MainThread.Instance.Run(() =>
+        {
+            BrainWorkspace.Require(!string.IsNullOrEmpty(taskId) && expectedRevision > 0, "작업 ID와 revision이 필요합니다.");
+            return CompletionService().Check(taskId, expectedRevision);
+        });
 
         [AiTool("brain_context", Title = "Brain / Context", ReadOnlyHint = true)]
         [Description("Return deterministic bidirectional graph context as JSON text with a UTF-16 character budget including payload metadata. No full bodies/images/logs. Freshness current means byte agreement, not review or tests. Observed omissions and follow-up IDs are included.")]
