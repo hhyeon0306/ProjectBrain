@@ -18,7 +18,7 @@ docs의 v2와 새 노드의 v1은 별개의 스키마다. 실제 데이터는 Co
 
 | 필드 | 현재 동작 |
 |---|---|
-| schemaVersion | 1만 허용 |
+| schemaVersion | 명시된 버전은 1만 허용. 누락 시 JsonUtility가 초기값 1로 채우는 결함 확인, A1-R 보완 필요 |
 | id / type | 아래 9종과 ID 규칙. 동일 ID의 type/assetGuid 변경 거절 |
 | title | 공백만 있는 제목 거절 |
 | summary / body | null이 아닌 문자열. 역할·설계 의도·주의사항 전용 필드는 없음 |
@@ -67,7 +67,7 @@ Evidence/Activity의 동일 ID 재저장은 API가 거절한다. 로컬 파일 �
 
 - 파일명은 전체 ID의 UTF-8 SHA256 소문자 hex다. 표시·탐색에는 id/title을 사용한다.
 - 각 노드 파일 및 relations.json은 임시 파일 후 교체한다. 여러 노드·관계 전체의 트랜잭션은 아니다.
-- 손상·미지원 스키마 파일의 API 덮어쓰기를 거절한다. 자동 복구·삭제 API는 없다.
+- JSON 구문 오류·명시적 미지원 버전의 API 덮어쓰기는 거절한다. 필수 필드가 누락된 JSON 객체는 현재 기본값으로 받아들일 수 있어 완전한 손상 보호가 아니다. 예: relations.json={}를 빈 목록으로 읽고 덮어쓰기 허용. A1-R 보완이 필요하며 자동 복구·삭제 API는 없다.
 - 단일 Editor 작성자를 전제로 하며 잠금·예상 버전 비교·동시 쓰기 제어는 없다.
 - GUID 형식과 실제 자산 종류·존재는 별개다. 후자는 Unity 어댑터 책임이다.
 
@@ -119,3 +119,7 @@ Activity는 제품의 작업 이력이며 Docs/work_log.md는 Brain 자체 개�
 BrainNode/BrainStore는 UI·MCP·Unity 타입에 직접 의존하지 않고 IBrainJson을 받는다. UnityBrainJson은 JsonUtility를 사용한다. **기존 DocumentStore도 JsonUtility를 쓰며 BrainMigration은 이 경로에 의존한다.** 현재 모든 코드는 하나의 Editor asmdef에 있다. 별도 Core 어셈블리나 Unity 외 실행 검증을 완료한 것은 아니다.
 
 Unity 어댑터는 자산 해석, 컴파일·테스트, 메인 스레드를 담당한다. UI와 기존 Unity-MCP에 추가할 Brain 도구는 같은 서비스로 상태를 변경한다. 기존 Unity-MCP/PackageCache를 수정하거나 별도 서버·제품 CLI를 만들지 않는다.
+
+## 기반 코드 검토에서 추가 확인
+
+2026-09-06 [프로젝트 검토](reviews/2026-09-06-project-review.md)에서 빈 관계 객체/누락 schemaVersion 수용과 덮어쓰기, 새 Git clone의 이관 거절을 재현했다. 문서 명세의 목표와 현재 유효성 검사가 다르므로 수정 전까지 일반적인 손상 데이터 보호 또는 클린 체크아웃 재현성을 완료했다고 주장하지 않는다.

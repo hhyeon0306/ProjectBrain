@@ -8,6 +8,7 @@
 - [session_handoff.md](session_handoff.md): 최근 확인 결과와 다음 시작점
 - [work_log.md](work_log.md): 시점별 작업·검증 이력. 과거의 다음 행동은 현재 지시가 아님
 - [unity_mcp_usage.md](unity_mcp_usage.md): 설치된 Unity-MCP 호출·검증 절차
+- [프로젝트 기반 검토](reviews/2026-09-06-project-review.md): 2026-09-06 코드·데이터·UI 콜백·클린 clone 재현 결과
 - [문서 전면 검토](reviews/2026-09-06-document-review.md): 2026-09-06 발견·조치·재현 근거
 - [archive](archive/README.md): 폐기·이전 판단의 보존본. 현재 지침이 아님
 

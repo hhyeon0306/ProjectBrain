@@ -1,0 +1,220 @@
+{
+  "schemaVersion": 1,
+  "kind": "development-review-evidence",
+  "date": "2026-09-06",
+  "projectCommit": "1f9bd8f7159c30fb379fab608b8bfe58e1d0ec1e",
+  "scope": "Loaded Unity Editor baseline, isolated storage/UI callback probes, clean Git clone data replay; not a clean Unity import or Player build.",
+  "baseline": {
+    "result": {
+      "name": "result",
+      "typeName": "<>f__AnonymousType0(System.String,System.String,System.Boolean,System.Int32,System.Int32,System.Int32,System.Int32,System.Boolean,System.Int32)",
+      "value": {},
+      "props": [
+        {
+          "name": "project",
+          "typeName": "System.String",
+          "value": "C:/Dev/nexontutorial/ProjectBrain/Assets"
+        },
+        {
+          "name": "unity",
+          "typeName": "System.String",
+          "value": "6000.3.8f1"
+        },
+        {
+          "name": "compiling",
+          "typeName": "System.Boolean",
+          "value": false
+        },
+        {
+          "name": "storeChecks",
+          "typeName": "System.Int32",
+          "value": 25
+        },
+        {
+          "name": "migrationChecks",
+          "typeName": "System.Int32",
+          "value": 18
+        },
+        {
+          "name": "documentChecks",
+          "typeName": "System.Int32",
+          "value": 14
+        },
+        {
+          "name": "emptyRelationSchema",
+          "typeName": "System.Int32",
+          "value": 1
+        },
+        {
+          "name": "emptyRelationsIsNull",
+          "typeName": "System.Boolean",
+          "value": false
+        },
+        {
+          "name": "emptyDocumentSchema",
+          "typeName": "System.Int32",
+          "value": 2
+        }
+      ]
+    }
+  },
+  "inventory": {
+    "result": {
+      "name": "result",
+      "typeName": "<>f__AnonymousType0(System.Int32,System.Int32,System.String-1,System.String-1,System.String,System.String-1)",
+      "value": {},
+      "props": [
+        {
+          "name": "nodes",
+          "typeName": "System.Int32",
+          "value": 15
+        },
+        {
+          "name": "relations",
+          "typeName": "System.Int32",
+          "value": 26
+        },
+        {
+          "name": "missingAssets",
+          "typeName": "System.String-1",
+          "value": []
+        },
+        {
+          "name": "nodeTypes",
+          "typeName": "System.String-1",
+          "value": [
+            {
+              "name": "[0]",
+              "typeName": "System.String",
+              "value": "Document:7"
+            },
+            {
+              "name": "[1]",
+              "typeName": "System.String",
+              "value": "Code:7"
+            },
+            {
+              "name": "[2]",
+              "typeName": "System.String",
+              "value": "Image:1"
+            }
+          ]
+        },
+        {
+          "name": "editorOnly",
+          "typeName": "System.String",
+          "value": "EditorAssembly"
+        },
+        {
+          "name": "clickMethods",
+          "typeName": "System.String-1",
+          "value": [
+            {
+              "name": "[0]",
+              "typeName": "System.String",
+              "value": "Void Invoke(UnityEngine.UIElements.EventBase)"
+            },
+            {
+              "name": "[1]",
+              "typeName": "System.String",
+              "value": "Void SimulateSingleClick(UnityEngine.UIElements.EventBase, Int32)"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "boundaryProbe": {
+    "code": "using System; using System.IO; using System.Reflection; using UnityEngine; using UnityEditor; using ProjectBrain;\npublic class BrainBoundaryAudit {\npublic static object Main() {\nvar root=Path.Combine(Path.GetTempPath(),\"BrainBoundaryAudit-\"+Guid.NewGuid().ToString(\"N\"));\nvar json=new UnityBrainJson();var store=new BrainStore(root,json);\nvar node=new BrainNode{id=\"domain:player\",type=\"Domain\",title=\"Player\",updatedUtc=\"2026-09-06T00:00:00Z\"};\nstore.SaveNode(node);\nvar nodePath=Path.Combine(root,\"nodes\",BrainStore.SafeId(node.id)+\".json\");\nvar nodeRaw=File.ReadAllText(nodePath);File.WriteAllText(nodePath,nodeRaw.Replace(\"\\\"schemaVersion\\\": 1,\",\"\"));\nbool missingNodeVersionAccepted=store.LoadNode(node.id)!=null;\nvar relationPath=Path.Combine(root,\"relations.json\");File.WriteAllText(relationPath,\"{}\");\nbool emptyObjectAccepted=store.LoadRelations().Count==0;store.SaveRelations(Array.Empty<BrainRelation>());\nbool incompleteFileOverwritten=File.ReadAllText(relationPath)!=\"{}\";\nvar docRoot=Path.Combine(root,\"legacy\");Directory.CreateDirectory(docRoot);\nconst string guid=\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\";\nFile.WriteAllText(Path.Combine(docRoot,guid+\".json\"),\"{\\\"scriptGuid\\\":\\\"\"+guid+\"\\\"}\");\nbool legacyMissingVersionAccepted=new DocumentStore(docRoot).Load(guid).schemaVersion==2;\nvar uiRoot=Path.Combine(root,\"ui\");var docs=new DocumentStore(uiRoot);\nvar script=AssetDatabase.LoadAssetAtPath<MonoScript>(\"Assets/Scripts/Gameplay/DemoPlayerMovement.cs\");\nvar service=new ScriptDocumentService(docs);var document=service.LoadOrCreate(script);document.role=\"fixture\";docs.Save(document);\nFile.WriteAllText(Path.Combine(uiRoot,\"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.json\"),\"broken json\");\nvar window=ScriptableObject.CreateInstance<BrainDocumentWindow>();bool uiException=false;string uiError=\"\";\ntry {\nvar flags=BindingFlags.Instance|BindingFlags.NonPublic;\ntypeof(BrainDocumentWindow).GetField(\"service\",flags).SetValue(window,service);\ntypeof(BrainDocumentWindow).GetField(\"selectedScript\",flags).SetValue(window,script);\ntypeof(BrainDocumentWindow).GetField(\"document\",flags).SetValue(window,document);\ntry {window.CreateGUI();} catch(InvalidDataException e){uiException=true;uiError=e.Message;}\n} finally {UnityEngine.Object.DestroyImmediate(window);}\nreturn new {fixture=root,missingNodeVersionAccepted=missingNodeVersionAccepted,emptyRelationObjectAccepted=emptyObjectAccepted,incompleteRelationFileOverwritten=incompleteFileOverwritten,legacyMissingVersionAccepted=legacyMissingVersionAccepted,unrelatedCorruptDocEscapesUiErrorHandler=uiException,uiError=uiError};\n}}",
+    "result": {
+      "result": {
+        "name": "result",
+        "typeName": "<>f__AnonymousType0(System.String,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.String)",
+        "value": {},
+        "props": [
+          {
+            "name": "fixture",
+            "typeName": "System.String",
+            "value": "C:\\Users\\Public\\Documents\\ESTsoft\\CreatorTemp\\BrainBoundaryAudit-be4ba6d69f20430f93a4541d9bdd4964"
+          },
+          {
+            "name": "missingNodeVersionAccepted",
+            "typeName": "System.Boolean",
+            "value": true
+          },
+          {
+            "name": "emptyRelationObjectAccepted",
+            "typeName": "System.Boolean",
+            "value": true
+          },
+          {
+            "name": "incompleteRelationFileOverwritten",
+            "typeName": "System.Boolean",
+            "value": true
+          },
+          {
+            "name": "legacyMissingVersionAccepted",
+            "typeName": "System.Boolean",
+            "value": true
+          },
+          {
+            "name": "unrelatedCorruptDocEscapesUiErrorHandler",
+            "typeName": "System.Boolean",
+            "value": true
+          },
+          {
+            "name": "uiError",
+            "typeName": "System.String",
+            "value": "문서 JSON을 읽을 수 없습니다."
+          }
+        ]
+      }
+    }
+  },
+  "uiAndCloneProbe": {
+    "code": "using System; using System.IO; using System.Reflection; using UnityEngine; using UnityEditor; using UnityEngine.UIElements; using ProjectBrain;\npublic class BrainUiAndCloneAudit {\npublic static object Main() {\nvar root=Path.Combine(Path.GetTempPath(),\"BrainUiAudit-\"+Guid.NewGuid().ToString(\"N\"));\nvar docs=new DocumentStore(root);var service=new ScriptDocumentService(docs);\nvar a=AssetDatabase.LoadAssetAtPath<MonoScript>(\"Assets/Scripts/Core/DemoGameFlow.cs\");\nvar b=AssetDatabase.LoadAssetAtPath<MonoScript>(\"Assets/Scripts/Gameplay/DemoPlayerMovement.cs\");\nvar da=service.LoadOrCreate(a);var db=service.LoadOrCreate(b);da.relatedScriptGuids=new[]{db.scriptGuid};docs.Save(da);docs.Save(db);\nvar flags=BindingFlags.Instance|BindingFlags.NonPublic;\nvar window=ScriptableObject.CreateInstance<BrainDocumentWindow>();bool forward=false,back=false;\ntry {\ntypeof(BrainDocumentWindow).GetField(\"service\",flags).SetValue(window,service);\ntypeof(BrainDocumentWindow).GetField(\"selectedScript\",flags).SetValue(window,a);\ntypeof(BrainDocumentWindow).GetField(\"document\",flags).SetValue(window,da);window.CreateGUI();\nvar next=window.rootVisualElement.Q<Button>(\"node-\"+db.scriptGuid);\ntypeof(Clickable).GetMethod(\"Invoke\",flags).Invoke(next.clickable,new object[]{null});\nforward=((ScriptDocument)typeof(BrainDocumentWindow).GetField(\"document\",flags).GetValue(window)).scriptGuid==db.scriptGuid;\nvar previous=window.rootVisualElement.Q<Button>(\"node-\"+da.scriptGuid);\ntypeof(Clickable).GetMethod(\"Invoke\",flags).Invoke(previous.clickable,new object[]{null});\nback=((ScriptDocument)typeof(BrainDocumentWindow).GetField(\"document\",flags).GetValue(window)).scriptGuid==da.scriptGuid;\n}finally{UnityEngine.Object.DestroyImmediate(window);}\nbool cloneRejected=false;string reason=\"\";\ntry {new BrainMigration(@\"C:\\Users\\borad\\AppData\\Local\\Temp\\BrainCleanAudit-a807085f41be4f488cc1a1cf02095f6e\"+\"/.projectbrain\",new UnityBrainJson(),AssetDatabase.GUIDToAssetPath).Run();}\ncatch(InvalidDataException e){cloneRejected=true;reason=e.Message;}\nreturn new {fixture=root,forwardCallback=forward,reverseCallback=back,cleanCloneMigrationRejected=cloneRejected,reason=reason};\n}}",
+    "result": {
+      "result": {
+        "name": "result",
+        "typeName": "<>f__AnonymousType0(System.String,System.Boolean,System.Boolean,System.Boolean,System.String)",
+        "value": {},
+        "props": [
+          {
+            "name": "fixture",
+            "typeName": "System.String",
+            "value": "C:\\Users\\Public\\Documents\\ESTsoft\\CreatorTemp\\BrainUiAudit-9755fbf46cf94d49bc143d4f46af5314"
+          },
+          {
+            "name": "forwardCallback",
+            "typeName": "System.Boolean",
+            "value": true
+          },
+          {
+            "name": "reverseCallback",
+            "typeName": "System.Boolean",
+            "value": true
+          },
+          {
+            "name": "cleanCloneMigrationRejected",
+            "typeName": "System.Boolean",
+            "value": true
+          },
+          {
+            "name": "reason",
+            "typeName": "System.String",
+            "value": "이관 후 원본 문서가 변경됐습니다. 자동 덮어쓰기 대신 명시적 재조정이 필요합니다."
+          }
+        ]
+      }
+    }
+  },
+  "cleanClone": {
+    "Clone": "C:\\Users\\borad\\AppData\\Local\\Temp\\BrainCleanAudit-a807085f41be4f488cc1a1cf02095f6e",
+    "MetaFiles": 93,
+    "ParsedGuids": 93,
+    "DuplicateGuidGroups": 0,
+    "Commit": "1f9bd8f7159c30fb379fab608b8bfe58e1d0ec1e",
+    "Autocrlf": "true",
+    "CloneGitChanges": []
+  }
+}

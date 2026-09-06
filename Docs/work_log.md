@@ -1,5 +1,14 @@
 # Brain 작업 이력
 
+## 2026-09-06 프로젝트 기반 코드 검토
+- Goal: 프로젝트 시작점을 확실하게 검토하려는 요청에 따라 환경·구현·데이터·실패 조건을 확인한다.
+- Changes: 제품 C# 12개·데모 C# 7개와 패키지/설정/데이터 검토. 확정 결함 3건과 정상 기반·검증 한계를 보고서/실행 증거에 기록. A1-R을 JSON 필수 필드 및 Git 재현성 보완으로 확장하고 F2 오류 경계 보완을 명시했다.
+- Files: AGENTS.md, Docs/{README,task,architecture,product_spec,session_handoff,work_log}.md, Docs/reviews/2026-09-06-project-review.md 및 project-review-evidence.json. 제품 코드·실제 데이터·설정 수정 없음.
+- Verification: 현재 Unity에서 자체 검사 25/18/14 재통과. 필수 버전 누락 수용, relations={} 정상 빈 목록 수용 및 덮어쓰기, 손상 문서의 UI 밖 예외를 OS temp 격리로 재현. 새 로컬 clone은 Git 변경 0이지만 이관 재실행 거절. 숨겨진 독립 창의 이동·복귀 콜백 통과. 실데이터 15노드/26관계·자산 누락 0·meta 93개 GUID 중복 0. 커밋 전 verify -IncludeBrain 통과, Markdown 23개·로컬 링크 66개·코드 펜스 및 실행 증거 JSON 구문 확인 통과.
+- Decisions: 전면 재작성 대신 A1-R/F2 결함 수정 후 A2 착수 판단. 검토 요청 범위에서 제품 코드를 수정하지 않았다. 57항목 통과와 새 실패 재현을 합쳐 전체 통과로 표현하지 않는다.
+- Next: JSON 누락 필드/손상 보호, Git 줄바꿈·해시, UI 오류 경계 보완 및 회귀 검사.
+- Limitations: 실제 UI 시각/마우스·플레이·클린 Unity 최초 import/빌드·전체 보안 검토는 미실행. 현재 사용자 씬과 기존 사용자/Unity 변경 두 파일은 보존·커밋 제외.
+
 ## 2026-09-06 A2 전 문서 전면 검토
 - Goal: 이전 작성 문서를 실제 구현·검증·최종 목표와 대조하고 A2 착수 전 모순과 누락을 정리한다.
 - Changes: 현재/목표/미결정 계약 분리, A1-R 재현성 항목, A2와 A3/V1 의존성 정정, 필수 context와 후속 편집 흐름 분리, 저장소 보장·자체 검사 범위 명시, 사용 전환 조건 복원, archive 비권위 안내. 검토 보고서에 발견·조치·미해결을 기록했다.
