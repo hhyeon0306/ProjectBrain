@@ -4,7 +4,7 @@
 - Goal: Brain 연동 없이 현재 프로젝트에서 실제 코드 작성·결함 재현·수정·검증을 시연한다.
 - Changes: WorkflowDemo의 DashCooldown/DashMover 및 NUnit EditMode 검사 9개 추가. 의도한 경계 결함 재현 후 수정, 원본 결과 저장.
 - Files: Assets/WorkflowDemo 및 meta, Docs/{workflow-development-demo,workflow-demo-initial,workflow-demo-regression,workflow-demo-fixed,task,session_handoff,work_log} 문서/JSON.
-- Verification: 실제 MCP NUnit 최초 9/9 → 의도적 결함 7/9 → 수정 9/9. 원래 씬 RootCount=2/IsDirty=false 유지. 상위 verify -IncludeBrain 통과. CLI 실제 배치는 동의 응답 대기.
+- Verification: 실제 MCP NUnit 최초 9/9 → 의도적 결함 7/9 → 수정 9/9. 원래 씬 RootCount=2/IsDirty=false 유지. 상위 verify -IncludeBrain 통과. 이후 staging 검사에서 새 Unity meta의 후행 공백을 발견해 정리했다. 최종 verify -IncludeBrain 재실행 통과. CLI 실제 배치는 동의 응답 대기.
 - Decisions: Brain 제품 코드는 수정하지 않고 독립 예제만 추가. 임의 Editor 종료/씬 저장을 하지 않는다.
 - Next: 사용자 응답 후 허용된 범위에서 CLI 배치 검증. 워크플로우 결과와 제품 완성은 구분한다.
 - Limitations: 데모는 입력/UI/충돌/애니메이션이 없는 즉시 대시 모델. 기존 사용자 변경 두 파일 보존. CLI 배치는 아직 미실행.

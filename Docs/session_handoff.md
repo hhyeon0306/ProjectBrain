@@ -3,7 +3,7 @@ Updated: 2026-09-06 (세션 종료)
 
 ## Current state
 
-독립 워크플로우 시연: [대시 예제](workflow-development-demo.md)와 실제 NUnit 테스트 9개를 Assets/WorkflowDemo에 추가했다. MCP 최초 9/9, 의도적 경계 결함 7/9, 수정 후 9/9 통과. Brain 기능/연동은 수정하지 않았다. CLI 배치는 현재 씬 보존/Editor 종료 동의 응답을 기다리는 상태다.
+독립 워크플로우 시연: [대시 예제](workflow-development-demo.md)와 실제 NUnit 테스트 9개를 Assets/WorkflowDemo에 추가했다. MCP 최초 9/9, 의도적 경계 결함 7/9, 수정 후 9/9 통과. Brain 기능/연동은 수정하지 않았다. CLI 배치는 현재 씬 보존/Editor 종료 동의 응답을 기다리는 상태다. 데모 meta의 자동 생성 후행 공백을 정리했다.
 
 기초 설계 검토 완료. 사용자의 질문은 무결함 여부가 아니라 원하는 AI Second Brain을 현재 구조로 구현할 수 있는지였다. 가능하다고 판단했으며 전면 재설계·추가 전면 검토 없이 구현으로 진행한다. 이번에는 문서만 정리하고 세션을 종료했다. 다음 세션에서 구현을 재개한다.
 
