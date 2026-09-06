@@ -1,5 +1,14 @@
 # Brain 작업 이력
 
+## 2026-09-06 MCP 중심 정책·WF-B 후속 작업 등록
+- Goal: MCP 중심 운영과 Brain 구축 후 연동/AGENTS 갱신 요구를 유지한다.
+- Changes: 하위 AGENTS와 task의 WF-B에 관련 기능 구축 → 현재 파이프라인 연결 → 최신성/완료 검증 → 상위/하위 AGENTS 및 사용법 갱신 조건 명시. CLI 시연 대기는 종료.
+- Files: AGENTS.md, Docs/{task,session_handoff,workflow-development-demo,work_log}.md.
+- Verification: 문서 변경만 수행. 상위 verify -IncludeBrain 통과. 제품 테스트 재실행 없음.
+- Decisions: 개발·최종 검증은 MCP, CLI는 환경 점검만 기본 사용. 없는 Brain 도구 호출을 요구하지 않음.
+- Next: 관련 Brain 기능 구축 후 WF-B 수행. 대시 시연의 추가 CLI 실행은 기본 후속 작업에서 제외.
+- Limitations: 현재 연동 미구현. 기존 제품 코드 및 사용자 변경 보존.
+
 ## 2026-09-06 독립 대시 개발 워크플로우 시연
 - Goal: Brain 연동 없이 현재 프로젝트에서 실제 코드 작성·결함 재현·수정·검증을 시연한다.
 - Changes: WorkflowDemo의 DashCooldown/DashMover 및 NUnit EditMode 검사 9개 추가. 의도한 경계 결함 재현 후 수정, 원본 결과 저장.

@@ -9,6 +9,8 @@
 
 ## 현재 단계: Brain 자체 개발
 ### Unity-MCP 사용 규칙
+- 현재 기본 파이프라인: 개발·컴파일·일반 테스트·최종 검증은 Ivan MCP, CLI는 필요 시 버전/설치 경로/프로젝트 잠금 등 환경 점검에만 사용한다. 동일 검사를 CLI로 중복 실행하거나 CLI 성공을 필수 완료 조건으로 두지 않는다. 배치/CI는 향후 명시적 요청 때만 사용한다. 상세는 [상위 워크플로우](../Docs/unity-workflow.md).
+- Brain 연동은 아직 미구현이다. 작업·맥락·결과 저장·최신성 기능 구축 후 Docs/task.md의 WF-B로 현재 파이프라인에 연결하고 상위/하위 AGENTS.md를 실제 호출 계약으로 갱신한다. 그 전에는 없는 Brain 도구를 호출 요구하지 않는다.
 - 설치 제품은 IvanMurzak/Unity-MCP 0.90.0이다. Unity 공식 CLI/Pipeline과 혼동하거나 교체하지 않는다. 상세 절차: [Docs/unity_mcp_usage.md](Docs/unity_mcp_usage.md).
 - 매 세션 실제 제공된 MCP 도구 이름과 입력 스키마를 먼저 확인한다. 설정 파일 존재나 과거 연결 성공만으로 현재 연결을 가정하지 않는다.
 - 연결 확인은 scene-list-opened 등 읽기 호출로 한다. 현재 프로젝트가 Project Brain인지 연결 설정과 함께 확인한다. 사용자가 UI를 확인 중이면 씬 저장·재생·테스트·Editor 재시작을 임의 실행하지 않는다.
