@@ -65,7 +65,15 @@ namespace ProjectBrain
             detail.Add(new Label(node.title) { style = { fontSize = 18, whiteSpace = WhiteSpace.Normal } });
             Text(node.type + " · " + id); Text(node.summary);
             var freshness = new BrainFreshnessService(ScriptDocumentService.ProjectRoot, json, AssetDatabase.GUIDToAssetPath).Inspect(graph, id);
-            Text("최신성: " + freshness.state + " · 검증: 미연결");
+            Text("최신성: " + freshness.state + " · 검증 결과는 Evidence와 작업 상태에서 확인");
+            if (node.type == "Evidence")
+            {
+                var record = new BrainVerificationStore(ScriptDocumentService.ProjectRoot, json).Load(node.id.Substring("evidence:".Length));
+                var current = new BrainVerificationStore(ScriptDocumentService.ProjectRoot, json).CurrentPass(record, new BrainVerificationStore(ScriptDocumentService.ProjectRoot, json).Snapshot());
+                Text(record.kind + " · " + record.state + " · 현재 통과 근거: " + current);
+                Text("전체 " + record.total + " / 통과 " + record.passed + " / 실패 " + record.failed + " / 건너뜀 " + record.skipped); Text(record.summary); Text(node.body);
+            }
+            if (node.type == "Activity") Text(node.body);
             if (node.type == "Image")
             {
                 var image = AssetDatabase.LoadAssetAtPath<Texture2D>(AssetDatabase.GUIDToAssetPath(node.assetGuid));
@@ -132,9 +140,11 @@ namespace ProjectBrain
             taskPanel.Add(new Button(() => Run(() =>
             {
                 var result = new BrainCompletionService(ScriptDocumentService.ProjectRoot, json, AssetDatabase.GUIDToAssetPath).Check(task.id, task.revision);
-                message.text = "완료 거절\n" + string.Join("\n", result.reasons.GroupBy(r => r.code).Select(g => g.Key + " (" + g.Count() + "건) · " + g.First().nextAction));
+                message.text = (result.ready ? "완료 가능 (아직 완료 기록 전)" : "완료 거절") + "\n" + string.Join("\n", result.reasons.GroupBy(r => r.code).Select(g => g.Key + " (" + g.Count() + "건) · " + g.First().nextAction));
                 message.messageType = HelpBoxMessageType.Warning;
-            })) { text = "완료 조건 확인 (현재 성공 미지원)" });
+            })) { text = "완료 조건 확인" });
+            foreach (var kind in new[] { "compile", "editmode" })
+                taskPanel.Add(new Button(() => Run(() => { var run = BrainUnityVerification.Start(task.id, task.revision, kind); message.text = kind + " 실행 중 · " + run.id + " · 완료 조건 확인으로 결과를 조회하세요."; })) { text = kind + " 검증 실행" });
             Field("진행", draftProgress, v => draftProgress = v); Field("결정·근거", draftDecisions, v => draftDecisions = v);
             Field("미해결", draftUnresolved, v => draftUnresolved = v); Field("다음 행동", draftNext, v => draftNext = v);
             taskPanel.Add(new Button(() => SaveChanges()) { text = "요약 저장" });

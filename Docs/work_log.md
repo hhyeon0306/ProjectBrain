@@ -1,5 +1,15 @@
 # Brain 작업 이력
 
+## 2026-09-07 A3/V1 최소 검증 연결
+- Goal: 실제 Unity 결과를 현재 스냅샷 및 완료 조건에 연결한다.
+- Changes: brain_verify, 공유 Ivan TestRunner/CompilationPipeline 어댑터, 재로딩 복원/중단/timeout, Evidence 상세/노드, 성공 Activity 분기, UI 결과 표시. 작업 요약 revision6. 디자인 아트 직접 제작 승인 기록.
+- Files: BrainVerification.cs/meta, CompletionService/Checks, Tools, ExplorerWindow, asmdef; .projectbrain/evidence/nodes/relations/tasks; AGENTS.md와 Docs 계약/사용법/인계/검증 증거.
+- Verification: MCP assets-refresh 컴파일 확인. 격리 자체 Completion32+Workflow39 통과. 실제 마지막 compile은 compiled0/up-to-date74/errors0, 실제 EditMode9/9. 둘 다 동일 스냅샷. HTTP status/complete는 문서 미확인·범위 밖으로 거절. UI Evidence current=True/9/9 표시. 성공 Activity는 synthetic fixture에서만 검사. 문서 구조 검사 통과. 전체 verify는 기존 사용자 SampleScene.unity:242 공백에서 중단되어 씬은 보존하고 이번 staged 변경 검사는 통과했다.
+- Decisions: 고정 compile+전체 EditMode 정책. 생성 Evidence/Activity 및 관련 링크는 의미 스냅샷/문서 확인에서 제외. 활성 작업 기준선/사람 미확인 유지. 자동 아카이브 없음.
+- Next: 서류·PPT 준비도, 실제 문서 확인·범위 정리/WF-B. 이후 디자인 아트 제작/U1.
+- Limitations: 초기 미관측 종료는 오래됨, up-to-date 미수집은 실패로 남김. 상태/콜백 복원 및 up-to-date 처리 보완. 실제 Finish File.Replace IOException(00:23:17) 1회는 비통과 상태 보존, 재실행9/9 정상 저장. 원인은 미확정. 9개는 기존 WorkflowDemo 대시 검사이며 전체 Brain/Movement 검증 아님. PlayMode/Player 빌드·실제 사람 확인/최종 완료·전체 WF-B 미검증. 기존 사용자 변경4개 보존.
+
+
 ## 2026-09-07 W2/M1 문서 확인·완료 거절
 - Goal: 문서 확인과 현재 코드 기준을 연결하고 미검증 완료를 거절한다.
 - Changes: 고정 필수 문서 정책, 사람 UI 확인 기록/해시 무효화/손상 보호, status completion·brain_complete 6번째 MCP, 거절 이유 UI. 요약 revision 4→5, 기준선 보존.

@@ -149,3 +149,15 @@ Unity 어댑터는 자산 해석, 컴파일·테스트, 메인 스레드를 담�
 Explorer에서 현재 본문과 연결 코드를 읽었다는 체크 후 사람 확인 기록 버튼을 누른다. 화면 문서가 디스크와 다르거나 작업 ID/revision·확인 대상 해시가 바뀌면 거절한다. AI basis 저장은 사람 확인이 아니며 MCP에 승인/정책 낮추기 입력은 없다. 이 경로는 사용자 확인 진술 기록이며 인증·외부 파일 변조 방지 보안 경계는 아니다. 실제 프로젝트의 사람 확인은 이번에 수행하지 않았다.
 
 brain_status.completion은 고정 정책 판정을 포함한다. brain_complete(taskId, expectedRevision)는 현재 파일을 다시 검사하여 completed=false, documents, reasons(code/target/nextAction)를 반환한다. V1 미구현이므로 verification-unavailable은 항상 포함하고 작업/기준선/상태를 변경하지 않는다. begin 응답의 completion은 null이며 status에서 조회한다. 다중 파일 원자 스냅샷/동시 편집 보장은 없다. 실제 검증 성공·작업 교체·archive는 후속이다.
+
+## A3/V1 검증 계약 (2026-09-07)
+
+brain_verify는 taskId/revision과 compile 또는 editmode를 받아 실행 ID를 즉시 반환한다. compile은 Unity CompilationPipeline 이벤트, editmode는 기존 Ivan Tool_Tests.TestRunnerApi의 전체 EditMode 실행/종료 콜백을 사용한다. 별도 서버/CLI나 호출자 입력 성공 결과는 사용하지 않는다. 미저장 씬·컴파일/플레이·다른 테스트 실행 중에는 시작하지 않는다. 설치된 TestRunner의 internal IsRunActive를 읽어 동시 실행을 거절하며 해당 API가 없으면 시작을 거절한다.
+
+검증 스냅샷은 Assets/Packages/ProjectSettings의 파일 내용과 의미 노드/관계다. 자동 생성 Evidence/Activity 및 verified_by/worked_on_in은 스냅샷에서 제외해 결과를 저장했다는 이유로 결과 자체가 무효화되지 않게 한다. 코드/설명/의미 관계 변경은 무효화한다. 기록은 evidence/<runId>.json, 탐색 노드의 body는 해당 상세 파일을 참조한다. 결과 노드 status=recorded는 통과를 뜻하지 않는다.
+
+최소 정책은 컴파일과 전체 발견 EditMode 테스트다. 실패·0개·건너뜀·미확정·재시작 중단·5분 초과·스냅샷 변경은 통과하지 않는다. 모든 게임 기능의 테스트 커버리지나 PlayMode/Player 빌드 성공을 뜻하지 않는다.
+
+완료 요청은 정책을 만족하면 activities/<UUID>.json에 작업 ID/revision·스냅샷·검증 실행 ID·완료 시각을 기록하고 Activity 노드/관계로 연결한다. status.ready는 현재 조건 충족 여부이고 completed는 실제 complete 호출의 기록 성공 여부다. 활성 작업 기준선은 유지하며 작업 자동 교체/아카이브는 별도 후속이다. 같은 작업의 나중 변경은 예전 Activity를 지우지 않지만 현재 완료 조건은 다시 검사한다. 여러 파일의 트랜잭션 보장은 없으며 부분 발행 실패 시 완료 성공을 반환하지 않는다.
+
+컴파일 결과의 total/passed는 어셈블리 단위이며 테스트 개수가 아니다. summary에 compiled와 up-to-date(assemblyCompilationNotRequired)를 구분한다. Unity가 재컴파일 불필요로 확인한 어셈블리를 새로 컴파일했다고 표현하지 않는다. 실행 ID·콜백 카운터는 SessionState로 도메인 재로딩을 넘어 복원하며, 콜백을 놓친 채 실행기가 비활성화되거나 Editor 재시작으로 세션이 사라지면 interrupted로 처리한다.

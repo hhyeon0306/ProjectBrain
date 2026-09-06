@@ -1,5 +1,6 @@
 {
   "name": "ProjectBrain.Editor",
   "rootNamespace": "ProjectBrain",
+  "references": ["com.IvanMurzak.Unity.MCP.Editor", "UnityEditor.TestRunner"],
   "includePlatforms": ["Editor"]
 }

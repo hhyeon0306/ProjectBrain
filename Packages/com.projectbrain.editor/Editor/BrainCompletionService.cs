@@ -32,11 +32,23 @@ namespace ProjectBrain
         public string taskId;
         public int revision;
         public bool completed = false;
-        public string policy = "w2-human-review-v1-pending";
+        public bool ready;
+        public string policy = "v1-compile-editmode-human-review";
+        public BrainVerificationRecord[] verification;
+        public string activityId = "";
         public BrainDocumentReview[] documents;
         public BrainCompletionReason[] reasons;
     }
-    // Completion is deliberately read-only until a real V1 verification runner exists.
+    [Serializable] public sealed class BrainCompletionActivity
+    {
+        public int schemaVersion = 1;
+        public string id;
+        public string taskId;
+        public int revision;
+        public string snapshotHash;
+        public string[] verificationIds;
+        public string completedUtc;
+    }
     public sealed class BrainCompletionService
     {
         private readonly string root;
@@ -63,7 +75,7 @@ namespace ProjectBrain
             var codes = owners.Where(id => graph.Get(id).type == "Code").Concat(graph.Relations.Where(r => r.type == "implemented_by" && owners.Contains(r.from)).Select(r => r.to)).Distinct().OrderBy(id => id, StringComparer.Ordinal).ToArray();
             var stamps = codes.Select(id => { var path = resolve(graph.Get(id).assetGuid) ?? ""; return new BrainCodeBasis { nodeId = id, path = path, sha256 = path.Length == 0 ? "" : workspace.FileHash(path) }; }).ToArray();
             // Relations and Code node identities are part of the reviewed context; removing an edge invalidates it.
-            var payload = json.Write(doc) + "\n" + string.Join("\n", graph.Relations.OrderBy(r => r.id, StringComparer.Ordinal).Select(r => json.Write(r))) + "\n" + string.Join("\n", codes.Select(id => json.Write(graph.Get(id)))) + "\n" + string.Join("\n", stamps.Select(s => json.Write(s)));
+            var payload = json.Write(doc) + "\n" + string.Join("\n", graph.Relations.Where(BrainVerificationStore.Semantic).OrderBy(r => r.id, StringComparer.Ordinal).Select(r => json.Write(r))) + "\n" + string.Join("\n", codes.Select(id => json.Write(graph.Get(id)))) + "\n" + string.Join("\n", stamps.Select(s => json.Write(s)));
             var hash = BrainWorkspace.Hash(payload);
             var record = Load(taskId, documentId);
             return new BrainDocumentReview { documentId = documentId, snapshotHash = hash, codePaths = stamps.Select(s => s.path).ToArray(), state = stamps.Length == 0 || stamps.Any(s => s.sha256.Length == 0) ? "missing-code" : record == null ? "unreviewed" : record.snapshotHash == hash ? "current" : "stale" };
@@ -119,8 +131,32 @@ namespace ProjectBrain
             var reviews = documents.OrderBy(id => id, StringComparer.Ordinal).Select(id => Inspect(graph, task.id, id)).ToArray();
             foreach (var review in reviews.Where(r => r.state != "current")) reason("document-" + review.state, review.documentId, "Explorer에서 현재 문서와 연결 코드를 읽고 사람이 확인하세요.");
             foreach (var limitation in status.coverageLimitations) reason("coverage-limited", limitation, "감시하지 못한 범위를 해결해야 합니다.");
-            reason("verification-unavailable", task.id, "V1 실제 컴파일·테스트 결과 연결이 아직 없습니다. 완료 성공은 지원하지 않습니다.");
-            return new BrainCompletionResult { taskId = task.id, revision = task.revision, documents = reviews, reasons = reasons.ToArray() };
+            var verificationStore = new BrainVerificationStore(root, json);
+            var records = verificationStore.ForTask(task.id);
+            var snapshot = verificationStore.Snapshot();
+            foreach (var kind in new[] { "compile", "editmode" })
+            {
+                var latest = records.LastOrDefault(r => r.kind == kind);
+                if (!verificationStore.CurrentPass(latest, snapshot)) reason("verification-" + kind, task.id, "현재 파일 기준 " + kind + " 검증이 필요합니다. brain_verify로 실행하세요.");
+            }
+            return new BrainCompletionResult { taskId = task.id, revision = task.revision, documents = reviews, verification = records, ready = reasons.Count == 0, reasons = reasons.ToArray() };
+        }
+        public BrainCompletionResult Complete(string taskId, int expectedRevision)
+        {
+            var before = new BrainVerificationStore(root, json).Snapshot();
+            var result = Check(taskId, expectedRevision);
+            if (!result.ready) return result;
+            BrainWorkspace.Require(before == new BrainVerificationStore(root, json).Snapshot(), "완료 검사 중 파일이 바뀌었습니다.");
+            var activity = new BrainCompletionActivity { id = Guid.NewGuid().ToString("D"), taskId = taskId, revision = expectedRevision, snapshotHash = before, verificationIds = new[] { "compile", "editmode" }.Select(k => result.verification.Last(r => r.kind == k).id).ToArray(), completedUtc = DateTime.UtcNow.ToString("O") };
+            var path = ".projectbrain/activities/" + activity.id + ".json";
+            BrainStore.AtomicWrite(Path.Combine(root, path), json.Write(activity));
+            var store = new BrainStore(Path.Combine(root, ".projectbrain"), json);
+            var node = new BrainNode { id = "activity:" + activity.id, type = "Activity", title = "작업 완료 기록", summary = "현재 문서 확인·컴파일·EditMode 정책 충족", body = path, status = "recorded", updatedUtc = activity.completedUtc };
+            store.SaveNode(node);
+            var graph = new BrainGraphService(store);
+            var task = new BrainTaskService(root, json).Load();
+            store.SaveRelations(graph.Relations.Concat(task.targetNodeIds.Where(id => graph.Get(id).type == "Feature" || graph.Get(id).type == "Code").Select(id => new BrainRelation { id = "relation:" + BrainWorkspace.Hash(id + node.id), from = id, to = node.id, type = "worked_on_in", source = "brain-completion", createdUtc = activity.completedUtc })));
+            result.completed = true; result.activityId = node.id; return result;
         }
     }
 }

@@ -19,7 +19,7 @@ namespace ProjectBrain
         public static BrainTaskView UpdateTask(string taskId, int expectedRevision, string progress, string decisions, string unresolved, string nextAction, string[] references) => MainThread.Instance.Run(() => BrainTaskView.From(new BrainTaskService(ScriptDocumentService.ProjectRoot, new UnityBrainJson()).Update(taskId, expectedRevision, progress, decisions, unresolved, nextAction, references)));
 
         [AiTool("brain_status", Title = "Brain / Status", ReadOnlyHint = true)]
-        [Description("Read the active task, watched changes, coverage and fixed completion policy reasons including current human document review. V1 validation is unavailable; never reports completion success.")]
+        [Description("Read the active task, watched changes, coverage and fixed completion policy reasons including current human document review. Includes real verification records and readiness; status itself never records completion.")]
         public static BrainStatusView Status() => MainThread.Instance.Run(() =>
         {
             var result = BrainStatusView.From(new BrainTaskService(ScriptDocumentService.ProjectRoot, new UnityBrainJson()).Status());
@@ -29,12 +29,17 @@ namespace ProjectBrain
 
         private static BrainCompletionService CompletionService() => new BrainCompletionService(ScriptDocumentService.ProjectRoot, new UnityBrainJson(), AssetDatabase.GUIDToAssetPath);
 
-        [AiTool("brain_complete", Title = "Brain / Check Completion", ReadOnlyHint = true)]
-        [Description("Recheck current task ID/revision, required human document reviews, watched changes and coverage. Returns completed=false with actionable reasons. V1 real validation is not implemented, so success is impossible. Does not alter/archive the task or approve documents; no policy override parameters.")]
+        [AiTool("brain_verify", Title = "Brain / Run Unity Verification", ReadOnlyHint = false)]
+        [Description("Start real Unity compile or all discovered EditMode tests via the shared Ivan TestRunner API. Returns run ID immediately; poll brain_status for terminal records. Fixed kind compile/editmode; no caller supplied success. Refuses dirty scenes, busy editor and concurrent tests. Five minute timeout, interrupted reloads and changed snapshots are not passes.")]
+        public static BrainVerificationRecord Verify(string taskId, int expectedRevision, string kind) => MainThread.Instance.Run(() => BrainUnityVerification.Start(taskId, expectedRevision, kind));
+
+        [AiTool("brain_complete", Title = "Brain / Complete Current Snapshot", ReadOnlyHint = false)]
+        [Description("Recheck task revision, required human document reviews, watched changes, coverage, and current compile/EditMode records. On success append an Activity for this snapshot; otherwise return reasons without approval. Keeps active task/baseline for inspection; no automatic archival or policy override.")]
         public static BrainCompletionResult Complete(string taskId, int expectedRevision) => MainThread.Instance.Run(() =>
         {
             BrainWorkspace.Require(!string.IsNullOrEmpty(taskId) && expectedRevision > 0, "작업 ID와 revision이 필요합니다.");
-            return CompletionService().Check(taskId, expectedRevision);
+            BrainWorkspace.Require(!EditorApplication.isCompiling && !EditorApplication.isUpdating && !EditorApplication.isPlayingOrWillChangePlaymode, "Editor가 처리 중입니다.");
+            return CompletionService().Complete(taskId, expectedRevision);
         });
 
         [AiTool("brain_context", Title = "Brain / Context", ReadOnlyHint = true)]

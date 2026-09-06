@@ -1,0 +1,818 @@
+{
+  "project": "C:/Dev/nexontutorial/ProjectBrain",
+  "selfChecks": {
+    "completion": 32,
+    "workflow": 39,
+    "syntheticOutcomesOnlyInTemporaryFixtures": true
+  },
+  "compileStart": {
+    "result": {
+      "content": [
+        {
+          "type": "text",
+          "text": "{\"result\":{\"schemaVersion\":1,\"id\":\"b3a4877d-e0ec-4b81-819d-5d958ae0a6ae\",\"taskId\":\"a48a9ba7-be69-4985-a648-ed5d2ac5442f\",\"kind\":\"compile\",\"state\":\"running\",\"snapshotHash\":\"fd237d82feddb1ac3c0213d7b21a87286ea60c9f76d33944f088931df40a7926\",\"startedUtc\":\"2026-09-06T15:27:11.5394192Z\",\"endedUtc\":\"\",\"summary\":\"\",\"total\":0,\"passed\":0,\"failed\":0,\"skipped\":0}}"
+        }
+      ],
+      "structuredContent": {
+        "result": {
+          "schemaVersion": 1,
+          "id": "b3a4877d-e0ec-4b81-819d-5d958ae0a6ae",
+          "taskId": "a48a9ba7-be69-4985-a648-ed5d2ac5442f",
+          "kind": "compile",
+          "state": "running",
+          "snapshotHash": "fd237d82feddb1ac3c0213d7b21a87286ea60c9f76d33944f088931df40a7926",
+          "startedUtc": "2026-09-06T15:27:11.5394192Z",
+          "endedUtc": "",
+          "summary": "",
+          "total": 0,
+          "passed": 0,
+          "failed": 0,
+          "skipped": 0
+        }
+      },
+      "isError": false
+    },
+    "id": 1788708429758,
+    "jsonrpc": "2.0"
+  },
+  "testStart": {
+    "result": {
+      "content": [
+        {
+          "type": "text",
+          "text": "{\"result\":{\"schemaVersion\":1,\"id\":\"8b168b76-b4de-40c7-a7b5-82bfb1dbf1d7\",\"taskId\":\"a48a9ba7-be69-4985-a648-ed5d2ac5442f\",\"kind\":\"editmode\",\"state\":\"running\",\"snapshotHash\":\"fd237d82feddb1ac3c0213d7b21a87286ea60c9f76d33944f088931df40a7926\",\"startedUtc\":\"2026-09-06T15:28:01.9383487Z\",\"endedUtc\":\"\",\"summary\":\"\",\"total\":0,\"passed\":0,\"failed\":0,\"skipped\":0}}"
+        }
+      ],
+      "structuredContent": {
+        "result": {
+          "schemaVersion": 1,
+          "id": "8b168b76-b4de-40c7-a7b5-82bfb1dbf1d7",
+          "taskId": "a48a9ba7-be69-4985-a648-ed5d2ac5442f",
+          "kind": "editmode",
+          "state": "running",
+          "snapshotHash": "fd237d82feddb1ac3c0213d7b21a87286ea60c9f76d33944f088931df40a7926",
+          "startedUtc": "2026-09-06T15:28:01.9383487Z",
+          "endedUtc": "",
+          "summary": "",
+          "total": 0,
+          "passed": 0,
+          "failed": 0,
+          "skipped": 0
+        }
+      },
+      "isError": false
+    },
+    "id": 1788708479627,
+    "jsonrpc": "2.0"
+  },
+  "status": {
+    "result": {
+      "content": [
+        {
+          "type": "text",
+          "text": "{\"result\":{\"completion\":{\"taskId\":\"a48a9ba7-be69-4985-a648-ed5d2ac5442f\",\"revision\":5,\"completed\":false,\"ready\":false,\"policy\":\"v1-compile-editmode-human-review\",\"verification\":[{\"schemaVersion\":1,\"id\":\"6921f9e4-234c-4f6f-bce3-ffc25321a33d\",\"taskId\":\"a48a9ba7-be69-4985-a648-ed5d2ac5442f\",\"kind\":\"compile\",\"state\":\"stale\",\"snapshotHash\":\"0199634fa81eb71c57a33c1dd275620fb2dc455a32abc34f2dadb64e02eafc6d\",\"startedUtc\":\"2026-09-06T15:19:49.8595312Z\",\"endedUtc\":\"2026-09-06T15:22:50.0965960Z\",\"summary\":\"Editor/domain restarted before a terminal callback.\",\"total\":0,\"passed\":0,\"failed\":0,\"skipped\":0},{\"schemaVersion\":1,\"id\":\"cf27a5fe-7f4e-4685-a520-bf306f0e9325\",\"taskId\":\"a48a9ba7-be69-4985-a648-ed5d2ac5442f\",\"kind\":\"editmode\",\"state\":\"stale\",\"snapshotHash\":\"99468604107a0a5384d198bf32e0445ac89de3adb7b4df8c5bdece4c65209e31\",\"startedUtc\":\"2026-09-06T15:23:10.7182292Z\",\"endedUtc\":\"2026-09-06T15:24:12.7283647Z\",\"summary\":\"Editor/domain restarted before a terminal callback.\",\"total\":0,\"passed\":0,\"failed\":0,\"skipped\":0},{\"schemaVersion\":1,\"id\":\"5599ab37-3a78-4795-8e21-565f426f1479\",\"taskId\":\"a48a9ba7-be69-4985-a648-ed5d2ac5442f\",\"kind\":\"compile\",\"state\":\"failed\",\"snapshotHash\":\"c8045f15b622e3a3b5dc74900336eff79fc0ccb9c5499f5d983c0bed4109d707\",\"startedUtc\":\"2026-09-06T15:24:45.9092658Z\",\"endedUtc\":\"2026-09-06T15:25:17.8729612Z\",\"summary\":\"Unity compilation callbacks; assemblies=0, errors=0\",\"total\":0,\"passed\":0,\"failed\":0,\"skipped\":0},{\"schemaVersion\":1,\"id\":\"09f72cf2-083a-4c5d-9d33-7ed4000a7c21\",\"taskId\":\"a48a9ba7-be69-4985-a648-ed5d2ac5442f\",\"kind\":\"editmode\",\"state\":\"passed\",\"snapshotHash\":\"c8045f15b622e3a3b5dc74900336eff79fc0ccb9c5499f5d983c0bed4109d707\",\"startedUtc\":\"2026-09-06T15:25:50.7953265Z\",\"endedUtc\":\"2026-09-06T15:25:53.5591068Z\",\"summary\":\"All discovered EditMode tests. Passed; \",\"total\":9,\"passed\":9,\"failed\":0,\"skipped\":0},{\"schemaVersion\":1,\"id\":\"b3a4877d-e0ec-4b81-819d-5d958ae0a6ae\",\"taskId\":\"a48a9ba7-be69-4985-a648-ed5d2ac5442f\",\"kind\":\"compile\",\"state\":\"passed\",\"snapshotHash\":\"fd237d82feddb1ac3c0213d7b21a87286ea60c9f76d33944f088931df40a7926\",\"startedUtc\":\"2026-09-06T15:27:11.5394192Z\",\"endedUtc\":\"2026-09-06T15:27:44.4262534Z\",\"summary\":\"Unity compilation callbacks; compiled=0, up-to-date=74, errors=0\",\"total\":74,\"passed\":74,\"failed\":0,\"skipped\":0},{\"schemaVersion\":1,\"id\":\"8b168b76-b4de-40c7-a7b5-82bfb1dbf1d7\",\"taskId\":\"a48a9ba7-be69-4985-a648-ed5d2ac5442f\",\"kind\":\"editmode\",\"state\":\"passed\",\"snapshotHash\":\"fd237d82feddb1ac3c0213d7b21a87286ea60c9f76d33944f088931df40a7926\",\"startedUtc\":\"2026-09-06T15:28:01.9383487Z\",\"endedUtc\":\"2026-09-06T15:28:09.0956533Z\",\"summary\":\"All discovered EditMode tests. Passed; \",\"total\":9,\"passed\":9,\"failed\":0,\"skipped\":0}],\"activityId\":\"\",\"documents\":[{\"documentId\":\"document:10000000000000000000000000000002\",\"state\":\"unreviewed\",\"snapshotHash\":\"4b5b04abcc9df56ce0a5b07e771023740d2a3e5aa88e3395af86adde8234a132\",\"codePaths\":[\"Assets/Scripts/Gameplay/DemoPlayerInput.cs\"]},{\"documentId\":\"document:10000000000000000000000000000003\",\"state\":\"unreviewed\",\"snapshotHash\":\"f04a4952032dfc7ffcda46c4f80eea7a21430d45dea712f795fe08cb799dd069\",\"codePaths\":[\"Assets/Scripts/Gameplay/DemoPlayerMovement.cs\"]}],\"reasons\":[{\"code\":\"outside-allowed\",\"target\":\"Assets/Scenes/SampleScene.unity\",\"nextAction\":\"\\uD5C8\\uC6A9 \\uBC94\\uC704 \\uBC16 \\uBCC0\\uACBD\\uC744 \\uBCC4\\uB3C4\\uB85C \\uAC80\\uD1A0\\uD558\\uC138\\uC694. \\uC790\\uB3D9 \\uC2B9\\uC778\\uD558\\uC9C0 \\uC54A\\uC2B5\\uB2C8\\uB2E4.\"},{\"code\":\"unmapped-change\",\"target\":\"Assets/Scenes/SampleScene.unity\",\"nextAction\":\"\\uC774 \\uBCC0\\uACBD\\uC758 \\uBB38\\uC11C\\u00B7\\uAC80\\uC99D \\uBC94\\uC704\\uB97C \\uBA85\\uC2DC\\uC801\\uC73C\\uB85C \\uC5F0\\uACB0\\uD574\\uC57C \\uD569\\uB2C8\\uB2E4.\"},{\"code\":\"outside-allowed\",\"target\":\"Packages/com.projectbrain.editor/Editor/BrainCompletionChecks.cs\",\"nextAction\":\"\\uD5C8\\uC6A9 \\uBC94\\uC704 \\uBC16 \\uBCC0\\uACBD\\uC744 \\uBCC4\\uB3C4\\uB85C \\uAC80\\uD1A0\\uD558\\uC138\\uC694. \\uC790\\uB3D9 \\uC2B9\\uC778\\uD558\\uC9C0 \\uC54A\\uC2B5\\uB2C8\\uB2E4.\"},{\"code\":\"unmapped-change\",\"target\":\"Packages/com.projectbrain.editor/Editor/BrainCompletionChecks.cs\",\"nextAction\":\"\\uC774 \\uBCC0\\uACBD\\uC758 \\uBB38\\uC11C\\u00B7\\uAC80\\uC99D \\uBC94\\uC704\\uB97C \\uBA85\\uC2DC\\uC801\\uC73C\\uB85C \\uC5F0\\uACB0\\uD574\\uC57C \\uD569\\uB2C8\\uB2E4.\"},{\"code\":\"outside-allowed\",\"target\":\"Packages/com.projectbrain.editor/Editor/BrainCompletionChecks.cs.meta\",\"nextAction\":\"\\uD5C8\\uC6A9 \\uBC94\\uC704 \\uBC16 \\uBCC0\\uACBD\\uC744 \\uBCC4\\uB3C4\\uB85C \\uAC80\\uD1A0\\uD558\\uC138\\uC694. \\uC790\\uB3D9 \\uC2B9\\uC778\\uD558\\uC9C0 \\uC54A\\uC2B5\\uB2C8\\uB2E4.\"},{\"code\":\"unmapped-change\",\"target\":\"Packages/com.projectbrain.editor/Editor/BrainCompletionChecks.cs.meta\",\"nextAction\":\"\\uC774 \\uBCC0\\uACBD\\uC758 \\uBB38\\uC11C\\u00B7\\uAC80\\uC99D \\uBC94\\uC704\\uB97C \\uBA85\\uC2DC\\uC801\\uC73C\\uB85C \\uC5F0\\uACB0\\uD574\\uC57C \\uD569\\uB2C8\\uB2E4.\"},{\"code\":\"outside-allowed\",\"target\":\"Packages/com.projectbrain.editor/Editor/BrainCompletionService.cs\",\"nextAction\":\"\\uD5C8\\uC6A9 \\uBC94\\uC704 \\uBC16 \\uBCC0\\uACBD\\uC744 \\uBCC4\\uB3C4\\uB85C \\uAC80\\uD1A0\\uD558\\uC138\\uC694. \\uC790\\uB3D9 \\uC2B9\\uC778\\uD558\\uC9C0 \\uC54A\\uC2B5\\uB2C8\\uB2E4.\"},{\"code\":\"unmapped-change\",\"target\":\"Packages/com.projectbrain.editor/Editor/BrainCompletionService.cs\",\"nextAction\":\"\\uC774 \\uBCC0\\uACBD\\uC758 \\uBB38\\uC11C\\u00B7\\uAC80\\uC99D \\uBC94\\uC704\\uB97C \\uBA85\\uC2DC\\uC801\\uC73C\\uB85C \\uC5F0\\uACB0\\uD574\\uC57C \\uD569\\uB2C8\\uB2E4.\"},{\"code\":\"outside-allowed\",\"target\":\"Packages/com.projectbrain.editor/Editor/BrainCompletionService.cs.meta\",\"nextAction\":\"\\uD5C8\\uC6A9 \\uBC94\\uC704 \\uBC16 \\uBCC0\\uACBD\\uC744 \\uBCC4\\uB3C4\\uB85C \\uAC80\\uD1A0\\uD558\\uC138\\uC694. \\uC790\\uB3D9 \\uC2B9\\uC778\\uD558\\uC9C0 \\uC54A\\uC2B5\\uB2C8\\uB2E4.\"},{\"code\":\"unmapped-change\",\"target\":\"Packages/com.projectbrain.editor/Editor/BrainCompletionService.cs.meta\",\"nextAction\":\"\\uC774 \\uBCC0\\uACBD\\uC758 \\uBB38\\uC11C\\u00B7\\uAC80\\uC99D \\uBC94\\uC704\\uB97C \\uBA85\\uC2DC\\uC801\\uC73C\\uB85C \\uC5F0\\uACB0\\uD574\\uC57C \\uD569\\uB2C8\\uB2E4.\"},{\"code\":\"outside-allowed\",\"target\":\"Packages/com.projectbrain.editor/Editor/BrainContextService.cs\",\"nextAction\":\"\\uD5C8\\uC6A9 \\uBC94\\uC704 \\uBC16 \\uBCC0\\uACBD\\uC744 \\uBCC4\\uB3C4\\uB85C \\uAC80\\uD1A0\\uD558\\uC138\\uC694. \\uC790\\uB3D9 \\uC2B9\\uC778\\uD558\\uC9C0 \\uC54A\\uC2B5\\uB2C8\\uB2E4.\"},{\"code\":\"unmapped-change\",\"target\":\"Packages/com.projectbrain.editor/Editor/BrainContextService.cs\",\"nextAction\":\"\\uC774 \\uBCC0\\uACBD\\uC758 \\uBB38\\uC11C\\u00B7\\uAC80\\uC99D \\uBC94\\uC704\\uB97C \\uBA85\\uC2DC\\uC801\\uC73C\\uB85C \\uC5F0\\uACB0\\uD574\\uC57C \\uD569\\uB2C8\\uB2E4.\"},{\"code\":\"outside-allowed\",\"target\":\"Packages/com.projectbrain.editor/Editor/BrainExplorerWindow.cs\",\"nextAction\":\"\\uD5C8\\uC6A9 \\uBC94\\uC704 \\uBC16 \\uBCC0\\uACBD\\uC744 \\uBCC4\\uB3C4\\uB85C \\uAC80\\uD1A0\\uD558\\uC138\\uC694. \\uC790\\uB3D9 \\uC2B9\\uC778\\uD558\\uC9C0 \\uC54A\\uC2B5\\uB2C8\\uB2E4.\"},{\"code\":\"unmapped-change\",\"target\":\"Packages/com.projectbrain.editor/Editor/BrainExplorerWindow.cs\",\"nextAction\":\"\\uC774 \\uBCC0\\uACBD\\uC758 \\uBB38\\uC11C\\u00B7\\uAC80\\uC99D \\uBC94\\uC704\\uB97C \\uBA85\\uC2DC\\uC801\\uC73C\\uB85C \\uC5F0\\uACB0\\uD574\\uC57C \\uD569\\uB2C8\\uB2E4.\"},{\"code\":\"outside-allowed\",\"target\":\"Packages/com.projectbrain.editor/Editor/BrainFreshnessService.cs\",\"nextAction\":\"\\uD5C8\\uC6A9 \\uBC94\\uC704 \\uBC16 \\uBCC0\\uACBD\\uC744 \\uBCC4\\uB3C4\\uB85C \\uAC80\\uD1A0\\uD558\\uC138\\uC694. \\uC790\\uB3D9 \\uC2B9\\uC778\\uD558\\uC9C0 \\uC54A\\uC2B5\\uB2C8\\uB2E4.\"},{\"code\":\"unmapped-change\",\"target\":\"Packages/com.projectbrain.editor/Editor/BrainFreshnessService.cs\",\"nextAction\":\"\\uC774 \\uBCC0\\uACBD\\uC758 \\uBB38\\uC11C\\u00B7\\uAC80\\uC99D \\uBC94\\uC704\\uB97C \\uBA85\\uC2DC\\uC801\\uC73C\\uB85C \\uC5F0\\uACB0\\uD574\\uC57C \\uD569\\uB2C8\\uB2E4.\"},{\"code\":\"outside-allowed\",\"target\":\"Packages/com.projectbrain.editor/Editor/BrainTaskView.cs\",\"nextAction\":\"\\uD5C8\\uC6A9 \\uBC94\\uC704 \\uBC16 \\uBCC0\\uACBD\\uC744 \\uBCC4\\uB3C4\\uB85C \\uAC80\\uD1A0\\uD558\\uC138\\uC694. \\uC790\\uB3D9 \\uC2B9\\uC778\\uD558\\uC9C0 \\uC54A\\uC2B5\\uB2C8\\uB2E4.\"},{\"code\":\"unmapped-change\",\"target\":\"Packages/com.projectbrain.editor/Editor/BrainTaskView.cs\",\"nextAction\":\"\\uC774 \\uBCC0\\uACBD\\uC758 \\uBB38\\uC11C\\u00B7\\uAC80\\uC99D \\uBC94\\uC704\\uB97C \\uBA85\\uC2DC\\uC801\\uC73C\\uB85C \\uC5F0\\uACB0\\uD574\\uC57C \\uD569\\uB2C8\\uB2E4.\"},{\"code\":\"outside-allowed\",\"target\":\"Packages/com.projectbrain.editor/Editor/BrainTools.cs\",\"nextAction\":\"\\uD5C8\\uC6A9 \\uBC94\\uC704 \\uBC16 \\uBCC0\\uACBD\\uC744 \\uBCC4\\uB3C4\\uB85C \\uAC80\\uD1A0\\uD558\\uC138\\uC694. \\uC790\\uB3D9 \\uC2B9\\uC778\\uD558\\uC9C0 \\uC54A\\uC2B5\\uB2C8\\uB2E4.\"},{\"code\":\"unmapped-change\",\"target\":\"Packages/com.projectbrain.editor/Editor/BrainTools.cs\",\"nextAction\":\"\\uC774 \\uBCC0\\uACBD\\uC758 \\uBB38\\uC11C\\u00B7\\uAC80\\uC99D \\uBC94\\uC704\\uB97C \\uBA85\\uC2DC\\uC801\\uC73C\\uB85C \\uC5F0\\uACB0\\uD574\\uC57C \\uD569\\uB2C8\\uB2E4.\"},{\"code\":\"outside-allowed\",\"target\":\"Packages/com.projectbrain.editor/Editor/BrainVerification.cs\",\"nextAction\":\"\\uD5C8\\uC6A9 \\uBC94\\uC704 \\uBC16 \\uBCC0\\uACBD\\uC744 \\uBCC4\\uB3C4\\uB85C \\uAC80\\uD1A0\\uD558\\uC138\\uC694. \\uC790\\uB3D9 \\uC2B9\\uC778\\uD558\\uC9C0 \\uC54A\\uC2B5\\uB2C8\\uB2E4.\"},{\"code\":\"unmapped-change\",\"target\":\"Packages/com.projectbrain.editor/Editor/BrainVerification.cs\",\"nextAction\":\"\\uC774 \\uBCC0\\uACBD\\uC758 \\uBB38\\uC11C\\u00B7\\uAC80\\uC99D \\uBC94\\uC704\\uB97C \\uBA85\\uC2DC\\uC801\\uC73C\\uB85C \\uC5F0\\uACB0\\uD574\\uC57C \\uD569\\uB2C8\\uB2E4.\"},{\"code\":\"outside-allowed\",\"target\":\"Packages/com.projectbrain.editor/Editor/BrainVerification.cs.meta\",\"nextAction\":\"\\uD5C8\\uC6A9 \\uBC94\\uC704 \\uBC16 \\uBCC0\\uACBD\\uC744 \\uBCC4\\uB3C4\\uB85C \\uAC80\\uD1A0\\uD558\\uC138\\uC694. \\uC790\\uB3D9 \\uC2B9\\uC778\\uD558\\uC9C0 \\uC54A\\uC2B5\\uB2C8\\uB2E4.\"},{\"code\":\"unmapped-change\",\"target\":\"Packages/com.projectbrain.editor/Editor/BrainVerification.cs.meta\",\"nextAction\":\"\\uC774 \\uBCC0\\uACBD\\uC758 \\uBB38\\uC11C\\u00B7\\uAC80\\uC99D \\uBC94\\uC704\\uB97C \\uBA85\\uC2DC\\uC801\\uC73C\\uB85C \\uC5F0\\uACB0\\uD574\\uC57C \\uD569\\uB2C8\\uB2E4.\"},{\"code\":\"outside-allowed\",\"target\":\"Packages/com.projectbrain.editor/Editor/BrainWorkflowChecks.cs\",\"nextAction\":\"\\uD5C8\\uC6A9 \\uBC94\\uC704 \\uBC16 \\uBCC0\\uACBD\\uC744 \\uBCC4\\uB3C4\\uB85C \\uAC80\\uD1A0\\uD558\\uC138\\uC694. \\uC790\\uB3D9 \\uC2B9\\uC778\\uD558\\uC9C0 \\uC54A\\uC2B5\\uB2C8\\uB2E4.\"},{\"code\":\"unmapped-change\",\"target\":\"Packages/com.projectbrain.editor/Editor/BrainWorkflowChecks.cs\",\"nextAction\":\"\\uC774 \\uBCC0\\uACBD\\uC758 \\uBB38\\uC11C\\u00B7\\uAC80\\uC99D \\uBC94\\uC704\\uB97C \\uBA85\\uC2DC\\uC801\\uC73C\\uB85C \\uC5F0\\uACB0\\uD574\\uC57C \\uD569\\uB2C8\\uB2E4.\"},{\"code\":\"outside-allowed\",\"target\":\"Packages/com.projectbrain.editor/Editor/ProjectBrain.Editor.asmdef\",\"nextAction\":\"\\uD5C8\\uC6A9 \\uBC94\\uC704 \\uBC16 \\uBCC0\\uACBD\\uC744 \\uBCC4\\uB3C4\\uB85C \\uAC80\\uD1A0\\uD558\\uC138\\uC694. \\uC790\\uB3D9 \\uC2B9\\uC778\\uD558\\uC9C0 \\uC54A\\uC2B5\\uB2C8\\uB2E4.\"},{\"code\":\"unmapped-change\",\"target\":\"Packages/com.projectbrain.editor/Editor/ProjectBrain.Editor.asmdef\",\"nextAction\":\"\\uC774 \\uBCC0\\uACBD\\uC758 \\uBB38\\uC11C\\u00B7\\uAC80\\uC99D \\uBC94\\uC704\\uB97C \\uBA85\\uC2DC\\uC801\\uC73C\\uB85C \\uC5F0\\uACB0\\uD574\\uC57C \\uD569\\uB2C8\\uB2E4.\"},{\"code\":\"outside-allowed\",\"target\":\"ProjectSettings/SceneTemplateSettings.json\",\"nextAction\":\"\\uD5C8\\uC6A9 \\uBC94\\uC704 \\uBC16 \\uBCC0\\uACBD\\uC744 \\uBCC4\\uB3C4\\uB85C \\uAC80\\uD1A0\\uD558\\uC138\\uC694. \\uC790\\uB3D9 \\uC2B9\\uC778\\uD558\\uC9C0 \\uC54A\\uC2B5\\uB2C8\\uB2E4.\"},{\"code\":\"unmapped-change\",\"target\":\"ProjectSettings/SceneTemplateSettings.json\",\"nextAction\":\"\\uC774 \\uBCC0\\uACBD\\uC758 \\uBB38\\uC11C\\u00B7\\uAC80\\uC99D \\uBC94\\uC704\\uB97C \\uBA85\\uC2DC\\uC801\\uC73C\\uB85C \\uC5F0\\uACB0\\uD574\\uC57C \\uD569\\uB2C8\\uB2E4.\"},{\"code\":\"document-unreviewed\",\"target\":\"document:10000000000000000000000000000002\",\"nextAction\":\"Explorer\\uC5D0\\uC11C \\uD604\\uC7AC \\uBB38\\uC11C\\uC640 \\uC5F0\\uACB0 \\uCF54\\uB4DC\\uB97C \\uC77D\\uACE0 \\uC0AC\\uB78C\\uC774 \\uD655\\uC778\\uD558\\uC138\\uC694.\"},{\"code\":\"document-unreviewed\",\"target\":\"document:10000000000000000000000000000003\",\"nextAction\":\"Explorer\\uC5D0\\uC11C \\uD604\\uC7AC \\uBB38\\uC11C\\uC640 \\uC5F0\\uACB0 \\uCF54\\uB4DC\\uB97C \\uC77D\\uACE0 \\uC0AC\\uB78C\\uC774 \\uD655\\uC778\\uD558\\uC138\\uC694.\"}]},\"task\":{\"id\":\"a48a9ba7-be69-4985-a648-ed5d2ac5442f\",\"revision\":5,\"purpose\":\"Player \\uC774\\uB3D9 \\uCF54\\uB4DC\\uC758 \\uC791\\uC5C5 \\uC7AC\\uAC1C\\uC640 \\uB9E5\\uB77D\\u00B7\\uCD5C\\uC2E0\\uC131 \\uC2DC\\uC5F0\",\"targetNodeIds\":[\"feature:player/movement\"],\"progress\":\"A2/W1/M2a\\uC640 W2/M1 \\uBB38\\uC11C \\uD655\\uC778\\u00B7\\uC644\\uB8CC \\uAC70\\uC808\\uC758 \\uCD5C\\uC18C \\uD750\\uB984\\uC744 \\uAD6C\\uD604\\u00B7\\uAC80\\uC99D\\uD588\\uB2E4.\",\"decisions\":\"\\uC0AC\\uB78C \\uD655\\uC778\\uC740 UI \\uBCC4\\uB3C4 \\uAE30\\uB85D\\uC774\\uBA70 AI basis\\uC640 \\uAD6C\\uBD84\\uD55C\\uB2E4. \\uC2DC\\uC791 \\uAE30\\uC900\\uC120\\uACFC \\uAE30\\uC874 freshness\\uB294 \\uC720\\uC9C0\\uD55C\\uB2E4. V1 \\uC5C6\\uC774\\uB294 \\uC644\\uB8CC\\uD558\\uC9C0 \\uC54A\\uB294\\uB2E4.\",\"unresolved\":\"A3/V1 \\uC2E4\\uC81C \\uAC80\\uC99D \\uACB0\\uACFC \\uC5F0\\uACB0\\u00B7\\uC644\\uB8CC \\uC131\\uACF5, WF-B \\uC5F0\\uB3D9\\uC740 \\uB0A8\\uC544 \\uC788\\uB2E4. \\uD604\\uC7AC \\uBB38\\uC11C 2\\uAC1C\\uB294 \\uC0AC\\uB78C\\uC774 \\uD655\\uC778\\uD558\\uC9C0 \\uC54A\\uC558\\uACE0 \\uD5C8\\uC6A9 \\uBC16 \\uBCC0\\uACBD\\uB3C4 \\uB0A8\\uB294\\uB2E4.\",\"nextAction\":\"\\uC11C\\uB958\\u00B7PPT \\uB9C8\\uAC10 \\uC900\\uBE44\\uB3C4\\uB97C \\uBA3C\\uC800 \\uD655\\uC778\\uD55C\\uB2E4. \\uAC1C\\uBC1C\\uC0C1 \\uB2E4\\uC74C\\uC740 A3/V1\\uC774\\uB2E4.\",\"references\":[\"feature:player/movement\",\"document:10000000000000000000000000000003\"],\"allowedPaths\":[\"Assets/Scripts/Gameplay/DemoPlayerMovement.cs\"],\"baselineReference\":\".projectbrain/tasks/active.json#baseline\",\"baselineHash\":\"cba3ad3a33b00ac627f9a3823aae5a8f6f16c419911f8ce3b1a9a109ffac6dd9\",\"baselineFileCount\":240,\"gitStateAtBegin\":\"not-queried; baseline includes pre-existing working files\",\"createdUtc\":\"2026-09-06T08:18:14.4162169Z\",\"updatedUtc\":\"2026-09-06T15:13:59.9039963Z\"},\"resumed\":true,\"changes\":[{\"path\":\"Assets/Scenes/SampleScene.unity\",\"kind\":\"modified\",\"allowed\":false},{\"path\":\"Assets/Scripts/Gameplay/DemoPlayerMovement.cs\",\"kind\":\"modified\",\"allowed\":true},{\"path\":\"Packages/com.projectbrain.editor/Editor/BrainCompletionChecks.cs\",\"kind\":\"added\",\"allowed\":false},{\"path\":\"Packages/com.projectbrain.editor/Editor/BrainCompletionChecks.cs.meta\",\"kind\":\"added\",\"allowed\":false},{\"path\":\"Packages/com.projectbrain.editor/Editor/BrainCompletionService.cs\",\"kind\":\"added\",\"allowed\":false},{\"path\":\"Packages/com.projectbrain.editor/Editor/BrainCompletionService.cs.meta\",\"kind\":\"added\",\"allowed\":false},{\"path\":\"Packages/com.projectbrain.editor/Editor/BrainContextService.cs\",\"kind\":\"modified\",\"allowed\":false},{\"path\":\"Packages/com.projectbrain.editor/Editor/BrainExplorerWindow.cs\",\"kind\":\"modified\",\"allowed\":false},{\"path\":\"Packages/com.projectbrain.editor/Editor/BrainFreshnessService.cs\",\"kind\":\"modified\",\"allowed\":false},{\"path\":\"Packages/com.projectbrain.editor/Editor/BrainTaskView.cs\",\"kind\":\"modified\",\"allowed\":false},{\"path\":\"Packages/com.projectbrain.editor/Editor/BrainTools.cs\",\"kind\":\"modified\",\"allowed\":false},{\"path\":\"Packages/com.projectbrain.editor/Editor/BrainVerification.cs\",\"kind\":\"added\",\"allowed\":false},{\"path\":\"Packages/com.projectbrain.editor/Editor/BrainVerification.cs.meta\",\"kind\":\"added\",\"allowed\":false},{\"path\":\"Packages/com.projectbrain.editor/Editor/BrainWorkflowChecks.cs\",\"kind\":\"modified\",\"allowed\":false},{\"path\":\"Packages/com.projectbrain.editor/Editor/ProjectBrain.Editor.asmdef\",\"kind\":\"modified\",\"allowed\":false},{\"path\":\"ProjectSettings/SceneTemplateSettings.json\",\"kind\":\"added\",\"allowed\":false}],\"coverageLimitations\":[]}}"
+        }
+      ],
+      "structuredContent": {
+        "result": {
+          "completion": {
+            "taskId": "a48a9ba7-be69-4985-a648-ed5d2ac5442f",
+            "revision": 5,
+            "completed": false,
+            "ready": false,
+            "policy": "v1-compile-editmode-human-review",
+            "verification": [
+              {
+                "schemaVersion": 1,
+                "id": "6921f9e4-234c-4f6f-bce3-ffc25321a33d",
+                "taskId": "a48a9ba7-be69-4985-a648-ed5d2ac5442f",
+                "kind": "compile",
+                "state": "stale",
+                "snapshotHash": "0199634fa81eb71c57a33c1dd275620fb2dc455a32abc34f2dadb64e02eafc6d",
+                "startedUtc": "2026-09-06T15:19:49.8595312Z",
+                "endedUtc": "2026-09-06T15:22:50.0965960Z",
+                "summary": "Editor/domain restarted before a terminal callback.",
+                "total": 0,
+                "passed": 0,
+                "failed": 0,
+                "skipped": 0
+              },
+              {
+                "schemaVersion": 1,
+                "id": "cf27a5fe-7f4e-4685-a520-bf306f0e9325",
+                "taskId": "a48a9ba7-be69-4985-a648-ed5d2ac5442f",
+                "kind": "editmode",
+                "state": "stale",
+                "snapshotHash": "99468604107a0a5384d198bf32e0445ac89de3adb7b4df8c5bdece4c65209e31",
+                "startedUtc": "2026-09-06T15:23:10.7182292Z",
+                "endedUtc": "2026-09-06T15:24:12.7283647Z",
+                "summary": "Editor/domain restarted before a terminal callback.",
+                "total": 0,
+                "passed": 0,
+                "failed": 0,
+                "skipped": 0
+              },
+              {
+                "schemaVersion": 1,
+                "id": "5599ab37-3a78-4795-8e21-565f426f1479",
+                "taskId": "a48a9ba7-be69-4985-a648-ed5d2ac5442f",
+                "kind": "compile",
+                "state": "failed",
+                "snapshotHash": "c8045f15b622e3a3b5dc74900336eff79fc0ccb9c5499f5d983c0bed4109d707",
+                "startedUtc": "2026-09-06T15:24:45.9092658Z",
+                "endedUtc": "2026-09-06T15:25:17.8729612Z",
+                "summary": "Unity compilation callbacks; assemblies=0, errors=0",
+                "total": 0,
+                "passed": 0,
+                "failed": 0,
+                "skipped": 0
+              },
+              {
+                "schemaVersion": 1,
+                "id": "09f72cf2-083a-4c5d-9d33-7ed4000a7c21",
+                "taskId": "a48a9ba7-be69-4985-a648-ed5d2ac5442f",
+                "kind": "editmode",
+                "state": "passed",
+                "snapshotHash": "c8045f15b622e3a3b5dc74900336eff79fc0ccb9c5499f5d983c0bed4109d707",
+                "startedUtc": "2026-09-06T15:25:50.7953265Z",
+                "endedUtc": "2026-09-06T15:25:53.5591068Z",
+                "summary": "All discovered EditMode tests. Passed; ",
+                "total": 9,
+                "passed": 9,
+                "failed": 0,
+                "skipped": 0
+              },
+              {
+                "schemaVersion": 1,
+                "id": "b3a4877d-e0ec-4b81-819d-5d958ae0a6ae",
+                "taskId": "a48a9ba7-be69-4985-a648-ed5d2ac5442f",
+                "kind": "compile",
+                "state": "passed",
+                "snapshotHash": "fd237d82feddb1ac3c0213d7b21a87286ea60c9f76d33944f088931df40a7926",
+                "startedUtc": "2026-09-06T15:27:11.5394192Z",
+                "endedUtc": "2026-09-06T15:27:44.4262534Z",
+                "summary": "Unity compilation callbacks; compiled=0, up-to-date=74, errors=0",
+                "total": 74,
+                "passed": 74,
+                "failed": 0,
+                "skipped": 0
+              },
+              {
+                "schemaVersion": 1,
+                "id": "8b168b76-b4de-40c7-a7b5-82bfb1dbf1d7",
+                "taskId": "a48a9ba7-be69-4985-a648-ed5d2ac5442f",
+                "kind": "editmode",
+                "state": "passed",
+                "snapshotHash": "fd237d82feddb1ac3c0213d7b21a87286ea60c9f76d33944f088931df40a7926",
+                "startedUtc": "2026-09-06T15:28:01.9383487Z",
+                "endedUtc": "2026-09-06T15:28:09.0956533Z",
+                "summary": "All discovered EditMode tests. Passed; ",
+                "total": 9,
+                "passed": 9,
+                "failed": 0,
+                "skipped": 0
+              }
+            ],
+            "activityId": "",
+            "documents": [
+              {
+                "documentId": "document:10000000000000000000000000000002",
+                "state": "unreviewed",
+                "snapshotHash": "4b5b04abcc9df56ce0a5b07e771023740d2a3e5aa88e3395af86adde8234a132",
+                "codePaths": [
+                  "Assets/Scripts/Gameplay/DemoPlayerInput.cs"
+                ]
+              },
+              {
+                "documentId": "document:10000000000000000000000000000003",
+                "state": "unreviewed",
+                "snapshotHash": "f04a4952032dfc7ffcda46c4f80eea7a21430d45dea712f795fe08cb799dd069",
+                "codePaths": [
+                  "Assets/Scripts/Gameplay/DemoPlayerMovement.cs"
+                ]
+              }
+            ],
+            "reasons": [
+              {
+                "code": "outside-allowed",
+                "target": "Assets/Scenes/SampleScene.unity",
+                "nextAction": "허용 범위 밖 변경을 별도로 검토하세요. 자동 승인하지 않습니다."
+              },
+              {
+                "code": "unmapped-change",
+                "target": "Assets/Scenes/SampleScene.unity",
+                "nextAction": "이 변경의 문서·검증 범위를 명시적으로 연결해야 합니다."
+              },
+              {
+                "code": "outside-allowed",
+                "target": "Packages/com.projectbrain.editor/Editor/BrainCompletionChecks.cs",
+                "nextAction": "허용 범위 밖 변경을 별도로 검토하세요. 자동 승인하지 않습니다."
+              },
+              {
+                "code": "unmapped-change",
+                "target": "Packages/com.projectbrain.editor/Editor/BrainCompletionChecks.cs",
+                "nextAction": "이 변경의 문서·검증 범위를 명시적으로 연결해야 합니다."
+              },
+              {
+                "code": "outside-allowed",
+                "target": "Packages/com.projectbrain.editor/Editor/BrainCompletionChecks.cs.meta",
+                "nextAction": "허용 범위 밖 변경을 별도로 검토하세요. 자동 승인하지 않습니다."
+              },
+              {
+                "code": "unmapped-change",
+                "target": "Packages/com.projectbrain.editor/Editor/BrainCompletionChecks.cs.meta",
+                "nextAction": "이 변경의 문서·검증 범위를 명시적으로 연결해야 합니다."
+              },
+              {
+                "code": "outside-allowed",
+                "target": "Packages/com.projectbrain.editor/Editor/BrainCompletionService.cs",
+                "nextAction": "허용 범위 밖 변경을 별도로 검토하세요. 자동 승인하지 않습니다."
+              },
+              {
+                "code": "unmapped-change",
+                "target": "Packages/com.projectbrain.editor/Editor/BrainCompletionService.cs",
+                "nextAction": "이 변경의 문서·검증 범위를 명시적으로 연결해야 합니다."
+              },
+              {
+                "code": "outside-allowed",
+                "target": "Packages/com.projectbrain.editor/Editor/BrainCompletionService.cs.meta",
+                "nextAction": "허용 범위 밖 변경을 별도로 검토하세요. 자동 승인하지 않습니다."
+              },
+              {
+                "code": "unmapped-change",
+                "target": "Packages/com.projectbrain.editor/Editor/BrainCompletionService.cs.meta",
+                "nextAction": "이 변경의 문서·검증 범위를 명시적으로 연결해야 합니다."
+              },
+              {
+                "code": "outside-allowed",
+                "target": "Packages/com.projectbrain.editor/Editor/BrainContextService.cs",
+                "nextAction": "허용 범위 밖 변경을 별도로 검토하세요. 자동 승인하지 않습니다."
+              },
+              {
+                "code": "unmapped-change",
+                "target": "Packages/com.projectbrain.editor/Editor/BrainContextService.cs",
+                "nextAction": "이 변경의 문서·검증 범위를 명시적으로 연결해야 합니다."
+              },
+              {
+                "code": "outside-allowed",
+                "target": "Packages/com.projectbrain.editor/Editor/BrainExplorerWindow.cs",
+                "nextAction": "허용 범위 밖 변경을 별도로 검토하세요. 자동 승인하지 않습니다."
+              },
+              {
+                "code": "unmapped-change",
+                "target": "Packages/com.projectbrain.editor/Editor/BrainExplorerWindow.cs",
+                "nextAction": "이 변경의 문서·검증 범위를 명시적으로 연결해야 합니다."
+              },
+              {
+                "code": "outside-allowed",
+                "target": "Packages/com.projectbrain.editor/Editor/BrainFreshnessService.cs",
+                "nextAction": "허용 범위 밖 변경을 별도로 검토하세요. 자동 승인하지 않습니다."
+              },
+              {
+                "code": "unmapped-change",
+                "target": "Packages/com.projectbrain.editor/Editor/BrainFreshnessService.cs",
+                "nextAction": "이 변경의 문서·검증 범위를 명시적으로 연결해야 합니다."
+              },
+              {
+                "code": "outside-allowed",
+                "target": "Packages/com.projectbrain.editor/Editor/BrainTaskView.cs",
+                "nextAction": "허용 범위 밖 변경을 별도로 검토하세요. 자동 승인하지 않습니다."
+              },
+              {
+                "code": "unmapped-change",
+                "target": "Packages/com.projectbrain.editor/Editor/BrainTaskView.cs",
+                "nextAction": "이 변경의 문서·검증 범위를 명시적으로 연결해야 합니다."
+              },
+              {
+                "code": "outside-allowed",
+                "target": "Packages/com.projectbrain.editor/Editor/BrainTools.cs",
+                "nextAction": "허용 범위 밖 변경을 별도로 검토하세요. 자동 승인하지 않습니다."
+              },
+              {
+                "code": "unmapped-change",
+                "target": "Packages/com.projectbrain.editor/Editor/BrainTools.cs",
+                "nextAction": "이 변경의 문서·검증 범위를 명시적으로 연결해야 합니다."
+              },
+              {
+                "code": "outside-allowed",
+                "target": "Packages/com.projectbrain.editor/Editor/BrainVerification.cs",
+                "nextAction": "허용 범위 밖 변경을 별도로 검토하세요. 자동 승인하지 않습니다."
+              },
+              {
+                "code": "unmapped-change",
+                "target": "Packages/com.projectbrain.editor/Editor/BrainVerification.cs",
+                "nextAction": "이 변경의 문서·검증 범위를 명시적으로 연결해야 합니다."
+              },
+              {
+                "code": "outside-allowed",
+                "target": "Packages/com.projectbrain.editor/Editor/BrainVerification.cs.meta",
+                "nextAction": "허용 범위 밖 변경을 별도로 검토하세요. 자동 승인하지 않습니다."
+              },
+              {
+                "code": "unmapped-change",
+                "target": "Packages/com.projectbrain.editor/Editor/BrainVerification.cs.meta",
+                "nextAction": "이 변경의 문서·검증 범위를 명시적으로 연결해야 합니다."
+              },
+              {
+                "code": "outside-allowed",
+                "target": "Packages/com.projectbrain.editor/Editor/BrainWorkflowChecks.cs",
+                "nextAction": "허용 범위 밖 변경을 별도로 검토하세요. 자동 승인하지 않습니다."
+              },
+              {
+                "code": "unmapped-change",
+                "target": "Packages/com.projectbrain.editor/Editor/BrainWorkflowChecks.cs",
+                "nextAction": "이 변경의 문서·검증 범위를 명시적으로 연결해야 합니다."
+              },
+              {
+                "code": "outside-allowed",
+                "target": "Packages/com.projectbrain.editor/Editor/ProjectBrain.Editor.asmdef",
+                "nextAction": "허용 범위 밖 변경을 별도로 검토하세요. 자동 승인하지 않습니다."
+              },
+              {
+                "code": "unmapped-change",
+                "target": "Packages/com.projectbrain.editor/Editor/ProjectBrain.Editor.asmdef",
+                "nextAction": "이 변경의 문서·검증 범위를 명시적으로 연결해야 합니다."
+              },
+              {
+                "code": "outside-allowed",
+                "target": "ProjectSettings/SceneTemplateSettings.json",
+                "nextAction": "허용 범위 밖 변경을 별도로 검토하세요. 자동 승인하지 않습니다."
+              },
+              {
+                "code": "unmapped-change",
+                "target": "ProjectSettings/SceneTemplateSettings.json",
+                "nextAction": "이 변경의 문서·검증 범위를 명시적으로 연결해야 합니다."
+              },
+              {
+                "code": "document-unreviewed",
+                "target": "document:10000000000000000000000000000002",
+                "nextAction": "Explorer에서 현재 문서와 연결 코드를 읽고 사람이 확인하세요."
+              },
+              {
+                "code": "document-unreviewed",
+                "target": "document:10000000000000000000000000000003",
+                "nextAction": "Explorer에서 현재 문서와 연결 코드를 읽고 사람이 확인하세요."
+              }
+            ]
+          },
+          "task": {
+            "id": "a48a9ba7-be69-4985-a648-ed5d2ac5442f",
+            "revision": 5,
+            "purpose": "Player 이동 코드의 작업 재개와 맥락·최신성 시연",
+            "targetNodeIds": [
+              "feature:player/movement"
+            ],
+            "progress": "A2/W1/M2a와 W2/M1 문서 확인·완료 거절의 최소 흐름을 구현·검증했다.",
+            "decisions": "사람 확인은 UI 별도 기록이며 AI basis와 구분한다. 시작 기준선과 기존 freshness는 유지한다. V1 없이는 완료하지 않는다.",
+            "unresolved": "A3/V1 실제 검증 결과 연결·완료 성공, WF-B 연동은 남아 있다. 현재 문서 2개는 사람이 확인하지 않았고 허용 밖 변경도 남는다.",
+            "nextAction": "서류·PPT 마감 준비도를 먼저 확인한다. 개발상 다음은 A3/V1이다.",
+            "references": [
+              "feature:player/movement",
+              "document:10000000000000000000000000000003"
+            ],
+            "allowedPaths": [
+              "Assets/Scripts/Gameplay/DemoPlayerMovement.cs"
+            ],
+            "baselineReference": ".projectbrain/tasks/active.json#baseline",
+            "baselineHash": "cba3ad3a33b00ac627f9a3823aae5a8f6f16c419911f8ce3b1a9a109ffac6dd9",
+            "baselineFileCount": 240,
+            "gitStateAtBegin": "not-queried; baseline includes pre-existing working files",
+            "createdUtc": "2026-09-06T08:18:14.4162169Z",
+            "updatedUtc": "2026-09-06T15:13:59.9039963Z"
+          },
+          "resumed": true,
+          "changes": [
+            {
+              "path": "Assets/Scenes/SampleScene.unity",
+              "kind": "modified",
+              "allowed": false
+            },
+            {
+              "path": "Assets/Scripts/Gameplay/DemoPlayerMovement.cs",
+              "kind": "modified",
+              "allowed": true
+            },
+            {
+              "path": "Packages/com.projectbrain.editor/Editor/BrainCompletionChecks.cs",
+              "kind": "added",
+              "allowed": false
+            },
+            {
+              "path": "Packages/com.projectbrain.editor/Editor/BrainCompletionChecks.cs.meta",
+              "kind": "added",
+              "allowed": false
+            },
+            {
+              "path": "Packages/com.projectbrain.editor/Editor/BrainCompletionService.cs",
+              "kind": "added",
+              "allowed": false
+            },
+            {
+              "path": "Packages/com.projectbrain.editor/Editor/BrainCompletionService.cs.meta",
+              "kind": "added",
+              "allowed": false
+            },
+            {
+              "path": "Packages/com.projectbrain.editor/Editor/BrainContextService.cs",
+              "kind": "modified",
+              "allowed": false
+            },
+            {
+              "path": "Packages/com.projectbrain.editor/Editor/BrainExplorerWindow.cs",
+              "kind": "modified",
+              "allowed": false
+            },
+            {
+              "path": "Packages/com.projectbrain.editor/Editor/BrainFreshnessService.cs",
+              "kind": "modified",
+              "allowed": false
+            },
+            {
+              "path": "Packages/com.projectbrain.editor/Editor/BrainTaskView.cs",
+              "kind": "modified",
+              "allowed": false
+            },
+            {
+              "path": "Packages/com.projectbrain.editor/Editor/BrainTools.cs",
+              "kind": "modified",
+              "allowed": false
+            },
+            {
+              "path": "Packages/com.projectbrain.editor/Editor/BrainVerification.cs",
+              "kind": "added",
+              "allowed": false
+            },
+            {
+              "path": "Packages/com.projectbrain.editor/Editor/BrainVerification.cs.meta",
+              "kind": "added",
+              "allowed": false
+            },
+            {
+              "path": "Packages/com.projectbrain.editor/Editor/BrainWorkflowChecks.cs",
+              "kind": "modified",
+              "allowed": false
+            },
+            {
+              "path": "Packages/com.projectbrain.editor/Editor/ProjectBrain.Editor.asmdef",
+              "kind": "modified",
+              "allowed": false
+            },
+            {
+              "path": "ProjectSettings/SceneTemplateSettings.json",
+              "kind": "added",
+              "allowed": false
+            }
+          ],
+          "coverageLimitations": []
+        }
+      },
+      "isError": false
+    },
+    "id": 1788708496393,
+    "jsonrpc": "2.0"
+  },
+  "complete": {
+    "result": {
+      "content": [
+        {
+          "type": "text",
+          "text": "{\"result\":{\"taskId\":\"a48a9ba7-be69-4985-a648-ed5d2ac5442f\",\"revision\":5,\"completed\":false,\"ready\":false,\"policy\":\"v1-compile-editmode-human-review\",\"verification\":[{\"schemaVersion\":1,\"id\":\"6921f9e4-234c-4f6f-bce3-ffc25321a33d\",\"taskId\":\"a48a9ba7-be69-4985-a648-ed5d2ac5442f\",\"kind\":\"compile\",\"state\":\"stale\",\"snapshotHash\":\"0199634fa81eb71c57a33c1dd275620fb2dc455a32abc34f2dadb64e02eafc6d\",\"startedUtc\":\"2026-09-06T15:19:49.8595312Z\",\"endedUtc\":\"2026-09-06T15:22:50.0965960Z\",\"summary\":\"Editor/domain restarted before a terminal callback.\",\"total\":0,\"passed\":0,\"failed\":0,\"skipped\":0},{\"schemaVersion\":1,\"id\":\"cf27a5fe-7f4e-4685-a520-bf306f0e9325\",\"taskId\":\"a48a9ba7-be69-4985-a648-ed5d2ac5442f\",\"kind\":\"editmode\",\"state\":\"stale\",\"snapshotHash\":\"99468604107a0a5384d198bf32e0445ac89de3adb7b4df8c5bdece4c65209e31\",\"startedUtc\":\"2026-09-06T15:23:10.7182292Z\",\"endedUtc\":\"2026-09-06T15:24:12.7283647Z\",\"summary\":\"Editor/domain restarted before a terminal callback.\",\"total\":0,\"passed\":0,\"failed\":0,\"skipped\":0},{\"schemaVersion\":1,\"id\":\"5599ab37-3a78-4795-8e21-565f426f1479\",\"taskId\":\"a48a9ba7-be69-4985-a648-ed5d2ac5442f\",\"kind\":\"compile\",\"state\":\"failed\",\"snapshotHash\":\"c8045f15b622e3a3b5dc74900336eff79fc0ccb9c5499f5d983c0bed4109d707\",\"startedUtc\":\"2026-09-06T15:24:45.9092658Z\",\"endedUtc\":\"2026-09-06T15:25:17.8729612Z\",\"summary\":\"Unity compilation callbacks; assemblies=0, errors=0\",\"total\":0,\"passed\":0,\"failed\":0,\"skipped\":0},{\"schemaVersion\":1,\"id\":\"09f72cf2-083a-4c5d-9d33-7ed4000a7c21\",\"taskId\":\"a48a9ba7-be69-4985-a648-ed5d2ac5442f\",\"kind\":\"editmode\",\"state\":\"passed\",\"snapshotHash\":\"c8045f15b622e3a3b5dc74900336eff79fc0ccb9c5499f5d983c0bed4109d707\",\"startedUtc\":\"2026-09-06T15:25:50.7953265Z\",\"endedUtc\":\"2026-09-06T15:25:53.5591068Z\",\"summary\":\"All discovered EditMode tests. Passed; \",\"total\":9,\"passed\":9,\"failed\":0,\"skipped\":0},{\"schemaVersion\":1,\"id\":\"b3a4877d-e0ec-4b81-819d-5d958ae0a6ae\",\"taskId\":\"a48a9ba7-be69-4985-a648-ed5d2ac5442f\",\"kind\":\"compile\",\"state\":\"passed\",\"snapshotHash\":\"fd237d82feddb1ac3c0213d7b21a87286ea60c9f76d33944f088931df40a7926\",\"startedUtc\":\"2026-09-06T15:27:11.5394192Z\",\"endedUtc\":\"2026-09-06T15:27:44.4262534Z\",\"summary\":\"Unity compilation callbacks; compiled=0, up-to-date=74, errors=0\",\"total\":74,\"passed\":74,\"failed\":0,\"skipped\":0},{\"schemaVersion\":1,\"id\":\"8b168b76-b4de-40c7-a7b5-82bfb1dbf1d7\",\"taskId\":\"a48a9ba7-be69-4985-a648-ed5d2ac5442f\",\"kind\":\"editmode\",\"state\":\"passed\",\"snapshotHash\":\"fd237d82feddb1ac3c0213d7b21a87286ea60c9f76d33944f088931df40a7926\",\"startedUtc\":\"2026-09-06T15:28:01.9383487Z\",\"endedUtc\":\"2026-09-06T15:28:09.0956533Z\",\"summary\":\"All discovered EditMode tests. Passed; \",\"total\":9,\"passed\":9,\"failed\":0,\"skipped\":0}],\"activityId\":\"\",\"documents\":[{\"documentId\":\"document:10000000000000000000000000000002\",\"state\":\"unreviewed\",\"snapshotHash\":\"4b5b04abcc9df56ce0a5b07e771023740d2a3e5aa88e3395af86adde8234a132\",\"codePaths\":[\"Assets/Scripts/Gameplay/DemoPlayerInput.cs\"]},{\"documentId\":\"document:10000000000000000000000000000003\",\"state\":\"unreviewed\",\"snapshotHash\":\"f04a4952032dfc7ffcda46c4f80eea7a21430d45dea712f795fe08cb799dd069\",\"codePaths\":[\"Assets/Scripts/Gameplay/DemoPlayerMovement.cs\"]}],\"reasons\":[{\"code\":\"outside-allowed\",\"target\":\"Assets/Scenes/SampleScene.unity\",\"nextAction\":\"\\uD5C8\\uC6A9 \\uBC94\\uC704 \\uBC16 \\uBCC0\\uACBD\\uC744 \\uBCC4\\uB3C4\\uB85C \\uAC80\\uD1A0\\uD558\\uC138\\uC694. \\uC790\\uB3D9 \\uC2B9\\uC778\\uD558\\uC9C0 \\uC54A\\uC2B5\\uB2C8\\uB2E4.\"},{\"code\":\"unmapped-change\",\"target\":\"Assets/Scenes/SampleScene.unity\",\"nextAction\":\"\\uC774 \\uBCC0\\uACBD\\uC758 \\uBB38\\uC11C\\u00B7\\uAC80\\uC99D \\uBC94\\uC704\\uB97C \\uBA85\\uC2DC\\uC801\\uC73C\\uB85C \\uC5F0\\uACB0\\uD574\\uC57C \\uD569\\uB2C8\\uB2E4.\"},{\"code\":\"outside-allowed\",\"target\":\"Packages/com.projectbrain.editor/Editor/BrainCompletionChecks.cs\",\"nextAction\":\"\\uD5C8\\uC6A9 \\uBC94\\uC704 \\uBC16 \\uBCC0\\uACBD\\uC744 \\uBCC4\\uB3C4\\uB85C \\uAC80\\uD1A0\\uD558\\uC138\\uC694. \\uC790\\uB3D9 \\uC2B9\\uC778\\uD558\\uC9C0 \\uC54A\\uC2B5\\uB2C8\\uB2E4.\"},{\"code\":\"unmapped-change\",\"target\":\"Packages/com.projectbrain.editor/Editor/BrainCompletionChecks.cs\",\"nextAction\":\"\\uC774 \\uBCC0\\uACBD\\uC758 \\uBB38\\uC11C\\u00B7\\uAC80\\uC99D \\uBC94\\uC704\\uB97C \\uBA85\\uC2DC\\uC801\\uC73C\\uB85C \\uC5F0\\uACB0\\uD574\\uC57C \\uD569\\uB2C8\\uB2E4.\"},{\"code\":\"outside-allowed\",\"target\":\"Packages/com.projectbrain.editor/Editor/BrainCompletionChecks.cs.meta\",\"nextAction\":\"\\uD5C8\\uC6A9 \\uBC94\\uC704 \\uBC16 \\uBCC0\\uACBD\\uC744 \\uBCC4\\uB3C4\\uB85C \\uAC80\\uD1A0\\uD558\\uC138\\uC694. \\uC790\\uB3D9 \\uC2B9\\uC778\\uD558\\uC9C0 \\uC54A\\uC2B5\\uB2C8\\uB2E4.\"},{\"code\":\"unmapped-change\",\"target\":\"Packages/com.projectbrain.editor/Editor/BrainCompletionChecks.cs.meta\",\"nextAction\":\"\\uC774 \\uBCC0\\uACBD\\uC758 \\uBB38\\uC11C\\u00B7\\uAC80\\uC99D \\uBC94\\uC704\\uB97C \\uBA85\\uC2DC\\uC801\\uC73C\\uB85C \\uC5F0\\uACB0\\uD574\\uC57C \\uD569\\uB2C8\\uB2E4.\"},{\"code\":\"outside-allowed\",\"target\":\"Packages/com.projectbrain.editor/Editor/BrainCompletionService.cs\",\"nextAction\":\"\\uD5C8\\uC6A9 \\uBC94\\uC704 \\uBC16 \\uBCC0\\uACBD\\uC744 \\uBCC4\\uB3C4\\uB85C \\uAC80\\uD1A0\\uD558\\uC138\\uC694. \\uC790\\uB3D9 \\uC2B9\\uC778\\uD558\\uC9C0 \\uC54A\\uC2B5\\uB2C8\\uB2E4.\"},{\"code\":\"unmapped-change\",\"target\":\"Packages/com.projectbrain.editor/Editor/BrainCompletionService.cs\",\"nextAction\":\"\\uC774 \\uBCC0\\uACBD\\uC758 \\uBB38\\uC11C\\u00B7\\uAC80\\uC99D \\uBC94\\uC704\\uB97C \\uBA85\\uC2DC\\uC801\\uC73C\\uB85C \\uC5F0\\uACB0\\uD574\\uC57C \\uD569\\uB2C8\\uB2E4.\"},{\"code\":\"outside-allowed\",\"target\":\"Packages/com.projectbrain.editor/Editor/BrainCompletionService.cs.meta\",\"nextAction\":\"\\uD5C8\\uC6A9 \\uBC94\\uC704 \\uBC16 \\uBCC0\\uACBD\\uC744 \\uBCC4\\uB3C4\\uB85C \\uAC80\\uD1A0\\uD558\\uC138\\uC694. \\uC790\\uB3D9 \\uC2B9\\uC778\\uD558\\uC9C0 \\uC54A\\uC2B5\\uB2C8\\uB2E4.\"},{\"code\":\"unmapped-change\",\"target\":\"Packages/com.projectbrain.editor/Editor/BrainCompletionService.cs.meta\",\"nextAction\":\"\\uC774 \\uBCC0\\uACBD\\uC758 \\uBB38\\uC11C\\u00B7\\uAC80\\uC99D \\uBC94\\uC704\\uB97C \\uBA85\\uC2DC\\uC801\\uC73C\\uB85C \\uC5F0\\uACB0\\uD574\\uC57C \\uD569\\uB2C8\\uB2E4.\"},{\"code\":\"outside-allowed\",\"target\":\"Packages/com.projectbrain.editor/Editor/BrainContextService.cs\",\"nextAction\":\"\\uD5C8\\uC6A9 \\uBC94\\uC704 \\uBC16 \\uBCC0\\uACBD\\uC744 \\uBCC4\\uB3C4\\uB85C \\uAC80\\uD1A0\\uD558\\uC138\\uC694. \\uC790\\uB3D9 \\uC2B9\\uC778\\uD558\\uC9C0 \\uC54A\\uC2B5\\uB2C8\\uB2E4.\"},{\"code\":\"unmapped-change\",\"target\":\"Packages/com.projectbrain.editor/Editor/BrainContextService.cs\",\"nextAction\":\"\\uC774 \\uBCC0\\uACBD\\uC758 \\uBB38\\uC11C\\u00B7\\uAC80\\uC99D \\uBC94\\uC704\\uB97C \\uBA85\\uC2DC\\uC801\\uC73C\\uB85C \\uC5F0\\uACB0\\uD574\\uC57C \\uD569\\uB2C8\\uB2E4.\"},{\"code\":\"outside-allowed\",\"target\":\"Packages/com.projectbrain.editor/Editor/BrainExplorerWindow.cs\",\"nextAction\":\"\\uD5C8\\uC6A9 \\uBC94\\uC704 \\uBC16 \\uBCC0\\uACBD\\uC744 \\uBCC4\\uB3C4\\uB85C \\uAC80\\uD1A0\\uD558\\uC138\\uC694. \\uC790\\uB3D9 \\uC2B9\\uC778\\uD558\\uC9C0 \\uC54A\\uC2B5\\uB2C8\\uB2E4.\"},{\"code\":\"unmapped-change\",\"target\":\"Packages/com.projectbrain.editor/Editor/BrainExplorerWindow.cs\",\"nextAction\":\"\\uC774 \\uBCC0\\uACBD\\uC758 \\uBB38\\uC11C\\u00B7\\uAC80\\uC99D \\uBC94\\uC704\\uB97C \\uBA85\\uC2DC\\uC801\\uC73C\\uB85C \\uC5F0\\uACB0\\uD574\\uC57C \\uD569\\uB2C8\\uB2E4.\"},{\"code\":\"outside-allowed\",\"target\":\"Packages/com.projectbrain.editor/Editor/BrainFreshnessService.cs\",\"nextAction\":\"\\uD5C8\\uC6A9 \\uBC94\\uC704 \\uBC16 \\uBCC0\\uACBD\\uC744 \\uBCC4\\uB3C4\\uB85C \\uAC80\\uD1A0\\uD558\\uC138\\uC694. \\uC790\\uB3D9 \\uC2B9\\uC778\\uD558\\uC9C0 \\uC54A\\uC2B5\\uB2C8\\uB2E4.\"},{\"code\":\"unmapped-change\",\"target\":\"Packages/com.projectbrain.editor/Editor/BrainFreshnessService.cs\",\"nextAction\":\"\\uC774 \\uBCC0\\uACBD\\uC758 \\uBB38\\uC11C\\u00B7\\uAC80\\uC99D \\uBC94\\uC704\\uB97C \\uBA85\\uC2DC\\uC801\\uC73C\\uB85C \\uC5F0\\uACB0\\uD574\\uC57C \\uD569\\uB2C8\\uB2E4.\"},{\"code\":\"outside-allowed\",\"target\":\"Packages/com.projectbrain.editor/Editor/BrainTaskView.cs\",\"nextAction\":\"\\uD5C8\\uC6A9 \\uBC94\\uC704 \\uBC16 \\uBCC0\\uACBD\\uC744 \\uBCC4\\uB3C4\\uB85C \\uAC80\\uD1A0\\uD558\\uC138\\uC694. \\uC790\\uB3D9 \\uC2B9\\uC778\\uD558\\uC9C0 \\uC54A\\uC2B5\\uB2C8\\uB2E4.\"},{\"code\":\"unmapped-change\",\"target\":\"Packages/com.projectbrain.editor/Editor/BrainTaskView.cs\",\"nextAction\":\"\\uC774 \\uBCC0\\uACBD\\uC758 \\uBB38\\uC11C\\u00B7\\uAC80\\uC99D \\uBC94\\uC704\\uB97C \\uBA85\\uC2DC\\uC801\\uC73C\\uB85C \\uC5F0\\uACB0\\uD574\\uC57C \\uD569\\uB2C8\\uB2E4.\"},{\"code\":\"outside-allowed\",\"target\":\"Packages/com.projectbrain.editor/Editor/BrainTools.cs\",\"nextAction\":\"\\uD5C8\\uC6A9 \\uBC94\\uC704 \\uBC16 \\uBCC0\\uACBD\\uC744 \\uBCC4\\uB3C4\\uB85C \\uAC80\\uD1A0\\uD558\\uC138\\uC694. \\uC790\\uB3D9 \\uC2B9\\uC778\\uD558\\uC9C0 \\uC54A\\uC2B5\\uB2C8\\uB2E4.\"},{\"code\":\"unmapped-change\",\"target\":\"Packages/com.projectbrain.editor/Editor/BrainTools.cs\",\"nextAction\":\"\\uC774 \\uBCC0\\uACBD\\uC758 \\uBB38\\uC11C\\u00B7\\uAC80\\uC99D \\uBC94\\uC704\\uB97C \\uBA85\\uC2DC\\uC801\\uC73C\\uB85C \\uC5F0\\uACB0\\uD574\\uC57C \\uD569\\uB2C8\\uB2E4.\"},{\"code\":\"outside-allowed\",\"target\":\"Packages/com.projectbrain.editor/Editor/BrainVerification.cs\",\"nextAction\":\"\\uD5C8\\uC6A9 \\uBC94\\uC704 \\uBC16 \\uBCC0\\uACBD\\uC744 \\uBCC4\\uB3C4\\uB85C \\uAC80\\uD1A0\\uD558\\uC138\\uC694. \\uC790\\uB3D9 \\uC2B9\\uC778\\uD558\\uC9C0 \\uC54A\\uC2B5\\uB2C8\\uB2E4.\"},{\"code\":\"unmapped-change\",\"target\":\"Packages/com.projectbrain.editor/Editor/BrainVerification.cs\",\"nextAction\":\"\\uC774 \\uBCC0\\uACBD\\uC758 \\uBB38\\uC11C\\u00B7\\uAC80\\uC99D \\uBC94\\uC704\\uB97C \\uBA85\\uC2DC\\uC801\\uC73C\\uB85C \\uC5F0\\uACB0\\uD574\\uC57C \\uD569\\uB2C8\\uB2E4.\"},{\"code\":\"outside-allowed\",\"target\":\"Packages/com.projectbrain.editor/Editor/BrainVerification.cs.meta\",\"nextAction\":\"\\uD5C8\\uC6A9 \\uBC94\\uC704 \\uBC16 \\uBCC0\\uACBD\\uC744 \\uBCC4\\uB3C4\\uB85C \\uAC80\\uD1A0\\uD558\\uC138\\uC694. \\uC790\\uB3D9 \\uC2B9\\uC778\\uD558\\uC9C0 \\uC54A\\uC2B5\\uB2C8\\uB2E4.\"},{\"code\":\"unmapped-change\",\"target\":\"Packages/com.projectbrain.editor/Editor/BrainVerification.cs.meta\",\"nextAction\":\"\\uC774 \\uBCC0\\uACBD\\uC758 \\uBB38\\uC11C\\u00B7\\uAC80\\uC99D \\uBC94\\uC704\\uB97C \\uBA85\\uC2DC\\uC801\\uC73C\\uB85C \\uC5F0\\uACB0\\uD574\\uC57C \\uD569\\uB2C8\\uB2E4.\"},{\"code\":\"outside-allowed\",\"target\":\"Packages/com.projectbrain.editor/Editor/BrainWorkflowChecks.cs\",\"nextAction\":\"\\uD5C8\\uC6A9 \\uBC94\\uC704 \\uBC16 \\uBCC0\\uACBD\\uC744 \\uBCC4\\uB3C4\\uB85C \\uAC80\\uD1A0\\uD558\\uC138\\uC694. \\uC790\\uB3D9 \\uC2B9\\uC778\\uD558\\uC9C0 \\uC54A\\uC2B5\\uB2C8\\uB2E4.\"},{\"code\":\"unmapped-change\",\"target\":\"Packages/com.projectbrain.editor/Editor/BrainWorkflowChecks.cs\",\"nextAction\":\"\\uC774 \\uBCC0\\uACBD\\uC758 \\uBB38\\uC11C\\u00B7\\uAC80\\uC99D \\uBC94\\uC704\\uB97C \\uBA85\\uC2DC\\uC801\\uC73C\\uB85C \\uC5F0\\uACB0\\uD574\\uC57C \\uD569\\uB2C8\\uB2E4.\"},{\"code\":\"outside-allowed\",\"target\":\"Packages/com.projectbrain.editor/Editor/ProjectBrain.Editor.asmdef\",\"nextAction\":\"\\uD5C8\\uC6A9 \\uBC94\\uC704 \\uBC16 \\uBCC0\\uACBD\\uC744 \\uBCC4\\uB3C4\\uB85C \\uAC80\\uD1A0\\uD558\\uC138\\uC694. \\uC790\\uB3D9 \\uC2B9\\uC778\\uD558\\uC9C0 \\uC54A\\uC2B5\\uB2C8\\uB2E4.\"},{\"code\":\"unmapped-change\",\"target\":\"Packages/com.projectbrain.editor/Editor/ProjectBrain.Editor.asmdef\",\"nextAction\":\"\\uC774 \\uBCC0\\uACBD\\uC758 \\uBB38\\uC11C\\u00B7\\uAC80\\uC99D \\uBC94\\uC704\\uB97C \\uBA85\\uC2DC\\uC801\\uC73C\\uB85C \\uC5F0\\uACB0\\uD574\\uC57C \\uD569\\uB2C8\\uB2E4.\"},{\"code\":\"outside-allowed\",\"target\":\"ProjectSettings/SceneTemplateSettings.json\",\"nextAction\":\"\\uD5C8\\uC6A9 \\uBC94\\uC704 \\uBC16 \\uBCC0\\uACBD\\uC744 \\uBCC4\\uB3C4\\uB85C \\uAC80\\uD1A0\\uD558\\uC138\\uC694. \\uC790\\uB3D9 \\uC2B9\\uC778\\uD558\\uC9C0 \\uC54A\\uC2B5\\uB2C8\\uB2E4.\"},{\"code\":\"unmapped-change\",\"target\":\"ProjectSettings/SceneTemplateSettings.json\",\"nextAction\":\"\\uC774 \\uBCC0\\uACBD\\uC758 \\uBB38\\uC11C\\u00B7\\uAC80\\uC99D \\uBC94\\uC704\\uB97C \\uBA85\\uC2DC\\uC801\\uC73C\\uB85C \\uC5F0\\uACB0\\uD574\\uC57C \\uD569\\uB2C8\\uB2E4.\"},{\"code\":\"document-unreviewed\",\"target\":\"document:10000000000000000000000000000002\",\"nextAction\":\"Explorer\\uC5D0\\uC11C \\uD604\\uC7AC \\uBB38\\uC11C\\uC640 \\uC5F0\\uACB0 \\uCF54\\uB4DC\\uB97C \\uC77D\\uACE0 \\uC0AC\\uB78C\\uC774 \\uD655\\uC778\\uD558\\uC138\\uC694.\"},{\"code\":\"document-unreviewed\",\"target\":\"document:10000000000000000000000000000003\",\"nextAction\":\"Explorer\\uC5D0\\uC11C \\uD604\\uC7AC \\uBB38\\uC11C\\uC640 \\uC5F0\\uACB0 \\uCF54\\uB4DC\\uB97C \\uC77D\\uACE0 \\uC0AC\\uB78C\\uC774 \\uD655\\uC778\\uD558\\uC138\\uC694.\"}]}}"
+        }
+      ],
+      "structuredContent": {
+        "result": {
+          "taskId": "a48a9ba7-be69-4985-a648-ed5d2ac5442f",
+          "revision": 5,
+          "completed": false,
+          "ready": false,
+          "policy": "v1-compile-editmode-human-review",
+          "verification": [
+            {
+              "schemaVersion": 1,
+              "id": "6921f9e4-234c-4f6f-bce3-ffc25321a33d",
+              "taskId": "a48a9ba7-be69-4985-a648-ed5d2ac5442f",
+              "kind": "compile",
+              "state": "stale",
+              "snapshotHash": "0199634fa81eb71c57a33c1dd275620fb2dc455a32abc34f2dadb64e02eafc6d",
+              "startedUtc": "2026-09-06T15:19:49.8595312Z",
+              "endedUtc": "2026-09-06T15:22:50.0965960Z",
+              "summary": "Editor/domain restarted before a terminal callback.",
+              "total": 0,
+              "passed": 0,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "schemaVersion": 1,
+              "id": "cf27a5fe-7f4e-4685-a520-bf306f0e9325",
+              "taskId": "a48a9ba7-be69-4985-a648-ed5d2ac5442f",
+              "kind": "editmode",
+              "state": "stale",
+              "snapshotHash": "99468604107a0a5384d198bf32e0445ac89de3adb7b4df8c5bdece4c65209e31",
+              "startedUtc": "2026-09-06T15:23:10.7182292Z",
+              "endedUtc": "2026-09-06T15:24:12.7283647Z",
+              "summary": "Editor/domain restarted before a terminal callback.",
+              "total": 0,
+              "passed": 0,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "schemaVersion": 1,
+              "id": "5599ab37-3a78-4795-8e21-565f426f1479",
+              "taskId": "a48a9ba7-be69-4985-a648-ed5d2ac5442f",
+              "kind": "compile",
+              "state": "failed",
+              "snapshotHash": "c8045f15b622e3a3b5dc74900336eff79fc0ccb9c5499f5d983c0bed4109d707",
+              "startedUtc": "2026-09-06T15:24:45.9092658Z",
+              "endedUtc": "2026-09-06T15:25:17.8729612Z",
+              "summary": "Unity compilation callbacks; assemblies=0, errors=0",
+              "total": 0,
+              "passed": 0,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "schemaVersion": 1,
+              "id": "09f72cf2-083a-4c5d-9d33-7ed4000a7c21",
+              "taskId": "a48a9ba7-be69-4985-a648-ed5d2ac5442f",
+              "kind": "editmode",
+              "state": "passed",
+              "snapshotHash": "c8045f15b622e3a3b5dc74900336eff79fc0ccb9c5499f5d983c0bed4109d707",
+              "startedUtc": "2026-09-06T15:25:50.7953265Z",
+              "endedUtc": "2026-09-06T15:25:53.5591068Z",
+              "summary": "All discovered EditMode tests. Passed; ",
+              "total": 9,
+              "passed": 9,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "schemaVersion": 1,
+              "id": "b3a4877d-e0ec-4b81-819d-5d958ae0a6ae",
+              "taskId": "a48a9ba7-be69-4985-a648-ed5d2ac5442f",
+              "kind": "compile",
+              "state": "passed",
+              "snapshotHash": "fd237d82feddb1ac3c0213d7b21a87286ea60c9f76d33944f088931df40a7926",
+              "startedUtc": "2026-09-06T15:27:11.5394192Z",
+              "endedUtc": "2026-09-06T15:27:44.4262534Z",
+              "summary": "Unity compilation callbacks; compiled=0, up-to-date=74, errors=0",
+              "total": 74,
+              "passed": 74,
+              "failed": 0,
+              "skipped": 0
+            },
+            {
+              "schemaVersion": 1,
+              "id": "8b168b76-b4de-40c7-a7b5-82bfb1dbf1d7",
+              "taskId": "a48a9ba7-be69-4985-a648-ed5d2ac5442f",
+              "kind": "editmode",
+              "state": "passed",
+              "snapshotHash": "fd237d82feddb1ac3c0213d7b21a87286ea60c9f76d33944f088931df40a7926",
+              "startedUtc": "2026-09-06T15:28:01.9383487Z",
+              "endedUtc": "2026-09-06T15:28:09.0956533Z",
+              "summary": "All discovered EditMode tests. Passed; ",
+              "total": 9,
+              "passed": 9,
+              "failed": 0,
+              "skipped": 0
+            }
+          ],
+          "activityId": "",
+          "documents": [
+            {
+              "documentId": "document:10000000000000000000000000000002",
+              "state": "unreviewed",
+              "snapshotHash": "4b5b04abcc9df56ce0a5b07e771023740d2a3e5aa88e3395af86adde8234a132",
+              "codePaths": [
+                "Assets/Scripts/Gameplay/DemoPlayerInput.cs"
+              ]
+            },
+            {
+              "documentId": "document:10000000000000000000000000000003",
+              "state": "unreviewed",
+              "snapshotHash": "f04a4952032dfc7ffcda46c4f80eea7a21430d45dea712f795fe08cb799dd069",
+              "codePaths": [
+                "Assets/Scripts/Gameplay/DemoPlayerMovement.cs"
+              ]
+            }
+          ],
+          "reasons": [
+            {
+              "code": "outside-allowed",
+              "target": "Assets/Scenes/SampleScene.unity",
+              "nextAction": "허용 범위 밖 변경을 별도로 검토하세요. 자동 승인하지 않습니다."
+            },
+            {
+              "code": "unmapped-change",
+              "target": "Assets/Scenes/SampleScene.unity",
+              "nextAction": "이 변경의 문서·검증 범위를 명시적으로 연결해야 합니다."
+            },
+            {
+              "code": "outside-allowed",
+              "target": "Packages/com.projectbrain.editor/Editor/BrainCompletionChecks.cs",
+              "nextAction": "허용 범위 밖 변경을 별도로 검토하세요. 자동 승인하지 않습니다."
+            },
+            {
+              "code": "unmapped-change",
+              "target": "Packages/com.projectbrain.editor/Editor/BrainCompletionChecks.cs",
+              "nextAction": "이 변경의 문서·검증 범위를 명시적으로 연결해야 합니다."
+            },
+            {
+              "code": "outside-allowed",
+              "target": "Packages/com.projectbrain.editor/Editor/BrainCompletionChecks.cs.meta",
+              "nextAction": "허용 범위 밖 변경을 별도로 검토하세요. 자동 승인하지 않습니다."
+            },
+            {
+              "code": "unmapped-change",
+              "target": "Packages/com.projectbrain.editor/Editor/BrainCompletionChecks.cs.meta",
+              "nextAction": "이 변경의 문서·검증 범위를 명시적으로 연결해야 합니다."
+            },
+            {
+              "code": "outside-allowed",
+              "target": "Packages/com.projectbrain.editor/Editor/BrainCompletionService.cs",
+              "nextAction": "허용 범위 밖 변경을 별도로 검토하세요. 자동 승인하지 않습니다."
+            },
+            {
+              "code": "unmapped-change",
+              "target": "Packages/com.projectbrain.editor/Editor/BrainCompletionService.cs",
+              "nextAction": "이 변경의 문서·검증 범위를 명시적으로 연결해야 합니다."
+            },
+            {
+              "code": "outside-allowed",
+              "target": "Packages/com.projectbrain.editor/Editor/BrainCompletionService.cs.meta",
+              "nextAction": "허용 범위 밖 변경을 별도로 검토하세요. 자동 승인하지 않습니다."
+            },
+            {
+              "code": "unmapped-change",
+              "target": "Packages/com.projectbrain.editor/Editor/BrainCompletionService.cs.meta",
+              "nextAction": "이 변경의 문서·검증 범위를 명시적으로 연결해야 합니다."
+            },
+            {
+              "code": "outside-allowed",
+              "target": "Packages/com.projectbrain.editor/Editor/BrainContextService.cs",
+              "nextAction": "허용 범위 밖 변경을 별도로 검토하세요. 자동 승인하지 않습니다."
+            },
+            {
+              "code": "unmapped-change",
+              "target": "Packages/com.projectbrain.editor/Editor/BrainContextService.cs",
+              "nextAction": "이 변경의 문서·검증 범위를 명시적으로 연결해야 합니다."
+            },
+            {
+              "code": "outside-allowed",
+              "target": "Packages/com.projectbrain.editor/Editor/BrainExplorerWindow.cs",
+              "nextAction": "허용 범위 밖 변경을 별도로 검토하세요. 자동 승인하지 않습니다."
+            },
+            {
+              "code": "unmapped-change",
+              "target": "Packages/com.projectbrain.editor/Editor/BrainExplorerWindow.cs",
+              "nextAction": "이 변경의 문서·검증 범위를 명시적으로 연결해야 합니다."
+            },
+            {
+              "code": "outside-allowed",
+              "target": "Packages/com.projectbrain.editor/Editor/BrainFreshnessService.cs",
+              "nextAction": "허용 범위 밖 변경을 별도로 검토하세요. 자동 승인하지 않습니다."
+            },
+            {
+              "code": "unmapped-change",
+              "target": "Packages/com.projectbrain.editor/Editor/BrainFreshnessService.cs",
+              "nextAction": "이 변경의 문서·검증 범위를 명시적으로 연결해야 합니다."
+            },
+            {
+              "code": "outside-allowed",
+              "target": "Packages/com.projectbrain.editor/Editor/BrainTaskView.cs",
+              "nextAction": "허용 범위 밖 변경을 별도로 검토하세요. 자동 승인하지 않습니다."
+            },
+            {
+              "code": "unmapped-change",
+              "target": "Packages/com.projectbrain.editor/Editor/BrainTaskView.cs",
+              "nextAction": "이 변경의 문서·검증 범위를 명시적으로 연결해야 합니다."
+            },
+            {
+              "code": "outside-allowed",
+              "target": "Packages/com.projectbrain.editor/Editor/BrainTools.cs",
+              "nextAction": "허용 범위 밖 변경을 별도로 검토하세요. 자동 승인하지 않습니다."
+            },
+            {
+              "code": "unmapped-change",
+              "target": "Packages/com.projectbrain.editor/Editor/BrainTools.cs",
+              "nextAction": "이 변경의 문서·검증 범위를 명시적으로 연결해야 합니다."
+            },
+            {
+              "code": "outside-allowed",
+              "target": "Packages/com.projectbrain.editor/Editor/BrainVerification.cs",
+              "nextAction": "허용 범위 밖 변경을 별도로 검토하세요. 자동 승인하지 않습니다."
+            },
+            {
+              "code": "unmapped-change",
+              "target": "Packages/com.projectbrain.editor/Editor/BrainVerification.cs",
+              "nextAction": "이 변경의 문서·검증 범위를 명시적으로 연결해야 합니다."
+            },
+            {
+              "code": "outside-allowed",
+              "target": "Packages/com.projectbrain.editor/Editor/BrainVerification.cs.meta",
+              "nextAction": "허용 범위 밖 변경을 별도로 검토하세요. 자동 승인하지 않습니다."
+            },
+            {
+              "code": "unmapped-change",
+              "target": "Packages/com.projectbrain.editor/Editor/BrainVerification.cs.meta",
+              "nextAction": "이 변경의 문서·검증 범위를 명시적으로 연결해야 합니다."
+            },
+            {
+              "code": "outside-allowed",
+              "target": "Packages/com.projectbrain.editor/Editor/BrainWorkflowChecks.cs",
+              "nextAction": "허용 범위 밖 변경을 별도로 검토하세요. 자동 승인하지 않습니다."
+            },
+            {
+              "code": "unmapped-change",
+              "target": "Packages/com.projectbrain.editor/Editor/BrainWorkflowChecks.cs",
+              "nextAction": "이 변경의 문서·검증 범위를 명시적으로 연결해야 합니다."
+            },
+            {
+              "code": "outside-allowed",
+              "target": "Packages/com.projectbrain.editor/Editor/ProjectBrain.Editor.asmdef",
+              "nextAction": "허용 범위 밖 변경을 별도로 검토하세요. 자동 승인하지 않습니다."
+            },
+            {
+              "code": "unmapped-change",
+              "target": "Packages/com.projectbrain.editor/Editor/ProjectBrain.Editor.asmdef",
+              "nextAction": "이 변경의 문서·검증 범위를 명시적으로 연결해야 합니다."
+            },
+            {
+              "code": "outside-allowed",
+              "target": "ProjectSettings/SceneTemplateSettings.json",
+              "nextAction": "허용 범위 밖 변경을 별도로 검토하세요. 자동 승인하지 않습니다."
+            },
+            {
+              "code": "unmapped-change",
+              "target": "ProjectSettings/SceneTemplateSettings.json",
+              "nextAction": "이 변경의 문서·검증 범위를 명시적으로 연결해야 합니다."
+            },
+            {
+              "code": "document-unreviewed",
+              "target": "document:10000000000000000000000000000002",
+              "nextAction": "Explorer에서 현재 문서와 연결 코드를 읽고 사람이 확인하세요."
+            },
+            {
+              "code": "document-unreviewed",
+              "target": "document:10000000000000000000000000000003",
+              "nextAction": "Explorer에서 현재 문서와 연결 코드를 읽고 사람이 확인하세요."
+            }
+          ]
+        }
+      },
+      "isError": false
+    },
+    "id": 1788708503190,
+    "jsonrpc": "2.0"
+  },
+  "notes": [
+    "Actual EditMode coverage is nine existing WorkflowDemo tests, not all Brain/Movement behavior.",
+    "Initial lost callbacks retained as non-passing records; SessionState/callback reattachment implemented.",
+    "Compile up-to-date callback is recorded separately from freshly compiled assembly count.",
+    "Production documents remain human-unreviewed; completion success checked only in isolated fixture.",
+    "Observed actual 00:23:17 File.Replace IOException in Finish; old run remained non-passing, later rerun persisted 9/9. Root cause of transient replacement failure unknown.",
+    "UI Evidence displayed editmode passed, current=True, total9/pass9/fail0/skip0 and back-link to Movement.",
+    "No production human review or complete Activity was fabricated."
+  ],
+  "summaryUpdate": {
+    "result": {
+      "content": [
+        {
+          "type": "text",
+          "text": "{\"result\":{\"id\":\"a48a9ba7-be69-4985-a648-ed5d2ac5442f\",\"revision\":6,\"purpose\":\"Player \\uC774\\uB3D9 \\uCF54\\uB4DC\\uC758 \\uC791\\uC5C5 \\uC7AC\\uAC1C\\uC640 \\uB9E5\\uB77D\\u00B7\\uCD5C\\uC2E0\\uC131 \\uC2DC\\uC5F0\",\"targetNodeIds\":[\"feature:player/movement\"],\"progress\":\"A3/V1 \\uCD5C\\uC18C \\uAC80\\uC99D \\uC5F0\\uACB0 \\uAD6C\\uD604: Unity \\uCEF4\\uD30C\\uC77C \\uC0C1\\uD0DC\\uC640 EditMode 9/9 \\uC2E4\\uC81C \\uACB0\\uACFC\\uB97C Evidence\\uB85C \\uC800\\uC7A5\\u00B7\\uC870\\uD68C\\uD588\\uB2E4.\",\"decisions\":\"\\uAC80\\uC99D\\uC740 \\uD604\\uC7AC \\uC2A4\\uB0C5\\uC0F7\\uC73C\\uB85C \\uAC80\\uC0AC\\uD55C\\uB2E4. compiled=0/up-to-date=74\\uB294 \\uC2E0\\uADDC \\uCEF4\\uD30C\\uC77C 74\\uAC1C\\uAC00 \\uC544\\uB2C8\\uB2E4. \\uC2E4\\uC81C \\uC0AC\\uB78C \\uD655\\uC778\\uC744 \\uB300\\uC2E0\\uD558\\uC9C0 \\uC54A\\uB294\\uB2E4.\",\"unresolved\":\"\\uBB38\\uC11C 2\\uAC1C \\uC0AC\\uB78C \\uBBF8\\uD655\\uC778\\uACFC \\uD5C8\\uC6A9 \\uBC16 \\uBCC0\\uACBD\\uC73C\\uB85C \\uC2E4\\uC81C \\uC791\\uC5C5 complete\\uB294 \\uAC70\\uC808\\uB41C\\uB2E4. \\uCD08\\uAE30 \\uC885\\uB8CC \\uC800\\uC7A5 IOException 1\\uD68C\\uB294 \\uC131\\uACF5 \\uADFC\\uAC70\\uC5D0\\uC11C \\uC81C\\uC678\\uD588\\uB2E4. WF-B \\uC804\\uCCB4 \\uC5F0\\uB3D9\\uACFC \\uB514\\uC790\\uC778 \\uC815\\uB9AC\\uAC00 \\uB0A8\\uB294\\uB2E4.\",\"nextAction\":\"\\uC11C\\uB958\\u00B7PPT \\uC900\\uBE44\\uB3C4 \\uD655\\uC778 \\uD6C4 \\uC2E4\\uC81C \\uBB38\\uC11C \\uD655\\uC778\\u00B7\\uD5C8\\uC6A9 \\uBC94\\uC704 \\uC815\\uB9AC \\uBC0F WF-B \\uC2DC\\uC5F0. \\uB514\\uC790\\uC778 \\uC544\\uD2B8\\uB294 \\uC9C1\\uC811 \\uC81C\\uC791\\uD55C\\uB2E4.\",\"references\":[\"feature:player/movement\",\"document:10000000000000000000000000000003\"],\"allowedPaths\":[\"Assets/Scripts/Gameplay/DemoPlayerMovement.cs\"],\"baselineReference\":\".projectbrain/tasks/active.json#baseline\",\"baselineHash\":\"cba3ad3a33b00ac627f9a3823aae5a8f6f16c419911f8ce3b1a9a109ffac6dd9\",\"baselineFileCount\":240,\"gitStateAtBegin\":\"not-queried; baseline includes pre-existing working files\",\"createdUtc\":\"2026-09-06T08:18:14.4162169Z\",\"updatedUtc\":\"2026-09-06T15:29:33.5360603Z\"}}"
+        }
+      ],
+      "structuredContent": {
+        "result": {
+          "id": "a48a9ba7-be69-4985-a648-ed5d2ac5442f",
+          "revision": 6,
+          "purpose": "Player 이동 코드의 작업 재개와 맥락·최신성 시연",
+          "targetNodeIds": [
+            "feature:player/movement"
+          ],
+          "progress": "A3/V1 최소 검증 연결 구현: Unity 컴파일 상태와 EditMode 9/9 실제 결과를 Evidence로 저장·조회했다.",
+          "decisions": "검증은 현재 스냅샷으로 검사한다. compiled=0/up-to-date=74는 신규 컴파일 74개가 아니다. 실제 사람 확인을 대신하지 않는다.",
+          "unresolved": "문서 2개 사람 미확인과 허용 밖 변경으로 실제 작업 complete는 거절된다. 초기 종료 저장 IOException 1회는 성공 근거에서 제외했다. WF-B 전체 연동과 디자인 정리가 남는다.",
+          "nextAction": "서류·PPT 준비도 확인 후 실제 문서 확인·허용 범위 정리 및 WF-B 시연. 디자인 아트는 직접 제작한다.",
+          "references": [
+            "feature:player/movement",
+            "document:10000000000000000000000000000003"
+          ],
+          "allowedPaths": [
+            "Assets/Scripts/Gameplay/DemoPlayerMovement.cs"
+          ],
+          "baselineReference": ".projectbrain/tasks/active.json#baseline",
+          "baselineHash": "cba3ad3a33b00ac627f9a3823aae5a8f6f16c419911f8ce3b1a9a109ffac6dd9",
+          "baselineFileCount": 240,
+          "gitStateAtBegin": "not-queried; baseline includes pre-existing working files",
+          "createdUtc": "2026-09-06T08:18:14.4162169Z",
+          "updatedUtc": "2026-09-06T15:29:33.5360603Z"
+        }
+      },
+      "isError": false
+    },
+    "id": 1788708573385,
+    "jsonrpc": "2.0"
+  }
+}

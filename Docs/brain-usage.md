@@ -59,3 +59,11 @@ Explorer에서 현재 본문과 연결 코드를 읽었다는 체크 후 사람 
 brain_status.completion은 고정 정책 판정을 포함한다. brain_complete(taskId, expectedRevision)는 현재 파일을 다시 검사하여 completed=false, documents, reasons(code/target/nextAction)를 반환한다. V1 미구현이므로 verification-unavailable은 항상 포함하고 작업/기준선/상태를 변경하지 않는다. begin 응답의 completion은 null이며 status에서 조회한다. 다중 파일 원자 스냅샷/동시 편집 보장은 없다. 실제 검증 성공·작업 교체·archive는 후속이다.
 
 실제 검증: begin 재개 → status의 문서 2개 unreviewed → complete 거절 → 오래된 revision 거절 → 원본 보존 확인 → 요약만 revision 4→5 갱신(기준선 유지). 상세: reviews/2026-09-07-completion-evidence.json.
+
+## A3/V1 현재 흐름 (9/7 추가)
+
+brain_verify(taskId, expectedRevision, kind=compile 또는 editmode) → 실행 ID 즉시 반환 → brain_status.completion.verification에서 terminal 상태 확인 → 다른 종류 실행 → status → brain_complete. UI의 compile/editmode 검증 실행 버튼도 같은 실행기를 사용한다. 결과 노드는 Feature/Code의 verified_by를 통해 탐색한다. 기존 진행 중 요청을 새 요청으로 덮어쓰지 않는다.
+
+ready는 현재 완료 조건 충족 여부, completed는 complete가 Activity를 실제 기록한 경우만 true다. 전체 EditMode의 발견된 9개 테스트는 WorkflowDemo 대시 테스트로, Movement/Brain 전체 기능을 검증했다는 뜻이 아니다. 실제 문서 사람 확인과 허용 밖 변경이 남아 실작업의 최종 완료는 아직 거절된다. 성공 분기는 격리 fixture로 검증한다.
+
+이 절과 architecture의 A3/V1 계약이 앞선 W2의 verification-unavailable/완료 성공 미지원 설명을 대체한다. PlayMode·Player 빌드·자동 작업 교체/아카이브는 미지원이다.

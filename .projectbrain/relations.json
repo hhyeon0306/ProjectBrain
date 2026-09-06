@@ -256,6 +256,38 @@
             "type": "implemented_by",
             "source": "manual-demo-mapping",
             "createdUtc": "2026-09-06T00:00:00Z"
+        },
+        {
+            "id": "relation:e86ca6493a686a5e32f723f42439319500b7f2c1512c2f66a265085c770752d1",
+            "from": "feature:player/movement",
+            "to": "evidence:6921f9e4-234c-4f6f-bce3-ffc25321a33d",
+            "type": "verified_by",
+            "source": "brain-unity-runner",
+            "createdUtc": "2026-09-06T15:22:50.0965960Z"
+        },
+        {
+            "id": "relation:05b75de9d49b309b05ff927dda38d7ba5092e5a19c68b83819ed061fbfedd44a",
+            "from": "feature:player/movement",
+            "to": "evidence:09f72cf2-083a-4c5d-9d33-7ed4000a7c21",
+            "type": "verified_by",
+            "source": "brain-unity-runner",
+            "createdUtc": "2026-09-06T15:25:53.5591068Z"
+        },
+        {
+            "id": "relation:65773e4a8a214ceb25263b7dd0bdf9d05b4a630fce3f2a9766d1aed30e2e1a33",
+            "from": "feature:player/movement",
+            "to": "evidence:b3a4877d-e0ec-4b81-819d-5d958ae0a6ae",
+            "type": "verified_by",
+            "source": "brain-unity-runner",
+            "createdUtc": "2026-09-06T15:27:44.4262534Z"
+        },
+        {
+            "id": "relation:55e452ee64b97b4fc5589b5d9b8dcca50c632e36c5881b4b1fc020d0a49da85f",
+            "from": "feature:player/movement",
+            "to": "evidence:8b168b76-b4de-40c7-a7b5-82bfb1dbf1d7",
+            "type": "verified_by",
+            "source": "brain-unity-runner",
+            "createdUtc": "2026-09-06T15:28:09.0956533Z"
         }
     ]
 }
