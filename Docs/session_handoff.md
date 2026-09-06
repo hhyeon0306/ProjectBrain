@@ -2,13 +2,13 @@
 Updated: 2026-09-07
 
 ## Current state
-W1b 최소 MCP 작업 범위·종료/교체 구현 완료. 현재13도구. scopeChanges는 active와 함께 원자 저장, archive는 종료 표시 및 이전 기준선/미해결 보존. 자체82항목 통과. 최신 컴파일 compiled0/up-to-date74/errors0 및 실제 EditMode9/9 통과. 상세는 work_log 참조.
+W1b-UI 전용 작업 관리 창 구현. Explorer 버튼/Window 메뉴에서 범위·종료·이력 조회. 초안 보존과 오래된 작업 거절. 버튼 콜백9/Lifecycle28 및 두 창 크기 렌더 검증. 물리 마우스는 활성화 도구 실패로 미완료. 최신 실제 검증은 work_log 참조.
 
 ## Decisions
-작업 a48a9ba7-be69-4985-a648-ed5d2ac5442f revision 9. 원래 baseline과 사람 미확인 상태 유지. 실제 complete는 문서 2개 미확인·허용 밖/미매핑 변경으로 거절된다. 격리 fixture에서만 성공 Activity 분기를 확인했다. 명시적 종료/archive 후 새 begin은 W1b에서 구현했다. PlayMode·Player 빌드와 전용 수명 관리 UI는 후속. 사용자 요청에 따라 디자인용 아트는 직접 제작·적용한다.
+작업 a48a9ba7-be69-4985-a648-ed5d2ac5442f revision 10. 원래 baseline과 사람 미확인 상태 유지. 실제 complete는 문서 2개 미확인·허용 밖/미매핑 변경으로 거절된다. 격리 fixture에서만 성공 Activity 분기를 확인했다. 명시적 종료/archive 후 새 begin은 W1b에서 구현했다. 전용 작업 관리 UI 구현. PlayMode·Player 빌드·종료 작업 재개는 후속. 사용자 요청에 따라 디자인용 아트는 직접 제작·적용한다.
 
 ## Next action
-서류·PPT 9/7 15:00 준비도 확인. 실제 사람 문서 확인과 완료 시연 준비, 전용 범위/종료 UI 및 U1 전체 스타일은 후속.
+서류·PPT 9/7 15:00 준비도 확인. 실제 사람 문서 확인과 완료 시연 준비, P1 증거 정리 및 U1 전체 스타일은 후속.
 
 ## Verification
 자체 Completion32+Workflow39 통과. 실제 HTTP verify(compile/editmode)→status→complete 거절. UI Evidence current=True, 9/9 표시 확인. 증거 reviews/2026-09-07-verification-evidence.json. 전체 verify는 기존 사용자 씬 242행 공백으로 중단. 문서 구조 검사는 통과했으며 이번 staged 변경 검사는 통과했다.

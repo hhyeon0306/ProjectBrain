@@ -33,6 +33,7 @@ namespace ProjectBrain
             minSize = new Vector2(760, 500);
             var root = rootVisualElement; root.Clear(); root.style.paddingLeft = root.style.paddingRight = 10;
             root.Add(new Label("PROJECT BRAIN · 코드와 작업 기억") { style = { fontSize = 18, marginTop = 10, marginBottom = 8 } });
+            root.Add(new Button(BrainTaskWindow.Open) { text = "작업 관리 · 범위와 종료 기록" });
             root.Add(new Button(CreateGUI) { text = "자료 새로 읽기" });
             message = new HelpBox("저장은 검증·사람 확인·완료 승인이 아닙니다.", HelpBoxMessageType.Info); root.Add(message);
             Run(() =>

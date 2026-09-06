@@ -1,0 +1,13 @@
+{
+    "schemaVersion": 1,
+    "id": "evidence:fd37a22f-45e3-49c0-adf6-3b7325ac9d6b",
+    "type": "Evidence",
+    "title": "editmode · passed",
+    "summary": "All discovered EditMode tests. Passed; ",
+    "body": ".projectbrain/evidence/fd37a22f-45e3-49c0-adf6-3b7325ac9d6b.json",
+    "assetGuid": "",
+    "lastKnownPath": "",
+    "tags": [],
+    "status": "recorded",
+    "updatedUtc": "2026-09-06T17:58:09.6098004Z"
+}

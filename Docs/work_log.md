@@ -1,5 +1,15 @@
 # Brain 작업 이력
 
+## 2026-09-07 W1b-UI 사람용 작업 관리
+- Goal: 에이전트 API의 범위/종료/이력을 사람이 쉽게 조작하고 확인한다.
+- Changes: 전용 UI Toolkit 창·Explorer 진입 버튼, 현재 범위/변경 이유/종료 방식·최근20개 이력/ID조회. SessionState 초안·오래된 작업 거절·종료 전 미저장 범위 보호.
+- Files: BrainTaskWindow.cs/meta, BrainExplorerWindow.cs, Docs 계약/사용법/작업표/인계/검증 기록, .projectbrain 요약 및 실제 검증 기록.
+- Verification: Unity 내부 실제 버튼 콜백9항목, Lifecycle28 회귀 통과. 실제 active bytes 보존. 780×800/580×540 렌더·줄바꿈/스크롤 확인. 최종 compile/EditMode 결과는 후속 기록.
+- Decisions: MCP와 동일 서비스 사용, 별도 승인 정책 없음. 사람 확인/실제 성공 종료를 대행하지 않는다. 이번 사용자 요청 단위이며 일정 원칙 유지.
+- Next: 서류·PPT 준비도 확인, 실제 사람 확인/완료 시연 준비 및 P1 증거 정리.
+- Limitations: computer-use 창 활성화 실패로 물리 마우스 검증 미완료. UI 종료 성공은 실제 작업에서 수행하지 않았으며 서비스 성공은 격리 fixture에서 확인. SessionState는 Editor 종료 이후 초안 보존을 보장하지 않음. 전체 U1 스타일/종료 작업 재개는 후속. 기존 사용자 변경4개 보존·업로드 없음.
+
+
 ## 2026-09-07 W1b 작업 범위·종료 관리
 - Goal: 원래 기준선과 미해결 기록을 보존하며 작업 범위를 바꾸고 다음 작업으로 전환한다.
 - Changes: scopeChanges 원자 저장·레거시 호환, 완료/미완료 archive 종료 표시, 종료 뒤 새 begin, 기록 조회. MCP set_scope/close_task/task_history 추가로 총13도구.
@@ -313,3 +323,9 @@ M2b 최종 범위 검사: 양쪽 git diff --cached --check 통과. 기존 사용
 W1b 최종 검증: 컴파일 compiled0/up-to-date74/errors0 및 실제 EditMode9/9 통과. scripts/verify.ps1 -IncludeBrain 양쪽 문서 구조 검사 통과. 전체 Git 검사는 기존 사용자 SampleScene.unity:242 공백으로 실패하여 보존하고 이번 변경만 staged 검사한다.
 
 W1b 범위 검사: 양쪽 git diff --cached --check 통과. 기존 사용자 변경4개는 제외했다.
+
+W1b-UI 최종 Unity 결과: 컴파일 compiled0/up-to-date74/errors0, 실제 EditMode9/9 통과. 현재 작업 요약 revision10. 검증 상세는 하위 reviews/2026-09-07-task-ui-evidence.json.
+
+W1b-UI 관리 검사: verify -IncludeBrain 양쪽 문서 구조 검사 통과. 전체 Git 검사는 기존 사용자 SampleScene.unity:242 공백으로 실패. 기존 변경4개를 제외하고 이번 변경만 staged 검사한다.
+
+W1b-UI 최종 범위 검사: 양쪽 git diff --cached --check 통과. 기존 사용자 변경4개 제외.
