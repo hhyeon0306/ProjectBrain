@@ -69,6 +69,19 @@ namespace ProjectBrain
             File.WriteAllText(nodePath, nodeBytes.Replace("domain:player", "domain:other"));
             Reject(() => store.LoadNodes()); passed++;
             File.WriteAllText(nodePath, nodeBytes);
+            var additional = new[]
+            {
+                Node("project:game", "Project"), Node("document:movement", "Document"),
+                Node("reference:unity-manual", "Reference"),
+                Node("activity:12345678-1234-1234-1234-123456789abc", "Activity"),
+                Node("asset:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb", "Image")
+            };
+            additional.Last().assetGuid = "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb";
+            foreach (var node in additional) store.SaveNode(node);
+            check(store.LoadNodes().Select(n => n.type).Distinct().Count() == 9, "All nine node types survive persistence");
+            Reject(() => store.SaveNode(additional[3])); passed++;
+            Reject(() => store.SaveNode(Node("evidence:not-a-uuid", "Evidence"))); passed++;
+            Reject(() => store.SaveNode(Node("feature:no-domain", "Feature"))); passed++;
             check(Directory.GetFiles(root, "*.tmp", SearchOption.AllDirectories).Length == 0, "No temporary files after writes");
             return passed;
         }

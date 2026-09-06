@@ -1,0 +1,15 @@
+{
+    "schemaVersion": 1,
+    "id": "document:10000000000000000000000000000004",
+    "type": "Document",
+    "title": "DemoHealth.cs Design",
+    "summary": "체력 상태와 변경 알림 소유",
+    "body": "## 역할\n체력 상태와 변경 알림 소유\n\n## 설계 의도\n체력 규칙과 화면 표시를 분리하고 이벤트로 변경을 알린다.\n\n## 주의사항\n초기 사용 전 RestoreFull 호출이 필요하다.\n\n## 본문\n피해량을 음수가 되지 않게 처리하고 체력을 유효 범위로 제한한다.\n\n## 원본 저장 코드 해시 (현재 검증 아님)\n",
+    "assetGuid": "",
+    "lastKnownPath": "",
+    "tags": [
+        "migrated-v2"
+    ],
+    "status": "unreviewed",
+    "updatedUtc": "2026-09-05T00:00:00Z"
+}

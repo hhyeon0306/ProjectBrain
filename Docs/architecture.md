@@ -102,3 +102,11 @@ UI와 MCP가 JSON 파일을 각각 직접 수정하지 않는다. 같은 검증�
 ## A1 저장소 구현 규칙
 
 노드 파일명은 전체 ID의 UTF-8 SHA256 소문자 hex를 사용한다. 저장소는 IBrainJson에 의존하며 UnityBrainJson이 직렬화를 담당한다. schemaVersion=1, 상태는 unreviewed/missing/recorded만 허용한다. Evidence/Activity 노드는 불변이며 정정은 새 ID로 추가한다. 관계 ID와 from/type/to 조합은 각각 유일해야 한다. 참조 대상이 없거나 손상되면 저장·조회가 실패하며 기존 파일은 유지한다. A1 저장소는 단일 Editor 작성자를 전제로 한다.
+
+## A1 이관 구현 및 재실행
+
+BrainMigration.Run은 기존 DocumentStore로 원본 전체를 검증하고 Code/Document/Image 노드와 관계를 생성한다. Document body에 역할·설계 의도·주의사항·본문·원본 코드 해시를 보존하되 기존 해시는 현재 검증으로 인정하지 않는다. AssetDatabase GUID 해석은 주입된 함수로 처리하며 없는 자산은 missing으로 표시한다. 기존 관련 코드 GUID는 source=v2-migration인 depends_on 관계로 저장한다. 종류 편집 UI는 아직 없다.
+
+migration.json에는 schemaVersion=1, completedUtc, 원본 GUID/버전/SHA256, 생성 노드 ID 및 관계 ID를 기록한다. 목적지 충돌은 쓰기 전에 거절하고, 개별 파일 원자 저장과 재읽기 후에만 완료 기록을 쓴다. 다중 파일 트랜잭션은 아니며 중단 시 정확히 일치하는 부분 결과를 재사용한다. 완료 후 재실행은 원본 해시와 결과 존재를 검사하고 목적지 편집을 보존한다. 원본 수정은 명시적 재조정이 필요하며 자동 덮어쓰지 않는다.
+
+Feature ID는 feature:<domain>/<slug>, Evidence/Activity ID는 종류 접두사와 UUID를 사용한다. A1은 노드 종류·ID·참조의 구조적 유효성을 검사하며 완료 조건과 증거의 진실성은 후속 W/V 단계에서 검증한다.

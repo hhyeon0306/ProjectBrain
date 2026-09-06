@@ -1,0 +1,15 @@
+{
+    "schemaVersion": 1,
+    "id": "asset:10000000000000000000000000000003",
+    "type": "Code",
+    "title": "DemoPlayerMovement.cs",
+    "summary": "입력을 월드 이동으로 변환",
+    "body": "",
+    "assetGuid": "10000000000000000000000000000003",
+    "lastKnownPath": "Assets/Scripts/Gameplay/DemoPlayerMovement.cs",
+    "tags": [
+        "migrated-v2"
+    ],
+    "status": "unreviewed",
+    "updatedUtc": "2026-09-05T00:00:00Z"
+}

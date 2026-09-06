@@ -1,0 +1,15 @@
+{
+    "schemaVersion": 1,
+    "id": "document:10000000000000000000000000000003",
+    "type": "Document",
+    "title": "DemoPlayerMovement.cs Design",
+    "summary": "입력을 월드 이동으로 변환",
+    "body": "## 역할\n입력을 월드 이동으로 변환\n\n## 설계 의도\n이동 속도와 시간 보정을 한 컴포넌트에서 관리한다.\n\n## 주의사항\nDemoPlayerInput 참조가 필요하며 Update에서 동작한다.\n\n## 본문\n입력 시스템의 2차원 값을 XZ 평면의 이동으로 바꾼다.\n\n## 원본 저장 코드 해시 (현재 검증 아님)\n",
+    "assetGuid": "",
+    "lastKnownPath": "",
+    "tags": [
+        "migrated-v2"
+    ],
+    "status": "unreviewed",
+    "updatedUtc": "2026-09-05T00:00:00Z"
+}

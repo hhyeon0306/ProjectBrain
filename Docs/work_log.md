@@ -1,5 +1,13 @@
 # Brain 작업 이력
 
+## 2026-09-06 A1 비파괴 이관 완료
+- Goal: 기존 문서 데이터를 보존하며 범용 모델로 이관하고 A1을 완료한다.
+- Changes: 명시적 이관, 원본 버전·해시 완료 기록, 충돌 사전 검사, 중단 후 재실행, 누락 자산 표시, 완료 후 사용자 편집 보호. Feature 및 Evidence/Activity ID 계약도 검증한다.
+- Files: Editor/{BrainMigration,BrainMigrationChecks,BrainStore,BrainStoreChecks}.cs 및 새 meta, .projectbrain/{nodes,relations.json,migration.json}, AGENTS.md, Docs/{task,architecture,product_spec,session_handoff,work_log}.md.
+- Verification: 현재 Unity 컴파일 완료 상태에서 저장소 25개·이관 18개·기존 문서 14개 검사 통과. 실제 원본 7개→노드 15개/관계 26개, 재읽기·원본 해시·반복 실행 검증. docs Git diff 없음. 관리 검사 scripts/verify.ps1 -IncludeBrain 통과.
+- Decisions: 원본 보존, 기존 UI와 자동 동기화하지 않음. 이관 완료 뒤 원본이 바뀌면 거절하고 목적지 사용자 편집을 보존한다. 첫 저장소 단위는 f96e0b4에 독립 커밋했다.
+- Next: A2 Player 도메인 구성과 BrainStore 기반 UI 탐색.
+- Limitations: 전체 다중 파일 트랜잭션·동시 작성자 제어·실시간 자산 감시는 없음. UI 및 Brain 작업·검증 MCP는 다음 단계다. 기존 사용자/Unity 변경 두 파일은 커밋 제외.
 ## 2026-09-06 A1 범용 노드·관계 저장소
 - Goal: 도메인 중심 그래프를 위한 노드·관계의 안전한 저장과 조회를 구현한다.
 - Changes: BrainNode/BrainRelation, SHA256 ID 파일명, 원자 저장, 스키마·참조·중복 검증, 양방향 탐색, 증거·활동 덮어쓰기 거절. JSON 어댑터만 Unity에 의존한다.

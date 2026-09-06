@@ -1,0 +1,15 @@
+{
+    "schemaVersion": 1,
+    "id": "document:627bd1b35aa0f5a4a89fadc21e6bea98",
+    "type": "Document",
+    "title": "BrainDocumentSample.cs Design",
+    "summary": "Project Brain 관계도 데모 시작점",
+    "body": "## 역할\nProject Brain 관계도 데모 시작점\n\n## 설계 의도\n작은 게임 기능이 어떤 코드와 협력하는지 한 화면에서 탐색한다.\n\n## 주의사항\n포트폴리오 시연용 구조이며 실제 게임 시스템의 완성 구현이 아니다.\n\n## 본문\n이 노드를 중심으로 Game Flow, 입력, 이동, 체력, HUD, 저장 시스템을 연결했다. 각 노드를 누르면 해당 코드의 책임과 다음 관계를 확인할 수 있다.\n\n## 원본 저장 코드 해시 (현재 검증 아님)\n",
+    "assetGuid": "",
+    "lastKnownPath": "",
+    "tags": [
+        "migrated-v2"
+    ],
+    "status": "unreviewed",
+    "updatedUtc": "2026-09-05T00:00:00Z"
+}

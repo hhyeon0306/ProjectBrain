@@ -1,0 +1,213 @@
+{
+    "schemaVersion": 1,
+    "relations": [
+        {
+            "id": "relation:6e98b7db400bd91d74f91a485a4a1420f50304020eb6c01557c9dbc8c9e64df4",
+            "from": "asset:10000000000000000000000000000001",
+            "to": "document:10000000000000000000000000000001",
+            "type": "documented_by",
+            "source": "v2-migration",
+            "createdUtc": "2026-09-05T00:00:00Z"
+        },
+        {
+            "id": "relation:55c29f01181ba855886fb5b7dc8d07caf71968e3aca1122a9146199789c48feb",
+            "from": "asset:10000000000000000000000000000001",
+            "to": "asset:10000000000000000000000000000003",
+            "type": "depends_on",
+            "source": "v2-migration",
+            "createdUtc": "2026-09-05T00:00:00Z"
+        },
+        {
+            "id": "relation:4b5baf687e9d6c311f79d248c6e5e126e2b875a3371ee46bb30feac13d331ab6",
+            "from": "asset:10000000000000000000000000000001",
+            "to": "asset:10000000000000000000000000000004",
+            "type": "depends_on",
+            "source": "v2-migration",
+            "createdUtc": "2026-09-05T00:00:00Z"
+        },
+        {
+            "id": "relation:2be585487d00a57727b0b13ebb307856a7ecaf5a1353d9676c9709d96a6ca24a",
+            "from": "asset:10000000000000000000000000000001",
+            "to": "asset:10000000000000000000000000000005",
+            "type": "depends_on",
+            "source": "v2-migration",
+            "createdUtc": "2026-09-05T00:00:00Z"
+        },
+        {
+            "id": "relation:1eaa200d46636017a056116cb2dfe9a3bbfd68de88570e579d8270b8a5578253",
+            "from": "asset:10000000000000000000000000000001",
+            "to": "asset:10000000000000000000000000000006",
+            "type": "depends_on",
+            "source": "v2-migration",
+            "createdUtc": "2026-09-05T00:00:00Z"
+        },
+        {
+            "id": "relation:f7b36af0ffe9873d45ee726e3fd1e658c4c336f0505fd2211c4623cf74eb4868",
+            "from": "asset:10000000000000000000000000000002",
+            "to": "document:10000000000000000000000000000002",
+            "type": "documented_by",
+            "source": "v2-migration",
+            "createdUtc": "2026-09-05T00:00:00Z"
+        },
+        {
+            "id": "relation:b5d235dc950457019cd189c02e6024edd79f1f896c404b17142ea658bed9f74e",
+            "from": "asset:10000000000000000000000000000002",
+            "to": "asset:10000000000000000000000000000003",
+            "type": "depends_on",
+            "source": "v2-migration",
+            "createdUtc": "2026-09-05T00:00:00Z"
+        },
+        {
+            "id": "relation:6d98c362d60473701c1ed97e724948a7133270b56380da34eac3ccac95e24090",
+            "from": "asset:10000000000000000000000000000003",
+            "to": "document:10000000000000000000000000000003",
+            "type": "documented_by",
+            "source": "v2-migration",
+            "createdUtc": "2026-09-05T00:00:00Z"
+        },
+        {
+            "id": "relation:985c9d758ad07b0e88fe347df43306f379c36015036f8da260dded3641c60513",
+            "from": "asset:10000000000000000000000000000003",
+            "to": "asset:10000000000000000000000000000002",
+            "type": "depends_on",
+            "source": "v2-migration",
+            "createdUtc": "2026-09-05T00:00:00Z"
+        },
+        {
+            "id": "relation:2035a343548c11b3defb2db10c41e051d1bc550252f150d99ac06b95cc401741",
+            "from": "asset:10000000000000000000000000000003",
+            "to": "asset:10000000000000000000000000000001",
+            "type": "depends_on",
+            "source": "v2-migration",
+            "createdUtc": "2026-09-05T00:00:00Z"
+        },
+        {
+            "id": "relation:d30a236bed0a264b582c6c2f00b425cba03c01b5edaa3f0f2543632f0f754860",
+            "from": "asset:10000000000000000000000000000004",
+            "to": "document:10000000000000000000000000000004",
+            "type": "documented_by",
+            "source": "v2-migration",
+            "createdUtc": "2026-09-05T00:00:00Z"
+        },
+        {
+            "id": "relation:1aed8ec1db0447476de0fa6f54ade90164ccd2b28948d27b9addc3b2dfa39621",
+            "from": "asset:10000000000000000000000000000004",
+            "to": "asset:10000000000000000000000000000005",
+            "type": "depends_on",
+            "source": "v2-migration",
+            "createdUtc": "2026-09-05T00:00:00Z"
+        },
+        {
+            "id": "relation:1a2041dacfcfc8de98d275a65da18667263c36344248bc35a5d76a889e5ab235",
+            "from": "asset:10000000000000000000000000000004",
+            "to": "asset:10000000000000000000000000000001",
+            "type": "depends_on",
+            "source": "v2-migration",
+            "createdUtc": "2026-09-05T00:00:00Z"
+        },
+        {
+            "id": "relation:ab7732d9ac6f21bc2dc5ea9ad1ced1567908c95e76402e4c034f5751920a2502",
+            "from": "asset:10000000000000000000000000000005",
+            "to": "document:10000000000000000000000000000005",
+            "type": "documented_by",
+            "source": "v2-migration",
+            "createdUtc": "2026-09-05T00:00:00Z"
+        },
+        {
+            "id": "relation:39c88ad6f997d439953fe588c30589d270de18b4f3e656c90c9e60c4d599b23d",
+            "from": "asset:10000000000000000000000000000005",
+            "to": "asset:10000000000000000000000000000004",
+            "type": "depends_on",
+            "source": "v2-migration",
+            "createdUtc": "2026-09-05T00:00:00Z"
+        },
+        {
+            "id": "relation:afcf39f099cb7264186eb8c9e6b1882f7de2c2140141117fbeae3cd153f38317",
+            "from": "asset:10000000000000000000000000000005",
+            "to": "asset:10000000000000000000000000000001",
+            "type": "depends_on",
+            "source": "v2-migration",
+            "createdUtc": "2026-09-05T00:00:00Z"
+        },
+        {
+            "id": "relation:f36ff698aa43c7050c0a6bfcc82bd8872ee477e8a3da772b07e40e80c2dc6b1e",
+            "from": "asset:10000000000000000000000000000006",
+            "to": "document:10000000000000000000000000000006",
+            "type": "documented_by",
+            "source": "v2-migration",
+            "createdUtc": "2026-09-05T00:00:00Z"
+        },
+        {
+            "id": "relation:2b68ecc1bc947b5eb7d354051edc07ca0576d5492a77ace99be490dea96b34d3",
+            "from": "asset:10000000000000000000000000000006",
+            "to": "asset:10000000000000000000000000000001",
+            "type": "depends_on",
+            "source": "v2-migration",
+            "createdUtc": "2026-09-05T00:00:00Z"
+        },
+        {
+            "id": "relation:969ba032a1e1a4ebf109a624b53c1b8c8288066919de1c3a2ef4718da924beeb",
+            "from": "asset:627bd1b35aa0f5a4a89fadc21e6bea98",
+            "to": "document:627bd1b35aa0f5a4a89fadc21e6bea98",
+            "type": "documented_by",
+            "source": "v2-migration",
+            "createdUtc": "2026-09-05T00:00:00Z"
+        },
+        {
+            "id": "relation:08ea95aaa0bdb5da782edd388f4f001018da0112c8a10b75afd38d49079e4ecf",
+            "from": "asset:627bd1b35aa0f5a4a89fadc21e6bea98",
+            "to": "asset:10000000000000000000000000000001",
+            "type": "depends_on",
+            "source": "v2-migration",
+            "createdUtc": "2026-09-05T00:00:00Z"
+        },
+        {
+            "id": "relation:788927efd9abe287897c383161950b8c8f375a31e0926a86dc68e296bc46a825",
+            "from": "asset:627bd1b35aa0f5a4a89fadc21e6bea98",
+            "to": "asset:10000000000000000000000000000002",
+            "type": "depends_on",
+            "source": "v2-migration",
+            "createdUtc": "2026-09-05T00:00:00Z"
+        },
+        {
+            "id": "relation:2565d25464cac59b7698a514796bb16a5a8f6236d3f8575c31f1bb4a8a5c18b4",
+            "from": "asset:627bd1b35aa0f5a4a89fadc21e6bea98",
+            "to": "asset:10000000000000000000000000000003",
+            "type": "depends_on",
+            "source": "v2-migration",
+            "createdUtc": "2026-09-05T00:00:00Z"
+        },
+        {
+            "id": "relation:7fbea5dfc8adc37c5941cd4741fa29d1fcb96f5ecc85ece75b21de32f8820942",
+            "from": "asset:627bd1b35aa0f5a4a89fadc21e6bea98",
+            "to": "asset:10000000000000000000000000000004",
+            "type": "depends_on",
+            "source": "v2-migration",
+            "createdUtc": "2026-09-05T00:00:00Z"
+        },
+        {
+            "id": "relation:5396d17c5c53f628586ac5128a8643cde959de56cb65064d2e0c9306e71ff26a",
+            "from": "asset:627bd1b35aa0f5a4a89fadc21e6bea98",
+            "to": "asset:10000000000000000000000000000005",
+            "type": "depends_on",
+            "source": "v2-migration",
+            "createdUtc": "2026-09-05T00:00:00Z"
+        },
+        {
+            "id": "relation:6974011f5f9fd68bea87c1ddc6090cac07f2bf08f84bbe8978606c698a08ed2b",
+            "from": "asset:627bd1b35aa0f5a4a89fadc21e6bea98",
+            "to": "asset:10000000000000000000000000000006",
+            "type": "depends_on",
+            "source": "v2-migration",
+            "createdUtc": "2026-09-05T00:00:00Z"
+        },
+        {
+            "id": "relation:ba8dea4b769e7b3c605c02752526355d6b0b29c96ca13a420e85f5203ffd2269",
+            "from": "document:627bd1b35aa0f5a4a89fadc21e6bea98",
+            "to": "asset:727a75301c3d24613a3ebcec4a24c2c8",
+            "type": "illustrated_by",
+            "source": "v2-migration",
+            "createdUtc": "2026-09-05T00:00:00Z"
+        }
+    ]
+}

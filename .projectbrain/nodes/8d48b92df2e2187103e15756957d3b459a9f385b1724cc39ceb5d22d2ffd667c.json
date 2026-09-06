@@ -1,0 +1,15 @@
+{
+    "schemaVersion": 1,
+    "id": "asset:10000000000000000000000000000001",
+    "type": "Code",
+    "title": "DemoGameFlow.cs",
+    "summary": "게임 세션 흐름 조정",
+    "body": "",
+    "assetGuid": "10000000000000000000000000000001",
+    "lastKnownPath": "Assets/Scripts/Core/DemoGameFlow.cs",
+    "tags": [
+        "migrated-v2"
+    ],
+    "status": "unreviewed",
+    "updatedUtc": "2026-09-05T00:00:00Z"
+}

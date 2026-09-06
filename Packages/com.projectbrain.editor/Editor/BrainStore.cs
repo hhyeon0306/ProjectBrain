@@ -131,6 +131,10 @@ namespace ProjectBrain
             {
                 Require(node.type != "Code" && node.type != "Image", "Code/Image에는 자산 GUID가 필요합니다.");
                 Require(node.id.StartsWith(node.type.ToLowerInvariant() + ":", StringComparison.Ordinal), "노드 종류와 ID 접두사가 다릅니다.");
+                if (node.type == "Evidence" || node.type == "Activity")
+                    Require(Guid.TryParseExact(node.id.Substring(node.id.IndexOf(':') + 1), "D", out _), "증거·활동 ID에는 UUID가 필요합니다.");
+                if (node.type == "Feature")
+                    Require(Regex.IsMatch(node.id, "\\Afeature:[a-z0-9][a-z0-9_-]*/[a-z0-9][a-z0-9_-]*\\z"), "Feature ID는 feature:<domain>/<slug> 형식이어야 합니다.");
             }
             if (!string.IsNullOrEmpty(node.lastKnownPath))
                 Require(!Path.IsPathRooted(node.lastKnownPath) && !node.lastKnownPath.Contains("\\") && !node.lastKnownPath.Split('/').Contains(".."), "자산 경로는 프로젝트 상대 경로여야 합니다.");

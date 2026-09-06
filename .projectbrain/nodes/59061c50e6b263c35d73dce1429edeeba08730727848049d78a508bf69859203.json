@@ -1,0 +1,15 @@
+{
+    "schemaVersion": 1,
+    "id": "document:10000000000000000000000000000005",
+    "type": "Document",
+    "title": "DemoHudPresenter.cs Design",
+    "summary": "체력 상태의 화면 표현",
+    "body": "## 역할\n체력 상태의 화면 표현\n\n## 설계 의도\n게임 상태를 UI가 표시할 문자열로 변환한다.\n\n## 주의사항\n현재 데모는 실제 VisualElement 대신 표시 문자열까지만 만든다.\n\n## 본문\nHealth가 전달한 현재값과 최대값으로 HUD 문구를 갱신한다.\n\n## 원본 저장 코드 해시 (현재 검증 아님)\n",
+    "assetGuid": "",
+    "lastKnownPath": "",
+    "tags": [
+        "migrated-v2"
+    ],
+    "status": "unreviewed",
+    "updatedUtc": "2026-09-05T00:00:00Z"
+}
