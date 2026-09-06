@@ -18,9 +18,12 @@ namespace ProjectBrain
             var path = GetPath(guid);
             if (!File.Exists(path)) return null;
             ScriptDocument document;
-            try { document = JsonUtility.FromJson<ScriptDocument>(File.ReadAllText(path)); }
-            catch (ArgumentException e) { throw new InvalidDataException("문서 JSON을 읽을 수 없습니다.", e); }
-            Validate(document, guid);
+            try
+            {
+                document = new UnityBrainJson().Read<ScriptDocument>(File.ReadAllText(path));
+                Validate(document, guid);
+            }
+            catch (InvalidDataException e) { throw new InvalidDataException(path + ": " + e.Message, e); }
             return document;
         }
 

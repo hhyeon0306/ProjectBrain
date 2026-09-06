@@ -1,5 +1,13 @@
 # Brain 작업 이력
 
+## 2026-09-06 A1-R/F2 보완 완료
+- Goal: JSON 손상 보호·Git clone 이관 실패·문서 UI 오류 경계의 확정 결함 3건을 보완한다.
+- Changes: JSON 구조 선검증과 오류 경로 전달, Git 데이터 bytes 보존 정책, 관계 실패 시 편집/미저장 상태 유지·재조회, 격리 회귀 검사 추가. 인계의 과거 장애 설명은 이력에 남기고 현재 상태로 정리.
+- Files: .gitattributes, AGENTS.md, Packages/com.projectbrain.editor/Editor/{UnityBrainJson,DocumentStore,BrainDocumentWindow,BrainRepairChecks}.cs 및 신규 meta, Docs/{task,architecture,product_spec,session_handoff,work_log}.md, reviews/2026-09-06-repair-evidence.json.
+- Verification: MCP 읽기 연결/실제 프로젝트 경로 확인, assets-refresh 이후 isCompiling=false. 기존 자체 검사 25/18/14 및 신규 61항목 통과. core.autocrlf=true 새 clone의 스냅샷 22ad756989b6e32f8a94ee6455d714d612f9f034에서 이관 2회, 전체 데이터 bytes 보존, Git 변경 0. 실데이터 15노드/26관계 조회. 커밋 전 상위 scripts/verify.ps1 -IncludeBrain 문서/Git 검사 통과.
+- Decisions: 기존 System.Text.Json DLL을 입력 검사에 사용(설치 없음), v1 호환 유지. 원본 SHA256/receipt는 변경하지 않으며 Git만 bytes 보존. F2 오류 경계 완료와 전체 시각 QA를 구분한다.
+- Next: 제출 준비도 점검 후 A2 최소 탐색·공통 서비스와 W1/M2a 작업 재개 흐름.
+- Limitations: NUnit/Test Runner 실행 수가 아닌 자체 검사 수. clone의 Unity import/빌드 및 실제 UI 시각/마우스 QA는 미실행. 초기 Newtonsoft 가용성 프로브는 동적 컴파일 실패했으며 사용하지 않았다. 기존 사용자 변경 두 파일은 보존, 제품 데이터·씬·MCP 설정 변경 없음.
 ## 2026-09-06 HTTP 복구 후 세션 종료
 - Goal: 사용자 요청으로 이번 세션을 종료하고 다음 세션의 재개 지점을 보존한다.
 - Changes: HTTP 내장 MCP 복구 완료를 유지하고 다음 작업을 Brain A1-R/F2 보완으로 명시.
@@ -178,7 +186,7 @@
 - Goal: Unity-MCP 초기화 시 경로 공백 오류를 해결한다.
 - Changes: Unity 종료 확인 후 Project Brain 폴더를 ProjectBrain으로 이동. 양쪽 MCP 실행 경로와 프로젝트 식별자 cbd0af11 동기화, 현재 경로 지침 및 검사 스크립트 수정.
 - Files: AGENTS.md, scripts/verify.ps1, Docs/session_handoff.md, Docs/work_log.md, 양쪽 .codex/config.toml(로컬); 상위 .gitignore/task와 하위 unity_mcp_usage.
-- Verification: 기존 경로 SHA256이 실제 이전 MCP 식별자와 일치함을 확인. 이동 및 관리 검사 결과는 아래에 기록.
+- Verification: 기존 경로 SHA256이 실제 이전 MCP 식별자와 일치함을 확인. 이동 및 커밋 전 상위 scripts/verify.ps1 -IncludeBrain 문서/Git 검사 통과.
 - Decisions: 표시 이름 Project Brain 유지, 포트 25766 유지. Library/PackageCache 소스 수정 없음.
 - Next: Unity Hub에서 새 경로를 열고 Codex 재시작 후 MCP 실제 씬 조회로 연결 확인.
 - Limitations: 현재 세션 MCP 도구 미노출. 이동 후 Unity 실행과 재연결은 아직 검증하지 않음.

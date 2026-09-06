@@ -1,0 +1,31 @@
+{
+  "date": "2026-09-06",
+  "project": "C:/Dev/nexontutorial/ProjectBrain",
+  "transport": "Ivan MCP HTTP",
+  "checks": {
+    "BrainStoreChecks": 25,
+    "BrainMigrationChecks": 18,
+    "DocumentStoreChecks": 14,
+    "BrainRepairChecks": 61
+  },
+  "countMeaning": "Self-check assertions; not NUnit cases",
+  "compiling": false,
+  "liveNodes": 15,
+  "liveRelations": 26,
+  "clone": {
+    "path": "C:/Users/borad/AppData/Local/Temp/BrainRepairClone-d2100757c22548cda387d93c3d815bf8",
+    "snapshot": "22ad756989b6e32f8a94ee6455d714d612f9f034",
+    "autocrlf": true,
+    "migrationRuns": 2,
+    "sources": 7,
+    "nodes": 15,
+    "relations": 26,
+    "allDataBytesUnchanged": true,
+    "gitCleanAfter": true
+  },
+  "limitations": [
+    "Clone data tested using the current open Unity Editor, no clone import/build",
+    "UI checks use an isolated window; no visual/mouse QA",
+    "Existing user changes and live data preserved"
+  ]
+}

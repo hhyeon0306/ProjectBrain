@@ -1,0 +1,2 @@
+# Brain receipts identify exact source bytes. Never convert persisted JSON on checkout.
+.projectbrain/** -text

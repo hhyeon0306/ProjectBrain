@@ -38,11 +38,16 @@ namespace ProjectBrain
             picker.RegisterValueChangedCallback(evt =>
             {
                 if (!ConfirmDiscard()) { picker.SetValueWithoutNotify(selectedScript); return; }
-                selectedScript = evt.newValue as MonoScript;
-                document = null;
-                SetDirty(false);
-                Run(() => { if (selectedScript != null) document = service.LoadOrCreate(selectedScript); });
-                BuildForm();
+                Run(() =>
+                {
+                    var nextScript = evt.newValue as MonoScript;
+                    var next = nextScript == null ? null : service.LoadOrCreate(nextScript);
+                    selectedScript = nextScript;
+                    document = next;
+                    SetDirty(false);
+                    BuildForm();
+                });
+                picker.SetValueWithoutNotify(selectedScript);
             });
             root.Add(picker);
             var split = new TwoPaneSplitView(0, 400, TwoPaneSplitViewOrientation.Horizontal);
@@ -71,21 +76,30 @@ namespace ProjectBrain
                 graph.Add(new Label("스크립트를 선택하면 관계 그래프가 표시됩니다."));
                 return;
             }
-            graph.Add(new Label("직접 연결한 관련 코드 · 노드를 눌러 문서 열기"));
-            graph.Add(new DocumentGraphView(document, service.GetGraphRelatedGuids(document), script =>
-            {
-                if (script == selectedScript || !ConfirmDiscard()) return;
-                Run(() =>
-                {
-                    var next = service.LoadOrCreate(script);
-                    selectedScript = script;
-                    document = next;
-                    SetDirty(false);
-                    CreateGUI();
-                });
-            }));
             message.text = "관련 코드 추가로 관계를 연결하세요. 보라색은 현재 문서입니다.";
             message.messageType = HelpBoxMessageType.Info;
+            Run(() =>
+            {
+                var related = service.GetGraphRelatedGuids(document);
+                graph.Add(new Label("직접 연결한 관련 코드 · 노드를 눌러 문서 열기"));
+                graph.Add(new DocumentGraphView(document, related, script =>
+                {
+                    if (script == selectedScript || !ConfirmDiscard()) return;
+                    Run(() =>
+                    {
+                        var next = service.LoadOrCreate(script);
+                        selectedScript = script;
+                        document = next;
+                        SetDirty(false);
+                        CreateGUI();
+                    });
+                }));
+            });
+            if (graph.childCount == 0)
+            {
+                graph.Add(new HelpBox("관계를 읽지 못했습니다. 아래 오류의 문서 파일을 확인한 뒤 다시 시도하세요. 현재 문서의 편집 내용은 유지됩니다.", HelpBoxMessageType.Error));
+                graph.Add(new Button(BuildForm) { text = "관계 다시 읽기" });
+            }
             identity = new Label("GUID: " + document.scriptGuid + "\n" + service.ResolvePath(document));
             identity.style.whiteSpace = WhiteSpace.Normal;
             identity.style.marginTop = identity.style.marginBottom = 12;
@@ -107,7 +121,7 @@ namespace ProjectBrain
             form.Add(new Button(() =>
             {
                 if (!ConfirmDiscard()) return;
-                Run(() => { document = service.LoadOrCreate(selectedScript); SetDirty(false); BuildForm(); message.text = "다시 읽었습니다."; });
+                Run(() => { document = service.LoadOrCreate(selectedScript); SetDirty(false); BuildForm(); });
             }) { text = "저장된 문서 다시 읽기" });
         }
 

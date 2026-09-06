@@ -67,7 +67,7 @@ Evidence/Activity의 동일 ID 재저장은 API가 거절한다. 로컬 파일 �
 
 - 파일명은 전체 ID의 UTF-8 SHA256 소문자 hex다. 표시·탐색에는 id/title을 사용한다.
 - 각 노드 파일 및 relations.json은 임시 파일 후 교체한다. 여러 노드·관계 전체의 트랜잭션은 아니다.
-- JSON 구문 오류·명시적 미지원 버전의 API 덮어쓰기는 거절한다. 필수 필드가 누락된 JSON 객체는 현재 기본값으로 받아들일 수 있어 완전한 손상 보호가 아니다. 예: relations.json={}를 빈 목록으로 읽고 덮어쓰기 허용. A1-R 보완이 필요하며 자동 복구·삭제 API는 없다.
+- JSON 구문 오류·필수 필드 누락·잘못된 필드 형식·중복 키·미지원 버전의 API 덮어쓰기를 거절한다. UnityBrainJson은 기존 System.Text.Json 8 DLL로 입력 구조를 검사한 뒤 JsonUtility로 읽는다(새 설치 없음). 노드의 assetGuid/lastKnownPath를 제외한 필드, 관계 파일/항목 및 이관 기록의 필드를 요구한다. 레거시 문서는 schemaVersion/scriptGuid만 필수이며 나머지 필드의 누락/null과 명시적 v1 호환은 유지한다. 알 수 없는 추가 필드는 무시하며 자동 복구·삭제 API는 없다.
 - 단일 Editor 작성자를 전제로 하며 잠금·예상 버전 비교·동시 쓰기 제어는 없다.
 - GUID 형식과 실제 자산 종류·존재는 별개다. 후자는 Unity 어댑터 책임이다.
 
@@ -84,7 +84,7 @@ BrainMigration.Run은 DocumentStore로 원본 전체를 검증하고 Code/Docume
 
 receipt는 schemaVersion=1, completedUtc, sources(GUID/원본 버전/SHA256), nodeIds, relationIds를 가진다. 완료 후 재실행은 원본 일치와 결과 ID 존재를 검사하고 목적지의 후속 편집을 보존한다. 목적지 내용이 최초 이관 결과와 같다는 검사는 아니다. 원본 변경은 거절하며 자동 병합·재조정 기능은 없다. receipt 삭제로 우회하지 않는다.
 
-**미해결 A1-R:** 원본은 bytes 해시인데 Git 줄바꿈 정책이 없다. 현재 core.autocrlf=true에서 새 체크아웃으로 LF가 CRLF로 바뀌면 같은 내용도 원본 변경으로 거절된다. 임시 체크아웃과 이관 복제본에서 재현했다. 다른 체크아웃의 재현성을 주장하기 전에 보완해야 한다.
+**A1-R 보완 완료:** `.gitattributes`의 `.projectbrain/** -text`로 저장 데이터의 Git 줄바꿈 변환을 금지한다. 원본 SHA256은 계속 정확한 bytes 기준이며 정규화·receipt 재작성으로 변경을 무시하지 않는다. 기존 receipt와 원본은 수정하지 않았다. core.autocrlf=true인 새 clone에서 이관 2회와 전체 데이터 bytes 보존을 확인했다. 이미 줄바꿈이 변환된 과거 사본은 자동 복구하지 않는다. 새 clone의 Unity import/빌드는 이번 확인 범위가 아니다.
 
 ## A2에서 확정·구현할 사용 계약
 
