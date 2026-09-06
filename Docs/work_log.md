@@ -406,3 +406,14 @@ U1-4 관리 검사: verify -IncludeBrain 양쪽 문서 구조 통과. 전체 Git
 - Limitations: 모든 해상도/데이터 조합의 전수 검증 아님. 사람 확인·저장·작업 종료 버튼 실행 안 함. 임시 검사 창 닫음. 사용자5경로 변경 보존.
 
 U1-5 관리 검사: verify -IncludeBrain 양쪽 문서 구조 통과. 전체 Git 검사는 기존 사용자 SampleScene.unity:242 공백으로 실패하여 보존하고 이번 변경만 별도 staged 검사한다.
+
+## 2026-09-07 U1-6 · 그래프 연결선 보정
+- Goal: 긴 직선의 거친 인상을 줄이고 선택 관계를 따라 읽기 쉽게 한다.
+- Changes: 제한된 곡률의 Bezier 연결선, 둥근 끝/꺾임, 배경선 대비 완화, 선택선 마지막 렌더, 노드/선택 링 간격과 곡선 접선 화살표.
+- Files: BrainMapView.cs, Docs 및 실제 compile Evidence.
+- Verification: Unity compile2806010a-d8ff-4808-b5ae-e30daf9c0572 passed(errors0/up-to-date74). Map11 자체 검사. computer-use Player/연결 많은 DemoGameFlow 선택 화면 확인. 컴파일 후 그래프 갱신으로 첫 클릭은 선택되지 않아 새 화면에서 재선택 확인. reviews/2026-09-07-u1-6-evidence.json 및 edges.jpg 참조.
+- Decisions: 과한 발광/곡률을 피하고 화면 공간 최대38px 제어점 편차로 제한. 관계 데이터/방향 유지.
+- Next: 사용자 추가 지적 및 서류/PPT15:00 준비도 확인.
+- Limitations: 자동 교차 회피/라벨 우회 라우팅은 구현하지 않았다. 렌더만 변경하여 EditMode 재실행은 하지 않음. 사용자5경로 보존.
+
+U1-6 관리 검사: 문서 구조 검사 통과. 전체 Git 검사는 기존 사용자 SampleScene.unity:242 공백으로 실패하여 보존하고 이번 변경만 staged 검사한다.

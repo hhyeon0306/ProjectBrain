@@ -225,18 +225,36 @@ namespace ProjectBrain
         private void Draw(MeshGenerationContext context)
         {
             var p = context.painter2D;
-            foreach (var r in graph.Relations)
+            p.lineCap = LineCap.Round;
+            p.lineJoin = LineJoin.Round;
+            // Draw context first so focused connections stay continuous at crossings.
+            for (int layer = 0; layer < 2; layer++) foreach (var r in graph.Relations)
             {
                 if (!visibleNodes.Contains(r.from) || !visibleNodes.Contains(r.to)) continue;
                 bool active = r.from == selected || r.to == selected;
-                p.strokeColor = active ? BrainTheme.Accent : new Color32(111, 115, 121, 180);
-                p.lineWidth = active ? 1.3f : .8f;
-                var a = Screen(r.from); var b = Screen(r.to); var direction = (b - a).normalized;
-                p.BeginPath(); p.MoveTo(a + direction * 9); p.LineTo(b - direction * 10); p.Stroke();
+                if (active != (layer == 1)) continue;
+                var a = Screen(r.from); var b = Screen(r.to); var delta = b - a;
+                float length = delta.magnitude;
+                if (length < 1) continue;
+                var direction = delta / length;
+                // Restrained screen-space curvature: no loops or large detours on long edges.
+                var bend = new Vector2(-direction.y, direction.x) * Mathf.Min(38, length * .085f);
+                var c1 = a + delta * .33f + bend;
+                var c2 = a + delta * .67f + bend;
+                var startDirection = (c1 - a).normalized;
+                var endDirection = (b - c2).normalized;
+                var start = a + startDirection * Mathf.Min(r.from == selected ? 19 : 10, length * .2f);
+                var end = b - endDirection * Mathf.Min(r.to == selected ? 19 : 11, length * .2f);
+                p.strokeColor = active ? BrainTheme.Accent : new Color32(143, 150, 163, (byte)(selected == null ? 115 : 80));
+                p.lineWidth = active ? 1.65f : 1f;
+                p.BeginPath(); p.MoveTo(start); p.BezierCurveTo(c1, c2, end); p.Stroke();
                 if (active)
                 {
-                    var end = b - direction * 11; var side = new Vector2(-direction.y, direction.x) * 3;
-                    p.BeginPath(); p.MoveTo(end - direction * 6 + side); p.LineTo(end); p.LineTo(end - direction * 6 - side); p.Stroke();
+                    // A compact arrow follows the curve tangent and clears the node/selection ring.
+                    var tangent = (end - c2).normalized;
+                    var side = new Vector2(-tangent.y, tangent.x) * 2.6f;
+                    p.lineWidth = 1.35f;
+                    p.BeginPath(); p.MoveTo(end - tangent * 5.5f + side); p.LineTo(end); p.LineTo(end - tangent * 5.5f - side); p.Stroke();
                 }
             }
             foreach (var id in visibleNodes)

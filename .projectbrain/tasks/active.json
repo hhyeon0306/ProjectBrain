@@ -1,13 +1,13 @@
 {
     "schemaVersion": 1,
     "id": "a48a9ba7-be69-4985-a648-ed5d2ac5442f",
-    "revision": 15,
+    "revision": 16,
     "purpose": "Player 이동 코드의 작업 재개와 맥락·최신성 시연",
     "targetNodeIds": [
         "feature:player/movement"
     ],
-    "progress": "U1-5 실제 computer-use 점검과 상세 간격·오른쪽 확대 조작부·체크박스 줄바꿈·좁은 창 안내 겹침을 보정했다. Map11, 실제 마우스 필터/확대/상세 닫기 및 스크롤 확인.",
-    "decisions": "A2 스타일과 데이터·사람 확인 정책 유지. 오른쪽 조작부16px 여백, 닫기 아래20px, 확인 구역 분리, 불투명 상단 제목 영역 적용.",
+    "progress": "U1-6 연결선을 완만한 곡선으로 보정하고 선택 관계 우선 렌더·끝점 간격·접선 화살표를 적용했다. 실제 Player/연결 많은 DemoGameFlow 선택 화면과 Map11, 컴파일 오류0 확인.",
+    "decisions": "과한 곡률/발광 없이 화면 곡률을 제한했다. 관계 방향과 저장 데이터는 유지한다.",
     "unresolved": "사람 문서 확인2건·허용 밖48/미매핑48 유지. 사용자5개 경로 변경 보존. 모든 화면 크기/데이터 조합을 검증한 것은 아니다.",
     "nextAction": "사용자 추가 지적 판단·보정과 서류/PPT15:00 준비도 확인. Docs/session_handoff.md 참조.",
     "references": [
@@ -985,5 +985,5 @@
     },
     "gitStateAtBegin": "not-queried; baseline includes pre-existing working files",
     "createdUtc": "2026-09-06T08:18:14.4162169Z",
-    "updatedUtc": "2026-09-06T23:09:32.3694566Z"
+    "updatedUtc": "2026-09-06T23:15:12.3055857Z"
 }

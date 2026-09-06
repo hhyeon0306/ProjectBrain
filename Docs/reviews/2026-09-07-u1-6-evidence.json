@@ -1,0 +1,26 @@
+{
+  "unit": "U1-6",
+  "verification": [
+    {
+      "schemaVersion": 1,
+      "id": "2806010a-d8ff-4808-b5ae-e30daf9c0572",
+      "taskId": "a48a9ba7-be69-4985-a648-ed5d2ac5442f",
+      "kind": "compile",
+      "state": "passed",
+      "snapshotHash": "bf1683950d5c2cc4577aecbab3b0e86a97dfbf0e6cb7a7054b8a4ae9e056308a",
+      "startedUtc": "2026-09-06T23:14:18.1753254Z",
+      "endedUtc": "2026-09-06T23:14:38.0666584Z",
+      "summary": "Unity compilation callbacks; compiled=0, up-to-date=74, errors=0",
+      "total": 74,
+      "passed": 74,
+      "failed": 0,
+      "skipped": 0
+    }
+  ],
+  "mapChecks": 11,
+  "nativeInspection": [
+    "Player selected",
+    "DemoGameFlow selected"
+  ],
+  "limitation": "Drawing-only change; no new EditMode run; not exhaustive graph routing verification"
+}

@@ -472,6 +472,14 @@
             "type": "verified_by",
             "source": "brain-unity-runner",
             "createdUtc": "2026-09-06T23:08:53.9472379Z"
+        },
+        {
+            "id": "relation:5ca6b02e85e00d10fa72a40e6a478e1b079cf1b5105e794094cd1798d23e7b41",
+            "from": "feature:player/movement",
+            "to": "evidence:2806010a-d8ff-4808-b5ae-e30daf9c0572",
+            "type": "verified_by",
+            "source": "brain-unity-runner",
+            "createdUtc": "2026-09-06T23:14:38.0666584Z"
         }
     ]
 }
