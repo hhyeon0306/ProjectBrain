@@ -1,0 +1,33 @@
+{
+  "unit": "U1-7",
+  "verification": [
+    {
+      "schemaVersion": 1,
+      "id": "09611484-13b0-47a5-9405-e2bea4bd47d8",
+      "taskId": "a48a9ba7-be69-4985-a648-ed5d2ac5442f",
+      "kind": "compile",
+      "state": "passed",
+      "snapshotHash": "45a6a2339b4c07addce403f1ea5231dfc45794a67a45238015e0a111c56cd6a5",
+      "startedUtc": "2026-09-06T23:17:30.6049325Z",
+      "endedUtc": "2026-09-06T23:17:53.0012602Z",
+      "summary": "Unity compilation callbacks; compiled=0, up-to-date=74, errors=0",
+      "total": 74,
+      "passed": 74,
+      "failed": 0,
+      "skipped": 0
+    }
+  ],
+  "mapChecks": 11,
+  "root": {
+    "diameter": 22,
+    "font": 16,
+    "weight": "Bold"
+  },
+  "domain": {
+    "diameter": 18,
+    "font": 14,
+    "weight": "Bold"
+  },
+  "visual": "Native screenshot and DemoGameFlow click; straight edges and reciprocal curves",
+  "limitations": "No new EditMode run; no automatic crossing/label avoidance"
+}

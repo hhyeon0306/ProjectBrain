@@ -32,6 +32,8 @@
 .brain .node-label { position: absolute; height: 28px; min-height: 28px; max-width: 164px; padding: 0 4px; margin: 0; background-color: rgba(0,0,0,0); border-width: 0; border-radius: 3px; font-size: 12px; -unity-text-align: middle-left; overflow: hidden; text-overflow: ellipsis; }
 .brain .node-label:hover { background-color: #454950; }
 .brain .node-label.selected { color: #c5cff6; -unity-font-style: bold; }
+.brain .node-label.node-root { font-size: 16px; -unity-font-style: bold; max-width: 200px; }
+.brain .node-label.node-domain { font-size: 14px; -unity-font-style: bold; max-width: 200px; }
 .brain .filter-panel { top: 74px; right: 20px; width: 220px; }
 .brain .summary-panel { right: 20px; top: 22px; bottom: 76px; width: 420px; }
 .brain .section { margin-top: 14px; margin-bottom: 10px; padding: 12px; border-top-width: 1px; border-top-color: #50535a; }

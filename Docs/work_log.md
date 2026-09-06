@@ -417,3 +417,14 @@ U1-5 관리 검사: verify -IncludeBrain 양쪽 문서 구조 통과. 전체 Git
 - Limitations: 자동 교차 회피/라벨 우회 라우팅은 구현하지 않았다. 렌더만 변경하여 EditMode 재실행은 하지 않음. 사용자5경로 보존.
 
 U1-6 관리 검사: 문서 구조 검사 통과. 전체 Git 검사는 기존 사용자 SampleScene.unity:242 공백으로 실패하여 보존하고 이번 변경만 staged 검사한다.
+
+## 2026-09-07 U1-7 · 직선/곡선 절충 및 노드 위계
+- Goal: 강제 곡선의 복잡함을 줄이고 루트/도메인 기준점을 강조한다.
+- Changes: 기본 직선, 역방향 관계가 있는 쌍만 최대18px 제어점 편차 곡선. 루트 지름22/글자16 Bold, 도메인18/14 Bold. 이름 표시 우선순위/폭·간격/클릭 반경/선 끝·선택 링 조정.
+- Files: BrainMapView.cs/BrainTheme.uss 및 Docs/검증 기록.
+- Verification: Map11 자체 검사, 실제 UI 스타일 root16 Bold/domain14 Bold 조회, computer-use 화면과 DemoGameFlow 선택 확인. compile09611484-13b0-47a5-9405-e2bea4bd47d8 passed(errors0/up-to-date74). reviews/2026-09-07-u1-7-evidence.json 및 graph.jpg.
+- Decisions: 직선의 단순함 유지, 양방향 구별에만 곡선 사용. 루트는 Project 타입으로 판단하며 데이터 재분류 없음.
+- Next: 사용자 추가 지적·서류/PPT15:00 준비도 확인.
+- Limitations: 모든 관계의 교차/라벨 우회 라우팅은 구현하지 않았다. 표시 변경으로 EditMode 재실행은 하지 않았다. 사용자5경로 보존.
+
+U1-7 관리 검사: 양쪽 문서 구조 통과. 기존 사용자 SampleScene.unity:242 공백으로 전체 Git 검사 실패, 해당 변경 보존 후 이번 변경만 staged 검사.

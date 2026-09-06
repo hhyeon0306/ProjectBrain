@@ -15,6 +15,7 @@ namespace ProjectBrain
         private readonly Dictionary<string, Button> labels = new Dictionary<string, Button>();
         private HashSet<string> visibleNodes = new HashSet<string>();
         private readonly HashSet<string> hiddenTypes = new HashSet<string>();
+        private readonly HashSet<string> curvedRelations = new HashSet<string>();
         private string selected, query = "";
         private bool local;
         private HashSet<string> scopeIds;
@@ -36,6 +37,9 @@ namespace ProjectBrain
         public BrainMapView(BrainGraphService graph, Action<string> select)
         {
             this.graph = graph; this.select = select;
+            var directions = new HashSet<(string, string)>(graph.Relations.Select(r => (r.from, r.to)));
+            foreach (var relation in graph.Relations)
+                if (relation.from != relation.to && directions.Contains((relation.to, relation.from))) curvedRelations.Add(relation.id);
             name = "brain-map"; style.flexGrow = 1; style.overflow = Overflow.Hidden; focusable = true;
             ComputeLayout();
             foreach (var node in graph.Nodes.Values.OrderBy(n => n.id, StringComparer.Ordinal))
@@ -43,7 +47,10 @@ namespace ProjectBrain
                 var id = node.id;
                 var title = node.type == "Evidence" ? "검증 기록 · " + id.Substring(Math.Max(0, id.Length - 6)) : node.title;
                 var button = new Button(() => { if (!moved) select(id); }) { text = title, name = "map-node-" + id, tooltip = BrainTheme.TypeName(node.type) + " · " + node.title + "\n" + node.summary + "\n" + id };
-                button.AddToClassList("node-label"); labels.Add(id, button); Add(button);
+                button.AddToClassList("node-label");
+                if (node.type == "Project") button.AddToClassList("node-root");
+                else if (node.type == "Domain") button.AddToClassList("node-domain");
+                labels.Add(id, button); Add(button);
                 button.RegisterCallback<ClickEvent>(e => { if (e.button == 0 && e.clickCount == 2 && !moved) { Activated?.Invoke(id); e.StopPropagation(); } });
                 button.AddManipulator(new ContextualMenuManipulator(e =>
                 {
@@ -142,13 +149,17 @@ namespace ProjectBrain
             // A selected node always gets its name; glyphs remain clickable when names are omitted.
             var occupied = new List<Rect>();
             HiddenLabelCount = 0;
-            foreach (var id in visibleNodes.OrderBy(id => id == selected ? 0 : graph.Get(id).type == "Evidence" ? 2 : 1).ThenBy(id => id, StringComparer.Ordinal))
+            foreach (var id in visibleNodes.OrderBy(id => id == selected ? 0 : graph.Get(id).type == "Project" ? 1 : graph.Get(id).type == "Domain" ? 2 : graph.Get(id).type == "Evidence" ? 4 : 3).ThenBy(id => id, StringComparer.Ordinal))
             {
                 var p = Screen(id); var label = labels[id];
-                label.style.left = p.x + 12; label.style.top = p.y - 14;
+                bool major = graph.Get(id).type == "Project" || graph.Get(id).type == "Domain";
+                float labelOffset = major ? NodeRadius(id) + 8 : 12;
+                label.style.left = p.x + labelOffset; label.style.top = p.y - 14;
                 float measured = label.MeasureTextSize(label.text, 0, MeasureMode.Undefined, 0, MeasureMode.Undefined).x;
-                float width = float.IsNaN(measured) ? 164 : Mathf.Min(164, measured + 8);
-                var bounds = new Rect(p.x - 8, p.y - 16, width + 24, 32);
+                float maxWidth = major ? 200 : 164;
+                float width = float.IsNaN(measured) ? maxWidth : Mathf.Min(maxWidth, measured + 8);
+                float leftInset = Mathf.Max(8, NodeRadius(id) + 2);
+                var bounds = new Rect(p.x - leftInset, p.y - 16, width + labelOffset + leftInset, 32);
                 bool show = id == selected || !occupied.Any(rect => rect.Overlaps(bounds));
                 label.style.display = show ? DisplayStyle.Flex : DisplayStyle.None;
                 if (show) occupied.Add(bounds); else HiddenLabelCount++;
@@ -168,7 +179,7 @@ namespace ProjectBrain
                 element = element.parent;
             }
             if (dragged == null)
-                dragged = visibleNodes.FirstOrDefault(id => Vector2.Distance(Screen(id), this.WorldToLocal(e.position)) < 12);
+                dragged = visibleNodes.FirstOrDefault(id => Vector2.Distance(Screen(id), this.WorldToLocal(e.position)) < Mathf.Max(12, NodeRadius(id) + 3));
             pointer = e.pointerId; lastPointer = this.WorldToLocal(e.position);
             // Background and glyph drags capture immediately; label drags capture after a movement threshold.
             if (e.target == this) { this.CapturePointer(pointer); e.StopPropagation(); }
@@ -222,6 +233,10 @@ namespace ProjectBrain
                 foreach (var id in ids) positions[id] += Vector2.ClampMagnitude(force[id], 24) * (1 - iteration / 280f);
             }
         }
+        private float NodeRadius(string id) => graph.Get(id).type == "Project" ? 11 : graph.Get(id).type == "Domain" ? 9 : 5;
+        private float SelectionRadius(string id) => Mathf.Max(16, NodeRadius(id) + 8);
+        private float EdgeInset(string id) => id == selected ? SelectionRadius(id) + 3 : Mathf.Max(11, NodeRadius(id) + 3);
+
         private void Draw(MeshGenerationContext context)
         {
             var p = context.painter2D;
@@ -237,17 +252,20 @@ namespace ProjectBrain
                 float length = delta.magnitude;
                 if (length < 1) continue;
                 var direction = delta / length;
-                // Restrained screen-space curvature: no loops or large detours on long edges.
-                var bend = new Vector2(-direction.y, direction.x) * Mathf.Min(38, length * .085f);
+                // Straight by default; reciprocal connections get opposite shallow lanes.
+                bool curved = curvedRelations.Contains(r.id);
+                var bend = curved ? new Vector2(-direction.y, direction.x) * Mathf.Min(18, length * .055f) : Vector2.zero;
                 var c1 = a + delta * .33f + bend;
                 var c2 = a + delta * .67f + bend;
                 var startDirection = (c1 - a).normalized;
                 var endDirection = (b - c2).normalized;
-                var start = a + startDirection * Mathf.Min(r.from == selected ? 19 : 10, length * .2f);
-                var end = b - endDirection * Mathf.Min(r.to == selected ? 19 : 11, length * .2f);
+                var start = a + startDirection * Mathf.Min(EdgeInset(r.from), length * .2f);
+                var end = b - endDirection * Mathf.Min(EdgeInset(r.to), length * .2f);
                 p.strokeColor = active ? BrainTheme.Accent : new Color32(143, 150, 163, (byte)(selected == null ? 115 : 80));
                 p.lineWidth = active ? 1.65f : 1f;
-                p.BeginPath(); p.MoveTo(start); p.BezierCurveTo(c1, c2, end); p.Stroke();
+                p.BeginPath(); p.MoveTo(start);
+                if (curved) p.BezierCurveTo(c1, c2, end); else p.LineTo(end);
+                p.Stroke();
                 if (active)
                 {
                     // A compact arrow follows the curve tangent and clears the node/selection ring.
@@ -261,7 +279,7 @@ namespace ProjectBrain
             {
                 var center = Screen(id); var type = graph.Get(id).type;
                 p.strokeColor = p.fillColor = id == selected ? BrainTheme.Accent : new Color32(190, 194, 201, 255); p.lineWidth = 1.3f;
-                if (id == selected) { p.BeginPath(); p.Arc(center, 16, 0, 360); p.Stroke(); }
+                if (id == selected) { p.BeginPath(); p.Arc(center, SelectionRadius(id), 0, 360); p.Stroke(); }
                 p.BeginPath();
                 if (type == "Evidence" || type == "Activity")
                 { p.MoveTo(center + new Vector2(0,-7)); p.LineTo(center + new Vector2(7,0)); p.LineTo(center + new Vector2(0,7)); p.LineTo(center + new Vector2(-7,0)); p.ClosePath(); p.Stroke(); }
@@ -270,7 +288,7 @@ namespace ProjectBrain
                     p.MoveTo(center + new Vector2(-6,-7)); p.LineTo(center + new Vector2(6,-7)); p.LineTo(center + new Vector2(6,7)); p.LineTo(center + new Vector2(-6,7)); p.ClosePath(); p.Stroke();
                     if (type == "Document") { p.BeginPath(); p.MoveTo(center + new Vector2(-3,-2)); p.LineTo(center + new Vector2(3,-2)); p.MoveTo(center + new Vector2(-3,2)); p.LineTo(center + new Vector2(3,2)); p.Stroke(); }
                 }
-                else { p.Arc(center, type == "Domain" || type == "Project" ? 7 : 5, 0, 360); p.Fill(); }
+                else { p.Arc(center, NodeRadius(id), 0, 360); p.Fill(); }
             }
         }
     }
