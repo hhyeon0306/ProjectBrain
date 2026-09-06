@@ -2,6 +2,8 @@
 
 ## 2026-09-06 HTTP 전환 검증
 
+후속 확인 완료: Codex 재실행 후 현재 대화의 내장 도구 38개 노출, scene-list-opened 및 unity-tool-list 성공. 씬 RootCount=2/IsDirty=false. 아래 내장 연결 대기는 전환 직후의 과거 상태다.
+
 현재 전송은 Streamable HTTP다. Unity AI Game Developer 창에서 http 선택 → 기존 stdio 서버 종료 → Start → Codex Reconfigure → 생성된 하위 설정을 상위에 동기화했다. 양쪽 ai-game-developer URL은 http://localhost:25766/p/cbd0af11, startup_timeout_sec=30, tool_timeout_sec=300이다. 설정은 로컬 Git 제외이며 과거 stdio 절차보다 이 절을 우선한다.
 
 Unity가 서버 하나를 실행하고 Codex는 URL에 접속한다. Unity/HTTP 서버 연결을 먼저 확인한 뒤 Codex가 도구 목록을 로드한다. 이전 stdio 서버를 추가 실행하지 않는다. 개발·검증은 계속 Ivan MCP이며 CLI Editor 우회가 아니다.

@@ -1,5 +1,13 @@
 # Brain 작업 이력
 
+## 2026-09-06 HTTP 내장 MCP 연결 복구 확인
+- Goal: Codex 재실행 후 현재 대화의 내장 Unity MCP를 검증한다.
+- Changes: HTTP 전환 후 내장 연결 검증 대기를 완료로 갱신.
+- Files: 양쪽 AGENTS.md, Docs/session_handoff.md, Docs/work_log.md; 상위 Docs/unity-workflow.md; 하위 Docs/unity_mcp_usage.md.
+- Verification: 현재 ALL_TOOLS에 Unity 도구 38개 노출. 내장 scene-list-opened 성공(유효/로드됨, RootCount=2, IsDirty=false). unity-tool-list로 assets-refresh/scene-list-opened/script-execute/tests-run 등록 확인. verify -IncludeBrain 문서/Git 검사 통과.
+- Decisions: HTTP 직접 호출뿐 아니라 현재 Codex 내장 MCP 연결도 검증 완료. Unity 관리 단일 HTTP 서버를 유지한다.
+- Next: Brain A1-R/F2 보완부터 재개. 제품 코드 변경 뒤 관련 컴파일/테스트는 별도 수행.
+- Limitations: 이번 검사는 연결·읽기 도구 검증이며 제품 테스트 통과가 아니다. 씬/제품 코드/기존 사용자 변경은 수정하지 않았다.
 ## 2026-09-06 Computer Use로 HTTP 전환·실제 호출
 - Goal: 사용자 요청대로 Unity UI에서 HTTP 설정을 변경하고 연결/도구를 테스트한다.
 - Changes: computer-use sky로 http/Start/Reconfigure 클릭. 기존 stdio MCP만 종료하고 Unity 유지. 하위 생성 설정을 상위에 동기화. 운영 지침/사용법 갱신.
