@@ -504,3 +504,12 @@ G1 최신 결정: 사용자 지적 우선으로 전환. 역할이 겹쳐 보이�
 
 U1-10 커밋 전 보완: 신규 Unity YAML/meta29개에 생성된 줄 끝 공백을 MCP 파일 처리로 정리했다. 사용자 기존3경로는 제외했다. Git 줄바꿈 정규화 뒤 staged diff 검사 통과. 데이터 값·GUID는 변경하지 않았으며 snapshot이 바뀌어 compile73c1ea51을 다시 요청했다.
 최종 보완 검증: compile73c1ea51 passed, 최신75/오류0. 양쪽 관리 검사와 staged 공백 검사 통과.
+
+## 2026-09-07 GIT-01 · GitHub 저장소 생성·최초 업로드
+- Goal: 사용자 요청에 따라 현재 ProjectBrain Unity 프로젝트를 GitHub에 보관한다.
+- Changes: hhyeon0306/ProjectBrain 비공개 저장소 생성, origin 추가, main 최초 push 및 원격 추적 설정.
+- Files: Docs/session_handoff.md/work_log.md와 로컬 Git 원격 설정. 제품 파일 변경 없음.
+- Verification: gh 계정 hhyeon0306 및 저장소 비공개 확인. 구현 커밋4ab3df6의 main push 성공. 추적 파일의 주요 토큰/개인키 패턴 검색 일치 없음, 50MB 초과 추적 파일 없음. 양쪽 관리 검사 통과. 업로드 기록 커밋도 이어서 push한다.
+- Decisions: 공개 요청이 없어 비공개 기본값. 상위 지원 준비 저장소는 업로드하지 않는다. 기존 커밋 이력·샘플 백업·실제 Brain 기록을 보존한다.
+- Next: 사용자 화면 피드백에 맞춰 필요한 보완을 진행한다.
+- Limitations: 기존 사용자 설정3개는 로컬 변경으로 남기고 이번 업로드에서 제외. 첫 push가 Git Credential Manager에서 대기해 중단한 뒤, 명령 단위로 로그인된 gh 인증 도우미를 지정하여 성공했다. 전역 인증 설정 변경 없음. 비밀정보 검색은 제한된 패턴 점검이며 전수 보안 감사가 아니다. Unity 재검사 없음.

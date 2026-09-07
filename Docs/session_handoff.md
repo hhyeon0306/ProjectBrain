@@ -1,7 +1,8 @@
 # Brain 세션 인계
-Updated: 2026-09-07 13:12 KST
+Updated: 2026-09-07 GitHub 최초 업로드 후
 
 ## Current state
+GIT-01: 사용자 요청으로 https://github.com/hhyeon0306/ProjectBrain 비공개 저장소를 생성하고 main을 최초 push했다. origin/main 추적 설정 완료. 원래 사용자 설정 변경3개는 기존 방침대로 로컬에 보존하고 제외했다.
 R1-01/02/03·04 완료. G1 GAS 개념 Unity 예제/Brain 템플릿 구현에 이어 U1-10 검토 중심 화면의 1차 구현 완료. 현재 사용자가 화면 검증을 담당하며 추가 Computer Use/창 조작은 멈춘다. 일정은 사용자가 관리하고 시각적 품질을 우선한다.
 
 ## Changes
