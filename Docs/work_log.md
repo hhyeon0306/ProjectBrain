@@ -524,3 +524,12 @@ U1-10 커밋 전 보완: 신규 Unity YAML/meta29개에 생성된 줄 끝 공백
 - Limitations: 첫 설명 갱신 도우미는 Newtonsoft 참조 미노출로 실행 전 실패. JsonUtility 경로로 재시도 중 두 번째 노드 File.Replace 일시 실패, 루트 성공·도메인 미변경 상태를 확인하고 해당 노드만 정상 SaveNode 재시도로 저장·재조회했다. 원본 승인 상태 보존, 수동 파일 덮어쓰기로 저장 거절 우회 없음. 사람 검토/현재 EditMode 등 전체 Brain 완료 제한은 별도이며 기존 사용자 설정3개 보존.
 
 U1-11 최종 확인: 4b605aa0는 도메인 재로드로 interrupted. 같은 최종 snapshot5c15baf8에서 재실행한 compile c8bc72c0-9042-4c7a-be17-f4a09bb55da6 passed(최신75/오류0). Presentation15와 양쪽 관리 검사 통과. 전체 Brain complete 거절은 그대로 보존하고 작업 진행 기록을 갱신했다.
+
+## 2026-09-07 P1 · PPT 설명 준비 최종 점검
+- Goal: 사용자 개발 중단 결정에 따라 실제 구현과 제출 설명의 일치를 확인한다.
+- Changes: 읽기 전용 그래프/코드/문서 대조와 준비 점검 보고서. 제품 코드·그래프·승인 상태 수정 없음.
+- Files: Docs/reviews/2026-09-07-ppt-readiness.md/session_handoff.md/work_log.md.
+- Verification: 실제 Unity의 BrainGraphService로 Project1/Domain5/Feature6/Code11/Document11/Evidence6와 관계68개 읽기 성공. 코드11개 모두 실제 GUID 경로/문서 존재, 원본 요약·본문 일치, savedCodeHash 일치. 최신 compile c8bc72c0 passed 기록 확인. G1 31/31과 과거 WorkflowDemo9→7→9의 대상·시점을 분리. 양쪽 관리 검사 통과.
+- Decisions: 포트폴리오 설명 가능, 핵심 흐름 구현 프로토타입으로 한정. 자동 의존 분석·케이스별 상세·대규모 협업·완료 성공·검토 시간 단축 실측을 주장하지 않는다.
+- Next: 상위 Docs/brain-ppt-outline.md 기준 제출 PPT 구성/제작. 추가 개발은 사용자 재개 요청 전 중단.
+- Limitations: 읽기 점검은 전체 UI/의미적 정확성/새 테스트 실행을 대신하지 않는다. 현재 완료 거절과 사용자 기존 설정3개 보존. 화면 조작·원격 push 없음.
