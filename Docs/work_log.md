@@ -472,3 +472,23 @@ S1 관리 검사: 양쪽 문서 구조 통과. 전체 Git 검사는 기존 사�
 - Limitations: 현재 작업51/51/2로 완료 불가. 대규모 성능/다중 프로세스 트랜잭션/원격 네트워크 구현 없음. 기존 사용자5경로는 이번R1커밋 제외.
 
 R1 보강 관리 검사: 최초 상위 handoff 기록 누락을 보완한 뒤 양쪽 문서 구조 통과. 전체 Git 검사는 기존 사용자 SampleScene.unity:242 공백으로 실패하여 보존. 이번 변경만 staged 검사.
+
+## 2026-09-07 G1 · GAS 개념 프레임워크 교체 진행/Computer Use 중단
+- Goal: R1 완료 후 기존 샘플을 면접에서 설명 가능한 Unity 프레임워크와 Brain 템플릿으로 교체.
+- Changes: 현재 변경 포함162파일 백업 후 기존 샘플 제거. Runtime6/Unity4/Test1, 능력·효과5종 에셋과 AbilityArena 씬. Brain11코드/11문서 연결. 좁은 Game 창 캐릭터 가림 보정.
+- Files: Assets/AbilityFramework, Assets/Scenes/AbilityArena.unity, EditorBuildSettings, .projectbrain, Docs/archive/templates/reviews/session_handoff.
+- Verification: 실제 G1 NUnit31/31(run02252d03) 뒤 UI/문서 보정하여 최종 재검증 남음. Play 기능 확인 및 실제 Computer Use 화염탄/초기화/회복 클릭. 원본·문서·코드해시11개 일치. 최종 재생 종료 클릭은 사용자 ESC로 결과 미확인.
+- Decisions: 사용자 순서R1→G1. 기존 작업은 교체 사유 abandoned로 기록, 새G1기준선 보존. GAS 전체/네트워크 구현이라고 표현하지 않는다.
+- Next: 설명 문서/최종검증/관리검사/커밋.13시 개발 종료 일정 유지.
+- Limitations: Computer Use ESC중단 후 추가 입력 없음. 일괄 등록 File.Replace 실패는 pending 보존·개별 저장 재개 후11개 확인. 관련 없는 기존 사용자3경로 보존. G1 최종 완료 아직 아님.
+
+G1 최신 결정: 사용자 지적 우선으로 전환. 역할이 겹쳐 보이던 도메인/기능 명칭을 구분하고 task revision2에 진행/한계 기록. 추가 확장/광범위 검증은 사용자 요청 전 중지.
+
+## 2026-09-07 U1-9 · 구조도 성능 빠른 점검
+- Goal: 사용자가 느낀 구조도 지연의 원인을 빠르게 좁힌다.
+- Changes: 소스 경로와 실제 표시 맵의 동기 처리 시간을 측정. 제품 수정 없음.
+- Files: Docs/reviews/2026-09-07-u1-9-performance.md, Docs/work_log.md, Docs/session_handoff.md.
+- Verification: 표시34/저장35노드63관계, 갱신0.725ms·Fit1.557ms·글자측정0.235ms 평균. 그래프로드83.56ms·맵생성127.27ms 단일 관측. 측정 전 뷰 복원. 최초 진단 스크립트 enum 한정 누락 수정 후 실행.
+- Decisions: 심한 지연 원인 미확정. 사용자 시간 제한에 따라 프로파일링/제품 수정 확대 없이 보류.
+- Next: 사용자가 지적하는 다음 Brain 항목 우선.
+- Limitations: 다음 프레임 UI 레이아웃/벡터 테셀레이션/GPU·실제 포인터 연속 입력은 미측정. 후보를 확정 원인으로 표현하지 않는다.
