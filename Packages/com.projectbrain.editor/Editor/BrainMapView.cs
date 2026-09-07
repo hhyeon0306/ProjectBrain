@@ -245,7 +245,7 @@ namespace ProjectBrain
                 foreach (var id in ids) positions[id] += Vector2.ClampMagnitude(force[id], 24) * (1 - iteration / 280f);
             }
         }
-        private float NodeRadius(string id) => graph.Get(id).type == "Project" ? 11 : graph.Get(id).type == "Domain" ? 9 : 5;
+        private float NodeRadius(string id) => graph.Get(id).type == "Project" ? 15 : graph.Get(id).type == "Domain" ? 9 : 5;
         private float SelectionRadius(string id) => Mathf.Max(16, NodeRadius(id) + 8);
         private float EdgeInset(string id) => id == selected ? SelectionRadius(id) + 3 : Mathf.Max(11, NodeRadius(id) + 3);
 
@@ -299,6 +299,7 @@ namespace ProjectBrain
                 p.strokeColor = p.fillColor = id == selected ? BrainTheme.Accent : related ? new Color32(188, 202, 242, 255) : HasVisibleSelection ? new Color32(146, 153, 166, 255) : new Color32(190, 194, 201, 255);
                 p.lineWidth = related || id == selected ? 1.7f : 1.3f;
                 if (id == selected) { p.BeginPath(); p.Arc(center, SelectionRadius(id), 0, 360); p.Stroke(); }
+                if (type == "Project") { p.BeginPath(); p.Arc(center, NodeRadius(id) + 4, 0, 360); p.Stroke(); }
                 p.BeginPath();
                 if (type == "Evidence" || type == "Activity")
                 { p.MoveTo(center + new Vector2(0,-7)); p.LineTo(center + new Vector2(7,0)); p.LineTo(center + new Vector2(0,7)); p.LineTo(center + new Vector2(-7,0)); p.ClosePath(); p.Stroke(); }

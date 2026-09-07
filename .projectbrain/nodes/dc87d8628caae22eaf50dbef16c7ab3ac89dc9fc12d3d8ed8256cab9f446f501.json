@@ -1,0 +1,15 @@
+{
+    "schemaVersion": 1,
+    "id": "asset:d330b096c06e04d4f89e4e2b885f0f0c",
+    "type": "Code",
+    "title": "GameplayEffect.cs",
+    "summary": "즉시 효과와 지속 효과의 불변 설정을 정의한다.",
+    "body": "",
+    "assetGuid": "d330b096c06e04d4f89e4e2b885f0f0c",
+    "lastKnownPath": "Assets/AbilityFramework/Runtime/GameplayEffect.cs",
+    "tags": [
+        "ability-kit"
+    ],
+    "status": "unreviewed",
+    "updatedUtc": "2026-09-07T03:20:16.5081259Z"
+}

@@ -1,0 +1,13 @@
+{
+    "schemaVersion": 1,
+    "id": "feature:abilities/activation",
+    "type": "Feature",
+    "title": "발동 조건과 실행",
+    "summary": "조건을 검사한 뒤 비용·쿨다운·효과를 확정",
+    "body": "",
+    "assetGuid": "",
+    "lastKnownPath": "",
+    "tags": [],
+    "status": "unreviewed",
+    "updatedUtc": "2026-09-07T03:29:54.5786614Z"
+}

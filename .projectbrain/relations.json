@@ -2,580 +2,524 @@
     "schemaVersion": 1,
     "relations": [
         {
-            "id": "relation:6e98b7db400bd91d74f91a485a4a1420f50304020eb6c01557c9dbc8c9e64df4",
-            "from": "asset:10000000000000000000000000000001",
-            "to": "document:10000000000000000000000000000001",
-            "type": "documented_by",
-            "source": "v2-migration",
-            "createdUtc": "2026-09-05T00:00:00Z"
-        },
-        {
-            "id": "relation:55c29f01181ba855886fb5b7dc8d07caf71968e3aca1122a9146199789c48feb",
-            "from": "asset:10000000000000000000000000000001",
-            "to": "asset:10000000000000000000000000000003",
-            "type": "depends_on",
-            "source": "v2-migration",
-            "createdUtc": "2026-09-05T00:00:00Z"
-        },
-        {
-            "id": "relation:4b5baf687e9d6c311f79d248c6e5e126e2b875a3371ee46bb30feac13d331ab6",
-            "from": "asset:10000000000000000000000000000001",
-            "to": "asset:10000000000000000000000000000004",
-            "type": "depends_on",
-            "source": "v2-migration",
-            "createdUtc": "2026-09-05T00:00:00Z"
-        },
-        {
-            "id": "relation:2be585487d00a57727b0b13ebb307856a7ecaf5a1353d9676c9709d96a6ca24a",
-            "from": "asset:10000000000000000000000000000001",
-            "to": "asset:10000000000000000000000000000005",
-            "type": "depends_on",
-            "source": "v2-migration",
-            "createdUtc": "2026-09-05T00:00:00Z"
-        },
-        {
-            "id": "relation:1eaa200d46636017a056116cb2dfe9a3bbfd68de88570e579d8270b8a5578253",
-            "from": "asset:10000000000000000000000000000001",
-            "to": "asset:10000000000000000000000000000006",
-            "type": "depends_on",
-            "source": "v2-migration",
-            "createdUtc": "2026-09-05T00:00:00Z"
-        },
-        {
-            "id": "relation:f7b36af0ffe9873d45ee726e3fd1e658c4c336f0505fd2211c4623cf74eb4868",
-            "from": "asset:10000000000000000000000000000002",
-            "to": "document:10000000000000000000000000000002",
-            "type": "documented_by",
-            "source": "v2-migration",
-            "createdUtc": "2026-09-05T00:00:00Z"
-        },
-        {
-            "id": "relation:b5d235dc950457019cd189c02e6024edd79f1f896c404b17142ea658bed9f74e",
-            "from": "asset:10000000000000000000000000000002",
-            "to": "asset:10000000000000000000000000000003",
-            "type": "depends_on",
-            "source": "v2-migration",
-            "createdUtc": "2026-09-05T00:00:00Z"
-        },
-        {
-            "id": "relation:6d98c362d60473701c1ed97e724948a7133270b56380da34eac3ccac95e24090",
-            "from": "asset:10000000000000000000000000000003",
-            "to": "document:10000000000000000000000000000003",
-            "type": "documented_by",
-            "source": "v2-migration",
-            "createdUtc": "2026-09-05T00:00:00Z"
-        },
-        {
-            "id": "relation:985c9d758ad07b0e88fe347df43306f379c36015036f8da260dded3641c60513",
-            "from": "asset:10000000000000000000000000000003",
-            "to": "asset:10000000000000000000000000000002",
-            "type": "depends_on",
-            "source": "v2-migration",
-            "createdUtc": "2026-09-05T00:00:00Z"
-        },
-        {
-            "id": "relation:2035a343548c11b3defb2db10c41e051d1bc550252f150d99ac06b95cc401741",
-            "from": "asset:10000000000000000000000000000003",
-            "to": "asset:10000000000000000000000000000001",
-            "type": "depends_on",
-            "source": "v2-migration",
-            "createdUtc": "2026-09-05T00:00:00Z"
-        },
-        {
-            "id": "relation:d30a236bed0a264b582c6c2f00b425cba03c01b5edaa3f0f2543632f0f754860",
-            "from": "asset:10000000000000000000000000000004",
-            "to": "document:10000000000000000000000000000004",
-            "type": "documented_by",
-            "source": "v2-migration",
-            "createdUtc": "2026-09-05T00:00:00Z"
-        },
-        {
-            "id": "relation:1aed8ec1db0447476de0fa6f54ade90164ccd2b28948d27b9addc3b2dfa39621",
-            "from": "asset:10000000000000000000000000000004",
-            "to": "asset:10000000000000000000000000000005",
-            "type": "depends_on",
-            "source": "v2-migration",
-            "createdUtc": "2026-09-05T00:00:00Z"
-        },
-        {
-            "id": "relation:1a2041dacfcfc8de98d275a65da18667263c36344248bc35a5d76a889e5ab235",
-            "from": "asset:10000000000000000000000000000004",
-            "to": "asset:10000000000000000000000000000001",
-            "type": "depends_on",
-            "source": "v2-migration",
-            "createdUtc": "2026-09-05T00:00:00Z"
-        },
-        {
-            "id": "relation:ab7732d9ac6f21bc2dc5ea9ad1ced1567908c95e76402e4c034f5751920a2502",
-            "from": "asset:10000000000000000000000000000005",
-            "to": "document:10000000000000000000000000000005",
-            "type": "documented_by",
-            "source": "v2-migration",
-            "createdUtc": "2026-09-05T00:00:00Z"
-        },
-        {
-            "id": "relation:39c88ad6f997d439953fe588c30589d270de18b4f3e656c90c9e60c4d599b23d",
-            "from": "asset:10000000000000000000000000000005",
-            "to": "asset:10000000000000000000000000000004",
-            "type": "depends_on",
-            "source": "v2-migration",
-            "createdUtc": "2026-09-05T00:00:00Z"
-        },
-        {
-            "id": "relation:afcf39f099cb7264186eb8c9e6b1882f7de2c2140141117fbeae3cd153f38317",
-            "from": "asset:10000000000000000000000000000005",
-            "to": "asset:10000000000000000000000000000001",
-            "type": "depends_on",
-            "source": "v2-migration",
-            "createdUtc": "2026-09-05T00:00:00Z"
-        },
-        {
-            "id": "relation:f36ff698aa43c7050c0a6bfcc82bd8872ee477e8a3da772b07e40e80c2dc6b1e",
-            "from": "asset:10000000000000000000000000000006",
-            "to": "document:10000000000000000000000000000006",
-            "type": "documented_by",
-            "source": "v2-migration",
-            "createdUtc": "2026-09-05T00:00:00Z"
-        },
-        {
-            "id": "relation:2b68ecc1bc947b5eb7d354051edc07ca0576d5492a77ace99be490dea96b34d3",
-            "from": "asset:10000000000000000000000000000006",
-            "to": "asset:10000000000000000000000000000001",
-            "type": "depends_on",
-            "source": "v2-migration",
-            "createdUtc": "2026-09-05T00:00:00Z"
-        },
-        {
-            "id": "relation:969ba032a1e1a4ebf109a624b53c1b8c8288066919de1c3a2ef4718da924beeb",
-            "from": "asset:627bd1b35aa0f5a4a89fadc21e6bea98",
-            "to": "document:627bd1b35aa0f5a4a89fadc21e6bea98",
-            "type": "documented_by",
-            "source": "v2-migration",
-            "createdUtc": "2026-09-05T00:00:00Z"
-        },
-        {
-            "id": "relation:08ea95aaa0bdb5da782edd388f4f001018da0112c8a10b75afd38d49079e4ecf",
-            "from": "asset:627bd1b35aa0f5a4a89fadc21e6bea98",
-            "to": "asset:10000000000000000000000000000001",
-            "type": "depends_on",
-            "source": "v2-migration",
-            "createdUtc": "2026-09-05T00:00:00Z"
-        },
-        {
-            "id": "relation:788927efd9abe287897c383161950b8c8f375a31e0926a86dc68e296bc46a825",
-            "from": "asset:627bd1b35aa0f5a4a89fadc21e6bea98",
-            "to": "asset:10000000000000000000000000000002",
-            "type": "depends_on",
-            "source": "v2-migration",
-            "createdUtc": "2026-09-05T00:00:00Z"
-        },
-        {
-            "id": "relation:2565d25464cac59b7698a514796bb16a5a8f6236d3f8575c31f1bb4a8a5c18b4",
-            "from": "asset:627bd1b35aa0f5a4a89fadc21e6bea98",
-            "to": "asset:10000000000000000000000000000003",
-            "type": "depends_on",
-            "source": "v2-migration",
-            "createdUtc": "2026-09-05T00:00:00Z"
-        },
-        {
-            "id": "relation:7fbea5dfc8adc37c5941cd4741fa29d1fcb96f5ecc85ece75b21de32f8820942",
-            "from": "asset:627bd1b35aa0f5a4a89fadc21e6bea98",
-            "to": "asset:10000000000000000000000000000004",
-            "type": "depends_on",
-            "source": "v2-migration",
-            "createdUtc": "2026-09-05T00:00:00Z"
-        },
-        {
-            "id": "relation:5396d17c5c53f628586ac5128a8643cde959de56cb65064d2e0c9306e71ff26a",
-            "from": "asset:627bd1b35aa0f5a4a89fadc21e6bea98",
-            "to": "asset:10000000000000000000000000000005",
-            "type": "depends_on",
-            "source": "v2-migration",
-            "createdUtc": "2026-09-05T00:00:00Z"
-        },
-        {
-            "id": "relation:6974011f5f9fd68bea87c1ddc6090cac07f2bf08f84bbe8978606c698a08ed2b",
-            "from": "asset:627bd1b35aa0f5a4a89fadc21e6bea98",
-            "to": "asset:10000000000000000000000000000006",
-            "type": "depends_on",
-            "source": "v2-migration",
-            "createdUtc": "2026-09-05T00:00:00Z"
-        },
-        {
-            "id": "relation:ba8dea4b769e7b3c605c02752526355d6b0b29c96ca13a420e85f5203ffd2269",
-            "from": "document:627bd1b35aa0f5a4a89fadc21e6bea98",
-            "to": "asset:727a75301c3d24613a3ebcec4a24c2c8",
-            "type": "illustrated_by",
-            "source": "v2-migration",
-            "createdUtc": "2026-09-05T00:00:00Z"
-        },
-        {
-            "id": "relation:a2-project-player",
-            "from": "project:brain-demo",
-            "to": "domain:player",
+            "id": "relation:a48dbd090f4029e7668d19600de6a70cf30894dec70f184892bf40e8cdfc008f",
+            "from": "project:unity-ability-kit",
+            "to": "domain:abilities",
             "type": "contains",
-            "source": "manual-demo-mapping",
-            "createdUtc": "2026-09-06T00:00:00Z"
+            "source": "ability-template",
+            "createdUtc": "2026-09-07T03:20:16.5081259Z"
         },
         {
-            "id": "relation:a2-player-movement",
-            "from": "domain:player",
-            "to": "feature:player/movement",
+            "id": "relation:837f21b430570f5f1d1166f1c3bfee3840b02fe9f12c0621a99f33f996d43101",
+            "from": "project:unity-ability-kit",
+            "to": "domain:attributes",
             "type": "contains",
-            "source": "manual-demo-mapping",
-            "createdUtc": "2026-09-06T00:00:00Z"
+            "source": "ability-template",
+            "createdUtc": "2026-09-07T03:20:16.5081259Z"
         },
         {
-            "id": "relation:a2-player-health",
-            "from": "domain:player",
-            "to": "feature:player/health",
+            "id": "relation:7123b5672db14b8b866e760163a4c17ba2efd8bf716d15b97a7f9bff86ee878d",
+            "from": "project:unity-ability-kit",
+            "to": "domain:effects",
             "type": "contains",
-            "source": "manual-demo-mapping",
-            "createdUtc": "2026-09-06T00:00:00Z"
+            "source": "ability-template",
+            "createdUtc": "2026-09-07T03:20:16.5081259Z"
         },
         {
-            "id": "relation:a2-movement-input",
-            "from": "feature:player/movement",
-            "to": "asset:10000000000000000000000000000002",
+            "id": "relation:c82a00fb800f42852d929ac6dc346db0d6b556e6539a269222d0848a5c4c84c9",
+            "from": "project:unity-ability-kit",
+            "to": "domain:unity",
+            "type": "contains",
+            "source": "ability-template",
+            "createdUtc": "2026-09-07T03:20:16.5081259Z"
+        },
+        {
+            "id": "relation:bb8deb3b39cb354d93756ce3c1dd4ea1f433aaa19b9c920cd033dad227775f8c",
+            "from": "project:unity-ability-kit",
+            "to": "domain:testing",
+            "type": "contains",
+            "source": "ability-template",
+            "createdUtc": "2026-09-07T03:20:16.5081259Z"
+        },
+        {
+            "id": "relation:7471ee4db160e298e1c9b4c29f2f11cc9007263e7a673475f2bce89c225539d3",
+            "from": "domain:abilities",
+            "to": "feature:abilities/activation",
+            "type": "contains",
+            "source": "ability-template",
+            "createdUtc": "2026-09-07T03:20:16.5081259Z"
+        },
+        {
+            "id": "relation:85a1e4b72b66f9802399260239518926cdc48c1aa6f7731edb107e6d9bd36919",
+            "from": "domain:attributes",
+            "to": "feature:attributes/values",
+            "type": "contains",
+            "source": "ability-template",
+            "createdUtc": "2026-09-07T03:20:16.5081259Z"
+        },
+        {
+            "id": "relation:acbed7b82f486316e853e32c08749f806469c0fc440cb5c8cb3a5f94fb1e99a1",
+            "from": "domain:effects",
+            "to": "feature:effects/lifetime",
+            "type": "contains",
+            "source": "ability-template",
+            "createdUtc": "2026-09-07T03:20:16.5081259Z"
+        },
+        {
+            "id": "relation:1b045736b55b9cd28b21a950bba244d82c74da99f8280e791a4a7044a2a91d22",
+            "from": "domain:unity",
+            "to": "feature:unity/configuration",
+            "type": "contains",
+            "source": "ability-template",
+            "createdUtc": "2026-09-07T03:20:16.5081259Z"
+        },
+        {
+            "id": "relation:7fe619ff3f1a7ddfcd4e7f10bd9b8b49888f2ab41635563ba795d2d2c86c486e",
+            "from": "domain:unity",
+            "to": "feature:unity/integration",
+            "type": "contains",
+            "source": "ability-template",
+            "createdUtc": "2026-09-07T03:20:16.5081259Z"
+        },
+        {
+            "id": "relation:d2154acb2422deea828493b9fdf3a0f13651e7e7287389d9e343d927054e40ff",
+            "from": "domain:testing",
+            "to": "feature:testing/contracts",
+            "type": "contains",
+            "source": "ability-template",
+            "createdUtc": "2026-09-07T03:20:16.5081259Z"
+        },
+        {
+            "id": "relation:7ce0de7705780c710c90f537da623811788e902ea236e5b56472fcfe7ac9143b",
+            "from": "feature:effects/lifetime",
+            "to": "asset:5e5c0fbdd0e21f14795fa3a45b615b54",
             "type": "implemented_by",
-            "source": "manual-demo-mapping",
-            "createdUtc": "2026-09-06T00:00:00Z"
+            "source": "ability-template",
+            "createdUtc": "2026-09-07T03:20:16.5081259Z"
         },
         {
-            "id": "relation:a2-movement-code",
-            "from": "feature:player/movement",
-            "to": "asset:10000000000000000000000000000003",
+            "id": "relation:9c1841db9962134492f7c071fa69a90f6f02d0733eab3bee2ec3e76ff25afde6",
+            "from": "feature:effects/lifetime",
+            "to": "asset:b472ee2a17591744cbb0243704e90057",
             "type": "implemented_by",
-            "source": "manual-demo-mapping",
-            "createdUtc": "2026-09-06T00:00:00Z"
+            "source": "ability-template",
+            "createdUtc": "2026-09-07T03:20:16.5081259Z"
         },
         {
-            "id": "relation:a2-health-code",
-            "from": "feature:player/health",
-            "to": "asset:10000000000000000000000000000004",
+            "id": "relation:13cc7a40c5ac216e4fbbfd24c55b92791df17496db59f54a51050ec8de084725",
+            "from": "feature:attributes/values",
+            "to": "asset:2b49354221b235a4e9a4dfc02638b89f",
             "type": "implemented_by",
-            "source": "manual-demo-mapping",
-            "createdUtc": "2026-09-06T00:00:00Z"
+            "source": "ability-template",
+            "createdUtc": "2026-09-07T03:20:16.5081259Z"
         },
         {
-            "id": "relation:e86ca6493a686a5e32f723f42439319500b7f2c1512c2f66a265085c770752d1",
-            "from": "feature:player/movement",
-            "to": "evidence:6921f9e4-234c-4f6f-bce3-ffc25321a33d",
-            "type": "verified_by",
-            "source": "brain-unity-runner",
-            "createdUtc": "2026-09-06T15:22:50.0965960Z"
+            "id": "relation:7a7bf7eb8b15f43fbdbc47ff4ed1b6a78b35ecf212a5575a75d3b3ea507202c6",
+            "from": "feature:effects/lifetime",
+            "to": "asset:d330b096c06e04d4f89e4e2b885f0f0c",
+            "type": "implemented_by",
+            "source": "ability-template",
+            "createdUtc": "2026-09-07T03:20:16.5081259Z"
         },
         {
-            "id": "relation:05b75de9d49b309b05ff927dda38d7ba5092e5a19c68b83819ed061fbfedd44a",
-            "from": "feature:player/movement",
-            "to": "evidence:09f72cf2-083a-4c5d-9d33-7ed4000a7c21",
-            "type": "verified_by",
-            "source": "brain-unity-runner",
-            "createdUtc": "2026-09-06T15:25:53.5591068Z"
+            "id": "relation:1424a61ac1027c34e399a97ab9aa30d16e9889d54f7be787fe47c28278c2b31d",
+            "from": "feature:abilities/activation",
+            "to": "asset:80baf57093e708a4092f3da586791b15",
+            "type": "implemented_by",
+            "source": "ability-template",
+            "createdUtc": "2026-09-07T03:20:16.5081259Z"
         },
         {
-            "id": "relation:65773e4a8a214ceb25263b7dd0bdf9d05b4a630fce3f2a9766d1aed30e2e1a33",
-            "from": "feature:player/movement",
-            "to": "evidence:b3a4877d-e0ec-4b81-819d-5d958ae0a6ae",
-            "type": "verified_by",
-            "source": "brain-unity-runner",
-            "createdUtc": "2026-09-06T15:27:44.4262534Z"
+            "id": "relation:a509426fb01b12133e704677b8039fb3d1197419f1f984b8d4fad99b4883bba3",
+            "from": "feature:abilities/activation",
+            "to": "asset:c286c6b6523a8084c8bcff0268bd5d59",
+            "type": "implemented_by",
+            "source": "ability-template",
+            "createdUtc": "2026-09-07T03:20:16.5081259Z"
         },
         {
-            "id": "relation:55e452ee64b97b4fc5589b5d9b8dcca50c632e36c5881b4b1fc020d0a49da85f",
-            "from": "feature:player/movement",
-            "to": "evidence:8b168b76-b4de-40c7-a7b5-82bfb1dbf1d7",
-            "type": "verified_by",
-            "source": "brain-unity-runner",
-            "createdUtc": "2026-09-06T15:28:09.0956533Z"
+            "id": "relation:364dd9d8c437da432461cea0470fab050e50a679438e14ac3cb324599a12c141",
+            "from": "feature:unity/configuration",
+            "to": "asset:20b34d1151907b349886e6641b7a9ba4",
+            "type": "implemented_by",
+            "source": "ability-template",
+            "createdUtc": "2026-09-07T03:20:16.5081259Z"
         },
         {
-            "id": "relation:e38541de7053674ac7d93fab12691a3667ea41aaa2c8886b880218258904e726",
-            "from": "feature:player/movement",
-            "to": "evidence:2e8aee3f-dde5-4ceb-825d-c223258a86f9",
-            "type": "verified_by",
-            "source": "brain-unity-runner",
-            "createdUtc": "2026-09-06T15:39:26.3544846Z"
+            "id": "relation:52745524cdeae06bf39b22f90b376751d54ba7d3eff8ce5ea08a0c44f0bb8d10",
+            "from": "feature:unity/configuration",
+            "to": "asset:8ca829a39992eb3459276e2b289607a4",
+            "type": "implemented_by",
+            "source": "ability-template",
+            "createdUtc": "2026-09-07T03:20:16.5081259Z"
         },
         {
-            "id": "relation:b886ffb6c37215b7bd1c0a028e6a565d3ca89f3876c662cfa63971326ae33725",
-            "from": "feature:player/movement",
-            "to": "evidence:b6d8396b-b18a-4594-bf2f-e939f834f502",
-            "type": "verified_by",
-            "source": "brain-unity-runner",
-            "createdUtc": "2026-09-06T17:10:24.2149807Z"
+            "id": "relation:cd7293272dfa265db6f461eb41a24b9ef43a4f7d89c8e409c8752f18dbc064f8",
+            "from": "feature:unity/integration",
+            "to": "asset:311add2b1fa383b4c9344b0db1f314a6",
+            "type": "implemented_by",
+            "source": "ability-template",
+            "createdUtc": "2026-09-07T03:20:16.5081259Z"
         },
         {
-            "id": "relation:cef60e68348de1613dd3dec1228bcfc0c5bf4f328b55c3d3f04be78519aaa683",
-            "from": "feature:player/movement",
-            "to": "evidence:06955006-e7f5-47e1-95e7-cb42ffd54419",
-            "type": "verified_by",
-            "source": "brain-unity-runner",
-            "createdUtc": "2026-09-06T17:10:31.1737742Z"
+            "id": "relation:576c2a611602196ac725f2557aa9667f677ae921cbc1efb0b4841a047b17888b",
+            "from": "feature:unity/integration",
+            "to": "asset:81a59b91efd1acb4d9d75068e1761cf4",
+            "type": "implemented_by",
+            "source": "ability-template",
+            "createdUtc": "2026-09-07T03:20:16.5081259Z"
         },
         {
-            "id": "relation:86c980aefdba813b75a3b7d0200ec97d82dd87034332beecc7e59f7ad87943e8",
-            "from": "feature:player/movement",
-            "to": "evidence:87d44a45-5334-44fe-b0f5-3c50178b9ee1",
-            "type": "verified_by",
-            "source": "brain-unity-runner",
-            "createdUtc": "2026-09-06T17:11:04.9984126Z"
+            "id": "relation:6f7e45d060782f166d699bbfc5af26a3b8f63c03f65b816315348ea77072b0c2",
+            "from": "feature:testing/contracts",
+            "to": "asset:6f557bf0bd58e4546acaac0f8407efe1",
+            "type": "implemented_by",
+            "source": "ability-template",
+            "createdUtc": "2026-09-07T03:20:16.5081259Z"
         },
         {
-            "id": "relation:40b1037d2a01ab68e81c8c0eda1a9b1a8ca677ccca358dfe9a6becf458ae6d94",
-            "from": "feature:player/movement",
-            "to": "evidence:3473ac83-ddc4-4fa3-89b1-4a86492be6c2",
-            "type": "verified_by",
-            "source": "brain-unity-runner",
-            "createdUtc": "2026-09-06T17:47:34.5699269Z"
+            "id": "relation:6dd6df73bd3723bf0be71ce2dc42f93c2603914e066c36064d4d0fa9788bf0cf",
+            "from": "asset:5e5c0fbdd0e21f14795fa3a45b615b54",
+            "to": "document:5e5c0fbdd0e21f14795fa3a45b615b54",
+            "type": "documented_by",
+            "source": "script-document",
+            "createdUtc": "2026-09-07T03:20:16.6631624Z"
         },
         {
-            "id": "relation:61d9d20671126bcba8f268ccd27e71dd9cb35d4f617b631e1f7947eb2e5bf7ce",
-            "from": "feature:player/movement",
-            "to": "evidence:51a1a6b4-4019-42fc-865c-c08ddd0d4291",
-            "type": "verified_by",
-            "source": "brain-unity-runner",
-            "createdUtc": "2026-09-06T17:48:10.6171769Z"
+            "id": "relation:7cc8bcb999447caffc948fbe0dac0398ce4b0b1b6fc01eabd297a7e508f50a3f",
+            "from": "asset:b472ee2a17591744cbb0243704e90057",
+            "to": "document:b472ee2a17591744cbb0243704e90057",
+            "type": "documented_by",
+            "source": "script-document",
+            "createdUtc": "2026-09-07T03:20:17.0014166Z"
         },
         {
-            "id": "relation:0ccdf68b28546230a05a4f0f2339221a144e9747fc9d37692bb96fb122fb8ca6",
-            "from": "feature:player/movement",
-            "to": "evidence:fd37a22f-45e3-49c0-adf6-3b7325ac9d6b",
-            "type": "verified_by",
-            "source": "brain-unity-runner",
-            "createdUtc": "2026-09-06T17:58:09.6098004Z"
+            "id": "relation:96bb2380d11618e5c26a5e95d98c6c0afce9f9d4c0d3e7520aed15f5442ecea7",
+            "from": "asset:2b49354221b235a4e9a4dfc02638b89f",
+            "to": "document:2b49354221b235a4e9a4dfc02638b89f",
+            "type": "documented_by",
+            "source": "script-document",
+            "createdUtc": "2026-09-07T03:20:17.3322147Z"
         },
         {
-            "id": "relation:78b3fd23a1a01639ec9ea28df5ee39326a30df4e2322179aa680600d5c37a239",
-            "from": "feature:player/movement",
-            "to": "evidence:a8c817d9-ae8a-4842-b4d1-f000dae3fa85",
-            "type": "verified_by",
-            "source": "brain-unity-runner",
-            "createdUtc": "2026-09-06T18:35:59.8442256Z"
+            "id": "relation:c413dced8cd8dd2b028d0a2f5ee140519e0648591f701d1ec8404c7c53d557b2",
+            "from": "asset:d330b096c06e04d4f89e4e2b885f0f0c",
+            "to": "document:d330b096c06e04d4f89e4e2b885f0f0c",
+            "type": "documented_by",
+            "source": "script-document",
+            "createdUtc": "2026-09-07T03:20:17.6670704Z"
         },
         {
-            "id": "relation:0ac32c5d556af29abf80b5f083e5112870e65e33a51c0d7ca31f81609441fc94",
-            "from": "feature:player/movement",
-            "to": "evidence:78938830-5c75-4fe4-b2e6-99003f233012",
-            "type": "verified_by",
-            "source": "brain-unity-runner",
-            "createdUtc": "2026-09-06T18:36:59.2934168Z"
+            "id": "relation:02dc4a79aed591813ea589fd2c0b4d842e4ad253e80f8251f25e6982bfceabe2",
+            "from": "asset:d330b096c06e04d4f89e4e2b885f0f0c",
+            "to": "asset:2b49354221b235a4e9a4dfc02638b89f",
+            "type": "depends_on",
+            "source": "script-document",
+            "createdUtc": "2026-09-07T03:20:17.6670704Z"
         },
         {
-            "id": "relation:562f4732bb2f789a3f6f50c6a6e856fc8870e8f1d60d81e26b369e6da6ccc71e",
-            "from": "feature:player/movement",
-            "to": "evidence:da8c0944-ca27-4bb3-a31e-5d8532422a65",
-            "type": "verified_by",
-            "source": "brain-unity-runner",
-            "createdUtc": "2026-09-06T18:37:16.8660822Z"
+            "id": "relation:47f7d78e928a6c44caa13e39831930e6025c21a3f9ee48f234ab3d53d78e0070",
+            "from": "asset:d330b096c06e04d4f89e4e2b885f0f0c",
+            "to": "asset:b472ee2a17591744cbb0243704e90057",
+            "type": "depends_on",
+            "source": "script-document",
+            "createdUtc": "2026-09-07T03:20:17.6670704Z"
         },
         {
-            "id": "relation:60b18526c3ce704bb17dcc31a4b1e1d1be40608e4781b626cf6dfa019daad61f",
-            "from": "feature:player/movement",
-            "to": "evidence:8db0deaf-8c1d-4774-b97c-155506cc69bd",
-            "type": "verified_by",
-            "source": "brain-unity-runner",
-            "createdUtc": "2026-09-06T18:40:14.8182623Z"
+            "id": "relation:089c7178d84950db657a7123b2ca6df791fca31b557731de32475bc5811de0ef",
+            "from": "asset:80baf57093e708a4092f3da586791b15",
+            "to": "document:80baf57093e708a4092f3da586791b15",
+            "type": "documented_by",
+            "source": "script-document",
+            "createdUtc": "2026-09-07T03:20:18.0317449Z"
         },
         {
-            "id": "relation:51fab938a4aacfffae7398f53b77aa25feb33b57844e700c7d2ce26e90c6f542",
-            "from": "feature:player/movement",
-            "to": "evidence:7e785569-bb05-4ee7-abe2-bbd377857f57",
-            "type": "verified_by",
-            "source": "brain-unity-runner",
-            "createdUtc": "2026-09-06T18:40:36.5759910Z"
+            "id": "relation:ec12ceab1a51cf3aee47e87e43ba288ec79a5d31dd0db80718250c70ef1b0e95",
+            "from": "asset:80baf57093e708a4092f3da586791b15",
+            "to": "asset:d330b096c06e04d4f89e4e2b885f0f0c",
+            "type": "depends_on",
+            "source": "script-document",
+            "createdUtc": "2026-09-07T03:20:18.0317449Z"
         },
         {
-            "id": "relation:51a6b71f5ce4bf2bc417c4f71f8a192ff4abb19ef447543b5396a92e2311b72c",
-            "from": "feature:player/movement",
-            "to": "evidence:789fe4c3-7771-4df2-903b-ec15f677f7ec",
-            "type": "verified_by",
-            "source": "brain-unity-runner",
-            "createdUtc": "2026-09-06T22:02:00.4012080Z"
+            "id": "relation:98b50c8116b444f3c8d55501d4e8045f868b3e30a19048e2ff9b801da86ac987",
+            "from": "asset:80baf57093e708a4092f3da586791b15",
+            "to": "asset:b472ee2a17591744cbb0243704e90057",
+            "type": "depends_on",
+            "source": "script-document",
+            "createdUtc": "2026-09-07T03:20:18.0317449Z"
         },
         {
-            "id": "relation:997dee1570d5ec9d190bd3edeb148eb774eaf07478199e4d978f6e3a3f6e3d4a",
-            "from": "feature:player/movement",
-            "to": "evidence:a53914d5-dd0a-468f-b9c5-2c1127887287",
-            "type": "verified_by",
-            "source": "brain-unity-runner",
-            "createdUtc": "2026-09-06T22:02:37.4553201Z"
+            "id": "relation:a6f3e39ff8857675d0106cd0322f34791e295f67e5d6c0628386c807b2c62a3d",
+            "from": "asset:80baf57093e708a4092f3da586791b15",
+            "to": "asset:2b49354221b235a4e9a4dfc02638b89f",
+            "type": "depends_on",
+            "source": "script-document",
+            "createdUtc": "2026-09-07T03:20:18.0317449Z"
         },
         {
-            "id": "relation:044f196cce9c5982ffee3e1160057bd5f419e3281b4cc5d1ad8b53fe4f5a3f51",
-            "from": "feature:player/movement",
-            "to": "evidence:d49de03b-a6b2-4400-a973-c4cc22fa54b8",
+            "id": "relation:633f0eb55a0d70cfd92cc71fa6d730a5d2e913f3288e15caddb572a085acf156",
+            "from": "feature:abilities/activation",
+            "to": "evidence:02252d03-cae6-4b3a-8caf-d8a337177cda",
             "type": "verified_by",
             "source": "brain-unity-runner",
-            "createdUtc": "2026-09-06T22:04:31.3292499Z"
+            "createdUtc": "2026-09-07T03:20:24.6565123Z"
         },
         {
-            "id": "relation:764f01701c1eb350f30f01dd094fe299599d6f8ed278040b83eb6ab9716d30c4",
-            "from": "feature:player/movement",
-            "to": "evidence:ebd69120-3bee-43fa-a00a-e44db38b0fe7",
-            "type": "verified_by",
-            "source": "brain-unity-runner",
-            "createdUtc": "2026-09-06T22:23:05.2586285Z"
+            "id": "relation:0e19c867b8b20469097874f73a9cbf09f7eabccef54f031a354634df6e925e33",
+            "from": "asset:c286c6b6523a8084c8bcff0268bd5d59",
+            "to": "document:c286c6b6523a8084c8bcff0268bd5d59",
+            "type": "documented_by",
+            "source": "script-document",
+            "createdUtc": "2026-09-07T03:24:29.2576710Z"
         },
         {
-            "id": "relation:1dda45a3f936d693e6a0dc5818c8c9d695cef1484c0a956ea28bb90b54268e6d",
-            "from": "feature:player/movement",
-            "to": "evidence:3769fd29-1f4c-4ec7-804e-50571dcd8371",
-            "type": "verified_by",
-            "source": "brain-unity-runner",
-            "createdUtc": "2026-09-06T22:24:09.1030334Z"
+            "id": "relation:d1028b102fd81b5e08258779236ae6e3c874b86a00a1cd6cc2357166c39c4142",
+            "from": "asset:c286c6b6523a8084c8bcff0268bd5d59",
+            "to": "asset:80baf57093e708a4092f3da586791b15",
+            "type": "depends_on",
+            "source": "script-document",
+            "createdUtc": "2026-09-07T03:24:29.2576710Z"
         },
         {
-            "id": "relation:234eb80a5063f6af7dd786c814edec43b196d307a5b61f584628456775f716c0",
-            "from": "feature:player/movement",
-            "to": "evidence:9350a803-258d-4978-8224-9a4047e5cea4",
-            "type": "verified_by",
-            "source": "brain-unity-runner",
-            "createdUtc": "2026-09-06T22:44:07.9969087Z"
+            "id": "relation:97f1a1958af76ca6f8ec8dc2aaab5acbe195a7853f092d3f0eb1580f261e3468",
+            "from": "asset:c286c6b6523a8084c8bcff0268bd5d59",
+            "to": "asset:d330b096c06e04d4f89e4e2b885f0f0c",
+            "type": "depends_on",
+            "source": "script-document",
+            "createdUtc": "2026-09-07T03:24:29.2576710Z"
         },
         {
-            "id": "relation:2ce91e8112c58e71a7cdec977dc239ef9536481037c37ef2e7d3e9f3c1a490ad",
-            "from": "feature:player/movement",
-            "to": "evidence:02f5105f-867e-4afa-863d-d9c22a12b2ca",
-            "type": "verified_by",
-            "source": "brain-unity-runner",
-            "createdUtc": "2026-09-06T22:45:38.7597633Z"
+            "id": "relation:9a2134aa8fff0b4a4bec76fc309023362b8c5bae54fdbb13e833259f9e06f9bf",
+            "from": "asset:c286c6b6523a8084c8bcff0268bd5d59",
+            "to": "asset:2b49354221b235a4e9a4dfc02638b89f",
+            "type": "depends_on",
+            "source": "script-document",
+            "createdUtc": "2026-09-07T03:24:29.2576710Z"
         },
         {
-            "id": "relation:9206d74d5979c5d2b1f748b75507d1fffcc06a39d0badf25778c35cff97959ea",
-            "from": "feature:player/movement",
-            "to": "evidence:4a34b53c-350f-412a-a44c-e6d322c1f175",
-            "type": "verified_by",
-            "source": "brain-unity-runner",
-            "createdUtc": "2026-09-06T22:46:08.8606757Z"
+            "id": "relation:0fa6b3c6b4ad341365f25e08430506749966029b18946a72d5dba671920a6630",
+            "from": "asset:c286c6b6523a8084c8bcff0268bd5d59",
+            "to": "asset:b472ee2a17591744cbb0243704e90057",
+            "type": "depends_on",
+            "source": "script-document",
+            "createdUtc": "2026-09-07T03:24:29.2576710Z"
         },
         {
-            "id": "relation:cbb64d24f6ba806af6245ebd95272bb478797185b8df1ac3e87caee6439965fb",
-            "from": "feature:player/movement",
-            "to": "evidence:2ad72b99-e296-40f6-9a0a-4ef53c59b49e",
-            "type": "verified_by",
-            "source": "brain-unity-runner",
-            "createdUtc": "2026-09-06T23:06:33.2001641Z"
+            "id": "relation:c453a18c3e434124c5bcaced0338162872cda7bc8eac81ccd286cee181e17aa5",
+            "from": "asset:c286c6b6523a8084c8bcff0268bd5d59",
+            "to": "asset:5e5c0fbdd0e21f14795fa3a45b615b54",
+            "type": "depends_on",
+            "source": "script-document",
+            "createdUtc": "2026-09-07T03:24:29.2576710Z"
         },
         {
-            "id": "relation:22fe8e67495169352c4ef3b1082f946f046583f065c790b31ad1c7a476bf8302",
-            "from": "feature:player/movement",
-            "to": "evidence:04cc2106-56d4-4ca0-8581-0c720542f40b",
-            "type": "verified_by",
-            "source": "brain-unity-runner",
-            "createdUtc": "2026-09-06T23:08:34.3151650Z"
+            "id": "relation:c0126ff5a090ee57bcd41b1d48b9d1b26cbd70e5db1c4392a48b15fb5666d5b9",
+            "from": "asset:20b34d1151907b349886e6641b7a9ba4",
+            "to": "document:20b34d1151907b349886e6641b7a9ba4",
+            "type": "documented_by",
+            "source": "script-document",
+            "createdUtc": "2026-09-07T03:24:29.7798332Z"
         },
         {
-            "id": "relation:28ce157f6579ce5e195c06a3f9f03d6d48df40d3d5fa90efbe996d4c602e2fe2",
-            "from": "feature:player/movement",
-            "to": "evidence:a285197d-c814-4824-8325-3853bbfbc134",
-            "type": "verified_by",
-            "source": "brain-unity-runner",
-            "createdUtc": "2026-09-06T23:08:53.9472379Z"
+            "id": "relation:ef6450f473b6b9ad3abe5d6b3c03724f81356bdeeb1d95a627e6e071193e6b58",
+            "from": "asset:20b34d1151907b349886e6641b7a9ba4",
+            "to": "asset:d330b096c06e04d4f89e4e2b885f0f0c",
+            "type": "depends_on",
+            "source": "script-document",
+            "createdUtc": "2026-09-07T03:24:29.7798332Z"
         },
         {
-            "id": "relation:5ca6b02e85e00d10fa72a40e6a478e1b079cf1b5105e794094cd1798d23e7b41",
-            "from": "feature:player/movement",
-            "to": "evidence:2806010a-d8ff-4808-b5ae-e30daf9c0572",
-            "type": "verified_by",
-            "source": "brain-unity-runner",
-            "createdUtc": "2026-09-06T23:14:38.0666584Z"
+            "id": "relation:2a1e4adb000e7653f652c65d5e167fa4040d29001f48cee1a61e6e5c2a7779c8",
+            "from": "asset:20b34d1151907b349886e6641b7a9ba4",
+            "to": "asset:2b49354221b235a4e9a4dfc02638b89f",
+            "type": "depends_on",
+            "source": "script-document",
+            "createdUtc": "2026-09-07T03:24:29.7798332Z"
         },
         {
-            "id": "relation:a5b50831ff708c852dcde7d8b75dba676dace0157622a7cc5eb147c02275c592",
-            "from": "feature:player/movement",
-            "to": "evidence:09611484-13b0-47a5-9405-e2bea4bd47d8",
-            "type": "verified_by",
-            "source": "brain-unity-runner",
-            "createdUtc": "2026-09-06T23:17:53.0012602Z"
+            "id": "relation:64b3039e85acc4e0892ae32ddae783f260cfd4f9bbac5a093d1c1f6e393488b6",
+            "from": "asset:8ca829a39992eb3459276e2b289607a4",
+            "to": "document:8ca829a39992eb3459276e2b289607a4",
+            "type": "documented_by",
+            "source": "script-document",
+            "createdUtc": "2026-09-07T03:24:30.2747077Z"
         },
         {
-            "id": "relation:ee06d37f4d146e31b00379dfcde4a9078db845144ad299f43da89856a1483f90",
-            "from": "feature:player/movement",
-            "to": "evidence:7cb3d5c0-a2bc-4697-8142-ab654d318f51",
-            "type": "verified_by",
-            "source": "brain-unity-runner",
-            "createdUtc": "2026-09-07T01:56:59.8341088Z"
+            "id": "relation:59dbbc658edd9b8ff7c470cda48ecd0e51857281857aff3f20310b89d9f8c00c",
+            "from": "asset:8ca829a39992eb3459276e2b289607a4",
+            "to": "asset:80baf57093e708a4092f3da586791b15",
+            "type": "depends_on",
+            "source": "script-document",
+            "createdUtc": "2026-09-07T03:24:30.2747077Z"
         },
         {
-            "id": "relation:bd38479e1a1619a399a19b69c958bd1a599c81ba365469c6624d241723e4b893",
-            "from": "feature:player/movement",
-            "to": "evidence:cf27a5fe-7f4e-4685-a520-bf306f0e9325",
-            "type": "verified_by",
-            "source": "brain-unity-runner",
-            "createdUtc": "2026-09-06T15:24:12.7283647Z"
+            "id": "relation:7fe7f4219a57803bc1e56c13c2f974471526cc009928fae2db0a59b6d4ac1557",
+            "from": "asset:8ca829a39992eb3459276e2b289607a4",
+            "to": "asset:2b49354221b235a4e9a4dfc02638b89f",
+            "type": "depends_on",
+            "source": "script-document",
+            "createdUtc": "2026-09-07T03:24:30.2747077Z"
         },
         {
-            "id": "relation:343fd065a0a13574f8aa755655e23645869463d0e6db6977b44ec149de85a3c9",
-            "from": "feature:player/movement",
-            "to": "evidence:5599ab37-3a78-4795-8e21-565f426f1479",
-            "type": "verified_by",
-            "source": "brain-unity-runner",
-            "createdUtc": "2026-09-06T15:25:17.8729612Z"
+            "id": "relation:86844a1a29afa297f35f5a08175d25c62d16c22277cf86eff6fa6868f2147a0c",
+            "from": "asset:8ca829a39992eb3459276e2b289607a4",
+            "to": "asset:20b34d1151907b349886e6641b7a9ba4",
+            "type": "depends_on",
+            "source": "script-document",
+            "createdUtc": "2026-09-07T03:24:30.2747077Z"
         },
         {
-            "id": "relation:08c258079d4358cbc961feb9483778048cf18590ec853ae86478a57b6b6107d9",
-            "from": "feature:player/movement",
-            "to": "evidence:7e87dedb-93e5-487f-a3a6-96e8f25c0af6",
-            "type": "verified_by",
-            "source": "brain-unity-runner",
-            "createdUtc": "2026-09-06T17:57:44.9778229Z"
+            "id": "relation:56bde22e160c8d39eb1f670c0701ccee3f82380685e4e835dab7b64ec3b45a2a",
+            "from": "asset:311add2b1fa383b4c9344b0db1f314a6",
+            "to": "document:311add2b1fa383b4c9344b0db1f314a6",
+            "type": "documented_by",
+            "source": "script-document",
+            "createdUtc": "2026-09-07T03:25:20.2178208Z"
         },
         {
-            "id": "relation:52d58411eb8472f0acb14893caec584e9df712922ebd4eaf405e12430b9988ca",
-            "from": "feature:player/movement",
-            "to": "evidence:aff857e0-9c2f-42fb-b361-31979309159a",
-            "type": "verified_by",
-            "source": "brain-unity-runner",
-            "createdUtc": "2026-09-06T22:05:06.7129296Z"
+            "id": "relation:87970452300489d2c03e7772311a6a19eecf303168b44943976b3fed3ab5bca6",
+            "from": "asset:311add2b1fa383b4c9344b0db1f314a6",
+            "to": "asset:c286c6b6523a8084c8bcff0268bd5d59",
+            "type": "depends_on",
+            "source": "script-document",
+            "createdUtc": "2026-09-07T03:25:20.2178208Z"
         },
         {
-            "id": "relation:50fd2a6d0272974b4291679eb0aab324a8cdff9253026355cbe106179ffad2ce",
-            "from": "feature:player/movement",
-            "to": "evidence:b162ac01-b548-41f9-b8c1-29d5a0719699",
-            "type": "verified_by",
-            "source": "brain-unity-runner",
-            "createdUtc": "2026-09-06T23:21:20.6578001Z"
+            "id": "relation:57f6c3ad4c16669d021733f54f0f56b0b8ac0abb13f0fda5d926e2c6bbd99144",
+            "from": "asset:311add2b1fa383b4c9344b0db1f314a6",
+            "to": "asset:2b49354221b235a4e9a4dfc02638b89f",
+            "type": "depends_on",
+            "source": "script-document",
+            "createdUtc": "2026-09-07T03:25:20.2178208Z"
         },
         {
-            "id": "relation:d4557b0f80f313e379c326cc721afcde705e0f67abbb52104882822371e5172f",
-            "from": "feature:player/movement",
-            "to": "evidence:3d042213-48b5-423e-b4c9-8f7701a0b6c5",
-            "type": "verified_by",
-            "source": "brain-unity-runner",
-            "createdUtc": "2026-09-06T22:44:40.7277187Z"
+            "id": "relation:ec6a221d1b52e6617babf460a1c90cbb26d67646aa244a7b9f4eec86b600a507",
+            "from": "asset:311add2b1fa383b4c9344b0db1f314a6",
+            "to": "asset:5e5c0fbdd0e21f14795fa3a45b615b54",
+            "type": "depends_on",
+            "source": "script-document",
+            "createdUtc": "2026-09-07T03:25:20.2178208Z"
         },
         {
-            "id": "relation:9b2ea2498c46d80484f38022ac627e39ad88ea86eaa52659f66aff4eabf3c256",
-            "from": "feature:player/movement",
-            "to": "evidence:c46f9937-a149-48c9-b44d-069426b98428",
-            "type": "verified_by",
-            "source": "brain-unity-runner",
-            "createdUtc": "2026-09-07T02:25:36.0683289Z"
+            "id": "relation:e22be53f316be0ee5345e31e16beb3371d3ebdcb65d8530dfda0b72e706f74c6",
+            "from": "asset:311add2b1fa383b4c9344b0db1f314a6",
+            "to": "asset:8ca829a39992eb3459276e2b289607a4",
+            "type": "depends_on",
+            "source": "script-document",
+            "createdUtc": "2026-09-07T03:25:20.2178208Z"
         },
         {
-            "id": "relation:a4eb0f55decd90b7196e0a0280af922d01f063374795691429fc250b2611e123",
-            "from": "feature:player/movement",
-            "to": "evidence:c1e44729-4e32-4641-b941-c7342b3c7c09",
-            "type": "verified_by",
-            "source": "brain-unity-runner",
-            "createdUtc": "2026-09-07T02:26:42.1644040Z"
+            "id": "relation:a3024d590dcd87f6b4966a35963cef841430a11963fd24682822772205980b5e",
+            "from": "asset:81a59b91efd1acb4d9d75068e1761cf4",
+            "to": "document:81a59b91efd1acb4d9d75068e1761cf4",
+            "type": "documented_by",
+            "source": "script-document",
+            "createdUtc": "2026-09-07T03:25:21.4700745Z"
         },
         {
-            "id": "relation:861e19a028ad0d0247038cd7746b6a6645b4c04828b87106fb6496610cca6d2c",
-            "from": "feature:player/movement",
-            "to": "evidence:346cbf61-dac2-4411-b1cc-af68c9cd6509",
-            "type": "verified_by",
-            "source": "brain-unity-runner",
-            "createdUtc": "2026-09-07T02:30:58.8714140Z"
+            "id": "relation:4e8b3a98a99ce2b075e6e6cfab90250406789c9019516301281d24eb5adce89a",
+            "from": "asset:81a59b91efd1acb4d9d75068e1761cf4",
+            "to": "asset:311add2b1fa383b4c9344b0db1f314a6",
+            "type": "depends_on",
+            "source": "script-document",
+            "createdUtc": "2026-09-07T03:25:21.4700745Z"
         },
         {
-            "id": "relation:f02e9899840217f766457fbf3821de3e811ae49d556a267e2fa2ac84d39e72b3",
-            "from": "feature:player/movement",
-            "to": "evidence:7bdba846-fcc2-42e7-9a20-d41162ae2794",
+            "id": "relation:41b5c862cb8c004832f15ddeec520f8cc6b9b6f7208809014245ba2cc5a379ae",
+            "from": "asset:81a59b91efd1acb4d9d75068e1761cf4",
+            "to": "asset:c286c6b6523a8084c8bcff0268bd5d59",
+            "type": "depends_on",
+            "source": "script-document",
+            "createdUtc": "2026-09-07T03:25:21.4700745Z"
+        },
+        {
+            "id": "relation:b7f6d402f4b23c964dfd76b025f517a6ecac46db582a644624a5b94783441927",
+            "from": "asset:81a59b91efd1acb4d9d75068e1761cf4",
+            "to": "asset:80baf57093e708a4092f3da586791b15",
+            "type": "depends_on",
+            "source": "script-document",
+            "createdUtc": "2026-09-07T03:25:21.4700745Z"
+        },
+        {
+            "id": "relation:7a0f367bc771f8f7184605e625b1985b2a1324f30b5fbc5b245708372f19a65f",
+            "from": "asset:81a59b91efd1acb4d9d75068e1761cf4",
+            "to": "asset:2b49354221b235a4e9a4dfc02638b89f",
+            "type": "depends_on",
+            "source": "script-document",
+            "createdUtc": "2026-09-07T03:25:21.4700745Z"
+        },
+        {
+            "id": "relation:776aeb1d9e8652d30db9cf877ccbb3e6eb228f0c3564d09bf490b105d156dff5",
+            "from": "asset:6f557bf0bd58e4546acaac0f8407efe1",
+            "to": "document:6f557bf0bd58e4546acaac0f8407efe1",
+            "type": "documented_by",
+            "source": "script-document",
+            "createdUtc": "2026-09-07T03:25:22.8719356Z"
+        },
+        {
+            "id": "relation:4298dfe27d1aadee1dabe69bb41ae2e3a3528f76a1b4cfc263966fd6a68fa7ac",
+            "from": "asset:6f557bf0bd58e4546acaac0f8407efe1",
+            "to": "asset:c286c6b6523a8084c8bcff0268bd5d59",
+            "type": "depends_on",
+            "source": "script-document",
+            "createdUtc": "2026-09-07T03:25:22.8719356Z"
+        },
+        {
+            "id": "relation:2498bcd08a23178dae46e8d29cb59f2a303e6e69c0cc2b349acad2dc53716aec",
+            "from": "asset:6f557bf0bd58e4546acaac0f8407efe1",
+            "to": "asset:80baf57093e708a4092f3da586791b15",
+            "type": "depends_on",
+            "source": "script-document",
+            "createdUtc": "2026-09-07T03:25:22.8719356Z"
+        },
+        {
+            "id": "relation:d3e01e9ebb615c24196e660877303ff84c20a84131ea8f14855ae4bfdf7b14fe",
+            "from": "asset:6f557bf0bd58e4546acaac0f8407efe1",
+            "to": "asset:d330b096c06e04d4f89e4e2b885f0f0c",
+            "type": "depends_on",
+            "source": "script-document",
+            "createdUtc": "2026-09-07T03:25:22.8719356Z"
+        },
+        {
+            "id": "relation:e58f1ccc843cc2b0c16a46e53ca29b53a45756ae7292989bfd7f010f8156d07e",
+            "from": "asset:6f557bf0bd58e4546acaac0f8407efe1",
+            "to": "asset:2b49354221b235a4e9a4dfc02638b89f",
+            "type": "depends_on",
+            "source": "script-document",
+            "createdUtc": "2026-09-07T03:25:22.8719356Z"
+        },
+        {
+            "id": "relation:15224ec04dedab0845372eb90440292a6ee0fe366fe6a50a90d4048a77cda519",
+            "from": "asset:6f557bf0bd58e4546acaac0f8407efe1",
+            "to": "asset:b472ee2a17591744cbb0243704e90057",
+            "type": "depends_on",
+            "source": "script-document",
+            "createdUtc": "2026-09-07T03:25:22.8719356Z"
+        },
+        {
+            "id": "relation:db1c6e282a8d6ef17f1acb0e8a92f5efb3d32ab952a616f1f2c2e7b5f2ffdc51",
+            "from": "asset:6f557bf0bd58e4546acaac0f8407efe1",
+            "to": "asset:5e5c0fbdd0e21f14795fa3a45b615b54",
+            "type": "depends_on",
+            "source": "script-document",
+            "createdUtc": "2026-09-07T03:25:22.8719356Z"
+        },
+        {
+            "id": "relation:4eac4f50a8f1236ec854d8404b4ae339689d641182412ae8f162be4d303a8015",
+            "from": "feature:abilities/activation",
+            "to": "evidence:457f1789-4008-4a34-a187-560a6c327c16",
             "type": "verified_by",
             "source": "brain-unity-runner",
-            "createdUtc": "2026-09-07T02:31:48.1910161Z"
+            "createdUtc": "2026-09-07T04:11:08.5536221Z"
+        },
+        {
+            "id": "relation:969bdbac3f224c29def8a229b697141217877a938d872417874a279ca41508a3",
+            "from": "feature:abilities/activation",
+            "to": "evidence:73c1ea51-1da1-4d72-9acc-1b8b815e17d2",
+            "type": "verified_by",
+            "source": "brain-unity-runner",
+            "createdUtc": "2026-09-07T04:15:09.0997194Z"
         }
     ]
 }

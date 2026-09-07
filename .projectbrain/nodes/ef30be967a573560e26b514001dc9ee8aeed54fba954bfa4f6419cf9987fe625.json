@@ -1,0 +1,13 @@
+{
+    "schemaVersion": 1,
+    "id": "domain:unity",
+    "type": "Domain",
+    "title": "Unity 연결",
+    "summary": "설정 에셋·캐릭터·예제 UI",
+    "body": "## Unity 연결 계층\nGameplayAbilityAsset과 GameplayEffectAsset으로 공유 설정을 작성하고, AbilitySystemComponent가 캐릭터의 런타임 상태를 생성합니다.\n\n## 생명주기 연결\nAwake에서 능력과 초기 능력치를 구성합니다. Update에서 실행기의 Tick을 호출하고 Unity 시간을 IAbilityClock으로 전달합니다.\n\n## 시연 화면\nAbilityArenaDemo는 UI Toolkit 버튼으로 능력을 요청하고 자원·효과·실행 결과를 표시합니다. 전투 규칙은 화면 코드가 아니라 Runtime 실행기에 있습니다.",
+    "assetGuid": "",
+    "lastKnownPath": "",
+    "tags": [],
+    "status": "unreviewed",
+    "updatedUtc": "2026-09-07T04:06:41.2512821Z"
+}

@@ -1,0 +1,13 @@
+{
+    "schemaVersion": 1,
+    "id": "document:d330b096c06e04d4f89e4e2b885f0f0c",
+    "type": "Document",
+    "title": "GameplayEffect.cs Design",
+    "summary": "즉시 효과와 지속 효과의 불변 설정을 정의한다.",
+    "body": "## 역할\n즉시 효과와 지속 효과의 불변 설정을 정의한다.\n\n## 설계 의도\n같은 효과 에셋을 여러 캐릭터가 안전하게 공유하도록 실행 상태를 정의에서 분리한다.\n\n## 주의사항\n지속 효과는 독립 중첩이며 refresh/stack 정책 선택 기능은 없다. 최대64개 활성 효과. Instant 태그 부여는 거절한다.\n\n## 본문\n즉시 피해/회복은 기본 능력치를 수정한다. 가속/기절은 만료 시각을 가진 handle로 적용하고 만료/조기 제거 시 modifier와 태그 참조를 회수한다. ActiveEffectView는 화면에 남은 시간만 전달한다.\n\n## 원본 저장 코드 해시 (현재 검증 아님)\n67b39018832a71b8c5448b19186dd4459646b5ca314556da35db9441fe901300",
+    "assetGuid": "",
+    "lastKnownPath": "",
+    "tags": [],
+    "status": "unreviewed",
+    "updatedUtc": "2026-09-07T03:20:17.6670704Z"
+}

@@ -1,0 +1,13 @@
+{
+    "schemaVersion": 1,
+    "id": "feature:unity/configuration",
+    "type": "Feature",
+    "title": "스킬 설정",
+    "summary": "공유 ScriptableObject 정의",
+    "body": "",
+    "assetGuid": "",
+    "lastKnownPath": "",
+    "tags": [],
+    "status": "unreviewed",
+    "updatedUtc": "2026-09-07T03:20:16.5081259Z"
+}

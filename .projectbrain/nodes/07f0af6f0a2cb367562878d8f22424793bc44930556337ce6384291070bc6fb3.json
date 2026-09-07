@@ -1,0 +1,15 @@
+{
+    "schemaVersion": 1,
+    "id": "asset:81a59b91efd1acb4d9d75068e1761cf4",
+    "type": "Code",
+    "title": "AbilityArenaDemo.cs",
+    "summary": "스킬 버튼·실행 결과·능력치·남은 효과를 보여주는 사용 예제다.",
+    "body": "",
+    "assetGuid": "81a59b91efd1acb4d9d75068e1761cf4",
+    "lastKnownPath": "Assets/AbilityFramework/Unity/AbilityArenaDemo.cs",
+    "tags": [
+        "ability-kit"
+    ],
+    "status": "unreviewed",
+    "updatedUtc": "2026-09-07T03:20:16.5081259Z"
+}

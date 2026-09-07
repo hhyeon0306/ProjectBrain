@@ -35,7 +35,7 @@
 .brain .node-label.related { color: #c3d0f1; background-color: #363b47; }
 .brain .node-label.selected { color: #e1e7fc; background-color: #454d65; -unity-font-style: bold; }
 .brain .node-label.related:hover, .brain .node-label.selected:hover { background-color: #4b546b; }
-.brain .node-label.node-root { font-size: 16px; -unity-font-style: bold; max-width: 200px; }
+.brain .node-label.node-root { font-size: 18px; -unity-font-style: bold; max-width: 230px; border-bottom-width: 2px; border-bottom-color: #a6b4eb; }
 .brain .node-label.node-domain { font-size: 14px; -unity-font-style: bold; max-width: 200px; }
 .brain .filter-panel { top: 74px; right: 20px; width: 220px; }
 .brain .summary-panel { right: 20px; top: 22px; bottom: 76px; width: 420px; }
@@ -103,3 +103,61 @@
 .brain .map-heading { right: 180px; }
 .brain .filter-panel { top: auto; bottom: 88px; }
 .brain .map-legend { bottom: 8px; right: 16px; }
+
+/* U1-10: shared reading surfaces. Content widths stay readable in large editor docks. */
+.brain.reader-window { padding: 0; background-color: #25282d; }
+.brain .reader-header { flex-direction: row; align-items: center; padding: 20px 26px; background-color: #22252a; border-bottom-width: 1px; border-bottom-color: #3c4049; }
+.brain .reader-title { font-size: 23px; -unity-font-style: bold; margin-top: 4px; margin-bottom: 5px; color: #edf0f6; white-space: normal; }
+.brain .reader-caption { font-size: 10px; -unity-font-style: bold; color: #a6b4d3; margin-top: 12px; margin-bottom: 9px; white-space: normal; }
+.brain .reader-subtitle { font-size: 12px; color: #aeb5c2; white-space: normal; margin-top: 5px; margin-bottom: 8px; }
+.brain .reader-body { flex-direction: row; flex-grow: 1; min-height: 0; }
+.brain .reader-navigation { width: 205px; min-width: 180px; flex-shrink: 0; padding: 14px 12px; background-color: #22252a; border-right-width: 1px; border-right-color: #3c4049; }
+.brain .reader-page { flex-grow: 1; min-width: 0; padding: 20px 26px; }
+.brain .reader-page > .unity-scroll-view__content-viewport > .unity-scroll-view__content-container { max-width: 1050px; min-width: 0; }
+.brain .reader-card { padding: 17px 21px; margin: 0 0 13px 0; background-color: #2e3239; border-radius: 9px; border-width: 1px; border-color: #404550; flex-shrink: 0; min-width: 0; }
+.brain .reader-hero { background-color: #303746; border-color: #525f7e; border-left-width: 3px; border-left-color: #a6b4eb; padding: 21px 25px; margin-bottom: 18px; }
+.brain .reader-heading { font-size: 17px; -unity-font-style: bold; color: #e7ecf5; white-space: normal; margin-bottom: 10px; }
+.brain .reader-hero .reader-heading { font-size: 26px; margin-top: 2px; margin-bottom: 12px; }
+.brain .reader-copy { font-size: 13px; color: #d0d6df; white-space: normal; margin: 0 0 6px 0; }
+.brain .reader-actions { flex-direction: row; flex-wrap: wrap; align-items: center; margin-bottom: 15px; flex-shrink: 0; }
+.brain .reader-actions Button { margin-right: 7px; margin-bottom: 5px; min-height: 31px; }
+.brain .reader-nav-item { white-space: normal; -unity-text-align: middle-left; padding: 10px 12px; margin: 0 0 6px 0; background-color: rgba(0,0,0,0); border-width: 0; border-radius: 6px; color: #c4cbd6; min-height: 36px; }
+.brain .reader-nav-item:hover { background-color: #353b47; }
+.brain .reader-nav-item.active { background-color: #3d4964; color: #e4eaff; border-left-width: 2px; border-left-color: #a6b4eb; }
+.brain .reader-link { align-items: stretch; padding: 12px 14px; margin: 0 0 9px 0; min-height: 42px; background-color: #30353e; border-width: 1px; border-color: #464e5d; border-radius: 7px; white-space: normal; flex-shrink: 0; }
+.brain .reader-link:hover { background-color: #3b4455; border-color: #7d8ead; }
+.brain .reader-link-primary { background-color: #414f70; border-color: #8395c6; }
+.brain .reader-link-title { font-size: 13px; -unity-font-style: bold; color: #e3e9f4; white-space: normal; -unity-text-align: middle-left; }
+.brain .reader-link-description { font-size: 11px; color: #bbc4d4; white-space: normal; margin-top: 5px; -unity-text-align: middle-left; }
+.brain .reader-metrics { flex-direction: row; flex-wrap: wrap; margin-bottom: 7px; }
+.brain .reader-metrics .reader-card { flex-grow: 1; flex-basis: 145px; margin-right: 10px; }
+.brain .reader-metrics .reader-heading { font-size: 30px; color: #c2d1ff; }
+.brain .reader-navigation .reader-link { background-color: rgba(0,0,0,0); border-width: 0; padding: 9px 6px; }
+.brain .reader-page Foldout { margin-top: 9px; margin-bottom: 12px; }
+.brain .structure-inspector .reader-caption { margin-top: 19px; }
+
+.brain .architecture-diagram { min-height: 180px; margin-top: 12px; padding-left: 25px; }
+.brain .architecture-origin { background-color: #424f6e; border-radius: 7px; border-width: 1px; border-color: #889dc7; padding: 8px 18px; margin-bottom: 22px; }
+.brain .architecture-origin .reader-heading { margin-bottom: 9px; }
+.brain .architecture-grid { flex-direction: row; flex-wrap: wrap; }
+.brain .architecture-branch { flex-grow: 1; flex-basis: 220px; align-items: stretch; margin: 0 12px 12px 0; padding: 12px 17px; background-color: #303741; border-color: #5d6c85; border-radius: 7px; min-height: 146px; white-space: normal; }
+.brain .architecture-branch:hover { background-color: #3b4659; }
+.brain .architecture-branch .reader-heading { font-size: 16px; }
+.brain .architecture-branch .reader-copy { font-size: 12px; }
+.brain .architecture-count { color: #b4c8f0; font-size: 11px; margin-top: 14px; }
+.brain .reader-navigation .reader-nav-item { flex-shrink: 0; }
+
+.brain .reader-header { padding: 14px 26px; }
+.brain .reader-header .reader-caption { margin-top: 0; margin-bottom: 5px; }
+.brain .reader-copy { font-size: 14px; }
+.brain .reader-link-description { font-size: 12px; }
+.brain .reader-caption { font-size: 11px; }
+.brain .verification-report { flex-direction: row; flex-wrap: wrap; align-items: center; margin-bottom: 16px; }
+.brain .verification-chart { width: 190px; height: 174px; margin-right: 14px; flex-shrink: 0; }
+.brain .verification-chart-count { position: absolute; top: 58px; left: 0; right: 0; -unity-text-align: middle-center; font-size: 24px; -unity-font-style: bold; color: #dceee7; }
+.brain .verification-chart-caption { position: absolute; top: 94px; left: 0; right: 0; -unity-text-align: middle-center; color: #aebcc0; font-size: 11px; }
+.brain .metric-pass .reader-heading { color: #a5d6c6; }
+.brain .metric-fail .reader-heading { color: #e3a6ad; }
+
+.brain .architecture-origin { max-width: 350px; align-self: flex-start; width: 100%; }
+.brain .architecture-branch { margin-right: 1.6%; }

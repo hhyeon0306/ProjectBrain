@@ -1,0 +1,18 @@
+{
+    "schemaVersion": 2,
+    "scriptGuid": "311add2b1fa383b4c9344b0db1f314a6",
+    "lastKnownPath": "Assets/AbilityFramework/Unity/AbilitySystemComponent.cs",
+    "role": "Unity 캐릭터의 생명주기를 실행기에 연결한다.",
+    "designIntent": "MonoBehaviour 의존을 어댑터에 두어 핵심 규칙을 Unity 없이 검사할 수 있게 한다.",
+    "cautions": "RebuildSystem은 캐릭터의 자원·쿨다운·효과를 초기화한다. 저장/불러오기나 네트워크 동기화 기능은 아니다.",
+    "body": "Awake에서 초기 능력치·공유 스킬 정의·UnityClock으로 개인 AbilitySystem을 생성한다. Update는 Tick만 호출한다. UI와 다른 게임 코드는 System을 통해 능력을 실행한다.",
+    "imageGuids": [],
+    "relatedScriptGuids": [
+        "c286c6b6523a8084c8bcff0268bd5d59",
+        "2b49354221b235a4e9a4dfc02638b89f",
+        "5e5c0fbdd0e21f14795fa3a45b615b54",
+        "8ca829a39992eb3459276e2b289607a4"
+    ],
+    "savedCodeHash": "a0eda8aeb98e1c333711aad816a6e9a731b904f4e4b5a81455f16ee5ff4ccb38",
+    "updatedUtc": "2026-09-07T03:25:20.2178208Z"
+}

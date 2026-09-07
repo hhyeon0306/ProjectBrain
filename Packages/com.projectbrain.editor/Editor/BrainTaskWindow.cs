@@ -24,17 +24,33 @@ namespace ProjectBrain
         private BrainTaskRecord active;
         private readonly UnityBrainJson json = new UnityBrainJson();
         [SerializeField] private string historyId = "";
+        [SerializeField] private string recordSection = "overview";
+        [SerializeField] private string contextId = "";
         private string Root => ScriptDocumentService.ProjectRoot;
         private string DraftKey => "Brain.TaskWindow.Draft." + BrainWorkspace.Hash(Root);
         private BrainTaskLifecycle Lifecycle => new BrainTaskLifecycle(Root, json, AssetDatabase.GUIDToAssetPath);
         [MenuItem("Window/Project Brain/Task Management")]
-        public static void Open() => GetWindow<BrainTaskWindow>("Brain 작업 관리");
+        public static void Open() => OpenRecords("", "overview");
+        public static void OpenRecords(string nodeId, string section = "overview")
+        {
+            var window = GetWindow<BrainTaskWindow>("작업·검증 기록");
+            window.recordSection = section; window.contextId = nodeId ?? ""; window.CreateGUI(); window.Focus();
+        }
         public void CreateGUI()
         {
-            minSize = new Vector2(580, 540);
+            titleContent = new GUIContent("작업·검증 기록");
+            minSize = new Vector2(720, 540);
+            if (recordSection != "settings")
+            {
+                new BrainRecordBrowser().Build(rootVisualElement, recordSection, contextId,
+                    (section, id) => { recordSection = section; contextId = id; CreateGUI(); },
+                    () => { recordSection = "settings"; CreateGUI(); });
+                return;
+            }
             var root = rootVisualElement; root.Clear(); BrainTheme.Apply(root);
             root.style.paddingLeft = root.style.paddingRight = 14;
-            root.Add(new Label("작업 관리") { style = { fontSize = 21, marginTop = 12, marginBottom = 8 } });
+            root.Add(BrainTheme.Button("← 작업·검증 기록", () => { recordSection = "overview"; CreateGUI(); }));
+            root.Add(new Label("작업 설정") { style = { fontSize = 21, marginTop = 12, marginBottom = 8 } });
             message = new HelpBox("작업 범위와 종료 기록을 관리합니다. 문서 확인과 검증은 탐색 화면에서 진행하세요.", HelpBoxMessageType.Info);
             message.name = "task-message"; root.Add(message);
             var toolbar = new VisualElement { style = { flexDirection = FlexDirection.Row } };
@@ -70,12 +86,12 @@ namespace ProjectBrain
             parent.Add(metadata);
             if (draft.taskId != active.id || draft.revision != active.revision)
                 Label(parent, "다른 곳에서 작업이 바뀌었습니다. 아래 입력은 이전 버전입니다. 필요한 내용을 복사한 뒤 입력 버리고 최신 작업 읽기를 누르세요.");
-            var scope = new Foldout { text = "수정할 수 있는 범위", value = true }; parent.Add(scope);
+            var scope = new Foldout { text = "수정할 수 있는 범위", value = false }; parent.Add(scope);
             Label(scope, "한 줄에 경로 하나씩 입력하세요. 폴더 전체는 /로 끝냅니다. 범위를 바꿔도 처음 기준선과 확인할 문서는 유지됩니다.");
             Input(scope, "허용 경로", "scope-paths", draft.paths, v => draft.paths = v);
             Input(scope, "변경 이유", "scope-reason", draft.scopeReason, v => draft.scopeReason = v);
             scope.Add(ActionButton("범위 저장", "save-scope", SaveScope));
-            var close = new Foldout { text = "작업 마무리", value = true }; parent.Add(close);
+            var close = new Foldout { text = "작업 마무리", value = false }; parent.Add(close);
             Label(close, "완료 종료는 문서 확인과 현재 검증 조건을 검사합니다. 미완료 종료는 남은 문제를 기록하고 작업을 닫습니다.");
             Input(close, "종료 이유", "close-reason", draft.closeReason, v => draft.closeReason = v);
             close.Add(ActionButton("완료 조건 확인", "check-completion", () =>

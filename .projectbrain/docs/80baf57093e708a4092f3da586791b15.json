@@ -1,0 +1,17 @@
+{
+    "schemaVersion": 2,
+    "scriptGuid": "80baf57093e708a4092f3da586791b15",
+    "lastKnownPath": "Assets/AbilityFramework/Runtime/GameplayAbility.cs",
+    "role": "스킬 비용·쿨다운·대상·태그 조건·효과를 정의한다.",
+    "designIntent": "화염탄·회복처럼 다른 스킬이 같은 실행기를 쓰도록 데이터와 규칙을 분리한다.",
+    "cautions": "동기 즉시 실행만 지원한다. 비동기 AbilityTask, 애니메이션 대기, 취소 가능한 캐스팅, 네트워크 예측은 없다.",
+    "body": "GameplayAbilityDefinition은 공유 가능한 불변 설정이다. ActivationResult는 성공/실패 이유를, AbilityEvent는 실행 시도 기록을 담는다. Self와 Other 대상을 구분하며 효과와 태그 입력 배열을 복사한다.",
+    "imageGuids": [],
+    "relatedScriptGuids": [
+        "d330b096c06e04d4f89e4e2b885f0f0c",
+        "b472ee2a17591744cbb0243704e90057",
+        "2b49354221b235a4e9a4dfc02638b89f"
+    ],
+    "savedCodeHash": "d4a613a77761a39b15b28f54a4115f434128177ee89bf7c00e63899301d51d53",
+    "updatedUtc": "2026-09-07T03:20:18.0317449Z"
+}

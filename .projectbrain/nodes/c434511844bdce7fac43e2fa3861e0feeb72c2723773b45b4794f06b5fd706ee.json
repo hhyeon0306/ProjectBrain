@@ -1,0 +1,13 @@
+{
+    "schemaVersion": 1,
+    "id": "domain:abilities",
+    "type": "Domain",
+    "title": "능력 시스템",
+    "summary": "조건 확인과 실행 확정",
+    "body": "## 실행 책임\nAbilitySystem은 캐릭터의 능력 등록, 발동 가능 여부, 비용·쿨다운과 효과 적용을 조정합니다. 능력 정의는 GameplayAbilityDefinition에 보관합니다.\n\n## 실패 전에 확인\n필요·금지 태그, 쿨다운, 자원, 대상과 효과 적용 가능 여부를 먼저 검사합니다. 정상 실패 조건에서는 비용을 차감하거나 일부 효과만 적용하지 않도록 구성합니다.\n\n## 실행 결과\n발동 결과는 성공 여부와 실패 사유로 반환합니다. UI는 결과를 표시하며 규칙을 다시 구현하지 않습니다.",
+    "assetGuid": "",
+    "lastKnownPath": "",
+    "tags": [],
+    "status": "unreviewed",
+    "updatedUtc": "2026-09-07T04:06:41.2300323Z"
+}

@@ -1,0 +1,15 @@
+{
+    "schemaVersion": 1,
+    "id": "asset:2b49354221b235a4e9a4dfc02638b89f",
+    "type": "Code",
+    "title": "AttributeSet.cs",
+    "summary": "체력·마나·공격력·이동속도의 기본값과 일시 보정을 관리한다.",
+    "body": "",
+    "assetGuid": "2b49354221b235a4e9a4dfc02638b89f",
+    "lastKnownPath": "Assets/AbilityFramework/Runtime/AttributeSet.cs",
+    "tags": [
+        "ability-kit"
+    ],
+    "status": "unreviewed",
+    "updatedUtc": "2026-09-07T03:20:16.5081259Z"
+}

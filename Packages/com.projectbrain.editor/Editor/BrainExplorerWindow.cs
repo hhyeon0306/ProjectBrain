@@ -114,7 +114,7 @@ namespace ProjectBrain
                 var footer = new VisualElement(); footer.AddToClassList("bar"); footer.style.minHeight = 30; root.Add(footer);
                 taskLabel = BrainTheme.Label("", "single-line"); taskLabel.style.flexGrow = 1; footer.Add(taskLabel);
                 footer.Add(BrainTheme.Button("작업 관리 ↗", BrainTaskWindow.Open));
-                if (!graph.Nodes.ContainsKey(selectedId)) selectedId = graph.Nodes.Keys.OrderBy(id => id, StringComparer.Ordinal).FirstOrDefault();
+                if (!graph.Nodes.ContainsKey(selectedId)) selectedId = graph.Nodes.Values.OrderBy(n => n.type == "Project" ? 0 : 1).ThenBy(n => n.id, StringComparer.Ordinal).Select(n => n.id).FirstOrDefault();
                 if (selectedId != null) SelectNode(selectedId);
                 if (!string.IsNullOrEmpty(scopeId) && !graph.Nodes.ContainsKey(scopeId)) scopeId = "";
                 map.SetScope(BrainMapScope.Collect(graph, scopeId)); BuildNavigation();
@@ -133,6 +133,36 @@ namespace ProjectBrain
             if (parent != null) { var back = new Button(() => SelectNode(parent)) { text = "← " + graph.Get(parent).title }; back.AddToClassList("quiet"); detail.Add(back); }
             detail.Add(BrainTheme.Label(node.type == "Evidence" ? "Unity 검증 결과" : node.title, "detail-title"));
             if (node.type != "Evidence") Text(node.summary);
+            if (node.type == "Project" || node.type == "Domain" || node.type == "Feature" || node.type == "Code" || node.type == "Document")
+            {
+                BrainPresentation.Action(detail, node.type == "Project" ? "전체 아키텍처 보기" : "설계 문서 보기", "구조와 동작 · 설계 이유", () => BrainDocumentWindow.OpenNode(id), true);
+                if (node.type == "Code")
+                {
+                    BrainPresentation.Action(detail, "의존 관계", "사용하는 코드 · 이 코드를 사용하는 곳", () => BrainDocumentWindow.OpenNode(id, true));
+                    BrainPresentation.Action(detail, "작업 내역", "변경 배경과 작업 결과", () => BrainTaskWindow.OpenRecords(id, "work"));
+                    BrainPresentation.Action(detail, "오류·미해결", "남은 문제와 실패 기록", () => BrainTaskWindow.OpenRecords(id, "errors"));
+                    BrainPresentation.Action(detail, "테스트·검증", "연결 작업 범위의 실행 결과", () => BrainTaskWindow.OpenRecords(id, "tests"));
+                    var asset = AssetDatabase.LoadAssetAtPath<MonoScript>(AssetDatabase.GUIDToAssetPath(node.assetGuid));
+                    var open = BrainTheme.Button("코드 열기 ↗", () => AssetDatabase.OpenAsset(asset)); open.SetEnabled(asset != null); detail.Add(open);
+                }
+                else if (node.type == "Document")
+                {
+                    var code = BrainPresentation.CodeFor(graph, node);
+                    if (code != null) BrainPresentation.Action(detail, code.title, "이 문서가 설명하는 코드", () => SelectNode(code.id));
+                }
+                else
+                {
+                    var children = graph.Children(id);
+                    detail.Add(BrainPresentation.Text(node.type == "Project" ? "구성 도메인" : "구성 기능", "reader-caption"));
+                    BrainPresentation.NodeLinks(detail, graph, children, child => { FocusScope(child); SetDetail(true); }, 6);
+                    if (node.type != "Project")
+                    {
+                        detail.Add(BrainPresentation.Text("관련 구현 코드", "reader-caption"));
+                        BrainPresentation.NodeLinks(detail, graph, BrainPresentation.Contents(graph, id).Where(x => graph.Get(x).type == "Code"), code => SelectNode(code), 5);
+                    }
+                }
+                return;
+            }
             var freshness = new BrainFreshnessService(ScriptDocumentService.ProjectRoot, json, AssetDatabase.GUIDToAssetPath).Inspect(graph, id);
             var metadata = new Foldout { text = "자료 정보 · " + BrainTheme.FreshnessName(freshness.state), value = false };
             metadata.Add(BrainTheme.Label(id, "muted")); metadata.Add(BrainTheme.Label("최신성은 저장 당시 코드와의 일치 여부입니다. 검증 통과나 사람 확인과는 별개입니다.", "muted"));

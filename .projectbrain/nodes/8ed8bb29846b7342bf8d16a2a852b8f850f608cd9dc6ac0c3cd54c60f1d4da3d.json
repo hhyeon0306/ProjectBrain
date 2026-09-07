@@ -1,0 +1,15 @@
+{
+    "schemaVersion": 1,
+    "id": "asset:b472ee2a17591744cbb0243704e90057",
+    "type": "Code",
+    "title": "GameplayTags.cs",
+    "summary": "기절·가속 같은 상태를 계층 태그로 표현한다.",
+    "body": "",
+    "assetGuid": "b472ee2a17591744cbb0243704e90057",
+    "lastKnownPath": "Assets/AbilityFramework/Runtime/GameplayTags.cs",
+    "tags": [
+        "ability-kit"
+    ],
+    "status": "unreviewed",
+    "updatedUtc": "2026-09-07T03:20:16.5081259Z"
+}

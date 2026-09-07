@@ -1,0 +1,15 @@
+{
+    "schemaVersion": 1,
+    "id": "asset:c286c6b6523a8084c8bcff0268bd5d59",
+    "type": "Code",
+    "title": "AbilitySystem.cs",
+    "summary": "캐릭터가 소유한 능력·자원·쿨다운·활성 효과를 실행한다.",
+    "body": "",
+    "assetGuid": "c286c6b6523a8084c8bcff0268bd5d59",
+    "lastKnownPath": "Assets/AbilityFramework/Runtime/AbilitySystem.cs",
+    "tags": [
+        "ability-kit"
+    ],
+    "status": "unreviewed",
+    "updatedUtc": "2026-09-07T03:20:16.5081259Z"
+}

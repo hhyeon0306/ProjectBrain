@@ -1,0 +1,6 @@
+{
+  "name": "UnityAbilityKit.EditorTests",
+  "references": ["UnityAbilityKit.Runtime", "UnityAbilityKit.Unity"],
+  "includePlatforms": ["Editor"],
+  "optionalUnityReferences": ["TestAssemblies"]
+}

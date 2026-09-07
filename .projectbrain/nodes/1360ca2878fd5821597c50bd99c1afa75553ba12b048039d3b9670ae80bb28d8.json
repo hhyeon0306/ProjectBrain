@@ -1,0 +1,15 @@
+{
+    "schemaVersion": 1,
+    "id": "asset:311add2b1fa383b4c9344b0db1f314a6",
+    "type": "Code",
+    "title": "AbilitySystemComponent.cs",
+    "summary": "Unity 캐릭터의 생명주기를 실행기에 연결한다.",
+    "body": "",
+    "assetGuid": "311add2b1fa383b4c9344b0db1f314a6",
+    "lastKnownPath": "Assets/AbilityFramework/Unity/AbilitySystemComponent.cs",
+    "tags": [
+        "ability-kit"
+    ],
+    "status": "unreviewed",
+    "updatedUtc": "2026-09-07T03:20:16.5081259Z"
+}

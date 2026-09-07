@@ -1,0 +1,20 @@
+{
+    "schemaVersion": 2,
+    "scriptGuid": "6f557bf0bd58e4546acaac0f8407efe1",
+    "lastKnownPath": "Assets/AbilityFramework/Tests/Editor/AbilitySystemTests.cs",
+    "role": "능력 실행과 효과 수명 규칙을 실제 NUnit으로 검사한다.",
+    "designIntent": "설명한 보장이 실제 코드에서 유지되는지 성공·실패·경계 상황으로 확인한다.",
+    "cautions": "테스트 코드의 존재는 통과 결과가 아니다. 실제 Test Runner 결과와 run ID를 별도 확인한다.",
+    "body": "자원·쿨다운 확정, 거절 시 무소모, 두 캐릭터 상태 분리, 기절 만료, modifier 기본값 보존, 태그 참조 수, 중첩/용량 한도, 잘못된 입력, 정확한 시간 경계, 이력 제한을 검사한다.",
+    "imageGuids": [],
+    "relatedScriptGuids": [
+        "c286c6b6523a8084c8bcff0268bd5d59",
+        "80baf57093e708a4092f3da586791b15",
+        "d330b096c06e04d4f89e4e2b885f0f0c",
+        "2b49354221b235a4e9a4dfc02638b89f",
+        "b472ee2a17591744cbb0243704e90057",
+        "5e5c0fbdd0e21f14795fa3a45b615b54"
+    ],
+    "savedCodeHash": "cb9d7a617fcde4a76fcbb246da6cd402710b7add9fef1fb37d1c019029935674",
+    "updatedUtc": "2026-09-07T03:25:22.8719356Z"
+}

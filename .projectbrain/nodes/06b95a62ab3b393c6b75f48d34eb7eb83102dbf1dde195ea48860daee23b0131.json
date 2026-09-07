@@ -1,0 +1,13 @@
+{
+    "schemaVersion": 1,
+    "id": "feature:unity/integration",
+    "type": "Feature",
+    "title": "캐릭터와 시연",
+    "summary": "Unity 어댑터와 UI Toolkit 예제",
+    "body": "",
+    "assetGuid": "",
+    "lastKnownPath": "",
+    "tags": [],
+    "status": "unreviewed",
+    "updatedUtc": "2026-09-07T03:20:16.5081259Z"
+}

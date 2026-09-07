@@ -1,0 +1,16 @@
+{
+    "schemaVersion": 2,
+    "scriptGuid": "20b34d1151907b349886e6641b7a9ba4",
+    "lastKnownPath": "Assets/AbilityFramework/Unity/GameplayEffectAsset.cs",
+    "role": "Inspector에서 편집할 수 있는 효과 설정 에셋이다.",
+    "designIntent": "Unity 직렬화 데이터와 엔진에 의존하지 않는 불변 효과 정의를 연결한다.",
+    "cautions": "Build 시 입력을 검증한다. 실행 중 에셋 변경을 기존 활성 효과에 자동 반영하지 않는다.",
+    "body": "Create > Ability Kit > Gameplay Effect로 생성한다. 능력치·Add/Multiply·크기·지속시간·태그를 편집하고 Build로 복사된 런타임 정의를 만든다.",
+    "imageGuids": [],
+    "relatedScriptGuids": [
+        "d330b096c06e04d4f89e4e2b885f0f0c",
+        "2b49354221b235a4e9a4dfc02638b89f"
+    ],
+    "savedCodeHash": "5fcbf94e9e40a41fb9b705a2a16391516b48620f2fc565ab92a360ce5e2c8cdd",
+    "updatedUtc": "2026-09-07T03:24:29.7798332Z"
+}

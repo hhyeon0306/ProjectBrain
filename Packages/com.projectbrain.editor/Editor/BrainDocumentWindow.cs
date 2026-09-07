@@ -15,6 +15,11 @@ namespace ProjectBrain
         [SerializeField] private bool dirty;
         [SerializeField] private int activeTab;
         [SerializeField] private string loadedVersion;
+        [SerializeField] private bool editing;
+        [SerializeField] private string readingId = "";
+        [SerializeField] private string category = "Project";
+        [SerializeField] private bool dependencies;
+        [SerializeField] private string readerSearch = "";
         private readonly ScriptDocumentService service = new ScriptDocumentService();
         private ScrollView form;
         private VisualElement tabs;
@@ -24,26 +29,77 @@ namespace ProjectBrain
         private ObjectField picker;
 
         [MenuItem("Window/Project Brain/Script Document")]
-        public static void Open() => GetWindow<BrainDocumentWindow>("Brain 문서");
+        public static void Open() { var window = GetWindow<BrainDocumentWindow>("설계 문서"); window.editing = false; window.CreateGUI(); }
         public static void OpenScript(MonoScript script)
         {
-            var window = GetWindow<BrainDocumentWindow>("Brain 문서");
+            if (script != null) OpenNode("asset:" + AssetDatabase.AssetPathToGUID(AssetDatabase.GetAssetPath(script)));
+        }
+        public static void OpenNode(string id, bool showDependencies = false)
+        {
+            var window = GetWindow<BrainDocumentWindow>("설계 문서");
+            window.editing = false; window.readingId = id; window.dependencies = showDependencies; window.CreateGUI(); window.Focus();
+        }
+        private void OpenEditor(MonoScript script)
+        {
+            var window = this;
+            if (window.selectedScript != script && !window.ConfirmDiscard()) return;
+            window.editing = true;
+            window.CreateGUI();
             if (window.form == null) window.CreateGUI();
             if (window.selectedScript == script && window.document != null) { window.Focus(); return; }
-            if (!window.ConfirmDiscard()) return;
             window.Run(() => { window.LoadScript(script); window.picker.SetValueWithoutNotify(window.selectedScript); });
             window.Focus();
         }
 
+        private void BuildReader()
+        {
+            var root = rootVisualElement;
+            var page = BrainPresentation.Shell(root, "설계 문서", "현재 구조와 설계 이유를 읽습니다. 변경 과정은 작업·검증 기록에서 확인하세요.", out var nav, CreateGUI);
+            try
+            {
+                var graph = BrainPresentation.Graph();
+                if (!string.IsNullOrEmpty(readingId) && graph.Nodes.TryGetValue(readingId, out var selected)) category = selected.type == "Document" || selected.type == "Feature" ? selected.type == "Document" ? "Code" : "Domain" : selected.type;
+                nav.Add(BrainPresentation.Text("문서 분류", "reader-caption"));
+                foreach (var item in new[] { ("Project", "전체 아키텍처"), ("Domain", "도메인 설계"), ("Code", "코드 문서"), ("Image", "첨부 자료") })
+                    BrainPresentation.Nav(nav, item.Item2, category == item.Item1, () => { category = item.Item1; readingId = ""; dependencies = false; CreateGUI(); });
+                if (dirty) BrainPresentation.Action(nav, "미저장 문서 이어서 편집", "입력 중인 내용은 보존됩니다.", () => { editing = true; CreateGUI(); });
+                var search = new TextField { value = readerSearch }; search.textEdition.placeholder = "문서·코드 검색"; nav.Add(search);
+                var list = new VisualElement(); nav.Add(list);
+                Action populate = () =>
+                {
+                    list.Clear();
+                    var found = graph.Nodes.Values.Where(n => n.type == category && (string.IsNullOrWhiteSpace(readerSearch) || (n.title + " " + n.summary).IndexOf(readerSearch, StringComparison.OrdinalIgnoreCase) >= 0)).OrderBy(n => n.title).ToArray();
+                    foreach (var n in found.Take(60)) BrainPresentation.Nav(list, n.title, readingId == n.id, () => { readingId = n.id; dependencies = false; CreateGUI(); });
+                    if (found.Length > 60) list.Add(BrainPresentation.Text("검색으로 나머지 " + (found.Length - 60) + "개를 찾아보세요.", "reader-subtitle"));
+                };
+                search.RegisterValueChangedCallback(e => { readerSearch = e.newValue; populate(); }); populate();
+                if (string.IsNullOrEmpty(readingId)) { readingId = graph.Nodes.Values.Where(n => n.type == category).OrderBy(n => n.title).Select(n => n.id).FirstOrDefault(); populate(); }
+                if (string.IsNullOrEmpty(readingId)) { BrainPresentation.Hero(page, "LIBRARY", "등록된 자료가 없습니다", "코드 문서 편집에서 자료를 연결하면 이곳에 표시됩니다."); return; }
+                if (!graph.Nodes.ContainsKey(readingId)) { BrainPresentation.Hero(page, "연결 확인 필요", "이 항목은 현재 구조도에 없습니다", "왼쪽 목록에서 현재 문서를 선택하세요. 미저장 편집 내용은 보존됩니다."); return; }
+                var node = graph.Get(readingId);
+                if (node.type == "Image")
+                {
+                    BrainPresentation.Hero(page, "RESOURCE", node.title, node.summary);
+                    var texture = AssetDatabase.LoadAssetAtPath<Texture2D>(AssetDatabase.GUIDToAssetPath(node.assetGuid));
+                    if (texture != null) page.Add(new Image { image = texture, scaleMode = ScaleMode.ScaleToFit, style = { height = 400 } });
+                    else page.Add(BrainPresentation.Text("이미지 파일을 찾을 수 없습니다."));
+                }
+                else BrainPresentation.Document(page, graph, readingId, id => { readingId = id; dependencies = false; CreateGUI(); }, OpenEditor, dependencies, show => { dependencies = show; CreateGUI(); });
+            }
+            catch (Exception e) { page.Add(new HelpBox("문서를 읽지 못했습니다. " + e.Message, HelpBoxMessageType.Error)); }
+        }
+
         public void CreateGUI()
         {
-            titleContent = new GUIContent("Brain 문서");
+            titleContent = new GUIContent("설계 문서");
             minSize = new Vector2(720, 560);
+            if (!editing) { BuildReader(); return; }
             var root = rootVisualElement; root.Clear(); BrainTheme.Apply(root);
             root.AddToClassList("document-window");
             root.style.paddingLeft = root.style.paddingRight = 0;
             root.style.paddingTop = root.style.paddingBottom = 0;
             var header = new VisualElement(); header.AddToClassList("doc-header"); root.Add(header);
+            header.Add(BrainTheme.Button("← 설계 문서 읽기", () => { editing = false; CreateGUI(); }));
             var heading = new VisualElement(); heading.AddToClassList("row"); header.Add(heading);
             var names = new VisualElement(); names.style.flexGrow = 1; names.style.minWidth = 0; heading.Add(names);
             names.Add(BrainTheme.Label("SCRIPT DOCUMENT", "eyebrow"));
@@ -253,7 +309,8 @@ namespace ProjectBrain
             if (saveState == null) return;
             saveState.text = document == null ? "선택 대기" : dirty ? "저장하지 않은 변경" : string.IsNullOrEmpty(document.updatedUtc) ? "새 문서" : "저장된 문서";
             saveState.EnableInClassList("unsaved", dirty);
-            saveButton.SetEnabled(document != null);
+            saveButton.SetEnabled(document != null && selectedScript != null);
+            if (document != null && selectedScript == null) saveState.text = "연결 코드 없음 · 보존된 문서";
             reloadButton.SetEnabled(document != null && selectedScript != null);
             codeButton.SetEnabled(document != null && selectedScript != null);
             int filled = document == null ? 0 : new[] { document.role, document.designIntent, document.cautions, document.body }.Count(v => !string.IsNullOrWhiteSpace(v));

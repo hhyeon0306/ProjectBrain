@@ -1,0 +1,13 @@
+{
+    "schemaVersion": 1,
+    "id": "feature:effects/lifetime",
+    "type": "Feature",
+    "title": "효과 수명",
+    "summary": "즉시·지속 효과와 태그 회수",
+    "body": "",
+    "assetGuid": "",
+    "lastKnownPath": "",
+    "tags": [],
+    "status": "unreviewed",
+    "updatedUtc": "2026-09-07T03:20:16.5081259Z"
+}

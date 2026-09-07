@@ -1,0 +1,13 @@
+{
+    "schemaVersion": 2,
+    "scriptGuid": "5e5c0fbdd0e21f14795fa3a45b615b54",
+    "lastKnownPath": "Assets/AbilityFramework/Runtime/AbilityClock.cs",
+    "role": "게임 시간과 테스트 시간을 분리한다.",
+    "designIntent": "쿨다운과 효과 만료를 실제 대기 없이 재현하기 위해 시간을 주입한다.",
+    "cautions": "시계는 음수·역행·NaN·무한대를 허용하지 않는다. Unity 연결은 scaled game time을 사용한다.",
+    "body": "IAbilityClock.Now가 실행기의 시간 기준이다. ManualAbilityClock.Advance로 정확히 경계 시각을 검사한다. 게임에서는 AbilitySystemComponent가 Unity 시계를 주입한다.",
+    "imageGuids": [],
+    "relatedScriptGuids": [],
+    "savedCodeHash": "a9b6d6a0522d1016d7b5e639bd5a8672b7c2c1cb960b6cddac3500dd17ff9649",
+    "updatedUtc": "2026-09-07T03:20:16.6631624Z"
+}

@@ -1,0 +1,15 @@
+{
+    "schemaVersion": 1,
+    "id": "asset:80baf57093e708a4092f3da586791b15",
+    "type": "Code",
+    "title": "GameplayAbility.cs",
+    "summary": "스킬 비용·쿨다운·대상·태그 조건·효과를 정의한다.",
+    "body": "",
+    "assetGuid": "80baf57093e708a4092f3da586791b15",
+    "lastKnownPath": "Assets/AbilityFramework/Runtime/GameplayAbility.cs",
+    "tags": [
+        "ability-kit"
+    ],
+    "status": "unreviewed",
+    "updatedUtc": "2026-09-07T03:20:16.5081259Z"
+}

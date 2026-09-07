@@ -1,0 +1,13 @@
+{
+    "schemaVersion": 1,
+    "id": "document:81a59b91efd1acb4d9d75068e1761cf4",
+    "type": "Document",
+    "title": "AbilityArenaDemo.cs Design",
+    "summary": "스킬 버튼·실행 결과·능력치·남은 효과를 보여주는 사용 예제다.",
+    "body": "## 역할\n스킬 버튼·실행 결과·능력치·남은 효과를 보여주는 사용 예제다.\n\n## 설계 의도\n프레임워크 규칙과 시연용 입력/화면/시각 효과를 분리한다.\n\n## 주의사항\n시연용 캐릭터와 간단한 선 효과다. 완성된 전투 게임이나 제작된 아트라고 설명하지 않는다. 버튼은 실패 이유 시연을 위해 쿨다운 중에도 클릭할 수 있다.\n\n## 본문\nFirebolt→Dummy 체력 감소, Heal→Hero 회복, Haste→이동속도/효과 시간, Stun hero→실행 거절과 비용 보존을 확인한다. Reset actors는 개인 상태만 재생성한다. UI Toolkit을 사용한다.\n\n## 원본 저장 코드 해시 (현재 검증 아님)\n7fef1a55307ba844da958685760cb9c8e8c8411403f912d6dd433639537b37d8",
+    "assetGuid": "",
+    "lastKnownPath": "",
+    "tags": [],
+    "status": "unreviewed",
+    "updatedUtc": "2026-09-07T03:25:21.4700745Z"
+}

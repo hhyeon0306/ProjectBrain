@@ -1,0 +1,13 @@
+{
+    "schemaVersion": 1,
+    "id": "feature:attributes/values",
+    "type": "Feature",
+    "title": "능력치 계산",
+    "summary": "기본값과 일시 modifier를 분리",
+    "body": "",
+    "assetGuid": "",
+    "lastKnownPath": "",
+    "tags": [],
+    "status": "unreviewed",
+    "updatedUtc": "2026-09-07T03:20:16.5081259Z"
+}

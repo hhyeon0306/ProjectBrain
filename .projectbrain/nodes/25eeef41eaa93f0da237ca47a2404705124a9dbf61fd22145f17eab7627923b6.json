@@ -1,0 +1,13 @@
+{
+    "schemaVersion": 1,
+    "id": "domain:effects",
+    "type": "Domain",
+    "title": "효과와 상태",
+    "summary": "효과 수명·태그·시간",
+    "body": "## 효과 수명\nInstant 효과는 기본값을 바꾸고 종료합니다. Duration 효과는 종료 시각과 개별 handle을 가진 활성 효과로 관리합니다.\n\n## 중첩과 회수\n지속 효과는 독립적으로 중첩됩니다. 만료된 handle의 능력치 보정만 제거하고 부여한 태그의 참조 수를 회수합니다. 최대 활성 효과 수는 캐릭터당 64개입니다.\n\n## 시간과 태그\nIAbilityClock을 통해 시간 공급을 분리합니다. 태그는 계층 경계와 참조 수를 사용하여 여러 효과가 같은 태그를 부여하는 상황을 관리합니다.",
+    "assetGuid": "",
+    "lastKnownPath": "",
+    "tags": [],
+    "status": "unreviewed",
+    "updatedUtc": "2026-09-07T04:06:41.2411577Z"
+}

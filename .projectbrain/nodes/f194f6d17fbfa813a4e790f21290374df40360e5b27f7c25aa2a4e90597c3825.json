@@ -1,0 +1,15 @@
+{
+    "schemaVersion": 1,
+    "id": "asset:20b34d1151907b349886e6641b7a9ba4",
+    "type": "Code",
+    "title": "GameplayEffectAsset.cs",
+    "summary": "Inspector에서 편집할 수 있는 효과 설정 에셋이다.",
+    "body": "",
+    "assetGuid": "20b34d1151907b349886e6641b7a9ba4",
+    "lastKnownPath": "Assets/AbilityFramework/Unity/GameplayEffectAsset.cs",
+    "tags": [
+        "ability-kit"
+    ],
+    "status": "unreviewed",
+    "updatedUtc": "2026-09-07T03:20:16.5081259Z"
+}

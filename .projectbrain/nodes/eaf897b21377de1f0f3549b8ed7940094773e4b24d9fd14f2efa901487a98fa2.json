@@ -1,0 +1,13 @@
+{
+    "schemaVersion": 1,
+    "id": "document:8ca829a39992eb3459276e2b289607a4",
+    "type": "Document",
+    "title": "GameplayAbilityAsset.cs Design",
+    "summary": "스킬의 비용·쿨다운·대상·효과 에셋을 설정한다.",
+    "body": "## 역할\n스킬의 비용·쿨다운·대상·효과 에셋을 설정한다.\n\n## 설계 의도\n스킬별 실행 코드 추가 없이 화염탄/회복/가속/기절을 구성한다.\n\n## 주의사항\n효과 참조 누락과 잘못된 비용/시간은 Build에서 거절한다. 변경은 실행기 재생성 후 적용한다.\n\n## 본문\nCreate > Ability Kit > Gameplay Ability로 생성한다. initialAbilities에 넣어 캐릭터에 부여한다. Hero와 Dummy는 같은 Stun 에셋을 공유하지만 실행 상태는 별개다.\n\n## 원본 저장 코드 해시 (현재 검증 아님)\nb99d925383cab2460a67ff987fb4f029609913fe4b375e69e9cb059f750e2172",
+    "assetGuid": "",
+    "lastKnownPath": "",
+    "tags": [],
+    "status": "unreviewed",
+    "updatedUtc": "2026-09-07T03:24:30.2747077Z"
+}

@@ -1,0 +1,13 @@
+{
+    "schemaVersion": 1,
+    "id": "document:6f557bf0bd58e4546acaac0f8407efe1",
+    "type": "Document",
+    "title": "AbilitySystemTests.cs Design",
+    "summary": "능력 실행과 효과 수명 규칙을 실제 NUnit으로 검사한다.",
+    "body": "## 역할\n능력 실행과 효과 수명 규칙을 실제 NUnit으로 검사한다.\n\n## 설계 의도\n설명한 보장이 실제 코드에서 유지되는지 성공·실패·경계 상황으로 확인한다.\n\n## 주의사항\n테스트 코드의 존재는 통과 결과가 아니다. 실제 Test Runner 결과와 run ID를 별도 확인한다.\n\n## 본문\n자원·쿨다운 확정, 거절 시 무소모, 두 캐릭터 상태 분리, 기절 만료, modifier 기본값 보존, 태그 참조 수, 중첩/용량 한도, 잘못된 입력, 정확한 시간 경계, 이력 제한을 검사한다.\n\n## 원본 저장 코드 해시 (현재 검증 아님)\ncb9d7a617fcde4a76fcbb246da6cd402710b7add9fef1fb37d1c019029935674",
+    "assetGuid": "",
+    "lastKnownPath": "",
+    "tags": [],
+    "status": "unreviewed",
+    "updatedUtc": "2026-09-07T03:25:22.8719356Z"
+}

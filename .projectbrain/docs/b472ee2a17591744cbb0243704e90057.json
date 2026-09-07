@@ -1,0 +1,13 @@
+{
+    "schemaVersion": 2,
+    "scriptGuid": "b472ee2a17591744cbb0243704e90057",
+    "lastKnownPath": "Assets/AbilityFramework/Runtime/GameplayTags.cs",
+    "role": "기절·가속 같은 상태를 계층 태그로 표현한다.",
+    "designIntent": "문자열 비교가 흩어지는 것을 막고 효과 여러 개의 상태 소유를 참조 수로 관리한다.",
+    "cautions": "대소문자를 구분한다. State.Stun은 State.Stunned와 다르다. 수동 Add/Remove를 쓰는 호출자는 짝을 맞춰야 한다.",
+    "body": "State.Stunned는 State 조회와 일치한다. 중복 부여는 참조 수를 늘리고 효과 만료 시 해당 수만 줄인다. 모든 부여가 끝났을 때 태그가 사라진다.",
+    "imageGuids": [],
+    "relatedScriptGuids": [],
+    "savedCodeHash": "71584a0dadf9a438dbd8ac14cfd17db4b8ca9ed2a6cf1fb884297fdbb85f3643",
+    "updatedUtc": "2026-09-07T03:20:17.0014166Z"
+}

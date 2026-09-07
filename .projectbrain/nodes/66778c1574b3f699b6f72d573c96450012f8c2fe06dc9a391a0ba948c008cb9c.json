@@ -1,0 +1,15 @@
+{
+    "schemaVersion": 1,
+    "id": "asset:6f557bf0bd58e4546acaac0f8407efe1",
+    "type": "Code",
+    "title": "AbilitySystemTests.cs",
+    "summary": "능력 실행과 효과 수명 규칙을 실제 NUnit으로 검사한다.",
+    "body": "",
+    "assetGuid": "6f557bf0bd58e4546acaac0f8407efe1",
+    "lastKnownPath": "Assets/AbilityFramework/Tests/Editor/AbilitySystemTests.cs",
+    "tags": [
+        "ability-kit"
+    ],
+    "status": "unreviewed",
+    "updatedUtc": "2026-09-07T03:20:16.5081259Z"
+}

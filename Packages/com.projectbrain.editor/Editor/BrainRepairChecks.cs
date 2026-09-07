@@ -73,7 +73,7 @@ namespace ProjectBrain
             Action<string, object> set = (name, value) => typeof(BrainDocumentWindow).GetField(name, flags).SetValue(window, value);
             try
             {
-                set("service", service); set("document", selected); set("selectedScript", script); set("dirty", true); set("activeTab", 3);
+                set("service", service); set("document", selected); set("selectedScript", script); set("dirty", true); set("activeTab", 3); set("editing", true);
                 window.CreateGUI();
                 check(window.rootVisualElement.Query<HelpBox>().ToList().Any(h => h.messageType == HelpBoxMessageType.Error && h.text.Contains(path)), "Graph tab reports corrupt file path without throwing");
                 check(window.hasUnsavedChanges && selected.body == "unsaved text survives graph failure", "Unsaved state preserved");

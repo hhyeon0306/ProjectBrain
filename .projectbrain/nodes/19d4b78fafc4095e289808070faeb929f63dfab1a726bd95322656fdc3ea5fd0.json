@@ -1,0 +1,15 @@
+{
+    "schemaVersion": 1,
+    "id": "asset:8ca829a39992eb3459276e2b289607a4",
+    "type": "Code",
+    "title": "GameplayAbilityAsset.cs",
+    "summary": "스킬의 비용·쿨다운·대상·효과 에셋을 설정한다.",
+    "body": "",
+    "assetGuid": "8ca829a39992eb3459276e2b289607a4",
+    "lastKnownPath": "Assets/AbilityFramework/Unity/GameplayAbilityAsset.cs",
+    "tags": [
+        "ability-kit"
+    ],
+    "status": "unreviewed",
+    "updatedUtc": "2026-09-07T03:20:16.5081259Z"
+}

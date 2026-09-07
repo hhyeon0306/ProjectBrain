@@ -1,0 +1,13 @@
+{
+    "schemaVersion": 1,
+    "id": "feature:testing/contracts",
+    "type": "Feature",
+    "title": "실행 계약 검사",
+    "summary": "NUnit으로 정상·거절·경계를 확인",
+    "body": "",
+    "assetGuid": "",
+    "lastKnownPath": "",
+    "tags": [],
+    "status": "unreviewed",
+    "updatedUtc": "2026-09-07T03:20:16.5081259Z"
+}

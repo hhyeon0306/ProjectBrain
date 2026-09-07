@@ -1,0 +1,13 @@
+{
+    "schemaVersion": 1,
+    "id": "domain:testing",
+    "type": "Domain",
+    "title": "자동 테스트",
+    "summary": "실패·경계 조건 검증",
+    "body": "## 검사 구조\nAbilitySystemTests는 Unity 장면에 의존하지 않는 실행 규칙을 EditMode에서 검사합니다. ManualAbilityClock으로 시간을 직접 진행시켜 쿨다운과 효과 만료의 경계를 확인합니다.\n\n## 주요 확인 항목\n실패 시 비용 유지, 쿨다운 경계, 캐릭터별 상태 분리, 태그 조건, 효과 중첩과 만료, 버프 중 기본값 변경, 입력값과 적용 가능 수를 확인합니다.\n\n## 결과의 위치\n테스트를 어떻게 구성했는지는 이 문서에서 설명합니다. 실행 시각·성공과 실패·현재 코드와의 일치 여부는 작업·검증 기록에서 관리합니다.",
+    "assetGuid": "",
+    "lastKnownPath": "",
+    "tags": [],
+    "status": "unreviewed",
+    "updatedUtc": "2026-09-07T04:06:41.2630451Z"
+}

@@ -1,23 +1,68 @@
 {
     "schemaVersion": 1,
-    "id": "a48a9ba7-be69-4985-a648-ed5d2ac5442f",
-    "revision": 20,
-    "purpose": "Player 이동 코드의 작업 재개와 맥락·최신성 시연",
+    "id": "78fd28e4-20a2-41dd-821d-137a24667cde",
+    "revision": 4,
+    "purpose": "G1 · GAS 개념 Unity 프레임워크와 Brain 템플릿 구현",
     "targetNodeIds": [
-        "feature:player/movement"
+        "feature:abilities/activation"
     ],
-    "progress": "R1-01/02/03 보강 완료. 검증 누락 연결6건 복구·문서 공통 쓰기14번째MCP·의미 맥락 우선. 통합29/Edit22/Workflow39/Completion32/Sync26/Lifecycle28/Repair61=237항목 통과. 최종 compile 오류0/EditMode9/9.",
-    "decisions": "terminal 원본 보존 후 연결만 재발행. 구조화 원본은 전용 API로 공통Sync 저장. context기본2단계·이력최대2개. 사용자 순서대로 R1 수정·검증 후 GAS 개념 Unity 프레임워크로 샘플 교체.",
-    "unresolved": "현재 시연 작업은 허용 밖51/미매핑51/사람확인2로 완료 불가. 기존 사용자 변경 보존. GAS 교체 시 기존 작업/데이터를 미완료 이력과 복구본에 보존하고 새 템플릿으로 구분해야 한다.",
-    "nextAction": "G1: 기존 샘플 현재 변경 포함 복구본 → 사용자 요청에 따른 샘플 교체 → 어빌리티/능력치/비용/쿨다운/태그/효과 런타임·테스트·Brain 템플릿.13시 개발 종료.",
+    "progress": "GAS 개념 Unity 예제와 Brain 템플릿을 구현했습니다. 구조도 상세를 간소화하고 설계 문서·작업/오류/검증 기록을 분리했습니다. 문서 읽기·편집 전환, 작업 고정 번호, 검색·상태 필터·페이지 이동과 실제 검증 결과 리포트를 연결했습니다.",
+    "decisions": "사람은 핵심 요약을 먼저 읽고 상세 근거를 펼쳐 확인합니다. 현재 설계와 변경 이력은 각각 하나의 원본으로 관리합니다. 코드별 기록은 작업 범위 필터임을 표시하고 과거 테스트 결과를 현재 통과로 표시하지 않습니다. 일정은 사용자가 관리하며 시각적 완성도를 우선합니다.",
+    "unresolved": "사용자가 화면 검토를 진행합니다. 자동 C# 의존 분석, 테스트 케이스별 상세 로그·커버리지, 독립적인 런타임 오류 수집, 다중 사용자 동시 편집·100~200명 부하 검증은 미구현/미검증입니다. 현재 스냅샷 EditMode와 사람 문서 확인, 삭제·메타 등 완료 정책 제한은 남아 있습니다.",
+    "nextAction": "사용자의 화면 피드백을 받아 필요한 부분만 보완합니다. 화면 검증은 사용자 담당, 임의 추가 화면 조작이나 프레임워크 확대는 중지합니다.",
     "references": [
-        "feature:player/movement",
-        "document:10000000000000000000000000000003"
+        "project:unity-ability-kit",
+        "domain:attributes",
+        "domain:testing"
     ],
     "allowedPaths": [
-        "Assets/Scripts/Gameplay/DemoPlayerMovement.cs"
+        "Assets/AbilityFramework/",
+        "Assets/AbilityFramework.meta",
+        "Assets/Scripts/",
+        "Assets/Scripts.meta",
+        "Assets/WorkflowDemo/",
+        "Assets/WorkflowDemo.meta",
+        "Assets/Scenes/SampleScene.unity",
+        "Assets/Scenes/SampleScene.unity.meta",
+        "Assets/Scenes/AbilityArena.unity",
+        "Assets/Scenes/AbilityArena.unity.meta",
+        "ProjectSettings/EditorBuildSettings.asset",
+        "Packages/com.projectbrain.editor/Editor/"
     ],
-    "scopeChanges": [],
+    "scopeChanges": [
+        {
+            "revision": 3,
+            "before": [
+                "Assets/AbilityFramework/",
+                "Assets/AbilityFramework.meta",
+                "Assets/Scripts/",
+                "Assets/Scripts.meta",
+                "Assets/WorkflowDemo/",
+                "Assets/WorkflowDemo.meta",
+                "Assets/Scenes/SampleScene.unity",
+                "Assets/Scenes/SampleScene.unity.meta",
+                "Assets/Scenes/AbilityArena.unity",
+                "Assets/Scenes/AbilityArena.unity.meta",
+                "ProjectSettings/EditorBuildSettings.asset"
+            ],
+            "after": [
+                "Assets/AbilityFramework/",
+                "Assets/AbilityFramework.meta",
+                "Assets/Scripts/",
+                "Assets/Scripts.meta",
+                "Assets/WorkflowDemo/",
+                "Assets/WorkflowDemo.meta",
+                "Assets/Scenes/SampleScene.unity",
+                "Assets/Scenes/SampleScene.unity.meta",
+                "Assets/Scenes/AbilityArena.unity",
+                "Assets/Scenes/AbilityArena.unity.meta",
+                "ProjectSettings/EditorBuildSettings.asset",
+                "Packages/com.projectbrain.editor/Editor/"
+            ],
+            "reason": "U1-10 사용자 승인: 구조도 상세·설계 문서·작업/검증 기록의 UI 역할 분리와 검토 중심 화면 보완. 기준선 유지.",
+            "changedUtc": "2026-09-07T03:54:41.8944327Z"
+        }
+    ],
     "baseline": {
         "files": [
             {
@@ -390,7 +435,7 @@
             },
             {
                 "path": "Assets/Scenes/SampleScene.unity",
-                "sha256": "07fce8b04804ddccb3026db5b43d8dc41ba138e49d50d36a5c24877081eacdca"
+                "sha256": "1c4ec2bea5b4f07bea412e6f8c182941e60df755214d8fced7810307818f73d6"
             },
             {
                 "path": "Assets/Scenes/SampleScene.unity.meta",
@@ -442,7 +487,7 @@
             },
             {
                 "path": "Assets/Scripts/Gameplay/DemoPlayerMovement.cs",
-                "sha256": "23e528aed81f5664dc15700e76675355f03fec8bd13742c6cc271e43ffa782e1"
+                "sha256": "31ae42459cd553a48ec7a4e0ef0744391229dd9b1ac7504c6455fbd935241166"
             },
             {
                 "path": "Assets/Scripts/Gameplay/DemoPlayerMovement.cs.meta",
@@ -669,24 +714,72 @@
                 "sha256": "a0f68aca5222dca31e2ae725587349e5817f077fcc40f218c5d344236cb397e1"
             },
             {
+                "path": "Packages/com.projectbrain.editor/Editor/BrainCompletionChecks.cs",
+                "sha256": "e53585f0d92df96674f3faa8637ee78226e66e3850f0b75bc02886b087633c28"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/BrainCompletionChecks.cs.meta",
+                "sha256": "09d1b91a529eee988c91a7cf729afb33d9be4985c3b9f2f9566e13ed339a7e1f"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/BrainCompletionService.cs",
+                "sha256": "21f1a448f5c4ab4a93eebc0568069924028e69b5a564b6101b24d51f7c415451"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/BrainCompletionService.cs.meta",
+                "sha256": "e98c42ace57d23f6c69d1ea65fac6dc4b4dce49d1162e3954352f73a0583492f"
+            },
+            {
                 "path": "Packages/com.projectbrain.editor/Editor/BrainContextService.cs",
-                "sha256": "ac1eced9490e25ae00a3a51206c53a446d4f2a7d9116aa7c582d7484db910748"
+                "sha256": "14cfb432b54702eaee21d9831fada2684f20306051be4f4f9aa76fd50c2b52e6"
             },
             {
                 "path": "Packages/com.projectbrain.editor/Editor/BrainContextService.cs.meta",
                 "sha256": "4cfdd7af2febbdfa8f4b43901fec470febeb76551a0c6f491f4ccfc0ca0a9a42"
             },
             {
+                "path": "Packages/com.projectbrain.editor/Editor/BrainDocumentSync.cs",
+                "sha256": "c22595d768038e243ae5910ac8446c14e0b9bc73da3948affa3d2f35de5932d5"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/BrainDocumentSync.cs.meta",
+                "sha256": "ee67e1c3731154508892cfda87879f1757b73e49590c9dbfb3078202088ce8af"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/BrainDocumentSyncChecks.cs",
+                "sha256": "09a7020733a822c00eb7596e907591eb7546e27d9d9a452db56b499d8848d4b4"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/BrainDocumentSyncChecks.cs.meta",
+                "sha256": "10dcb2154cdca7d2887fd7b353798d10d168b87e94c01f18ebef9f794c24675b"
+            },
+            {
                 "path": "Packages/com.projectbrain.editor/Editor/BrainDocumentWindow.cs",
-                "sha256": "7e10429ee8f789fc79e7b403eebfee958b6991ebddf9a14cbb2e57ef8b22d19a"
+                "sha256": "3fc028e6b0b7e89319386282525308f7779d2b928f379b6d6961bede9b2fa9e9"
             },
             {
                 "path": "Packages/com.projectbrain.editor/Editor/BrainDocumentWindow.cs.meta",
                 "sha256": "4273317d6fa090140743e7f371d12d6d17bd4753a78ff872f9fdbe3ea35da778"
             },
             {
+                "path": "Packages/com.projectbrain.editor/Editor/BrainEditChecks.cs",
+                "sha256": "4ab453f7df1bfe78243608489a5eccc8ed6f08dbc36821419d727ee8e9b573cc"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/BrainEditChecks.cs.meta",
+                "sha256": "9f43053b564671f5aa49b54b516bd7cd1bd7e78d9113b286b055a54b9450a26a"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/BrainEditService.cs",
+                "sha256": "30874f07391cf5882ddd909eb784d40c696a58bc9acc3016bae2ab8885591be7"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/BrainEditService.cs.meta",
+                "sha256": "82a31cde6fac6806f399e36b72f5db28b10bcef8789991a457ad91dc77a98893"
+            },
+            {
                 "path": "Packages/com.projectbrain.editor/Editor/BrainExplorerWindow.cs",
-                "sha256": "24669451becf31de8c4b2b4bea455429d00b1caa7c56cba29933b49a7ced82e3"
+                "sha256": "1abfd9a0ed9ce7bcb90d3fe104bb1fb4f053f4d8c37838f0e91c2d80627f5f8d"
             },
             {
                 "path": "Packages/com.projectbrain.editor/Editor/BrainExplorerWindow.cs.meta",
@@ -694,7 +787,7 @@
             },
             {
                 "path": "Packages/com.projectbrain.editor/Editor/BrainFreshnessService.cs",
-                "sha256": "61f2e4ff09e2816db2e8fab20c8a0d43e97747d672a8ac7cadfe1f643f689bc8"
+                "sha256": "2d502d63556f539dcaa12250fae69854d4e9386440a35e845e893a1bc70b2419"
             },
             {
                 "path": "Packages/com.projectbrain.editor/Editor/BrainFreshnessService.cs.meta",
@@ -707,6 +800,46 @@
             {
                 "path": "Packages/com.projectbrain.editor/Editor/BrainGraphService.cs.meta",
                 "sha256": "b61520559ad362ba597cc19315d60ced42f3ede04e3c9b01979e10123348e34a"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/BrainIntegrationChecks.cs",
+                "sha256": "62a8a6334e8b7c919c2b4d03efc1f96457687693628ee5751fea3c641f4d1cf5"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/BrainIntegrationChecks.cs.meta",
+                "sha256": "baca6c00cf16682733c6d10a51aebe672cc5a4d06d1319c9a69c6c0af69b2373"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/BrainMapChecks.cs",
+                "sha256": "93015a60fa58c44ee9e8636cce5935e6ae40c7070a9b0e2e304abe60dbac7556"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/BrainMapChecks.cs.meta",
+                "sha256": "87b1056665d36cf5c94ca27f7d48cffaf8a4b0e3880df21ae4b092bf98379056"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/BrainMapScope.cs",
+                "sha256": "5a7521defe80efac7401a4071bfc0e437e0aa8ebdb0a0652056d30f1c270bf2d"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/BrainMapScope.cs.meta",
+                "sha256": "9c974c293296afc2716a0c5d8a769eafeefa53588551f5d928f102dde565a4aa"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/BrainMapScopeChecks.cs",
+                "sha256": "f5fc8f72f280f62291321ae1c342de10fd181fbca8c1014972229d640cff6212"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/BrainMapScopeChecks.cs.meta",
+                "sha256": "23f7a8f17044a8902ccfa0889333048b0c2643bd121c1b39630fe5d29e5145ed"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/BrainMapView.cs",
+                "sha256": "b273e79df6b02ecc8baebf2b4eca388efd38d4cc8b77879336dcc7b12e853abf"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/BrainMapView.cs.meta",
+                "sha256": "6f24089261d3bf5e353b8dc226e87d49c04a20e1077f50d9b842c6fb7364ab1f"
             },
             {
                 "path": "Packages/com.projectbrain.editor/Editor/BrainMigration.cs",
@@ -742,7 +875,7 @@
             },
             {
                 "path": "Packages/com.projectbrain.editor/Editor/BrainRepairChecks.cs",
-                "sha256": "108f33cb992bb02fb8525c2eca165267d48f20722195fd10ff708800b8d07863"
+                "sha256": "3791ae94df3d0c9cea3d1c38a2ec3813fac6cad2e810a847415379471e9bef6a"
             },
             {
                 "path": "Packages/com.projectbrain.editor/Editor/BrainRepairChecks.cs.meta",
@@ -750,7 +883,7 @@
             },
             {
                 "path": "Packages/com.projectbrain.editor/Editor/BrainStore.cs",
-                "sha256": "c90b740e6af53cc5bf9396ad4eef0685fbbbd91cfa4e6e006337d9a9cd73c311"
+                "sha256": "32e994ebaa1124730e50f450087b9c3cb2e4e72407170c1f53079985f53112b8"
             },
             {
                 "path": "Packages/com.projectbrain.editor/Editor/BrainStore.cs.meta",
@@ -765,8 +898,24 @@
                 "sha256": "a237343ca7aa643b8fae06106119aa9463e085b1619a6b34f33909ce0618d50f"
             },
             {
+                "path": "Packages/com.projectbrain.editor/Editor/BrainTaskLifecycle.cs",
+                "sha256": "9f3de3280210a32d5c9712a8e682ac7220055ca1dc7b03005ba5f87d8347e48c"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/BrainTaskLifecycle.cs.meta",
+                "sha256": "8a5a912e2812cd7db50a03cbfac1e1f7595a94d5925752582408843ff5aef7e1"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/BrainTaskLifecycleChecks.cs",
+                "sha256": "873534156dac596b7c14cbfa2edd266828dd97a33faab907e63c6f161c343779"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/BrainTaskLifecycleChecks.cs.meta",
+                "sha256": "e8e84788ac017a1ffa063b6fd4155b0d883a18d7217372bc36f646713fb8646b"
+            },
+            {
                 "path": "Packages/com.projectbrain.editor/Editor/BrainTaskService.cs",
-                "sha256": "3b7cc11da766c041113528b78183b793c5f1281edc21a4f966574f9f76b5b475"
+                "sha256": "cde6786bceb681a4b390fcff3a6e18790fcd46b3425f2e20461538f2ff33eabd"
             },
             {
                 "path": "Packages/com.projectbrain.editor/Editor/BrainTaskService.cs.meta",
@@ -774,19 +923,51 @@
             },
             {
                 "path": "Packages/com.projectbrain.editor/Editor/BrainTaskView.cs",
-                "sha256": "abb961ca5e4105dab908b36bfc2a49af6be77e8c8284ad64bf0521638f2e3b44"
+                "sha256": "f7d2d999b22e79e47f93a3b1d7681df1364a2d73f9200543ffe6942a4d5eeacd"
             },
             {
                 "path": "Packages/com.projectbrain.editor/Editor/BrainTaskView.cs.meta",
                 "sha256": "9ad3040474004d06c2f33377fdf0be27c336f2ff09538010a10867f9ba84a8a8"
             },
             {
+                "path": "Packages/com.projectbrain.editor/Editor/BrainTaskWindow.cs",
+                "sha256": "575bf2e4f4489c7e0c0a4c9bb328128fa269855fb39a996f813d4c13894d3430"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/BrainTaskWindow.cs.meta",
+                "sha256": "356f0056aa8e85a3b859952436d7a246eac91a3ac94bf32562d16bdc73e9d496"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/BrainTheme.cs",
+                "sha256": "8d7865f21ac84554f003e74046ba194feca83f37e76cff784c20cb6c0049be00"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/BrainTheme.cs.meta",
+                "sha256": "d7d93ac4766c5746061eed2f8acc9072697ca4336f7f9df25314115ee071a093"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/BrainTheme.uss",
+                "sha256": "2cbda1181388d53f10e336dde4bb52de5b8474bcddacf0e06ea5e47d0a509b03"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/BrainTheme.uss.meta",
+                "sha256": "c0c1b8c81318a997e9d10f6dbb82b9227f0c1e5a28c43a8284bfe156d5d5e173"
+            },
+            {
                 "path": "Packages/com.projectbrain.editor/Editor/BrainTools.cs",
-                "sha256": "c8a18509e5ad0a09526a418ec7244a932ef415875f49079bfab20c876608ba35"
+                "sha256": "505974c8a1cea0aa42b677f2776f611357e8beca5c6773f91e7778c2860c1087"
             },
             {
                 "path": "Packages/com.projectbrain.editor/Editor/BrainTools.cs.meta",
                 "sha256": "fdcefe8e4f1465b385647fedf530ff0c06599e5108efb99d0abc2b16f544b1cc"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/BrainVerification.cs",
+                "sha256": "52e6d235365dd64a1d29a64bd91e489924e922811853cc4455d0cd2d50d9f4af"
+            },
+            {
+                "path": "Packages/com.projectbrain.editor/Editor/BrainVerification.cs.meta",
+                "sha256": "7c740a96aad6e87a47b3446ee113c5290cfabb38e97e7ad1e7eb73088f9e2880"
             },
             {
                 "path": "Packages/com.projectbrain.editor/Editor/BrainWire.cs",
@@ -798,7 +979,7 @@
             },
             {
                 "path": "Packages/com.projectbrain.editor/Editor/BrainWorkflowChecks.cs",
-                "sha256": "a8af96b24f0b4c48216fb423f3d805535fbc66adf74f4758ddc12f063b2354f3"
+                "sha256": "b38ef7422d77e977ff845e1879488413775490b95bb5d620e87c737dfd1a24a4"
             },
             {
                 "path": "Packages/com.projectbrain.editor/Editor/BrainWorkflowChecks.cs.meta",
@@ -814,7 +995,7 @@
             },
             {
                 "path": "Packages/com.projectbrain.editor/Editor/DocumentGraphView.cs",
-                "sha256": "b16278b7e07fe02542f2fbaea58df900b9f8ba41d52a693ed50e949b5216d397"
+                "sha256": "2d9d021ad6d6088de9d3943e3106c73b3b1e9b42b2a7033968fbdc6a33230089"
             },
             {
                 "path": "Packages/com.projectbrain.editor/Editor/DocumentGraphView.cs.meta",
@@ -822,7 +1003,7 @@
             },
             {
                 "path": "Packages/com.projectbrain.editor/Editor/DocumentStore.cs",
-                "sha256": "8894bcb09d10b4d6011dfde2987f2a06c17be7d16f73d4ea913a3c0fcc442b40"
+                "sha256": "a1a0a6e7c665aa0c8517c0350efbdfc800eaa725cd49fd8b2fbb3ff40e1d71ea"
             },
             {
                 "path": "Packages/com.projectbrain.editor/Editor/DocumentStore.cs.meta",
@@ -838,7 +1019,7 @@
             },
             {
                 "path": "Packages/com.projectbrain.editor/Editor/ProjectBrain.Editor.asmdef",
-                "sha256": "08091c9a2fca776a4f54db07c2851ed576650a309a59b66541da79c3afb8df97"
+                "sha256": "4151b8bf626f00ca8320bda64035a33f8a7698285e8fcea3d6ebbd4c7ce3b5ef"
             },
             {
                 "path": "Packages/com.projectbrain.editor/Editor/ProjectBrain.Editor.asmdef.meta",
@@ -854,7 +1035,7 @@
             },
             {
                 "path": "Packages/com.projectbrain.editor/Editor/ScriptDocumentService.cs",
-                "sha256": "ed46d184f881547f178bde062c6172d9c533523d6fd539735a8326c8e6ccce70"
+                "sha256": "e83bb827c2305dbc20f8e902402b6908441a3de6c5d2dba273788627eecaff64"
             },
             {
                 "path": "Packages/com.projectbrain.editor/Editor/ScriptDocumentService.cs.meta",
@@ -862,7 +1043,7 @@
             },
             {
                 "path": "Packages/com.projectbrain.editor/Editor/UnityBrainJson.cs",
-                "sha256": "d6def84477df9b2166413c7cc23916f647de0703c0c730ffa7d80ca9c290b85e"
+                "sha256": "9a9da2e3329d86101913f4382e53e519844adb0098896116119eea36ee6e1c3a"
             },
             {
                 "path": "Packages/com.projectbrain.editor/Editor/UnityBrainJson.cs.meta",
@@ -949,6 +1130,10 @@
                 "sha256": "6814d6cc3eb850dd7d2a069a8b17ba9f7591deba8b1758a855978bd9c8627643"
             },
             {
+                "path": "ProjectSettings/SceneTemplateSettings.json",
+                "sha256": "bb9098b3bfcde78d93e264b96f7b77b5430e64e8c57a7aad7f5a5d9c3945e16a"
+            },
+            {
                 "path": "ProjectSettings/ShaderGraphSettings.asset",
                 "sha256": "cdba1e5d65bcf6e3269d76ed3e60b6c21f98322002996642c9d74f1eb89f6b91"
             },
@@ -984,6 +1169,6 @@
         "limitations": []
     },
     "gitStateAtBegin": "not-queried; baseline includes pre-existing working files",
-    "createdUtc": "2026-09-06T08:18:14.4162169Z",
-    "updatedUtc": "2026-09-07T02:32:12.3947985Z"
+    "createdUtc": "2026-09-07T02:37:12.1858394Z",
+    "updatedUtc": "2026-09-07T04:11:51.6192443Z"
 }

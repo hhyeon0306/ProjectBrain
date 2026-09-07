@@ -1,0 +1,215 @@
+{
+  "taskId": "78fd28e4-20a2-41dd-821d-137a24667cde",
+  "editmode": {
+    "id": "02252d03-cae6-4b3a-8caf-d8a337177cda",
+    "passed": 31,
+    "total": 31,
+    "finalSnapshot": false
+  },
+  "playProbe": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"result\":{\"name\":\"result\",\"typeName\":\"\\u003C\\u003Ef__AnonymousType0(System.Boolean,System.Boolean,System.String,System.Single,System.Single,System.Single,System.Single,System.String,\\u003C\\u003Ef__AnonymousType1(System.String,System.String)-1,System.String,System.String,System.Boolean)\",\"value\":{},\"props\":[{\"name\":\"playMode\",\"typeName\":\"System.Boolean\",\"value\":true},{\"name\":\"firebolt\",\"typeName\":\"System.Boolean\",\"value\":true},{\"name\":\"cooldownReject\",\"typeName\":\"System.String\",\"value\":\"OnCooldown\"},{\"name\":\"manaAfterFire\",\"typeName\":\"System.Single\",\"value\":80},{\"name\":\"dummyHealth\",\"typeName\":\"System.Single\",\"value\":75},{\"name\":\"healHealth\",\"typeName\":\"System.Single\",\"value\":100},{\"name\":\"hasteSpeed\",\"typeName\":\"System.Single\",\"value\":7.5},{\"name\":\"stunReject\",\"typeName\":\"System.String\",\"value\":\"BlockedByTag\"},{\"name\":\"buttons\",\"typeName\":\"\\u003C\\u003Ef__AnonymousType1(System.String,System.String)-1\",\"value\":[{\"name\":\"[0]\",\"typeName\":\"\\u003C\\u003Ef__AnonymousType1(System.String,System.String)\",\"value\":{},\"props\":[{\"name\":\"text\",\"typeName\":\"System.String\",\"value\":\"Firebolt   /   20 mana   /   READY\"},{\"name\":\"rect\",\"typeName\":\"System.String\",\"value\":\"(x:50.49, y:242.78, width:347.23, height:38.73)\"}]},{\"name\":\"[1]\",\"typeName\":\"\\u003C\\u003Ef__AnonymousType1(System.String,System.String)\",\"value\":{},\"props\":[{\"name\":\"text\",\"typeName\":\"System.String\",\"value\":\"Haste   /   10 mana   /   READY\"},{\"name\":\"rect\",\"typeName\":\"System.String\",\"value\":\"(x:50.49, y:288.43, width:347.23, height:38.73)\"}]},{\"name\":\"[2]\",\"typeName\":\"\\u003C\\u003Ef__AnonymousType1(System.String,System.String)\",\"value\":{},\"props\":[{\"name\":\"text\",\"typeName\":\"System.String\",\"value\":\"Heal   /   15 mana   /   READY\"},{\"name\":\"rect\",\"typeName\":\"System.String\",\"value\":\"(x:50.49, y:334.08, width:347.23, height:39.43)\"}]},{\"name\":\"[3]\",\"typeName\":\"\\u003C\\u003Ef__AnonymousType1(System.String,System.String)\",\"value\":{},\"props\":[{\"name\":\"text\",\"typeName\":\"System.String\",\"value\":\"Stun   /   25 mana   /   READY\"},{\"name\":\"rect\",\"typeName\":\"System.String\",\"value\":\"(x:50.49, y:380.43, width:347.23, height:38.73)\"}]},{\"name\":\"[4]\",\"typeName\":\"\\u003C\\u003Ef__AnonymousType1(System.String,System.String)\",\"value\":{},\"props\":[{\"name\":\"text\",\"typeName\":\"System.String\",\"value\":\"Dummy attack\"},{\"name\":\"rect\",\"typeName\":\"System.String\",\"value\":\"(x:50.49, y:426.08, width:180.53, height:39.43)\"}]},{\"name\":\"[5]\",\"typeName\":\"\\u003C\\u003Ef__AnonymousType1(System.String,System.String)\",\"value\":{},\"props\":[{\"name\":\"text\",\"typeName\":\"System.String\",\"value\":\"Stun hero\"},{\"name\":\"rect\",\"typeName\":\"System.String\",\"value\":\"(x:241.40, y:426.08, width:156.32, height:39.43)\"}]},{\"name\":\"[6]\",\"typeName\":\"\\u003C\\u003Ef__AnonymousType1(System.String,System.String)\",\"value\":{},\"props\":[{\"name\":\"text\",\"typeName\":\"System.String\",\"value\":\"Reset actors\"},{\"name\":\"rect\",\"typeName\":\"System.String\",\"value\":\"(x:50.49, y:587.24, width:347.23, height:38.73)\"}]}]},{\"name\":\"panel\",\"typeName\":\"System.String\",\"value\":\"(x:24.21, y:24.21, width:399.79, height:624.59)\"},{\"name\":\"root\",\"typeName\":\"System.String\",\"value\":\"(x:0.00, y:0.00, width:1027.84, height:861.84)\"},{\"name\":\"screenshotRequested\",\"typeName\":\"System.Boolean\",\"value\":true}]}}"
+      }
+    ],
+    "structuredContent": {
+      "result": {
+        "name": "result",
+        "typeName": "<>f__AnonymousType0(System.Boolean,System.Boolean,System.String,System.Single,System.Single,System.Single,System.Single,System.String,<>f__AnonymousType1(System.String,System.String)-1,System.String,System.String,System.Boolean)",
+        "value": {},
+        "props": [
+          {
+            "name": "playMode",
+            "typeName": "System.Boolean",
+            "value": true
+          },
+          {
+            "name": "firebolt",
+            "typeName": "System.Boolean",
+            "value": true
+          },
+          {
+            "name": "cooldownReject",
+            "typeName": "System.String",
+            "value": "OnCooldown"
+          },
+          {
+            "name": "manaAfterFire",
+            "typeName": "System.Single",
+            "value": 80
+          },
+          {
+            "name": "dummyHealth",
+            "typeName": "System.Single",
+            "value": 75
+          },
+          {
+            "name": "healHealth",
+            "typeName": "System.Single",
+            "value": 100
+          },
+          {
+            "name": "hasteSpeed",
+            "typeName": "System.Single",
+            "value": 7.5
+          },
+          {
+            "name": "stunReject",
+            "typeName": "System.String",
+            "value": "BlockedByTag"
+          },
+          {
+            "name": "buttons",
+            "typeName": "<>f__AnonymousType1(System.String,System.String)-1",
+            "value": [
+              {
+                "name": "[0]",
+                "typeName": "<>f__AnonymousType1(System.String,System.String)",
+                "value": {},
+                "props": [
+                  {
+                    "name": "text",
+                    "typeName": "System.String",
+                    "value": "Firebolt   /   20 mana   /   READY"
+                  },
+                  {
+                    "name": "rect",
+                    "typeName": "System.String",
+                    "value": "(x:50.49, y:242.78, width:347.23, height:38.73)"
+                  }
+                ]
+              },
+              {
+                "name": "[1]",
+                "typeName": "<>f__AnonymousType1(System.String,System.String)",
+                "value": {},
+                "props": [
+                  {
+                    "name": "text",
+                    "typeName": "System.String",
+                    "value": "Haste   /   10 mana   /   READY"
+                  },
+                  {
+                    "name": "rect",
+                    "typeName": "System.String",
+                    "value": "(x:50.49, y:288.43, width:347.23, height:38.73)"
+                  }
+                ]
+              },
+              {
+                "name": "[2]",
+                "typeName": "<>f__AnonymousType1(System.String,System.String)",
+                "value": {},
+                "props": [
+                  {
+                    "name": "text",
+                    "typeName": "System.String",
+                    "value": "Heal   /   15 mana   /   READY"
+                  },
+                  {
+                    "name": "rect",
+                    "typeName": "System.String",
+                    "value": "(x:50.49, y:334.08, width:347.23, height:39.43)"
+                  }
+                ]
+              },
+              {
+                "name": "[3]",
+                "typeName": "<>f__AnonymousType1(System.String,System.String)",
+                "value": {},
+                "props": [
+                  {
+                    "name": "text",
+                    "typeName": "System.String",
+                    "value": "Stun   /   25 mana   /   READY"
+                  },
+                  {
+                    "name": "rect",
+                    "typeName": "System.String",
+                    "value": "(x:50.49, y:380.43, width:347.23, height:38.73)"
+                  }
+                ]
+              },
+              {
+                "name": "[4]",
+                "typeName": "<>f__AnonymousType1(System.String,System.String)",
+                "value": {},
+                "props": [
+                  {
+                    "name": "text",
+                    "typeName": "System.String",
+                    "value": "Dummy attack"
+                  },
+                  {
+                    "name": "rect",
+                    "typeName": "System.String",
+                    "value": "(x:50.49, y:426.08, width:180.53, height:39.43)"
+                  }
+                ]
+              },
+              {
+                "name": "[5]",
+                "typeName": "<>f__AnonymousType1(System.String,System.String)",
+                "value": {},
+                "props": [
+                  {
+                    "name": "text",
+                    "typeName": "System.String",
+                    "value": "Stun hero"
+                  },
+                  {
+                    "name": "rect",
+                    "typeName": "System.String",
+                    "value": "(x:241.40, y:426.08, width:156.32, height:39.43)"
+                  }
+                ]
+              },
+              {
+                "name": "[6]",
+                "typeName": "<>f__AnonymousType1(System.String,System.String)",
+                "value": {},
+                "props": [
+                  {
+                    "name": "text",
+                    "typeName": "System.String",
+                    "value": "Reset actors"
+                  },
+                  {
+                    "name": "rect",
+                    "typeName": "System.String",
+                    "value": "(x:50.49, y:587.24, width:347.23, height:38.73)"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "panel",
+            "typeName": "System.String",
+            "value": "(x:24.21, y:24.21, width:399.79, height:624.59)"
+          },
+          {
+            "name": "root",
+            "typeName": "System.String",
+            "value": "(x:0.00, y:0.00, width:1027.84, height:861.84)"
+          },
+          {
+            "name": "screenshotRequested",
+            "typeName": "System.Boolean",
+            "value": true
+          }
+        ]
+      }
+    },
+    "isError": false
+  },
+  "currentSnapshotVerified": false,
+  "computerUse": "User stopped via physical Escape; last Stop Play outcome unknown",
+  "documentCheck": {
+    "code": 11,
+    "documents": 11,
+    "hashesMatch": true,
+    "pending": false
+  }
+}

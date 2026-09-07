@@ -1,0 +1,5 @@
+{
+  "name": "UnityAbilityKit.Unity",
+  "rootNamespace": "UnityAbilityKit.Unity",
+  "references": ["UnityAbilityKit.Runtime"]
+}
