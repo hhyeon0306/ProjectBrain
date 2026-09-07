@@ -1,0 +1,15 @@
+{
+    "schemaVersion": 1,
+    "id": "c8bc72c0-9042-4c7a-be17-f4a09bb55da6",
+    "taskId": "78fd28e4-20a2-41dd-821d-137a24667cde",
+    "kind": "compile",
+    "state": "passed",
+    "snapshotHash": "5c15baf8f63b1acd4ec80170ae01f2739766953d89357419c9e71f9bfdadaba8",
+    "startedUtc": "2026-09-07T04:33:49.3589822Z",
+    "endedUtc": "2026-09-07T04:34:10.5568613Z",
+    "summary": "Unity compilation callbacks; compiled=0, up-to-date=75, errors=0",
+    "total": 75,
+    "passed": 75,
+    "failed": 0,
+    "skipped": 0
+}

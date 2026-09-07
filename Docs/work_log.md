@@ -513,3 +513,14 @@ U1-10 커밋 전 보완: 신규 Unity YAML/meta29개에 생성된 줄 끝 공백
 - Decisions: 공개 요청이 없어 비공개 기본값. 상위 지원 준비 저장소는 업로드하지 않는다. 기존 커밋 이력·샘플 백업·실제 Brain 기록을 보존한다.
 - Next: 사용자 화면 피드백에 맞춰 필요한 보완을 진행한다.
 - Limitations: 기존 사용자 설정3개는 로컬 변경으로 남기고 이번 업로드에서 제외. 첫 push가 Git Credential Manager에서 대기해 중단한 뒤, 명령 단위로 로그인된 gh 인증 도우미를 지정하여 성공했다. 전역 인증 설정 변경 없음. 비밀정보 검색은 제한된 패턴 점검이며 전수 보안 감사가 아니다. Unity 재검사 없음.
+
+## 2026-09-07 U1-11 · 문서 간격·뒤로가기·쉬운 설명
+- Goal: 사용자 루트→전체 설계→능력 시스템 검토에서 지적한 세 부분만 보완한다.
+- Changes: 검색 하단 여백·목록 구분선, 최근50개 방문 이력·상위 이동, 문서/검색/의존 탭/스크롤 복원. 루트/능력 시스템 본문과 템플릿을 스킬·마나·대기시간 예시로 보강.
+- Files: BrainDocumentWindow.cs/BrainPresentation.cs/BrainTheme.uss/BrainPresentationChecks.cs, Project·Domain 노드2개, Docs/templates/unity-ability-kit.json 및 작업 기록.
+- Verification: Presentation15 자체 항목 통과(신규5: 뒤로 활성화, 이전 문서·검색 복원, 같은 페이지 중복 방지, 의존 탭 복원, 미저장 초안 보존). compile7393e26f 오류0 후 마지막 스크롤 콜백 보호를 보강하여 최종compile4b605aa0 실행. 실제 화면·스크롤 체감은 사용자 확인 대상으로 남긴다.
+- Decisions: 기존 아키텍처 레이아웃 유지. 루트 고정 이동과 실제 뒤로가기를 구분하고 둘 다 제공. 제품 이름/데이터 계약/승인 정책 변경 없음. 설명은 현재 구현 범위에 한정.
+- Next: 최종 컴파일·관리 검사·커밋 후 사용자 다음 노드 지적에 대응.
+- Limitations: 첫 설명 갱신 도우미는 Newtonsoft 참조 미노출로 실행 전 실패. JsonUtility 경로로 재시도 중 두 번째 노드 File.Replace 일시 실패, 루트 성공·도메인 미변경 상태를 확인하고 해당 노드만 정상 SaveNode 재시도로 저장·재조회했다. 원본 승인 상태 보존, 수동 파일 덮어쓰기로 저장 거절 우회 없음. 사람 검토/현재 EditMode 등 전체 Brain 완료 제한은 별도이며 기존 사용자 설정3개 보존.
+
+U1-11 최종 확인: 4b605aa0는 도메인 재로드로 interrupted. 같은 최종 snapshot5c15baf8에서 재실행한 compile c8bc72c0-9042-4c7a-be17-f4a09bb55da6 passed(최신75/오류0). Presentation15와 양쪽 관리 검사 통과. 전체 Brain complete 거절은 그대로 보존하고 작업 진행 기록을 갱신했다.

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using UnityEditor;
@@ -20,6 +21,15 @@ namespace ProjectBrain
         [SerializeField] private string category = "Project";
         [SerializeField] private bool dependencies;
         [SerializeField] private string readerSearch = "";
+        [Serializable] private sealed class ReaderLocation
+        {
+            public string id, category, search;
+            public bool dependencies;
+            public Vector2 scroll;
+        }
+        [SerializeField] private List<ReaderLocation> readingHistory = new List<ReaderLocation>();
+        [SerializeField] private Vector2 readerScroll;
+        private ScrollView readerPage;
         private readonly ScriptDocumentService service = new ScriptDocumentService();
         private ScrollView form;
         private VisualElement tabs;
@@ -37,7 +47,30 @@ namespace ProjectBrain
         public static void OpenNode(string id, bool showDependencies = false)
         {
             var window = GetWindow<BrainDocumentWindow>("설계 문서");
-            window.editing = false; window.readingId = id; window.dependencies = showDependencies; window.CreateGUI(); window.Focus();
+            window.NavigateReader(id, showDependencies); window.Focus();
+        }
+        private void NavigateReader(string id, bool showDependencies = false, string nextCategory = null)
+        {
+            if (readingId != id || dependencies != showDependencies || nextCategory != null && category != nextCategory)
+            {
+                if (!string.IsNullOrEmpty(readingId))
+                {
+                    readingHistory.Add(new ReaderLocation { id = readingId, category = category, search = readerSearch,
+                        dependencies = dependencies, scroll = readerPage == null ? readerScroll : readerPage.scrollOffset });
+                    if (readingHistory.Count > 50) readingHistory.RemoveAt(0);
+                }
+                readerScroll = Vector2.zero;
+            }
+            readingId = id; dependencies = showDependencies;
+            if (nextCategory != null) category = nextCategory;
+            editing = false; CreateGUI();
+        }
+        private void GoBack()
+        {
+            if (readingHistory.Count == 0) return;
+            var previous = readingHistory[readingHistory.Count - 1]; readingHistory.RemoveAt(readingHistory.Count - 1);
+            readingId = previous.id; category = previous.category; readerSearch = previous.search;
+            dependencies = previous.dependencies; readerScroll = previous.scroll; editing = false; CreateGUI();
         }
         private void OpenEditor(MonoScript script)
         {
@@ -55,25 +88,47 @@ namespace ProjectBrain
         {
             var root = rootVisualElement;
             var page = BrainPresentation.Shell(root, "설계 문서", "현재 구조와 설계 이유를 읽습니다. 변경 과정은 작업·검증 기록에서 확인하세요.", out var nav, CreateGUI);
+            readerPage = page;
+            var restoreScroll = readerScroll;
+            bool restoring = restoreScroll != Vector2.zero;
+            Action restore = () =>
+            {
+                if (readerPage != page || !restoring || !(page.contentContainer.layout.height > 0) || !(page.contentViewport.layout.height > 0)) return;
+                page.scrollOffset = restoreScroll; readerScroll = page.scrollOffset; restoring = false;
+            };
+            page.RegisterCallback<GeometryChangedEvent>(_ => restore());
+            page.contentContainer.RegisterCallback<GeometryChangedEvent>(_ => restore());
+            page.schedule.Execute(restore).StartingIn(1);
+            page.verticalScroller.valueChanged += value => { if (readerPage == page && !restoring) readerScroll = new Vector2(page.scrollOffset.x, value); };
             try
             {
                 var graph = BrainPresentation.Graph();
                 if (!string.IsNullOrEmpty(readingId) && graph.Nodes.TryGetValue(readingId, out var selected)) category = selected.type == "Document" || selected.type == "Feature" ? selected.type == "Document" ? "Code" : "Domain" : selected.type;
                 nav.Add(BrainPresentation.Text("문서 분류", "reader-caption"));
                 foreach (var item in new[] { ("Project", "전체 아키텍처"), ("Domain", "도메인 설계"), ("Code", "코드 문서"), ("Image", "첨부 자료") })
-                    BrainPresentation.Nav(nav, item.Item2, category == item.Item1, () => { category = item.Item1; readingId = ""; dependencies = false; CreateGUI(); });
+                    BrainPresentation.Nav(nav, item.Item2, category == item.Item1, () => NavigateReader(graph.Nodes.Values.Where(n => n.type == item.Item1).OrderBy(n => n.title).Select(n => n.id).FirstOrDefault(), false, item.Item1));
                 if (dirty) BrainPresentation.Action(nav, "미저장 문서 이어서 편집", "입력 중인 내용은 보존됩니다.", () => { editing = true; CreateGUI(); });
-                var search = new TextField { value = readerSearch }; search.textEdition.placeholder = "문서·코드 검색"; nav.Add(search);
-                var list = new VisualElement(); nav.Add(list);
+                var search = new TextField { name = "reader-search", value = readerSearch }; search.textEdition.placeholder = "문서·코드 검색"; search.AddToClassList("reader-search"); nav.Add(search);
+                var list = new VisualElement { name = "reader-library" }; list.AddToClassList("reader-library"); nav.Add(list);
                 Action populate = () =>
                 {
                     list.Clear();
                     var found = graph.Nodes.Values.Where(n => n.type == category && (string.IsNullOrWhiteSpace(readerSearch) || (n.title + " " + n.summary).IndexOf(readerSearch, StringComparison.OrdinalIgnoreCase) >= 0)).OrderBy(n => n.title).ToArray();
-                    foreach (var n in found.Take(60)) BrainPresentation.Nav(list, n.title, readingId == n.id, () => { readingId = n.id; dependencies = false; CreateGUI(); });
+                    foreach (var n in found.Take(60)) BrainPresentation.Nav(list, n.title, readingId == n.id, () => NavigateReader(n.id));
+                    if (found.Length == 0) list.Add(BrainPresentation.Text("검색 결과가 없습니다.", "reader-subtitle"));
                     if (found.Length > 60) list.Add(BrainPresentation.Text("검색으로 나머지 " + (found.Length - 60) + "개를 찾아보세요.", "reader-subtitle"));
                 };
                 search.RegisterValueChangedCallback(e => { readerSearch = e.newValue; populate(); }); populate();
                 if (string.IsNullOrEmpty(readingId)) { readingId = graph.Nodes.Values.Where(n => n.type == category).OrderBy(n => n.title).Select(n => n.id).FirstOrDefault(); populate(); }
+                var navigation = new VisualElement(); navigation.AddToClassList("reader-breadcrumbs"); page.Add(navigation);
+                var back = BrainTheme.Button("← 뒤로", GoBack, "reader-back"); back.SetEnabled(readingHistory.Count > 0); navigation.Add(back);
+                if (readingHistory.Count > 0 && graph.Nodes.TryGetValue(readingHistory[readingHistory.Count - 1].id, out var previous))
+                    back.tooltip = previous.title + " 페이지로 돌아갑니다.";
+                if (!string.IsNullOrEmpty(readingId) && graph.Nodes.ContainsKey(readingId))
+                {
+                    var parent = graph.Parent(readingId);
+                    if (parent != null) navigation.Add(BrainTheme.Button("상위 · " + graph.Get(parent).title, () => NavigateReader(parent)));
+                }
                 if (string.IsNullOrEmpty(readingId)) { BrainPresentation.Hero(page, "LIBRARY", "등록된 자료가 없습니다", "코드 문서 편집에서 자료를 연결하면 이곳에 표시됩니다."); return; }
                 if (!graph.Nodes.ContainsKey(readingId)) { BrainPresentation.Hero(page, "연결 확인 필요", "이 항목은 현재 구조도에 없습니다", "왼쪽 목록에서 현재 문서를 선택하세요. 미저장 편집 내용은 보존됩니다."); return; }
                 var node = graph.Get(readingId);
@@ -84,7 +139,7 @@ namespace ProjectBrain
                     if (texture != null) page.Add(new Image { image = texture, scaleMode = ScaleMode.ScaleToFit, style = { height = 400 } });
                     else page.Add(BrainPresentation.Text("이미지 파일을 찾을 수 없습니다."));
                 }
-                else BrainPresentation.Document(page, graph, readingId, id => { readingId = id; dependencies = false; CreateGUI(); }, OpenEditor, dependencies, show => { dependencies = show; CreateGUI(); });
+                else BrainPresentation.Document(page, graph, readingId, id => NavigateReader(id), OpenEditor, dependencies, show => NavigateReader(readingId, show));
             }
             catch (Exception e) { page.Add(new HelpBox("문서를 읽지 못했습니다. " + e.Message, HelpBoxMessageType.Error)); }
         }

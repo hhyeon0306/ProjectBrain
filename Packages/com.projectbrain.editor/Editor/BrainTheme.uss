@@ -146,6 +146,10 @@
 .brain .architecture-branch .reader-copy { font-size: 12px; }
 .brain .architecture-count { color: #b4c8f0; font-size: 11px; margin-top: 14px; }
 .brain .reader-navigation .reader-nav-item { flex-shrink: 0; }
+.brain .reader-navigation .reader-search { margin: 16px 0 14px 0; flex-shrink: 0; }
+.brain .reader-navigation .reader-library { padding-top: 10px; border-top-width: 1px; border-top-color: #3c4049; }
+.brain .reader-breadcrumbs { flex-direction: row; flex-wrap: wrap; align-items: center; margin-bottom: 14px; flex-shrink: 0; }
+.brain .reader-breadcrumbs Button { min-height: 30px; margin: 0 10px 4px 0; }
 
 .brain .reader-header { padding: 14px 26px; }
 .brain .reader-header .reader-caption { margin-top: 0; margin-bottom: 5px; }

@@ -133,7 +133,7 @@ namespace ProjectBrain
             if (node.type == "Project" || node.type == "Domain" || node.type == "Feature")
             {
                 var children = graph.Children(node.id);
-                var structure = Card(page, "01 / STRUCTURE", node.type == "Project" ? "아키텍처 구성" : "구성 기능", "등록된 계층과 구현 연결을 기준으로 표시합니다.");
+                var structure = Card(page, "01 / STRUCTURE", node.type == "Project" ? "아키텍처 구성" : "구성 기능", "큰 시스템을 어떤 역할로 나눴는지 보여줍니다. 선은 상위 구성과 그 안에 포함된 기능을 연결합니다. 각 상자를 누르면 설명과 관련 코드를 볼 수 있습니다.");
                 structure.Add(new BrainArchitectureView(graph, node.id, open));
                 var ids = Contents(graph, node.id);
                 if (!string.IsNullOrWhiteSpace(node.body)) Markdown(page, node.body);

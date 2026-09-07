@@ -47,6 +47,20 @@ namespace ProjectBrain
                 assert(window.rootVisualElement.Q<TextField>("document-body").value == draft.body, "Returning to editor restores the same draft");
                 set("editing", false); set("readingId", "asset:missing-fixture"); window.CreateGUI();
                 assert(window.rootVisualElement.Query<Label>().ToList().Any(l => l.text.Contains("현재 구조도에 없습니다")), "Missing target renders explicit recovery state");
+                set("readingId", root.id); set("readerSearch", "Ability"); window.CreateGUI();
+                var navigate = typeof(BrainDocumentWindow).GetMethod("NavigateReader", flags);
+                var back = typeof(BrainDocumentWindow).GetMethod("GoBack", flags);
+                Func<string, object> get = name => typeof(BrainDocumentWindow).GetField(name, flags).GetValue(window);
+                navigate.Invoke(window, new object[] { domain.id, false, null });
+                assert(window.rootVisualElement.Q<Button>("reader-back").enabledSelf, "Child architecture enables navigation back");
+                set("readerSearch", "changed"); back.Invoke(window, null);
+                assert((string)get("readingId") == root.id && (string)get("readerSearch") == "Ability", "Back restores parent page and prior search");
+                navigate.Invoke(window, new object[] { root.id, false, null });
+                assert(!window.rootVisualElement.Q<Button>("reader-back").enabledSelf, "Selecting the same page does not create a history loop");
+                navigate.Invoke(window, new object[] { code.id, true, null });
+                navigate.Invoke(window, new object[] { domain.id, false, null }); back.Invoke(window, null);
+                assert((string)get("readingId") == code.id && (bool)get("dependencies"), "Back returns to the exact dependency tab");
+                assert(window.hasUnsavedChanges && draft.body == "U1-10 draft preservation fixture", "Navigation never discards a pending document edit");
             }
             finally { window.DiscardChanges(); UnityEngine.Object.DestroyImmediate(window); }
             return checks;
