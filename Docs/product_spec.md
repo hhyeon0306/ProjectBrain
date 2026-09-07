@@ -1,5 +1,7 @@
 # Project Brain 제품 명세
 
+2026-09-07 R1 통합 점검: [현재 상태와 보강 권고](reviews/2026-09-07-r1-design-review.md). 제품 계약 변경은 아직 없다. 문서 MCP/UI 쓰기 경로 불일치·검증 발행 복구·이력에 밀리는 맥락이 확인됐으며, 현재 단계/검증 결과는 session_handoff를 따른다.
+
 ## U1-3 · Script Document 저장 → Explorer 자동 반영 (2026-09-07)
 
 현재 문서 작성 경로는 Script Document다. 저장하면 역할/설계 의도/주의사항/본문을 기존 document:<GUID> 노드에 투영하고, 이미지/직접 연결 코드도 nodes/relations에 함께 반영한다. 열려 있는 Explorer는 저장 이벤트로 다시 읽으며 선택/검색/필터와 작업 요약 초안을 유지한다. 새로 읽기 버튼을 따로 누를 필요가 없다.

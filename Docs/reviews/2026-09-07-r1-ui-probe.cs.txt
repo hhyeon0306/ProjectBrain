@@ -1,0 +1,30 @@
+using System;
+using System.IO;
+using System.Reflection;
+using System.Linq;
+using UnityEditor;
+using UnityEngine;
+using UnityEngine.UIElements;
+using ProjectBrain;
+public class ReviewUiProbe {
+ public static object Main() {
+  var root=Path.Combine(ScriptDocumentService.ProjectRoot,"Temp","ReviewUi-"+Guid.NewGuid().ToString("N"));
+  var docs=new DocumentStore(root);var d=new ScriptDocument {scriptGuid="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"};
+  docs.Save(d);var service=new ScriptDocumentService(docs);
+  var script=AssetDatabase.LoadAssetAtPath<MonoScript>("Assets/TutorialInfo/Scripts/Readme.cs");
+  var selected=service.LoadOrCreate(script);selected.body="review draft";
+  var path=Path.Combine(root,d.scriptGuid+".json");File.WriteAllText(path,"{}");
+  var w=ScriptableObject.CreateInstance<BrainDocumentWindow>();var f=BindingFlags.Instance|BindingFlags.NonPublic;
+  Action<string,object> set=(name,v)=>typeof(BrainDocumentWindow).GetField(name,f).SetValue(w,v);
+  try {
+   set("service",service);set("document",selected);set("selectedScript",script);set("dirty",true);set("activeTab",3);w.CreateGUI();
+   bool shown=w.rootVisualElement.Query<HelpBox>().ToList().Any(h=>h.messageType==HelpBoxMessageType.Error&&h.text.Contains(path));
+   bool preserved=w.hasUnsavedChanges&&selected.body=="review draft";
+   File.WriteAllText(path,new UnityBrainJson().Write(d));typeof(BrainDocumentWindow).GetMethod("BuildForm",f).Invoke(w,null);
+   bool recovered=w.rootVisualElement.Q<Button>("document-graph-retry")==null&&w.hasUnsavedChanges;
+   set("activeTab",0);typeof(BrainDocumentWindow).GetMethod("BuildForm",f).Invoke(w,null);
+   bool editable=w.rootVisualElement.Q<TextField>("document-body").value=="review draft";
+   return new {inlineErrorShown=shown,draftPreserved=preserved,recovered=recovered,editableOnContentTab=editable};
+  } finally {w.DiscardChanges();UnityEngine.Object.DestroyImmediate(w);}
+ }
+}

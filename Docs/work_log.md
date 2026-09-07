@@ -439,3 +439,14 @@ U1-7 관리 검사: 양쪽 문서 구조 통과. 기존 사용자 SampleScene.un
 - Limitations: 밀집 시 이름 충돌 생략은 유지하며 관련 이름만 우선. EditMode 재실행 없음. 사용자5경로 변경 보존.
 
 U1-8 관리 검사: 양쪽 문서 구조 통과. 전체 Git 검사는 기존 사용자 SampleScene.unity:242 공백으로 실패하여 보존, 이번 변경만 staged 검사.
+
+## 2026-09-07 R1 · 통합 설계 점검
+- Goal: 사용자 요청에 따라 기존 설계/구현 전체를 검토하고 마감 전 보강 우선순위를 정한다.
+- Changes: 검증 발행 복구·문서 쓰기 분기·맥락 누락·배치 안정성·완료 지원 범위·관계 의미·검사/문서 정합성8개 항목 정리. 보고서/격리 재현 코드/결과 저장. task/handoff 최신화, 활성 작업 revision19 기록. 제품 코드는 수정하지 않음.
+- Files: Docs/reviews/2026-09-07-r1-* 5개, Docs/task.md/session_handoff.md/product_spec.md/work_log.md, 실제 EditMode Evidence/node/관계와 tasks/active.json.
+- Verification: Ivan MCP 연결·실제7문서 일치. 자체10묶음225항목 통과. BrainRepairChecks 첫 UI assertion 실패, 현재4탭 구조용 오류 안내/초안 보존/복구/본문 재편집4항목 별도 통과. 실제 WorkflowDemo EditMode7cb3d5c0-a2bc-4697-8142-ab654d318f51 9/9. 기존compile와 snapshot동일, C# 변경 없어 반복 안 함. probe 초안의 IReadOnlyList.Length 컴파일 오류를 Count로 고쳐 실행 성공. 가상 저장소의 passed fixture는 실제 검증 결과가 아님.
+- Decisions: 기존 구조 유지, R1-01/02/03 먼저 최소 보강하고 검사 정리. 최대60분 개발 예산 후 P1/서류/PPT로 전환 권고. 원본 기록 보존, 작업 baseline/허용 경로/사람 확인은 변경하지 않음.
+- Next: 보고서 우선순위로 보강 판단, P1 실제 증거·서류/PPT15:00 준비도 확인.
+- Limitations: 실제 검증6건 연결 누락 미복구, 전체 완료는48/48/2로 불가. 제품 코드 보강 미실시. 새 마우스/전해상도/Player빌드/fresh clone 검증 없음. 기존 사용자5경로와 씬242행 공백 보존.
+
+R1 관리 검사: scripts/verify.ps1 -IncludeBrain 실행. 양쪽 문서 구조 검사 통과. 전체 Git 검사는 기존 사용자 Assets/Scenes/SampleScene.unity:242 공백으로 실패했다. 해당 파일은 보존하고 이번 기록만 별도 staged 검사한다.

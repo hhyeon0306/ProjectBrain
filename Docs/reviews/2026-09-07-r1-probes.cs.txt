@@ -1,0 +1,96 @@
+using System;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using UnityEngine;
+using UnityEditor;
+using ProjectBrain;
+
+[Serializable] public class ReviewReport {
+ public string project, utc, fixtureRoot;
+ public int nodes, relations, evidenceRecords, documents, matchingDocuments, semanticNodesMovedByOneHiddenEvidence;
+ public string[] orphanEvidence, missingAssets;
+ public int contextNodes, contextDocuments, contextEvidence;
+ public string[] contextNext;
+ public bool editCreatesDocumentFork, allowedMetaIsUnmapped, unrelatedEdgeChangesReviewHash;
+ public bool finishThrewAfterTerminalSave, terminalPassWithoutEdge, terminalRetryRejected;
+ public string publicationError;
+ public string[] regressionChecks;
+}
+public class ReviewProbes {
+ static UnityBrainJson json = new UnityBrainJson();
+ static string time = "2026-09-07T00:00:00Z";
+ static string guid = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+ static BrainNode Node(string id,string type) => new BrainNode {id=id,type=type,title=id,updatedUtc=time};
+ static BrainRelation Edge(string id,string a,string b,string type) => new BrainRelation {id=id,from=a,to=b,type=type,source="review-fixture",createdUtc=time};
+ static object Internal(object target,string method,params object[] args) {
+  try { return target.GetType().GetMethod(method,BindingFlags.Instance|BindingFlags.NonPublic).Invoke(target,args); }
+  catch(TargetInvocationException e) { throw e.InnerException; }
+ }
+ public static string Main() {
+  string project = ScriptDocumentService.ProjectRoot;
+  var result = new ReviewReport {project=project,utc=DateTime.UtcNow.ToString("O"),fixtureRoot=Path.Combine(project,"Temp","BrainReview-"+Guid.NewGuid().ToString("N"))};
+  var liveStore=new BrainStore(Path.Combine(project,".projectbrain"),json); var live=new BrainGraphService(liveStore);
+  var task=new BrainTaskService(project,json).Load();
+  var evidence=new BrainVerificationStore(project,json).ForTask(task.id);
+  result.nodes=live.Nodes.Count; result.relations=live.Relations.Length; result.evidenceRecords=evidence.Length;
+  result.orphanEvidence=evidence.Where(e=>e.state!="running" && !live.Relations.Any(r=>r.to=="evidence:"+e.id && r.type=="verified_by")).Select(e=>e.id).ToArray();
+  result.missingAssets=live.Nodes.Values.Where(n=>n.type=="Code" || n.type=="Image").Where(n=>string.IsNullOrEmpty(AssetDatabase.GUIDToAssetPath(n.assetGuid))).Select(n=>n.id).ToArray();
+  var docs=new DocumentStore(Path.Combine(project,".projectbrain","docs")).LoadAll();
+  result.documents=docs.Count;
+  result.matchingDocuments=docs.Count(d=>live.Nodes.TryGetValue("document:"+d.scriptGuid,out var n) && n.summary==(d.role??"") && n.body==BrainDocumentSync.Body(d));
+  var context=json.Read<BrainContextResult>(new BrainContextService(live,new BrainFreshnessService(project,json,AssetDatabase.GUIDToAssetPath),json).Read("feature:player/movement",2,12,8000));
+  result.contextNodes=context.nodes.Length;result.contextDocuments=context.nodes.Count(n=>n.type=="Document");result.contextEvidence=context.nodes.Count(n=>n.type=="Evidence");result.contextNext=context.nextNodeIds;
+  // These stores contain fixture copies only; no user graph/task is modified.
+  var root=result.fixtureRoot;
+  foreach(var p in new[]{"Assets","Packages","ProjectSettings"}) Directory.CreateDirectory(Path.Combine(root,p));
+  File.WriteAllText(Path.Combine(root,"Assets/A.cs"),"// fixture");
+  var store=new BrainStore(Path.Combine(root,".projectbrain"),json);
+  var code=Node("asset:"+guid,"Code");code.assetGuid=guid;code.lastKnownPath="Assets/A.cs";store.SaveNode(code);
+  var sync=new BrainDocumentSync(Path.Combine(root,".projectbrain"),json,g=>"Assets/A.cs");
+  var document=new ScriptDocument {scriptGuid=guid,lastKnownPath="Assets/A.cs",role="Original role",body="Original body",savedCodeHash="fixture",updatedUtc=time};
+  sync.Save(document,sync.Version(guid));
+  var tasks=new BrainTaskService(root,json);var t=tasks.Begin("Isolated review fixture",new[]{code.id},new[]{"Assets/"}).task;
+  var completion=new BrainCompletionService(root,json,g=>"Assets/A.cs");
+  var inspectBefore=completion.InspectDocument("document:"+guid).snapshotHash;
+  var x=Node("reference:unrelated-a","Reference"); var y=Node("reference:unrelated-b","Reference");store.SaveNode(x);store.SaveNode(y);
+  store.SaveRelations(store.LoadRelations().Concat(new[]{Edge("relation:unrelated",x.id,y.id,"references")}));
+  result.unrelatedEdgeChangesReviewHash=completion.InspectDocument("document:"+guid).snapshotHash!=inspectBefore;
+  File.WriteAllText(Path.Combine(root,"Assets/A.cs.meta"),"fixture meta");
+  result.allowedMetaIsUnmapped=tasks.Status().changes.Any(c=>c.path=="Assets/A.cs.meta" && c.allowed) && completion.Check().reasons.Any(r=>r.code=="unmapped-change" && r.target=="Assets/A.cs.meta");
+  var edit=new BrainEditService(root,json,g=>"Assets/A.cs");var view=edit.Read(t.id,t.revision,"document:"+guid);
+  edit.UpdateDocument(t.id,t.revision,view.nodeId,view.expectedHash,view.expectedContextHash,"Agent role","Agent body");
+  var oldDoc=new DocumentStore(Path.Combine(root,".projectbrain/docs")).Load(guid); var newNode=store.LoadNode(view.nodeId);
+  result.editCreatesDocumentFork=newNode.summary!=oldDoc.role || newNode.body!=BrainDocumentSync.Body(oldDoc);
+  var verify=new BrainVerificationStore(root,json);
+  var run=(BrainVerificationRecord)Internal(verify,"Begin",t.id,"compile");
+  using(var fileLock=new FileStream(Path.Combine(root,".projectbrain/relations.json"),FileMode.Open,FileAccess.Read,FileShare.ReadWrite)) {
+   try { Internal(verify,"Finish",run.id,"passed",1,1,0,0,"SYNTHETIC review fixture, not Unity verification"); }
+   catch(Exception e) { result.finishThrewAfterTerminalSave=true;result.publicationError=e.GetType().Name+": "+e.Message; }
+  }
+  var terminal=verify.Load(run.id);
+  result.terminalPassWithoutEdge=verify.CurrentPass(terminal,verify.Snapshot()) && !store.LoadRelations().Any(r=>r.to=="evidence:"+run.id);
+  try { Internal(verify,"Finish",run.id,"passed",1,1,0,0,"retry fixture"); } catch {result.terminalRetryRejected=true;}
+  var a=new BrainStore(Path.Combine(root,"layout-a"),json);var b=new BrainStore(Path.Combine(root,"layout-b"),json);
+  var semantic=live.Nodes.Values.Where(n=>n.type!="Evidence"&&n.type!="Activity").ToArray();
+  var semanticIds=semantic.Select(n=>n.id).ToHashSet();
+  foreach(var n in semantic){a.SaveNode(n);b.SaveNode(n);}
+  var links=live.Relations.Where(r=>semanticIds.Contains(r.from)&&semanticIds.Contains(r.to)).ToArray();a.SaveRelations(links);b.SaveRelations(links);
+  var extra=Node("evidence:"+Guid.NewGuid().ToString("D"),"Evidence");b.SaveNode(extra);
+  b.SaveRelations(links.Concat(new[]{Edge("relation:review-extra","feature:player/movement",extra.id,"verified_by")}));
+  var mapA=new BrainMapView(new BrainGraphService(a),_=>{});var mapB=new BrainMapView(new BrainGraphService(b),_=>{});mapB.ShowType("Evidence",false);
+  result.semanticNodesMovedByOneHiddenEvidence=semantic.Count(n=>Vector2.Distance(mapA.Positions[n.id],mapB.Positions[n.id])>.1f);
+  result.regressionChecks=new[]{
+   "Store="+BrainStoreChecks.RunInEditor(),
+   "Completion="+BrainCompletionChecks.RunInEditor(),
+   "Edit="+BrainEditChecks.RunInEditor(),
+   "Lifecycle="+BrainTaskLifecycleChecks.RunInEditor(),
+   "DocumentSync="+BrainDocumentSyncChecks.RunInEditor(),
+   "Map="+BrainMapChecks.RunInEditor(),
+   "Scope="+BrainMapScopeChecks.RunInEditor()
+  };
+  var output=JsonUtility.ToJson(result,true);
+  File.WriteAllText(Path.Combine(project,"Docs/reviews/2026-09-07-r1-evidence.json"),output);
+  return output;
+ }
+}

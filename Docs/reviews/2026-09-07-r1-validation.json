@@ -1,0 +1,101 @@
+{
+  "review": "R1",
+  "project": "C:/Dev/nexontutorial/ProjectBrain",
+  "recordedUtc": "2026-09-07T02:03:26.336Z",
+  "dataAudit": "2026-09-07-r1-evidence.json",
+  "selfChecks": {
+    "Store": 25,
+    "Completion": 32,
+    "Edit": 22,
+    "Lifecycle": 28,
+    "DocumentSync": 26,
+    "Map": 11,
+    "Scope": 10,
+    "DocumentStore": 14,
+    "Migration": 18,
+    "Workflow": 39,
+    "totalPassed": 225
+  },
+  "legacyRepairCheck": {
+    "passed": false,
+    "firstFailedAssertion": "UI reports corrupt file path without throwing",
+    "interpretation": "Legacy assertion assumes combined form/graph and global message. Current four-tab UI uses inline graph error."
+  },
+  "currentUiProbe": {
+    "inlineErrorShown": true,
+    "draftPreserved": true,
+    "recovered": true,
+    "editableOnContentTab": true
+  },
+  "largeContext": {
+    "root": "feature:player/movement",
+    "depth": 2,
+    "maxNodes": 30,
+    "maxChars": 20000,
+    "returnedNodes": 26,
+    "evidenceNodes": 22,
+    "documentNodes": 0,
+    "returnedChars": 19870
+  },
+  "editMode": {
+    "schemaVersion": 1,
+    "id": "7cb3d5c0-a2bc-4697-8142-ab654d318f51",
+    "taskId": "a48a9ba7-be69-4985-a648-ed5d2ac5442f",
+    "kind": "editmode",
+    "state": "passed",
+    "snapshotHash": "372419e0c7209d4f95a09dab6e29c05c0287e46f4157b4a51c41250d3cf4a943",
+    "startedUtc": "2026-09-07T01:56:52.8829221Z",
+    "endedUtc": "2026-09-07T01:56:59.8341088Z",
+    "summary": "All discovered EditMode tests. Passed; ",
+    "total": 9,
+    "passed": 9,
+    "failed": 0,
+    "skipped": 0
+  },
+  "editModeCoverage": "All 9 discovered NUnit cases are WorkflowDemo DashTests, not full Brain core tests.",
+  "priorCompile": {
+    "schemaVersion": 1,
+    "id": "b162ac01-b548-41f9-b8c1-29d5a0719699",
+    "taskId": "a48a9ba7-be69-4985-a648-ed5d2ac5442f",
+    "kind": "compile",
+    "state": "passed",
+    "snapshotHash": "372419e0c7209d4f95a09dab6e29c05c0287e46f4157b4a51c41250d3cf4a943",
+    "startedUtc": "2026-09-06T23:20:58.7667711Z",
+    "endedUtc": "2026-09-06T23:21:20.6578001Z",
+    "summary": "Unity compilation callbacks; compiled=0, up-to-date=74, errors=0",
+    "total": 74,
+    "passed": 74,
+    "failed": 0,
+    "skipped": 0
+  },
+  "compileRerun": false,
+  "compileRerunReason": "No product C#/USS change. Prior compile and new EditMode snapshot hashes match.",
+  "completion": {
+    "ready": false,
+    "reasonCounts": {
+      "outside-allowed": 48,
+      "unmapped-change": 48,
+      "document-unreviewed": 2
+    }
+  },
+  "probeDevelopment": "Initial dynamic probe compilation used Length on IReadOnlyList; corrected to Count and reran successfully. No product code modified.",
+  "preservedUserPaths": [
+    "Assets/Plugins/NuGet/System.Runtime.CompilerServices.Unsafe.dll.meta",
+    "Assets/Scenes/SampleScene.unity",
+    "Assets/Scripts/Gameplay/DemoPlayerMovement.cs",
+    "ProjectSettings/ProjectSettings.asset",
+    "ProjectSettings/SceneTemplateSettings.json"
+  ],
+  "limitations": [
+    "Synthetic lock/terminal-passed fixture is not real Unity verification evidence.",
+    "No product fix, human document confirmation, baseline reset, scope expansion, or task completion.",
+    "No new native mouse/resolution QA, PlayMode/Player build or fresh clone import."
+  ],
+  "managementCheck": {
+    "command": "scripts/verify.ps1 -IncludeBrain",
+    "rootDocumentStructure": "passed",
+    "brainDocumentStructure": "passed",
+    "overall": "failed",
+    "reason": "Pre-existing user change: Assets/Scenes/SampleScene.unity:242 trailing whitespace preserved."
+  }
+}

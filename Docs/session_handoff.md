@@ -1,26 +1,34 @@
 # Brain 세션 인계
-Updated: 2026-09-07
+Updated: 2026-09-07 11:04 KST
 
 ## Current state
-U1-8 직접 연결 노드 강조 완료. 선택/연결/나머지 3단계, 이름 배경·우선순위, 선택 숨김/해제 초기화. Map11/강조4항목/compile b162ac01-b548-41f9-b8c1-29d5a0719699 오류0/실제6노드 화면 확인.
-U1-7 직선 기본/양방향만 곡선·루트/도메인 크기와 굵기 강화 완료. Map11/compile09611484-13b0-47a5-9405-e2bea4bd47d8 오류0/실제 선택 화면 확인. U1-6 전체 곡선 방식을 대체한다.
-U1-6 연결선 보정 완료. 완만한 곡률/선택 관계 대비·렌더 순서/끝점 여백/화살표 방향을 적용. compile2806010a-d8ff-4808-b5ae-e30daf9c0572 오류0, Map11, 실제 선택 화면 확인. 상세는 최신 work_log.
-U1-5 세부 레이아웃 점검 완료. 상세20px 간격/확인 구역·체크 문장 정렬, 오른쪽 하단 조작부/필터, 작은 창 상단 안내 겹침을 보완했다. computer-use 실제 마우스 클릭·스크롤과1100×820/860×600 렌더 확인.
-U1-4 구조도 탐색 보완 완료. Explorer 이름을 프로젝트 구조도로 변경, 왼쪽 도메인/기능 범위 탐색과 맞춤, 외부 연결 접기, 기본 기록 숨김, 상단 요약/우측 상세, CS 더블클릭 Script Document 연결을 구현했다. U1-3 문서 저장 자동 반영은 유지한다.
+
+R1 통합 설계 점검 완료. [상세 보고서](reviews/2026-09-07-r1-design-review.md), [재현 근거](reviews/2026-09-07-r1-evidence.json), [검증 결과](reviews/2026-09-07-r1-validation.json). 제품 C#/USS는 수정하지 않았다. 실제 7문서와 대응 노드는 일치한다.
+
+현재 제품은 U1-8: 프로젝트 구조도·도메인 탐색·접는 상세·CS 더블클릭 문서 연결·Script Document 저장 자동 반영. U1-7 기본 직선/양방향만 얕은 곡선, 루트/도메인 위계와 U1-8 선택/직접 연결/나머지 3단계 강조를 유지한다. 과거 단위별 구현/화면 검증은 work_log와 reviews의 U1 증거를 따른다.
 
 ## Decisions
-상세 기능 전체 삭제는 사람 확인/검증 경로를 잃으므로 부유 패널만 없애고 접는 우측 패널로 옮겼다. 범위는 등록된 소속 관계를 따른다. 의존 관계로 다른 도메인까지 확장하지 않고 경계 목록에 남긴다. 실제 Player 소속은 기록 제외9노드. 같은 문서 재열기는 초안을 보존한다.
-활성 a48a9ba7-be69-4985-a648-ed5d2ac5442f revision18, baseline240/허용 경로 유지. U1-3 Script Document→Explorer 단방향 투영/충돌 거절/history 복구 및7문서 일치는 이전 work_log 참조.
+
+기존 구조 유지. 후속 최우선은 R1-01 검증 발행 복구, R1-02 문서 쓰기 계약 통일, R1-03 핵심 맥락 우선순위다. R1-04 오래된 UI 검사도 현재 탭 구조에 맞춰야 한다. 이번에는 발견/재현/권고만 기록했고 보강 코드는 아직 없다.
+
+활성 작업 a48a9ba7-be69-4985-a648-ed5d2ac5442f revision19. 목적은 Movement 시연이며 baseline240/hash cba3ad3a33b00ac627f9a3823aae5a8f6f16c419911f8ce3b1a9a109ffac6dd9, 허용 경로 Assets/Scripts/Gameplay/DemoPlayerMovement.cs를 유지했다. UI 개발까지 누적된 작업의 처리 결정을 임의로 내리지 않는다.
 
 ## Next action
-사용자 추가 지적을 적절성 판단 후 한 단위씩 보정. 서류/PPT15:00 준비도와 P1 증거 정리 확인.
+
+복귀 후 남은 시간을 확인하고 R1-01/02/03의 시연 차단 최소 보강과 검사 정리에 최대60분을 권고한다. 다음30분 P1 실제 증거, 이후 서류/PPT와 최종 점검을 우선한다. 세 보강의 전체 구현을60분에 보장하지 않는다. 내부15:00/공식16:00 마감 유지. 서류 문항/이력서/PPT 원본/영상 링크/첨부 조건/접수 상태는 이 공간에서 미확인이다.
 
 ## Verification
-Map11/Scope10 자체 검사. 실제 UI Toolkit 더블클릭 이벤트→DemoPlayerInput 문서 선택 및 같은 문서 초안 유지, 기본 필터/패널 구조 확인. 도킹 실창과860×600 임시 창 검사; 작은 창 도구 잘림 보완. 물리 마우스 더블클릭 검사는 미실시.
-최종 compile02f5105f-867e-4afa-863d-d9c22a12b2ca:compiled0/up-to-date74/errors0. EditMode4a34b53c-350f-412a-a44c-e6d322c1f175:9/9(WorkflowDemo). snapshot a82fcf3c82e9775670dbc41cb41b773f6c6ef4a29a9d8940bd98995537fb5e9f. [증거](reviews/2026-09-07-u1-4-evidence.json).
+
+Ivan MCP 실제 프로젝트/씬 확인. Store25, Completion32, Edit22, Lifecycle28, DocumentSync26, Map11, Scope10, DocumentStore14, Migration18, Workflow39: 10묶음225항목 통과. BrainRepairChecks 첫 UI assertion 실패. 별도 현재 탭 구조의 오류 안내/초안 보존/복구/재편집4항목 통과로 검사 계약 불일치를 확인했다. 모든 검사가 통과한 것은 아니다.
+
+이번 EditMode 7cb3d5c0-a2bc-4697-8142-ab654d318f51: 9/9 (WorkflowDemo DashTests). 기존 compile b162ac01-b548-41f9-b8c1-29d5a0719699: compiled0/up-to-date74/errors0. snapshot 372419e0c7209d4f95a09dab6e29c05c0287e46f4157b4a51c41250d3cf4a943 동일. 제품 코드 변경이 없어 compile 반복 없음.
+
+실제 데이터 점검 당시 검증 원본35건 중6건 그래프 연결 누락. 잠금에 의한 terminal 저장 후 발행 실패/재시도 거절, MCP 문서 편집 시 원본과 분기, 허용 meta 미매핑, 숨긴 Evidence 추가 시19개 의미 노드 좌표 변화는 Temp 격리 저장소에서 재현했다. 실제 Movement context는 최대 예산에서도26노드 중Evidence22/Document0이었다.
 
 ## Limitations
-전체 작업 종료는 허용 밖48/미매핑48/사람미확인2로 거절된다. 사용자5경로(Unsafe.dll.meta, SampleScene.unity, DemoPlayerMovement.cs, ProjectSettings.asset, SceneTemplateSettings.json)는 수정/커밋 제외. 기존 씬242행 공백은 보존. 원격 업로드 없음. 전면 재디자인/도메인 데이터 자동 분류/외부 자동 감시/양방향 문서 병합은 이번 범위 밖이다.
 
-## U1-5 최종 검증
-Map11, compile04cc2106-56d4-4ca0-8581-0c720542f40b compiled0/up-to-date74/errors0. EditMode a285197d-c814-4824-8325-3853bbfbc134:9/9. snapshot ab51b693552dfee73c32871dd2b6f95438f89e9c2231e973e4c5658e6186336c. [증거](reviews/2026-09-07-u1-5-evidence.json). 상세 내용은 최신 work_log.
+전체 완료 조건은 허용 밖48/미매핑48/사람 미확인2로 충족하지 않는다. 문서 확인을 대신하거나 baseline/범위를 초기화하지 않았다. 현재 GUI 쓰기와 MCP nodes 쓰기 경로는 서로 호환되지 않는 경우가 있다.
+
+사용자 변경5경로는 수정/커밋 제외: Assets/Plugins/NuGet/System.Runtime.CompilerServices.Unsafe.dll.meta, Assets/Scenes/SampleScene.unity, Assets/Scripts/Gameplay/DemoPlayerMovement.cs, ProjectSettings/ProjectSettings.asset, ProjectSettings/SceneTemplateSettings.json. 기존 SampleScene.unity:242 공백 보존. 원격 업로드 없음.
+
+이번 R1에서 새 물리 마우스/전해상도 QA·PlayMode/Player 빌드·fresh clone 검증은 하지 않았다. 자체 검사 수는 NUnit 케이스 수가 아니다. 관계는 수동 등록이며 자동 코드 의존 분석이 아니다.

@@ -1,15 +1,15 @@
 {
     "schemaVersion": 1,
     "id": "a48a9ba7-be69-4985-a648-ed5d2ac5442f",
-    "revision": 18,
+    "revision": 19,
     "purpose": "Player 이동 코드의 작업 재개와 맥락·최신성 시연",
     "targetNodeIds": [
         "feature:player/movement"
     ],
-    "progress": "U1-8 선택 노드·직접 연결 노드·나머지의 3단계 강조를 적용했다. 관련 아이콘/이름 배경·색/이름 표시 우선순위 보정. 실제 DemoGameFlow 연결6노드 렌더, Map11/강조 전환4항목·컴파일 오류0 확인.",
-    "decisions": "직접 연결만 강조해 중심을 유지한다. 필터로 선택이 사라지거나 선택 해제 시 강조·흐림을 지운다. 이름 배경으로 선이 글자를 가로지르는 현상을 줄인다.",
-    "unresolved": "사람 문서 확인2건·허용 밖48/미매핑48 유지. 사용자5개 경로 변경 보존. 모든 화면 크기/데이터 조합을 검증한 것은 아니다.",
-    "nextAction": "사용자 추가 지적 판단·보정과 서류/PPT15:00 준비도 확인. Docs/session_handoff.md 참조.",
+    "progress": "R1 통합 설계 점검 완료. 제품 코드는 수정하지 않았다. 핵심 자체 검사10묶음225항목, 실제 WorkflowDemo EditMode9/9. 문서 쓰기 경로 충돌·검증 발행 복구 공백·맥락에서 문서 누락·숨긴 이력의 배치 영향 재현. Docs/reviews/2026-09-07-r1-design-review.md 참조.",
+    "decisions": "기존 구조 유지. 후속 우선순위는 검증 발행 복구/문서 공통 쓰기 경로/핵심 맥락 우선, 오래된 UI 검사 갱신. 전면 재설계와 새 기능 확장보다15:00 서류·PPT 준비 시간 확보. 점검용 가상 데이터는 Temp에 격리했다.",
+    "unresolved": "허용 밖48·미매핑48·사람 미확인2 유지. 기존 검증6건 그래프 연결 누락, 문서 MCP/UI 쓰기 계약 불일치, 이력 과밀 맥락, BrainRepairChecks 첫 UI assertion 실패(현재 탭 구조 별도4항목 통과). 사용자5경로 변경 보존. 전체 완료 승인 아님.",
+    "nextAction": "R1 보고서의 최소 보강 우선순위 검토 후 시간 제한 내 적용, P1 실제 증거와 서류/PPT15:00 준비. 실제 사람 확인/기존 누적 작업 처리 결정 없이 완료 우회하지 않는다.",
     "references": [
         "feature:player/movement",
         "document:10000000000000000000000000000003"
@@ -985,5 +985,5 @@
     },
     "gitStateAtBegin": "not-queried; baseline includes pre-existing working files",
     "createdUtc": "2026-09-06T08:18:14.4162169Z",
-    "updatedUtc": "2026-09-06T23:22:12.6088750Z"
+    "updatedUtc": "2026-09-07T02:03:26.2083602Z"
 }

@@ -1,0 +1,46 @@
+{
+    "project": "C:\\Dev\\nexontutorial\\ProjectBrain",
+    "utc": "2026-09-07T01:55:07.2209907Z",
+    "fixtureRoot": "C:\\Dev\\nexontutorial\\ProjectBrain\\Temp\\BrainReview-a649088b9bc44046aac51694a65b2377",
+    "nodes": 54,
+    "relations": 61,
+    "evidenceRecords": 35,
+    "documents": 7,
+    "matchingDocuments": 7,
+    "semanticNodesMovedByOneHiddenEvidence": 19,
+    "orphanEvidence": [
+        "cf27a5fe-7f4e-4685-a520-bf306f0e9325",
+        "5599ab37-3a78-4795-8e21-565f426f1479",
+        "7e87dedb-93e5-487f-a3a6-96e8f25c0af6",
+        "aff857e0-9c2f-42fb-b361-31979309159a",
+        "3d042213-48b5-423e-b4c9-8f7701a0b6c5",
+        "b162ac01-b548-41f9-b8c1-29d5a0719699"
+    ],
+    "missingAssets": [],
+    "contextNodes": 9,
+    "contextDocuments": 0,
+    "contextEvidence": 5,
+    "contextNext": [
+        "evidence:04cc2106-56d4-4ca0-8581-0c720542f40b",
+        "evidence:9350a803-258d-4978-8224-9a4047e5cea4",
+        "evidence:a285197d-c814-4824-8325-3853bbfbc134",
+        "asset:10000000000000000000000000000001",
+        "asset:627bd1b35aa0f5a4a89fadc21e6bea98"
+    ],
+    "editCreatesDocumentFork": true,
+    "allowedMetaIsUnmapped": true,
+    "unrelatedEdgeChangesReviewHash": true,
+    "finishThrewAfterTerminalSave": true,
+    "terminalPassWithoutEdge": true,
+    "terminalRetryRejected": true,
+    "publicationError": "IOException: The process cannot access the file because it is being used by another process.",
+    "regressionChecks": [
+        "Store=25",
+        "Completion=32",
+        "Edit=22",
+        "Lifecycle=28",
+        "DocumentSync=26",
+        "Map=11",
+        "Scope=10"
+    ]
+}
