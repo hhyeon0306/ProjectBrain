@@ -17,6 +17,9 @@ namespace ProjectBrain
         public string expectedHash;
         public string expectedContextHash;
         public bool writable;
+        public string documentFormat = "node";
+        public string structuredContent = "";
+        public string expectedDocumentVersion = "";
     }
     [Serializable] public sealed class BrainEditReceipt
     {
@@ -75,6 +78,16 @@ namespace ProjectBrain
                 var basis = new BrainCompletionService(root, json, resolve).InspectDocument(nodeId);
                 result.expectedContextHash = basis.snapshotHash;
                 result.writable = basis.state != "missing-code" && basis.codePaths.Length > 0 && basis.codePaths.All(p => Allowed(task, p));
+                var guid = ScriptDocumentGuid(nodeId);
+                if (guid != null)
+                {
+                    var sync = new BrainDocumentSync(Path.Combine(root, ".projectbrain"), json, resolve);
+                    result.expectedDocumentVersion = sync.Version(guid);
+                    var document = new DocumentStore(Path.Combine(root, ".projectbrain/docs")).Load(guid);
+                    BrainWorkspace.Require(node.summary == (document.role ?? "") && node.body == BrainDocumentSync.Body(document), "구조화 문서와 그래프 내용이 다릅니다. 양쪽 원본을 비교해야 합니다.");
+                    result.documentFormat = "script-document";
+                    result.structuredContent = json.Write(document);
+                }
             }
             return result;
         }
@@ -94,6 +107,7 @@ namespace ProjectBrain
         public BrainEditReceipt UpdateDocument(string taskId, int expectedRevision, string nodeId, string expectedHash, string expectedContextHash, string summary, string body)
         {
             Content(summary); Content(body); var view = Read(taskId, expectedRevision, nodeId);
+            BrainWorkspace.Require(view.documentFormat == "node", "Script Document 원본이 있는 문서입니다. brain_read_edit의 구조화 내용/버전을 읽고 brain_update_script_document를 사용하세요.");
             BrainWorkspace.Require(view.type == "Document" && view.writable && view.expectedHash == expectedHash && view.expectedContextHash == expectedContextHash, "문서·근거 코드·관계·허용 범위가 바뀌었습니다. 다시 읽으세요.");
             var node = store.LoadNode(nodeId);
             if (node.summary == summary && node.body == body) return Write(view, "update_document", view.expectedHash, () => { });
@@ -106,10 +120,41 @@ namespace ProjectBrain
                 store.SaveNode(node);
             });
         }
-        private BrainEditReceipt Write(BrainEditView view, string operation, string after, Action write)
+        private string ScriptDocumentGuid(string nodeId)
+        {
+            if (!nodeId.StartsWith("document:", StringComparison.Ordinal)) return null;
+            var guid = nodeId.Substring(9);
+            if (!System.Text.RegularExpressions.Regex.IsMatch(guid, "\\A[0-9a-f]{32}\\z")) return null;
+            return File.Exists(Path.Combine(root, ".projectbrain/docs", guid + ".json")) ? guid : null;
+        }
+        public BrainEditReceipt UpdateScriptDocument(string taskId, int expectedRevision, string nodeId, string expectedHash, string expectedContextHash, string expectedDocumentVersion, string role, string designIntent, string cautions, string body)
+        {
+            foreach (var text in new[] { role, designIntent, cautions, body }) Content(text);
+            var view = Read(taskId, expectedRevision, nodeId);
+            BrainWorkspace.Require(view.documentFormat == "script-document" && view.writable && view.expectedHash == expectedHash && view.expectedContextHash == expectedContextHash && view.expectedDocumentVersion == expectedDocumentVersion, "문서 원본·코드·관계·허용 범위 또는 버전이 바뀌었습니다. 다시 읽으세요.");
+            var document = json.Read<ScriptDocument>(view.structuredContent);
+            document.role = role; document.designIntent = designIntent; document.cautions = cautions; document.body = body;
+            document.lastKnownPath = CodePath(store.LoadNode("asset:" + document.scriptGuid));
+            document.savedCodeHash = workspace.FileHash(document.lastKnownPath);
+            Content(BrainDocumentSync.Body(document)); // The combined projection must remain readable by read_edit.
+            if (json.Write(document) == view.structuredContent) return Write(view, "update_script_document", view.expectedHash, () => { });
+            document.updatedUtc = DateTime.UtcNow.ToString("O");
+            var projected = json.Read<BrainNode>(json.Write(store.LoadNode(nodeId)));
+            if (projected.summary != role || projected.body != BrainDocumentSync.Body(document))
+            { projected.summary = role; projected.body = BrainDocumentSync.Body(document); projected.status = "unreviewed"; projected.updatedUtc = document.updatedUtc; }
+            var after = BrainWorkspace.Hash(json.Write(projected));
+            return Write(view, "update_script_document", after, () =>
+            {
+                var now = Read(taskId, expectedRevision, nodeId);
+                BrainWorkspace.Require(now.writable && now.expectedHash == expectedHash && now.expectedContextHash == expectedContextHash && now.expectedDocumentVersion == expectedDocumentVersion, "쓰기 직전 문서 맥락이 바뀌었습니다.");
+                new BrainDocumentSync(Path.Combine(root, ".projectbrain"), json, resolve).Save(document, expectedDocumentVersion);
+                if (Path.GetFullPath(root) == Path.GetFullPath(ScriptDocumentService.ProjectRoot)) ScriptDocumentService.NotifySaved(document.scriptGuid);
+            }, true);
+        }
+        private BrainEditReceipt Write(BrainEditView view, string operation, string after, Action write, bool sourceChanged = false)
         {
             var id = Guid.NewGuid().ToString("D");
-            var receipt = new BrainEditReceipt { id = id, taskId = view.taskId, revision = view.revision, nodeId = view.nodeId, operation = operation, beforeHash = view.expectedHash, afterHash = after, state = view.expectedHash == after ? "unchanged" : "prepared", createdUtc = DateTime.UtcNow.ToString("O"), recordPath = ".projectbrain/edits/" + id + ".json", needsAssetRefresh = operation == "apply" && view.expectedHash != after };
+            var receipt = new BrainEditReceipt { id = id, taskId = view.taskId, revision = view.revision, nodeId = view.nodeId, operation = operation, beforeHash = view.expectedHash, afterHash = after, state = view.expectedHash == after && !sourceChanged ? "unchanged" : "prepared", createdUtc = DateTime.UtcNow.ToString("O"), recordPath = ".projectbrain/edits/" + id + ".json", needsAssetRefresh = operation == "apply" && view.expectedHash != after };
             if (receipt.state == "unchanged") { receipt.recordPath = ""; return receipt; }
             // Persist intent first. If mutation or final receipt fails, keep prepared; never claim success.
             BrainStore.AtomicWrite(workspace.Resolve(receipt.recordPath), json.Write(receipt));

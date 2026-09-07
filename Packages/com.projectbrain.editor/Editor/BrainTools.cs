@@ -45,7 +45,7 @@ namespace ProjectBrain
         private static void RequireEditIdle() => BrainWorkspace.Require(!EditorApplication.isCompiling && !EditorApplication.isUpdating && !EditorApplication.isPlayingOrWillChangePlaymode, "Editor가 처리 중입니다.");
 
         [AiTool("brain_read_edit", Title = "Brain / Read Edit Target", ReadOnlyHint = true)]
-        [Description("Read one existing Code or Document with task revision, expectedHash and document expectedContextHash. UTF-8 up to 128KiB; Code content preserves BOM as a character. writable reflects task allowed paths. Document data is nodes, not legacy docs. No human approval.")]
+        [Description("Read existing Code/Document with revision and expected hashes. documentFormat=script-document includes structuredContent JSON and expectedDocumentVersion; edit it via brain_update_script_document. Generic node documents use brain_update_document. writable reflects allowed linked Code paths. No human approval.")]
         public static BrainEditView ReadEdit(string taskId, int expectedRevision, string nodeId) => MainThread.Instance.Run(() => EditService().Read(taskId, expectedRevision, nodeId));
 
         [AiTool("brain_apply", Title = "Brain / Apply Code", ReadOnlyHint = false)]
@@ -53,8 +53,12 @@ namespace ProjectBrain
         public static BrainEditReceipt Apply(string taskId, int expectedRevision, string nodeId, string expectedHash, string content) => MainThread.Instance.Run(() => { RequireEditIdle(); return EditService().Apply(taskId, expectedRevision, nodeId, expectedHash, content); });
 
         [AiTool("brain_update_document", Title = "Brain / Update Document", ReadOnlyHint = false)]
-        [Description("Update an existing nodes Document summary/body using expected node payload hash, document/code/relation context hash and task revision from brain_read_edit. Every linked Code path must be allowed. Marks changed content unreviewed; never updates human review or freshness basis. Legacy docs are not synchronized. Returns journal receipt.")]
+        [Description("Update a generic nodes Document summary/body with hashes/revision from brain_read_edit. Refuses documents with a Script Document source; use brain_update_script_document for those. Every linked Code path must be allowed. Never updates human review/freshness basis. Returns journal receipt.")]
         public static BrainEditReceipt UpdateDocument(string taskId, int expectedRevision, string nodeId, string expectedHash, string expectedContextHash, string summary, string body) => MainThread.Instance.Run(() => { RequireEditIdle(); return EditService().UpdateDocument(taskId, expectedRevision, nodeId, expectedHash, expectedContextHash, summary, body); });
+
+        [AiTool("brain_update_script_document", Title = "Brain / Update Script Document", ReadOnlyHint = false)]
+        [Description("Update role/designIntent/cautions/body of an existing structured Script Document using all hashes/version from brain_read_edit. Preserves images and code links. Atomically journals source + graph projection through the same sync service as the UI, then refreshes open windows. Rejects conflicts/out-of-scope linked code. Save never means human review or verified success.")]
+        public static BrainEditReceipt UpdateScriptDocument(string taskId, int expectedRevision, string nodeId, string expectedHash, string expectedContextHash, string expectedDocumentVersion, string role, string designIntent, string cautions, string body) => MainThread.Instance.Run(() => { RequireEditIdle(); return EditService().UpdateScriptDocument(taskId, expectedRevision, nodeId, expectedHash, expectedContextHash, expectedDocumentVersion, role, designIntent, cautions, body); });
 
         [AiTool("brain_verify", Title = "Brain / Run Unity Verification", ReadOnlyHint = false)]
         [Description("Start real Unity compile or all discovered EditMode tests via the shared Ivan TestRunner API. Returns run ID immediately; poll brain_status for terminal records. Fixed kind compile/editmode; no caller supplied success. Refuses dirty scenes, busy editor and concurrent tests. Five minute timeout, interrupted reloads and changed snapshots are not passes.")]
@@ -70,8 +74,8 @@ namespace ProjectBrain
         });
 
         [AiTool("brain_context", Title = "Brain / Context", ReadOnlyHint = true)]
-        [Description("Return deterministic bidirectional graph context as JSON text with a UTF-16 character budget including payload metadata. No full bodies/images/logs. Freshness current means byte agreement, not review or tests. Observed omissions and follow-up IDs are included.")]
-        public static BrainContextResult Context(string rootNodeId, int depth = 1, int maxNodes = 12, int maxChars = 8000) => MainThread.Instance.Run(() =>
+        [Description("Return bounded bidirectional context, default depth2. Prioritizes semantic Code/Document nodes before at most two newest Evidence/Activity neighbors. Includes observed depth/node/character/history omissions and follow-up IDs. No full bodies/images/logs. Freshness current is byte agreement, never review or tests.")]
+        public static BrainContextResult Context(string rootNodeId, int depth = 2, int maxNodes = 12, int maxChars = 8000) => MainThread.Instance.Run(() =>
         {
             var json = new UnityBrainJson(); var root = ScriptDocumentService.ProjectRoot;
             return json.Read<BrainContextResult>(new BrainContextService(new BrainGraphService(new BrainStore(Path.Combine(root, ".projectbrain"), json)), new BrainFreshnessService(root, json, AssetDatabase.GUIDToAssetPath), json).Read(rootNodeId, depth, maxNodes, maxChars));

@@ -53,3 +53,5 @@
 2026-09-07 사용자 다음 작업 진행 요청으로 A3/V1 최소 검증 연결을 수행했다. 디자인용 아트는 디자인 단계에서 직접 제작·적용한다. 서류·PPT 15:00 마감은 유지한다.
 
 - 2026-09-07 W1b 최소 MCP 계약: 현재13도구. 사용자 승인 범위만 brain_set_scope로 이유와 함께 변경하며 baseline을 초기화하지 않는다. brain_close_task(completed)는 고정 완료 정책을 검사하고 abandoned는 미완료 종료로 남긴다. 종료 기록은 brain_task_history로 조회하고 종료 후 새 brain_begin이 새 작업을 만든다. 막힌 작업을 숨기려는 자동 범위 확장/미완료 종료는 하지 않는다. 상세는 Docs/brain-usage.md.
+
+- 2026-09-07 R1-01/02/03: 현재14도구. brain_read_edit.documentFormat이 script-document이면 structuredContent/expectedDocumentVersion을 읽고 brain_update_script_document로 role/designIntent/cautions/body를 수정한다. 일반 nodes 편집으로 원본을 갈라놓지 않는다. context 기본depth2·의미 노드 우선·이력 최대2개. 검증 terminal 원본의 누락 연결은 Republish로 복구하며 결과 자체/사람 확인을 바꾸지 않는다.

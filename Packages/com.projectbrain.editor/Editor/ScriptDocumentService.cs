@@ -66,9 +66,13 @@ namespace ProjectBrain
             if (string.IsNullOrEmpty(copy.updatedUtc)) copy.updatedUtc = DateTime.UtcNow.ToString("O");
             if (sync == null) store.Save(copy); else sync.Save(copy, version);
             document.lastKnownPath = copy.lastKnownPath; document.savedCodeHash = copy.savedCodeHash; document.updatedUtc = copy.updatedUtc;
+            if (sync != null) NotifySaved(document.scriptGuid);
+        }
+        internal static void NotifySaved(string guid)
+        {
             // UI listeners cannot turn a successful durable save into an apparent failure.
-            foreach (Action<string> listener in (sync == null ? null : Saved?.GetInvocationList()) ?? Array.Empty<Delegate>())
-                try { listener(document.scriptGuid); } catch (Exception e) { Debug.LogWarning("[Project Brain] 화면 갱신 실패: " + e.Message); }
+            foreach (Action<string> listener in Saved?.GetInvocationList() ?? Array.Empty<Delegate>())
+                try { listener(guid); } catch (Exception e) { Debug.LogWarning("[Project Brain] 화면 갱신 실패: " + e.Message); }
         }
 
         public string GetCodeHash(string assetPath)

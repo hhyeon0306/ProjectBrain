@@ -1,0 +1,355 @@
+{
+  "unit": "R1-01/02/03 (+R1-04 UI check maintenance)",
+  "project": "C:/Dev/nexontutorial/ProjectBrain",
+  "utc": "2026-09-07T02:32:12.526Z",
+  "checks": {
+    "Integration": 29,
+    "Edit": 22,
+    "Workflow": 39,
+    "Completion": 32,
+    "DocumentSync": 26,
+    "Lifecycle": 28,
+    "Repair": 61,
+    "total": 237
+  },
+  "publication": {
+    "result": {
+      "name": "result",
+      "typeName": "<>f__AnonymousType0(System.Int32,System.String-1)",
+      "value": {},
+      "props": [
+        {
+          "name": "records",
+          "typeName": "System.Int32",
+          "value": 36
+        },
+        {
+          "name": "unpublished",
+          "typeName": "System.String-1",
+          "value": []
+        }
+      ]
+    }
+  },
+  "context": {
+    "rootNodeId": "feature:player/movement",
+    "nodes": [
+      {
+        "id": "feature:player/movement",
+        "type": "Feature",
+        "title": "Movement",
+        "summary": "입력 정규화와 월드 이동 예제. 입력 공급과 씬 연결은 별도입니다.",
+        "reference": ".projectbrain/nodes/01e0af12721fa59fddf79c0c5a69fa4c9792741872372836809b93d89d46b606.json",
+        "assetPath": "",
+        "freshness": {
+          "state": "unknown",
+          "recordPath": "",
+          "payloadHash": "",
+          "sourceCount": 0
+        }
+      },
+      {
+        "id": "domain:player",
+        "type": "Domain",
+        "title": "Player",
+        "summary": "이동 입력·월드 이동·체력의 기존 예제 코드를 연결합니다.",
+        "reference": ".projectbrain/nodes/0d2f4329bd7311c5eb1b097ded72f4463cfbd6a2b0738baecfd2573c15c15c24.json",
+        "assetPath": "",
+        "freshness": {
+          "state": "unknown",
+          "recordPath": "",
+          "payloadHash": "",
+          "sourceCount": 0
+        }
+      },
+      {
+        "id": "asset:10000000000000000000000000000003",
+        "type": "Code",
+        "title": "DemoPlayerMovement.cs",
+        "summary": "입력을 월드 이동으로 변환",
+        "reference": ".projectbrain/nodes/d24da2d08492ec4836ff7040c7da41760b08cc2f6114606fb734f20481de2330.json",
+        "assetPath": "Assets/Scripts/Gameplay/DemoPlayerMovement.cs",
+        "freshness": {
+          "state": "unknown",
+          "recordPath": "",
+          "payloadHash": "",
+          "sourceCount": 0
+        }
+      },
+      {
+        "id": "asset:10000000000000000000000000000002",
+        "type": "Code",
+        "title": "DemoPlayerInput.cs",
+        "summary": "플레이어 이동 입력 제공",
+        "reference": ".projectbrain/nodes/c61fafcdfd1416f4b169daa90dfb92b7c0c91354b65c2b859ed6b4f99a21319c.json",
+        "assetPath": "Assets/Scripts/Gameplay/DemoPlayerInput.cs",
+        "freshness": {
+          "state": "unknown",
+          "recordPath": "",
+          "payloadHash": "",
+          "sourceCount": 0
+        }
+      },
+      {
+        "id": "feature:player/health",
+        "type": "Feature",
+        "title": "Health",
+        "summary": "기존 체력 예제 코드와 설계 문서를 탐색합니다.",
+        "reference": ".projectbrain/nodes/78ca09d0fce000f6f548dc77b73d605a282b5fa70bdec9a0b0400c4beb6078fd.json",
+        "assetPath": "",
+        "freshness": {
+          "state": "unknown",
+          "recordPath": "",
+          "payloadHash": "",
+          "sourceCount": 0
+        }
+      },
+      {
+        "id": "project:brain-demo",
+        "type": "Project",
+        "title": "Project Brain 데모",
+        "summary": "기존 데모 코드·설계 자료 탐색. 실행 가능한 게임 완성을 뜻하지 않습니다.",
+        "reference": ".projectbrain/nodes/309b75f18595516ca4484a545341ec6423d5d4518c0c25342afa9ac384a58787.json",
+        "assetPath": "",
+        "freshness": {
+          "state": "unknown",
+          "recordPath": "",
+          "payloadHash": "",
+          "sourceCount": 0
+        }
+      },
+      {
+        "id": "document:10000000000000000000000000000003",
+        "type": "Document",
+        "title": "DemoPlayerMovement.cs Design",
+        "summary": "입력을 월드 XZ 평면의 직접 이동으로 변환\nDemoPlayerInput의 2차원 입력을 월드 XZ 평면의 이동으로 변환한다.",
+        "reference": ".projectbrain/nodes/7acbb3f1075766c4e8c564dcf64aebefdebdae7e3ddcc2f3d1ba7504dd3aea66.json",
+        "assetPath": "",
+        "freshness": {
+          "state": "stale",
+          "recordPath": ".projectbrain/freshness/7acbb3f1075766c4e8c564dcf64aebefdebdae7e3ddcc2f3d1ba7504dd3aea66.json",
+          "payloadHash": "e399aad0cf613f1b83fd571b2e7f7789718ed10a47986fe6a45ef0880effffb6",
+          "sourceCount": 1
+        }
+      },
+      {
+        "id": "document:10000000000000000000000000000002",
+        "type": "Document",
+        "title": "DemoPlayerInput.cs Design",
+        "summary": "플레이어 이동 입력 제공",
+        "reference": ".projectbrain/nodes/481668ebf878afabef064009512c823e33831bfe320d1687f01edd4b72211feb.json",
+        "assetPath": "",
+        "freshness": {
+          "state": "unknown",
+          "recordPath": "",
+          "payloadHash": "",
+          "sourceCount": 0
+        }
+      }
+    ],
+    "relations": [
+      {
+        "relation": {
+          "id": "relation:a2-player-movement",
+          "from": "domain:player",
+          "to": "feature:player/movement",
+          "type": "contains",
+          "source": "manual-demo-mapping",
+          "createdUtc": "2026-09-06T00:00:00Z"
+        },
+        "freshness": {
+          "state": "unknown",
+          "recordPath": "",
+          "payloadHash": "",
+          "sourceCount": 0
+        }
+      },
+      {
+        "relation": {
+          "id": "relation:a2-movement-code",
+          "from": "feature:player/movement",
+          "to": "asset:10000000000000000000000000000003",
+          "type": "implemented_by",
+          "source": "manual-demo-mapping",
+          "createdUtc": "2026-09-06T00:00:00Z"
+        },
+        "freshness": {
+          "state": "unknown",
+          "recordPath": "",
+          "payloadHash": "",
+          "sourceCount": 0
+        }
+      },
+      {
+        "relation": {
+          "id": "relation:a2-movement-input",
+          "from": "feature:player/movement",
+          "to": "asset:10000000000000000000000000000002",
+          "type": "implemented_by",
+          "source": "manual-demo-mapping",
+          "createdUtc": "2026-09-06T00:00:00Z"
+        },
+        "freshness": {
+          "state": "unknown",
+          "recordPath": "",
+          "payloadHash": "",
+          "sourceCount": 0
+        }
+      },
+      {
+        "relation": {
+          "id": "relation:a2-player-health",
+          "from": "domain:player",
+          "to": "feature:player/health",
+          "type": "contains",
+          "source": "manual-demo-mapping",
+          "createdUtc": "2026-09-06T00:00:00Z"
+        },
+        "freshness": {
+          "state": "unknown",
+          "recordPath": "",
+          "payloadHash": "",
+          "sourceCount": 0
+        }
+      },
+      {
+        "relation": {
+          "id": "relation:a2-project-player",
+          "from": "project:brain-demo",
+          "to": "domain:player",
+          "type": "contains",
+          "source": "manual-demo-mapping",
+          "createdUtc": "2026-09-06T00:00:00Z"
+        },
+        "freshness": {
+          "state": "unknown",
+          "recordPath": "",
+          "payloadHash": "",
+          "sourceCount": 0
+        }
+      },
+      {
+        "relation": {
+          "id": "relation:6d98c362d60473701c1ed97e724948a7133270b56380da34eac3ccac95e24090",
+          "from": "asset:10000000000000000000000000000003",
+          "to": "document:10000000000000000000000000000003",
+          "type": "documented_by",
+          "source": "v2-migration",
+          "createdUtc": "2026-09-05T00:00:00Z"
+        },
+        "freshness": {
+          "state": "stale",
+          "recordPath": ".projectbrain/freshness/4f80de5d126e9936d443e5e40642a2ea47b5d0a1f151dd7a6de5396ff06ad673.json",
+          "payloadHash": "6c8d65b790ad61f1ea809eaa3eb495bf8d1765edcb1f6a9041d0486a2f924a2c",
+          "sourceCount": 1
+        }
+      },
+      {
+        "relation": {
+          "id": "relation:f7b36af0ffe9873d45ee726e3fd1e658c4c336f0505fd2211c4623cf74eb4868",
+          "from": "asset:10000000000000000000000000000002",
+          "to": "document:10000000000000000000000000000002",
+          "type": "documented_by",
+          "source": "v2-migration",
+          "createdUtc": "2026-09-05T00:00:00Z"
+        },
+        "freshness": {
+          "state": "unknown",
+          "recordPath": "",
+          "payloadHash": "",
+          "sourceCount": 0
+        }
+      },
+      {
+        "relation": {
+          "id": "relation:985c9d758ad07b0e88fe347df43306f379c36015036f8da260dded3641c60513",
+          "from": "asset:10000000000000000000000000000003",
+          "to": "asset:10000000000000000000000000000002",
+          "type": "depends_on",
+          "source": "v2-migration",
+          "createdUtc": "2026-09-05T00:00:00Z"
+        },
+        "freshness": {
+          "state": "unknown",
+          "recordPath": "",
+          "payloadHash": "",
+          "sourceCount": 0
+        }
+      },
+      {
+        "relation": {
+          "id": "relation:b5d235dc950457019cd189c02e6024edd79f1f896c404b17142ea658bed9f74e",
+          "from": "asset:10000000000000000000000000000002",
+          "to": "asset:10000000000000000000000000000003",
+          "type": "depends_on",
+          "source": "v2-migration",
+          "createdUtc": "2026-09-05T00:00:00Z"
+        },
+        "freshness": {
+          "state": "unknown",
+          "recordPath": "",
+          "payloadHash": "",
+          "sourceCount": 0
+        }
+      }
+    ],
+    "omittedByDepth": 5,
+    "omittedByNodes": 0,
+    "omittedByChars": 4,
+    "omittedByHistory": 34,
+    "nextNodeIds": [
+      "asset:10000000000000000000000000000001",
+      "asset:627bd1b35aa0f5a4a89fadc21e6bea98",
+      "evidence:7cb3d5c0-a2bc-4697-8142-ab654d318f51",
+      "evidence:b162ac01-b548-41f9-b8c1-29d5a0719699",
+      "asset:10000000000000000000000000000004"
+    ],
+    "counting": "Only observed omissions; unvisited totals unknown. Body/image/log bytes excluded. current is not review or test approval.",
+    "selection": "Semantic nodes first; at most two newest Evidence/Activity neighbors. Query omitted IDs for details.",
+    "chars": 7316
+  },
+  "verification": [
+    {
+      "schemaVersion": 1,
+      "id": "346cbf61-dac2-4411-b1cc-af68c9cd6509",
+      "taskId": "a48a9ba7-be69-4985-a648-ed5d2ac5442f",
+      "kind": "compile",
+      "state": "passed",
+      "snapshotHash": "664b90178f217e88e7df8281a87fd5c4a64b288d28795f7619dde0572cd5b903",
+      "startedUtc": "2026-09-07T02:30:25.7179304Z",
+      "endedUtc": "2026-09-07T02:30:58.8714140Z",
+      "summary": "Unity compilation callbacks; compiled=0, up-to-date=74, errors=0",
+      "total": 74,
+      "passed": 74,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "schemaVersion": 1,
+      "id": "7bdba846-fcc2-42e7-9a20-d41162ae2794",
+      "taskId": "a48a9ba7-be69-4985-a648-ed5d2ac5442f",
+      "kind": "editmode",
+      "state": "passed",
+      "snapshotHash": "664b90178f217e88e7df8281a87fd5c4a64b288d28795f7619dde0572cd5b903",
+      "startedUtc": "2026-09-07T02:31:41.2635476Z",
+      "endedUtc": "2026-09-07T02:31:48.1910161Z",
+      "summary": "All discovered EditMode tests. Passed; ",
+      "total": 9,
+      "passed": 9,
+      "failed": 0,
+      "skipped": 0
+    }
+  ],
+  "mcp": {
+    "registeredBrainTools": 14,
+    "structuredRead": true,
+    "staleVersionRejected": true,
+    "positiveStructuredWrite": "Isolated integration fixture via shared service"
+  },
+  "limitations": [
+    "EditMode9/9 are WorkflowDemo tests, not Brain unit cases.",
+    "Original fixture expected-rejection helper did not catch the intentionally induced IOException; corrected the fixture and reran.",
+    "Initial HTTP tools/list needed session initialization; initialized and verified14 tools.",
+    "Current task remains blocked by51 outside/unmapped changes and2 unreviewed documents."
+  ]
+}

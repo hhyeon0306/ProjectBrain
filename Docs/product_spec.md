@@ -1,6 +1,17 @@
 # Project Brain 제품 명세
 
-2026-09-07 R1 통합 점검: [현재 상태와 보강 권고](reviews/2026-09-07-r1-design-review.md). 제품 계약 변경은 아직 없다. 문서 MCP/UI 쓰기 경로 불일치·검증 발행 복구·이력에 밀리는 맥락이 확인됐으며, 현재 단계/검증 결과는 session_handoff를 따른다.
+## R1-01/02/03 현재 계약 (2026-09-07)
+
+아래 계약이 이전 단계 설명보다 우선한다. Brain MCP는14도구다.
+
+- 검증 원본의 terminal 결과를 발행 재개의 근거로 사용한다. Republish(id)는 같은 내용의 Evidence 노드/관계를 재사용하고 누락만 채우며 충돌은 보존·거절한다. Editor 재로드 시 활성 작업의 기록을 확인하고 일시 실패는10초 간격 최대5회 재시도한다. 실패가 계속되면 경고와 원본 ID를 남긴다. 현재 통과 결과의 연결 누락도 완료 조건에 verification-publication으로 표시한다. 결과를 다시 실행하거나 덮어써서 복구하지 않는다.
+- brain_read_edit의 documentFormat이 script-document이면 structuredContent와 expectedDocumentVersion을 읽는다. brain_update_script_document(taskId, expectedRevision, nodeId, expectedHash, expectedContextHash, expectedDocumentVersion, role, designIntent, cautions, body)로 수정한다. 기존 첨부/코드 연결을 보존하며 BrainDocumentSync를 통해 docs/nodes/relations에 반영하고 실제 프로젝트의 열린 화면에 저장 이벤트를 알린다.
+- 구조화 원본이 있는 문서는 기존 brain_update_document로 수정할 수 없다. 일반 Document 노드의 summary/body 편집은 기존 계약을 유지한다. 각 경로는 허용 코드·revision·문서/맥락/원본 버전을 검사하며 초안 충돌을 거절한다. 저장은 사람 확인/검증 승인이 아니다.
+- brain_context는 기본depth2. 의미 노드의 탐색을 먼저 끝낸 뒤 Evidence/Activity를 최신 최대2개 포함한다. 분량이 부족하면 뒤쪽부터 줄여 코드/설계 문서를 우선 보존한다. omittedByHistory로 이력 제한을 명시하며 전체 이력은 후속 ID로 조회한다. 깊이/노드 수/문자 수 상한은 유지한다.
+- BrainRepairChecks를 현재4탭 UI의 인라인 오류/재시도/초안 보존 기준으로 갱신했다. 검사 수는 NUnit 케이스 수와 구분한다.
+
+
+2026-09-07 R1 통합 점검: [현재 상태와 보강 권고](reviews/2026-09-07-r1-design-review.md). R1-01/02/03 보강 계약은 위 절을 따른다. 점검 당시 상태와 현재 구현/검증 결과는 구분하며 최신 상태는 session_handoff를 따른다.
 
 ## U1-3 · Script Document 저장 → Explorer 자동 반영 (2026-09-07)
 
@@ -12,7 +23,7 @@
 
 초기 7문서 중 Movement의 Explorer 쪽 설명이 더 최신이었다. 1회 명시적 구조 변환으로 최신 설명을 Script Document 필드에 옮겼고 기존 양쪽 bytes를 동기화 이력에 보존했다. 일반 동기화는 Markdown을 역파싱하지 않는다. 최초 migration.json은 역사 기록으로 유지하며 재실행하지 않는다.
 
-이번 범위는 저장 시 Script Document → Explorer 단방향이다. 외부 파일 편집 감시/자동 병합이나 MCP brain_update_document → Script Document 역반영은 포함하지 않는다. MCP는 기존 nodes summary/body 계약을 유지한다. 별도 nodes 편집으로 불일치한 경우 Script Document 열기/저장은 조용히 덮어쓰지 않고 비교·정리를 안내한다. Agent의 구조화 문서 저장은 ScriptDocumentService.LoadOrCreate → Version → Save(document, expectedVersion) 공통 서비스를 사용한다(신규 MCP 도구 추가 없음).
+Script Document → Explorer 투영을 유지하며 R1-02에서 에이전트도 brain_update_script_document로 같은 BrainDocumentSync 저장 경로를 사용한다. 기존 nodes 전용 API는 구조화 원본이 있는 문서를 거절한다. 외부 파일 자동 감시·Markdown 역파싱·양방향 자동 병합은 지원하지 않는다. 저장은 사람 확인과 구분한다.
 
 
 ## 목적과 현재 상태

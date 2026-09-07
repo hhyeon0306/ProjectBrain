@@ -73,17 +73,17 @@ namespace ProjectBrain
             Action<string, object> set = (name, value) => typeof(BrainDocumentWindow).GetField(name, flags).SetValue(window, value);
             try
             {
-                set("service", service); set("document", selected); set("selectedScript", script); set("dirty", true);
+                set("service", service); set("document", selected); set("selectedScript", script); set("dirty", true); set("activeTab", 3);
                 window.CreateGUI();
-                var message = (HelpBox)typeof(BrainDocumentWindow).GetField("message", flags).GetValue(window);
-                check(message.messageType == HelpBoxMessageType.Error && message.text.Contains(path), "UI reports corrupt file path without throwing");
+                check(window.rootVisualElement.Query<HelpBox>().ToList().Any(h => h.messageType == HelpBoxMessageType.Error && h.text.Contains(path)), "Graph tab reports corrupt file path without throwing");
                 check(window.hasUnsavedChanges && selected.body == "unsaved text survives graph failure", "Unsaved state preserved");
-                check(window.rootVisualElement.Query<TextField>().ToList().Any(f => f.value == selected.body), "Current document form remains editable");
-                check(window.rootVisualElement.Query<Button>().ToList().Any(b => b.text == "관계 다시 읽기"), "Recovery action available");
+                check(window.rootVisualElement.Q<Button>("document-graph-retry") != null, "Recovery action available");
                 File.WriteAllText(path, codec.Write(doc));
                 typeof(BrainDocumentWindow).GetMethod("BuildForm", flags).Invoke(window, null);
-                check(message.messageType == HelpBoxMessageType.Info && window.hasUnsavedChanges, "Graph recovery preserves edits");
-                check(!window.rootVisualElement.Query<Button>().ToList().Any(b => b.text == "관계 다시 읽기"), "Recovery replaces failure state");
+                check(!window.rootVisualElement.Query<HelpBox>().ToList().Any(h => h.messageType == HelpBoxMessageType.Error) && window.hasUnsavedChanges, "Graph recovery preserves edits");
+                check(window.rootVisualElement.Q<Button>("document-graph-retry") == null, "Recovery replaces failure state");
+                set("activeTab", 0); typeof(BrainDocumentWindow).GetMethod("BuildForm", flags).Invoke(window, null);
+                check(window.rootVisualElement.Q<TextField>("document-body").value == selected.body, "Content tab still contains the editable draft");
             }
             finally { window.DiscardChanges(); UnityEngine.Object.DestroyImmediate(window); }
             return passed;

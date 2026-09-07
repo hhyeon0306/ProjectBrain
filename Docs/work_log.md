@@ -461,3 +461,14 @@ R1 관리 검사: scripts/verify.ps1 -IncludeBrain 실행. 양쪽 문서 구조 
 - Limitations: 이번 단위는 일정·기준 기록이며 R1 보강 코드를 구현한 것은 아니다. 기존 사용자5경로 보존.
 
 S1 관리 검사: 양쪽 문서 구조 통과. 전체 Git 검사는 기존 사용자 SampleScene.unity:242 공백으로 실패하여 보존, 이번 문서만 staged 검사.
+
+## 2026-09-07 R1-01/02/03 · 통합 보강
+- Goal: 사용자 승인 순서대로 검증 발행 복구·문서 쓰기 일치·핵심 맥락 우선순위를 구현한다.
+- Changes: 불변 결과 기반 Republish/재로드 및 제한 재시도, 누락 연결 완료 조건. 구조화 문서14번째 MCP와 원본/노드 공통Sync, generic 경로 거절, 합산128KiB 제한. semantic BFS 후 이력최대2개·기본depth2. Repair UI 검사 현재4탭으로 갱신.
+- Files: BrainVerification/CompletionService/EditService/ContextService/Tools/ScriptDocumentService/RepairChecks, 새IntegrationChecks/meta, 계약 문서와 evidence.
+- Verification: Integration29/Edit22/Workflow39/Completion32/Sync26/Lifecycle28/Repair61=237항목. 실제 누락6건 복구, Movement context Document2. HTTP14도구/구조화읽기/버전거절. 최종compile346cbf61 오류0, EditMode7bdba846 9/9(WorkflowDemo), 동일snapshot664b9017. 최초 테스트도우미 IOException 처리 수정 후 통과.
+- Decisions: 원본 검증 결과·사람 확인은 변경하지 않는다. 새 API는 기존 첨부/관계를 유지하며 임의 역파싱하지 않는다. R1 검증 후 G1 샘플 교체.
+- Next: G1 GAS 개념 Unity 프레임워크, 현재 파일 복구본과 기존 미완료 이력 보존부터.
+- Limitations: 현재 작업51/51/2로 완료 불가. 대규모 성능/다중 프로세스 트랜잭션/원격 네트워크 구현 없음. 기존 사용자5경로는 이번R1커밋 제외.
+
+R1 보강 관리 검사: 최초 상위 handoff 기록 누락을 보완한 뒤 양쪽 문서 구조 통과. 전체 Git 검사는 기존 사용자 SampleScene.unity:242 공백으로 실패하여 보존. 이번 변경만 staged 검사.

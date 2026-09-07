@@ -138,6 +138,7 @@ namespace ProjectBrain
             {
                 var latest = records.LastOrDefault(r => r.kind == kind);
                 if (!verificationStore.CurrentPass(latest, snapshot)) reason("verification-" + kind, task.id, "현재 파일 기준 " + kind + " 검증이 필요합니다. brain_verify로 실행하세요.");
+                else if (!verificationStore.IsPublished(latest, graph, task.targetNodeIds)) reason("verification-publication", latest.id, "검증 결과는 있으나 그래프 연결이 누락됐습니다. 원본을 보존하고 연결 복구를 재시도하세요.");
             }
             return new BrainCompletionResult { taskId = task.id, revision = task.revision, documents = reviews, verification = records, ready = reasons.Count == 0, reasons = reasons.ToArray() };
         }
